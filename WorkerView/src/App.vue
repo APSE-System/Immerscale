@@ -1,27 +1,28 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import ProjectComponent from './components/ProjectComponent.vue'
+import { ref } from 'vue';
+
+// Define some bogus data for the projects until an actual backend call is implemented here
+const Projects = ref([
+  { id: 1, name: 'Max Mustermann', active: true },
+  { id: 2, name: 'Erika Mustermann', active: false },
+  { id: 3, name: 'Hans Peter', active: true },
+  { id: 4, name: 'Gustav Gans', active: false },
+  { id: 5, name: 'Dagobert Duck', active: true },
+]);
 </script>
 
 <template>
-  <div>
-    <a href="https://github.com/APSE-System" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
+  <h1>Projects</h1>
+  <div class="ProjectList">
+    <ProjectComponent v-for="project in Projects" :id="project.id" :name="project.name", :active="project.active"/>
   </div>
-  <HelloWorld msg="Test Message here" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.ProjectList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 </style>
