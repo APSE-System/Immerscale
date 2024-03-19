@@ -19,7 +19,7 @@ function clickedProject() {
 
 
 <template>
-  <!-- Empty div to work around weird visibility issue TODO: Fix this more elegantly -->
+  <!-- TODO: Fix this more elegantly. Emtpy Div workaround to show project Items -->
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side colored depending on whether the project is active or not -->
