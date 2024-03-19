@@ -22,8 +22,9 @@ function clickedProject() {
   <!-- Empty div to work around weird visibility issue -->
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
-    <!-- Icon on the left side -->
-    <div class="pi pi-user" style="font-size: 8rem"></div>
+    <!-- Icon on the left side colored depending on whether the project is active or not -->
+    <div class="pi pi-user"  v-if="active" style="font-size: 8rem; color: lightgreen" ></div>
+    <div class="pi pi-user"  v-if="!active" style="font-size: 8rem; color: darkgrey" ></div>  
     <!-- Values taken from properties -->
     <div class="ItemInfos">
       <p>{{ name }}</p>
@@ -36,7 +37,7 @@ function clickedProject() {
 
 <style scoped>
 .ProjectItem {
-  background-color: #797979;
+  background-color: #697dff;
   padding: 0.5rem;
   border: 1px solid #e1e1e1;
   border-radius: 7px;
@@ -58,4 +59,5 @@ function clickedProject() {
   display: block;
   gap: 0rem;
 }
+
 </style>
