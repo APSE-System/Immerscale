@@ -3,7 +3,7 @@ import 'primeicons/primeicons.css'
 
 //define properties for the project items
 
-const PROPS = defineProps({
+const props = defineProps({
   id: Number,
   name: String,
   active: Boolean,
@@ -11,20 +11,20 @@ const PROPS = defineProps({
 
 //call this when the user clicks a project to view its details
 function clickedProject() {
-  console.log('Project ' + PROPS.id + ' clicked')
-  alert('Project ' + PROPS.id + ' clicked')
+  console.log('Project ' + props.id + ' clicked')
+  alert('Project ' + props.id + ' clicked')
   //insert backend call here
 }
 </script>
 
 
 <template>
-  <!-- Empty div to work around weird visibility issue -->
+  <!-- Empty div to work around weird visibility issue TODO: Fix this more elegantly -->
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side colored depending on whether the project is active or not -->
-    <div class="pi pi-user"  v-if="active" style="font-size: 8rem; color: lightgreen" ></div>
-    <div class="pi pi-user"  v-if="!active" style="font-size: 8rem; color: darkgrey" ></div>  
+    <div class="pi pi-user"  v-if="active" style="color: lightgreen" ></div>
+    <div class="pi pi-user"  v-if="!active" style="color: darkgrey" ></div>  
     <!-- Values taken from properties -->
     <div class="ItemInfos">
       <p>{{ name }}</p>
@@ -60,4 +60,7 @@ function clickedProject() {
   gap: 0rem;
 }
 
+.pi-user{
+  font-size: 8rem;
+}
 </style>
