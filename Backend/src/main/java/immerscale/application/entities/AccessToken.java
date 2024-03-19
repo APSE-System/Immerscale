@@ -1,8 +1,6 @@
 package immerscale.application.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +19,10 @@ public class AccessToken {
     private String name;
     private Date creation_date;
     private Date expiration_date;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
+    private Project project;
+
 
 }

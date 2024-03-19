@@ -1,11 +1,11 @@
 package immerscale.application.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,6 +14,9 @@ import lombok.Setter;
 @Table(name = "worker")
 public class Worker {
     @Id
-    @Name("worker_email")
+    @Column(name = "worker_email")
     public String worker_email;
+
+    @OneToMany(mappedBy = "worker")
+    private List<Project> project;
 }
