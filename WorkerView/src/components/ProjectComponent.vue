@@ -5,7 +5,7 @@ import 'primeicons/primeicons.css'
 
 const props = defineProps({
   id: Number,
-  name: String,
+  mail: String,
   active: Boolean,
 })
 
@@ -19,7 +19,7 @@ function clickedProject() {
 
 
 <template>
-  <!-- TODO: Fix this more elegantly. Emtpy Div workaround to show project Items -->
+  <!-- TODO: Fix this more elegantly. Empty Div workaround to show project Items -->
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side colored depending on whether the project is active or not -->
@@ -27,7 +27,7 @@ function clickedProject() {
     <div class="pi pi-user"  v-if="!active" style="color: darkgrey" ></div>  
     <!-- Values taken from properties -->
     <div class="ItemInfos">
-      <p>{{ name }}</p>
+      <p>{{ mail }}</p>
       <p>Project id: {{ id }}</p>
       <p>Activity status: {{ active }}</p>
     </div>
