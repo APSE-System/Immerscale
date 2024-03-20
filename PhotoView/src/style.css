@@ -15,13 +15,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  height: 100vh;
-} */
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -67,15 +60,12 @@ button:focus-visible {
 
 /* this displays the live display */
 canvas {
-  flex: 1;
-  width: auto;
-  margin: auto;
+  margin: 0 auto;
   padding: 5px;
-  max-width: 80%;
   min-width: 1px;
-  height: 100vh;
   max-height: 80vh;
   min-height: 1px;
+  overflow: hidden;
 }
 
 /* this is mainly just to have rounded corners for the live-display */
@@ -89,7 +79,7 @@ canvas {
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-height: 100vh;
+  align-items: center;
   overflow: hidden;
 }
 
@@ -99,7 +89,6 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  /* border: 1py solid black; */
   border-radius: 10px;
   z-index: 10;
   background: white;
@@ -119,7 +108,6 @@ canvas {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border-bottom: 1px solid black; */
   font-size: 1.25rem;
   font-weight: bold;
   color: black;
