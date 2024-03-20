@@ -19,12 +19,12 @@ function clickedProject() {
 
 
 <template>
-  <!-- TODO: Fix this more elegantly. Emtpy Div workaround to show project Items -->
+  <!-- TODO: Fix this more elegantly. Empty Div workaround to show project Items -->
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side colored depending on whether the project is active or not -->
-    <div class="pi pi-user"  v-if="active" style="color: lightgreen" ></div>
-    <div class="pi pi-user"  v-if="!active" style="color: darkgrey" ></div>  
+    <div class="pi pi-building"  v-if="active" style="color: lightgreen" ></div>
+    <div class="pi pi-building"  v-if="!active" style="color: darkgrey" ></div>  
     <!-- Values taken from properties -->
     <div class="ItemInfos">
       <p>{{ name }}</p>
@@ -60,7 +60,7 @@ function clickedProject() {
   gap: 0rem;
 }
 
-.pi-user{
+.pi-building{
   font-size: 8rem;
 }
 </style>
