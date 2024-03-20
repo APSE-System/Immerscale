@@ -3,12 +3,13 @@ import { ref } from "vue";
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
-import App from "../App.vue";
 const visible = ref(false);
-//probably a crude way to do this, but it works with the current software structure
+
+//preliminary function to add a new project. TODO: Implement backend call
 function addProject(projectName) {
-  App.addProject(projectName);
+  alert("Project " + projectName + " added");
 }
+
 </script>
 
 

@@ -1,8 +1,11 @@
 <script setup>
 import 'primeicons/primeicons.css'
+import { useRouter } from 'vue-router'
+
+// get the router for routing to the project pages
+const router = useRouter()
 
 //define properties for the project items
-
 const props = defineProps({
   id: Number,
   name: String,
@@ -11,9 +14,8 @@ const props = defineProps({
 
 //call this when the user clicks a project to view its details
 function clickedProject() {
-  console.log('Project ' + props.id + ' clicked')
-  alert('Project ' + props.id + ' clicked')
-  //insert backend call here
+  // Redirects to the Project page listing the according images.
+  router.push('/project/'+ props.id)
 }
 </script>
 
