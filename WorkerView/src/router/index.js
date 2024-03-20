@@ -1,12 +1,12 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
-import App from '../App.vue'
-import Images from '../components/ImagesComponent.vue'
+import ProjectsList from '../components/ProjectsList.vue'
+import ProjectPage from '../components/ProjectPage.vue'
 
 // Define the routes for the application here
 const routes = [
-  { path: '/', component: App },
-  { path: '/project/:id', component: Images },
+  { path: '/', component: ProjectsList },
+  { path: '/project/:id', component: ProjectPage },
 ]
 
 const router = createRouter({
