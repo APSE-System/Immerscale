@@ -5,7 +5,7 @@
 
 <template>
   <div>
-    <!-- The current route is accessible as $route in the template -->
+    <!-- This will be updated as soon as the backend endpoints are implemented -->
     Project {{ $route.params.id }}
   </div>
 </template>
