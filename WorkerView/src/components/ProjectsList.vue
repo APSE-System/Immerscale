@@ -1,5 +1,6 @@
 <script setup>
 import ProjectWidget from './ProjectWidget.vue'
+import AddNewProject from './AddNewProject.vue'
 import { ref } from 'vue';
 
 // Define some bogus data for the projects until an actual backend call is implemented here
@@ -14,6 +15,9 @@ const Projects = ref([
 
 <template>
   <h1>Projects</h1>
+  <div class="ProjectButton">
+    <AddNewProject/>
+  </div>
   <div class="ProjectList">
     <ProjectWidget v-for="project in Projects" :id="project.id" :name="project.name", :active="project.active"/>
   </div>
