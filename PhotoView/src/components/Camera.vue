@@ -9,10 +9,12 @@ const video = ref(null);
 const ctx = ref(null); //context
 let image;
 
-const constraints = ref({
-  audio: false,
-  video: true,
-});
+// const constraints = ref({
+//   audio: false,
+//   video: true,
+// });
+
+const constraints = ref({ audio: false, video: { facingMode: 'environment' } });
 
 // The onMounted lifecycle hook is used to run an async function when the component is mounted.
 // Inside this function, it checks if both the video and canvas elements are available.
@@ -37,6 +39,15 @@ onMounted(async () => {
 function setStream(stream) {
   video.value.srcObject = stream;
   video.value.play();
+
+  // the code below should scale the canvas based on the camera
+  let canvas = document.getElementById('canvas')
+  const track = stream.getVideoTracks()[0];
+  const settings = track.getSettings();
+
+  // setting the width and heigth on the size of the camera
+  canvas.width = settings.width;
+  canvas.height = settings.height;
 
   requestAnimationFrame(draw);
 }
@@ -108,11 +119,13 @@ function closeModal() {
         muted
         hidden
       ></video>
+      <!-- the canvas with and height are dynamically adjusted -->
+      <!-- the size of width and heigt determine the dimension of the picture taken -->
       <canvas
         id="canvas"
         ref="canvas"
-        width="1920"
-        height="1080"
+        width="1280"
+        height="720"
         class="video-mask"
       ></canvas>
     </div>
@@ -130,22 +143,22 @@ function closeModal() {
   </div>
 
   <!-- Popup -->
-    <div class="modal" id="modal">
-      <div class="modal-header">
-        Headertext
-        <button @click="closeModal" class="close">
-          <!-- this is a x -->
-          &times;
-        </button>
-      </div>
-      <div class="modal-body">
-        <img id="my-image" src="" alt="" />
-      </div>
-      <div class="modal-footer">
-        <!-- TODO implement the 'send'-function -->
-        <button @click="downloadPicture">Absenden</button>
-        <button @click="closeModal" data-model-close>Verwerfen</button>
-      </div>
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      Headertext
+      <button @click="closeModal" class="close">
+        <!-- this is a x -->
+        &times;
+      </button>
     </div>
-    <div id="overlay"></div>
+    <div class="modal-body">
+      <img id="my-image" src="" alt="" />
+    </div>
+    <div class="modal-footer">
+      <!-- TODO implement the 'send'-function -->
+      <button @click="downloadPicture">Absenden</button>
+      <button @click="closeModal" data-model-close>Verwerfen</button>
+    </div>
+  </div>
+  <div id="overlay"></div>
 </template>
