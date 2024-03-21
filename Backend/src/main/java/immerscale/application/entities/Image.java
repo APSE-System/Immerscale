@@ -15,6 +15,7 @@ public class Image {
     private Integer project_id;
 
     // encoded image as base64 string
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
 
 
