@@ -13,6 +13,6 @@ public class Project {
     public String name;
 
     // foreign key of the worker who created the project
-    private String worker_email;
+    public String worker_email;
 
 }
