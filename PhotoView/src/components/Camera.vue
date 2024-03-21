@@ -9,12 +9,18 @@ const video = ref(null);
 const ctx = ref(null); //context
 let image;
 
-// width and heigt for landscape wih a 4:3 ratio
-// TODO look if 16:9 ratio alos needs to be supported
-const HEIGHT = 1530;
-const WIDTH = 2040;
+// based on the ideal width and height a different camera is used
+const constraints = ref({
+  audio: false,
+  video: { facingMode: "environment" },
+  // video: {
+  //  width: { ideal: 1280 },
+  //  height: { ideal: 720 },
+  // },
+});
 
-const constraints = ref({ audio: false, video: { facingMode: "environment" } });
+let HEIGHT;
+let WIDTH;
 
 // The onMounted lifecycle hook is used to run an async function when the component is mounted.
 // Inside this function, it checks if both the video and canvas elements are available.
@@ -28,16 +34,28 @@ onMounted(async () => {
     await navigator.mediaDevices
       .getUserMedia(constraints.value)
       .then((stream) => {
-        // TODO the code below does not work as intended (640 x 480)
-        // the code below should scale the canvas based on the camera
-        // let canvas = document.getElementById("canvas");
-        // const track = stream.getVideoTracks()[0];
-        // const settings = track.getSettings();
 
-        // // setting the width and heigth on the size of the camera
-        // canvas.width = settings.width;
-        // canvas.height = settings.height;
+        // Returns a sequence of MediaStreamTrack objects
+        // representing the video tracks in the stream
+        let settings = stream.getVideoTracks()[0].getSettings();
 
+        // set the size of the camera resolution
+        WIDTH = settings.width;
+        HEIGHT = settings.height;
+
+        // initialise the live-view parameters
+        let canvas = document.getElementById("canvas");
+
+        if (window.innerHeight > window.innerWidth) {
+          //landscape
+          canvas.width = HEIGHT;
+          canvas.height = WIDTH;
+        } else {
+          //  portrait
+          canvas.width = WIDTH;
+          canvas.height = HEIGHT;
+        }
+        
         setStream(stream);
       })
       .catch((e) => {
@@ -88,24 +106,13 @@ function openModal() {
 // check orientation
 let portrait = window.matchMedia("(orientation: portrait)");
 
-// initial orientation check 
-// TODO make the code orientation code look better
-window.addEventListener("load", function (e) {
-  let canvas = document.getElementById("canvas");
-
-  if (e.matches) {
-    // portrait
-    canvas.width = HEIGHT;
-    canvas.height = WIDTH;
-  } else {
-    // landscape
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
-  }
-});
+// initial orientation check now done in onMounted
+// window.addEventListener("load", updateView);
 
 // on orientation change, change the canvas width and height
-portrait.addEventListener("change", function (e) {
+portrait.addEventListener("change", updateView);
+
+function updateView(e) {
   let canvas = document.getElementById("canvas");
 
   if (e.matches) {
@@ -117,7 +124,7 @@ portrait.addEventListener("change", function (e) {
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
   }
-});
+}
 </script>
 
 <template>
@@ -126,6 +133,7 @@ portrait.addEventListener("change", function (e) {
     <div>
       <video
         class="video"
+        id="video"
         ref="video"
         autoplay
         playsinlie

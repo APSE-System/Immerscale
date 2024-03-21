@@ -4,9 +4,6 @@
 import { ref, onMounted } from "vue";
 
 //references
-const canvas = ref(null);
-const video = ref(null);
-const ctx = ref(null); //context
 let image;
 
 //! this function will not be necessary in the future (maybe)
