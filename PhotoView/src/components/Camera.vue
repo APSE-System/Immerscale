@@ -1,4 +1,4 @@
-<!-- The Camera component holds the information for the entire structure at the moment -->
+<!-- Camera -->
 
 <script setup>
 import { ref, onMounted } from "vue";
@@ -8,11 +8,6 @@ const canvas = ref(null);
 const video = ref(null);
 const ctx = ref(null); //context
 let image;
-
-// const constraints = ref({
-//   audio: false,
-//   video: true,
-// });
 
 // width and heigt for landscape wih a 4:3 ratio
 // TODO look if 16:9 ratio alos needs to be supported
@@ -73,16 +68,6 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-//! this function will not be necessary in the future (maybe)
-function downloadPicture() {
-  var link = document.createElement("a");
-  link.download = "immerscale-picture";
-  //ink.href = canvas.value.toDataURL(); //
-  image = document.getElementById("my-image");
-  link.href = image.src;
-  link.click();
-}
-
 //this function will open the popup which displays the taken Picture
 function openModal() {
   const modal = document.getElementById("modal");
@@ -98,18 +83,6 @@ function openModal() {
   image = canvas.toDataURL("image/jpeg");
   let myImage = document.getElementById("my-image");
   myImage.src = image;
-}
-
-//this will close the popup
-function closeModal() {
-  const modal = document.getElementById("modal");
-  const overlay = document.getElementById("overlay");
-  if (modal == null) return;
-
-  //by removing active the scale of will
-  //be transformed from 1->0
-  modal.classList.remove("active");
-  overlay.classList.remove("active");
 }
 
 // check orientation
@@ -165,7 +138,7 @@ portrait.addEventListener("change", function (e) {
       <canvas id="canvas" ref="canvas" class="video-mask"></canvas>
     </div>
 
-    <div>
+    <divddd>
       <!-- Will open the Popup -->
       <button
         @click="openModal"
@@ -174,26 +147,6 @@ portrait.addEventListener("change", function (e) {
       >
         Bild erstellen
       </button>
-    </div>
+    </divddd>
   </div>
-
-  <!-- Popup -->
-  <div class="modal" id="modal">
-    <div class="modal-header">
-      Senden?
-      <button @click="closeModal" class="close">
-        <!-- this is a x -->
-        &times;
-      </button>
-    </div>
-    <div class="modal-body">
-      <img id="my-image" src="" alt="" />
-    </div>
-    <div class="modal-footer">
-      <!-- TODO implement the 'send'-function -->
-      <button @click="downloadPicture">Absenden</button>
-      <button @click="closeModal" data-model-close>Verwerfen</button>
-    </div>
-  </div>
-  <div id="overlay"></div>
 </template>
