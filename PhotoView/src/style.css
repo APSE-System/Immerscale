@@ -69,6 +69,18 @@ canvas {
   overflow: hidden;
 }
 
+/* @media (orientation: landscape){
+  * {
+    background: red;
+  }
+}
+
+@media (orientation: portrait) {
+  * {
+    background: blue;
+  }
+} */
+
 /* this is mainly just to have rounded corners for the live-display */
 .video-mask {
   border-radius: 50px;

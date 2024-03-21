@@ -14,7 +14,12 @@ let image;
 //   video: true,
 // });
 
-const constraints = ref({ audio: false, video: { facingMode: 'environment' } });
+// width and heigt for landscape wih a 4:3 ratio
+// TODO look if 16:9 ratio alos needs to be supported
+const HEIGHT = 1530;
+const WIDTH = 2040;
+
+const constraints = ref({ audio: false, video: { facingMode: "environment" } });
 
 // The onMounted lifecycle hook is used to run an async function when the component is mounted.
 // Inside this function, it checks if both the video and canvas elements are available.
@@ -27,7 +32,19 @@ onMounted(async () => {
     // If successful, it calls the SetStream function passing in the stream.
     await navigator.mediaDevices
       .getUserMedia(constraints.value)
-      .then(setStream)
+      .then((stream) => {
+        // TODO the code below does not work as intended (640 x 480)
+        // the code below should scale the canvas based on the camera
+        // let canvas = document.getElementById("canvas");
+        // const track = stream.getVideoTracks()[0];
+        // const settings = track.getSettings();
+
+        // // setting the width and heigth on the size of the camera
+        // canvas.width = settings.width;
+        // canvas.height = settings.height;
+
+        setStream(stream);
+      })
       .catch((e) => {
         console.error(e);
       });
@@ -39,16 +56,6 @@ onMounted(async () => {
 function setStream(stream) {
   video.value.srcObject = stream;
   video.value.play();
-
-  // the code below should scale the canvas based on the camera
-  let canvas = document.getElementById('canvas')
-  const track = stream.getVideoTracks()[0];
-  const settings = track.getSettings();
-
-  // setting the width and heigth on the size of the camera
-  canvas.width = settings.width;
-  canvas.height = settings.height;
-
   requestAnimationFrame(draw);
 }
 
@@ -66,7 +73,7 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-//! this function will not be necessary in the future
+//! this function will not be necessary in the future (maybe)
 function downloadPicture() {
   var link = document.createElement("a");
   link.download = "immerscale-picture";
@@ -104,6 +111,40 @@ function closeModal() {
   modal.classList.remove("active");
   overlay.classList.remove("active");
 }
+
+// check orientation
+let portrait = window.matchMedia("(orientation: portrait)");
+
+// initial orientation check 
+// TODO make the code orientation code look better
+window.addEventListener("load", function (e) {
+  let canvas = document.getElementById("canvas");
+
+  if (e.matches) {
+    // portrait
+    canvas.width = HEIGHT;
+    canvas.height = WIDTH;
+  } else {
+    // landscape
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+  }
+});
+
+// on orientation change, change the canvas width and height
+portrait.addEventListener("change", function (e) {
+  let canvas = document.getElementById("canvas");
+
+  if (e.matches) {
+    // portrait
+    canvas.width = HEIGHT;
+    canvas.height = WIDTH;
+  } else {
+    // landscape
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+  }
+});
 </script>
 
 <template>
@@ -121,13 +162,7 @@ function closeModal() {
       ></video>
       <!-- the canvas with and height are dynamically adjusted -->
       <!-- the size of width and heigt determine the dimension of the picture taken -->
-      <canvas
-        id="canvas"
-        ref="canvas"
-        width="1280"
-        height="720"
-        class="video-mask"
-      ></canvas>
+      <canvas id="canvas" ref="canvas" class="video-mask"></canvas>
     </div>
 
     <div>
@@ -145,7 +180,7 @@ function closeModal() {
   <!-- Popup -->
   <div class="modal" id="modal">
     <div class="modal-header">
-      Headertext
+      Senden?
       <button @click="closeModal" class="close">
         <!-- this is a x -->
         &times;
