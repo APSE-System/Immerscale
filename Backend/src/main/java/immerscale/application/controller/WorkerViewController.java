@@ -18,9 +18,18 @@ public class WorkerViewController {
 
 
     // Method returns all projects
+    // TODO: Only return the projects belonging to a specific worker
     @GetMapping(value = "/projects")
     public ResponseEntity<Iterable<Project>> getProjects(){
         return new ResponseEntity<Iterable<Project>>(projectRepository.getAllProjects(), HttpStatus.OK);
+    }
+
+    @PostMapping("/project")
+    @ResponseBody
+    //TODO: Make ID auto increment/calculated on the backend
+    public ResponseEntity<String> postProject(@RequestParam(name = "id") Integer id, @RequestParam(name = "name") String name, @RequestParam(name = "mail") String worker_email){
+        projectRepository.saveProject(id, name, worker_email);
+        return ResponseEntity.ok("Success");
     }
 
 }
