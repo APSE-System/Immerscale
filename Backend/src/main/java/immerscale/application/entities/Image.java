@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "image")
-@IdClass(ImageId.class)
 public class Image {
 
     @Id
+    @GeneratedValue
+    public Integer image_id;
     public String url_token;
 
-    @Id
     public Integer project_id;
 
     // encoded image as base64 string

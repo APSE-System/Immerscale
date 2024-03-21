@@ -40,9 +40,10 @@ public class PhotoViewController {
             return ResponseEntity.badRequest().body("Invalid JSON");
         }
 
+
         // Call the SQL query in the ImageRepository to save the image
         // TODO: The token and the project id are hardcoded for now
-        imageRepository.saveImage("test", (int) imageCount, photoString);
+        imageRepository.saveImage((int) imageCount, "test", 1, photoString);
 
         return ResponseEntity.ok("Success");
     }
