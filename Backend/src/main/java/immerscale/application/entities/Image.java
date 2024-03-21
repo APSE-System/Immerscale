@@ -1,7 +1,6 @@
 package immerscale.application.entities;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table(name = "image")
