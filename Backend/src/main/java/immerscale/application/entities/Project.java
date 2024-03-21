@@ -1,6 +1,5 @@
 package immerscale.application.entities;
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "project")
@@ -14,10 +13,6 @@ public class Project {
     public String name;
 
     // foreign key of the worker who created the project
-    @ManyToOne
-    @JoinColumn(name = "worker_email", referencedColumnName = "worker_email")
-    private Worker worker;
+    private String worker_email;
 
-    @OneToMany(mappedBy = "project")
-    private List<AccessToken> tokens;
 }
