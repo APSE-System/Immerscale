@@ -1,6 +1,7 @@
 package immerscale.application.entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table(name = "image")
@@ -11,17 +12,10 @@ public class Image {
     private String url_token;
 
     @Id
-    private String worker_email;
+    private Integer project_id;
 
     // encoded image as base64 string
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "url_token", referencedColumnName = "url_token", insertable = false, updatable = false)
-    private AccessToken accessToken;
-
-    @ManyToOne
-    @JoinColumn(name = "worker_email", referencedColumnName = "worker_email", insertable = false, updatable = false)
-    private Worker worker;
 
 }

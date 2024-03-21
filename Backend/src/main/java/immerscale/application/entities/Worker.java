@@ -17,6 +17,4 @@ public class Worker {
     @Column(name = "worker_email")
     public String worker_email;
 
-    @OneToMany(mappedBy = "worker")
-    private List<Project> project;
 }

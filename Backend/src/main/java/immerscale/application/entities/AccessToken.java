@@ -20,9 +20,7 @@ public class AccessToken {
     private Date creation_date;
     private Date expiration_date;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
-    private Project project;
+    private Integer project_id;
 
 
 }
