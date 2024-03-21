@@ -11,6 +11,7 @@ import java.beans.Transient;
 public interface ImageRepository extends JpaRepository<Image, ImageId> {
 
     // Query to save an image, simple insert statement
+    // "Modifying" annotation is crucial for queries that dont return a result, else Exception
     @Query(value = "INSERT INTO image (url_token, project_id, image) VALUES (?1, ?2, ?3)", nativeQuery = true)
     @Modifying
     @Transactional
