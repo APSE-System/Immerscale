@@ -1,7 +1,9 @@
 package immerscale.application.controller;
 
+import immerscale.application.entities.Image;
 import immerscale.application.entities.Project;
 import immerscale.application.repositories.ProjectRepository;
+import immerscale.application.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,11 @@ public class WorkerViewController {
     @Autowired
     private ProjectRepository projectRepository;
 
+    // Wire the Image Repository
+    @Autowired
+    private ImageRepository imageRepository;
+
+
 
     // Method returns all projects
     // TODO: Only return the projects belonging to a specific worker
@@ -27,9 +34,17 @@ public class WorkerViewController {
     @PostMapping("/project")
     @ResponseBody
     //TODO: Make ID auto increment/calculated on the backend
-    public ResponseEntity<String> postProject(@RequestParam(name = "id") Integer id, @RequestParam(name = "name") String name, @RequestParam(name = "mail") String worker_email){
-        projectRepository.saveProject(id, name, worker_email);
+    public ResponseEntity<String> postProject(@RequestParam(name = "name") String name, @RequestParam(name = "mail") String worker_email){
+        long projectCount = projectRepository.count();
+        //auto incrementing the project id for now TODO: change this
+        projectRepository.saveProject((int)projectCount, name, worker_email);
         return ResponseEntity.ok("Success");
+    }
+
+    // This endpoints returns all the images which belong to the given project ID
+    @GetMapping("/images")
+    public ResponseEntity<Iterable<Image>> getImages(@RequestParam(name = "id") Integer projectId){
+        return new ResponseEntity<Iterable<Image>>(imageRepository.getImages(projectId), HttpStatus.OK);
     }
 
 }
