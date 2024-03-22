@@ -12,6 +12,7 @@ function addProject(projectName) {
   fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/project?name=' + projectName +'&mail=testmail@mymail.org', {method: "POST"}) 
     .then((data) => {
       console.log(data)
+      // Update the project list so the new project is directly displayed
       emit('fetchProjects')
     })
     .catch(function(){

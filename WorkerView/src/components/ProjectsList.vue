@@ -12,6 +12,7 @@ const Projects = ref([
   { id: 5, name: 'Dagobert Duck', active: true },*/
 ]);
 
+// Fetches all the projects from the backend and adds them to the project list.
 function fetchProjects() {
   Projects.value = []
     fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projects')
