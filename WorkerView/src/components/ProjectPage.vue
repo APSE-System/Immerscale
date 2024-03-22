@@ -12,6 +12,7 @@ onMounted(() => {
     .then((resp) => resp.json())
     .then((data) => {
       console.log(data)
+      // extract the base64 images from the response and store them as dataURLs
       for (var key in data){
         images.value.push("data:image/png;base64," + data[key].image)
       }
