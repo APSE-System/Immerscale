@@ -2,6 +2,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import axios from "axios";
 
 //references
 let image;
@@ -27,6 +28,47 @@ function closeModal() {
   modal.classList.remove("active");
   overlay.classList.remove("active");
 }
+
+// this function posts the image to the backend
+async function sendPicture() {
+  image = document.getElementById("my-image");
+
+  const backendUrl =
+    "http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo";
+
+  // // get the base64 part of the image and remove the prefix "data:image/jpeg;base64," with split
+  // the try catch is there just in the case some 'funny' things happen
+  try {
+    var imageAsBase64 = image.attributes.src.value.split(",")[1];
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+
+  // for debuging
+  // TODO comment the console.log
+  console.log(imageAsBase64);
+
+  // this is is actually sending the picture using the axios library
+  try {
+    const response = await axios.post(
+      backendUrl,
+      {
+        photo: imageAsBase64,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    // TODO in the future make this not an alert
+    alert(response.data);
+  } catch (error) {
+    alert(error);
+  }
+}
 </script>
 
 <template>
@@ -44,7 +86,7 @@ function closeModal() {
     </div>
     <div class="modal-footer">
       <!-- TODO implement the 'send'-function -->
-      <button @click="downloadPicture">Absenden</button>
+      <button @click="sendPicture">Absenden</button>
       <button @click="closeModal" data-model-close>Verwerfen</button>
     </div>
   </div>

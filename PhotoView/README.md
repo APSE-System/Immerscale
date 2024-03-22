@@ -10,3 +10,4 @@ npm create vite@latest -- --template vue
 
 ## Plugins
 npm install -D @vitejs/plugin-basic-ssl
+npm install --save axios
