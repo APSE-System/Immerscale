@@ -34,8 +34,10 @@ public class WorkerViewController {
     @PostMapping("/project")
     @ResponseBody
     //TODO: Make ID auto increment/calculated on the backend
-    public ResponseEntity<String> postProject(@RequestParam(name = "id") Integer id, @RequestParam(name = "name") String name, @RequestParam(name = "mail") String worker_email){
-        projectRepository.saveProject(id, name, worker_email);
+    public ResponseEntity<String> postProject(@RequestParam(name = "name") String name, @RequestParam(name = "mail") String worker_email){
+        long projectCount = projectRepository.count();
+        //auto incrementing the project id for now TODO: change this
+        projectRepository.saveProject((int)projectCount, name, worker_email);
         return ResponseEntity.ok("Success");
     }
 
