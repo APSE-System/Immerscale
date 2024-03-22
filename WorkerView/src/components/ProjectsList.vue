@@ -1,16 +1,36 @@
 <script setup>
 import ProjectWidget from './ProjectWidget.vue'
 import AddNewProject from './AddNewProject.vue'
-import { ref } from 'vue';
+import { onMounted, onUpdated, ref } from 'vue'
 
 // Define some bogus data for the projects until an actual backend call is implemented here
 const Projects = ref([
-  { id: 1, name: 'Max Mustermann', active: true },
+  /*{ id: 1, name: 'Max Mustermann', active: true },
   { id: 2, name: 'Erika Mustermann', active: false },
   { id: 3, name: 'Hans Peter', active: true },
   { id: 4, name: 'Gustav Gans', active: false },
-  { id: 5, name: 'Dagobert Duck', active: true },
+  { id: 5, name: 'Dagobert Duck', active: true },*/
 ]);
+
+
+function fetchProjects() {
+    fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projects')
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data)
+        for (var key in data){
+          Projects.value.push(data[key])
+        }
+      })
+      .catch(function(){
+        alert("Backend ist nicht errreichbar")
+      })
+    }
+
+onMounted(() => {
+  fetchProjects()
+})
+
 </script>
 
 <template>
@@ -19,7 +39,7 @@ const Projects = ref([
     <AddNewProject/>
   </div>
   <div class="ProjectList">
-    <ProjectWidget v-for="project in Projects" :id="project.id" :name="project.name", :active="project.active"/>
+    <ProjectWidget v-for="project in Projects" :id="project.project_id" :name="project.name", :active="true"/>
   </div>
 </template>
 

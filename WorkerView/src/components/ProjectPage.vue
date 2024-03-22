@@ -26,7 +26,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <h2>Projekt {{ $route.params.id }}</h2>
+    <h2>Project {{ $route.params.id }}</h2>
     <!-- Depending wether there were images fetched from the backend they are displayed or not. -->
     <div v-if="images.length>0">
       <!-- Iterating through the image list and displaying them. -->
@@ -36,7 +36,7 @@ onMounted(() => {
       </div>
     </div>
     <div v-if="images.length==0">
-      <h3>In diesem Projekt sind noch keine Bilder.</h3>
+      <h3>No images in this project</h3>
     </div>
   </div>
 </template>

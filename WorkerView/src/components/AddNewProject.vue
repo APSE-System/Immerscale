@@ -8,13 +8,13 @@ const visible = ref(false);
 //preliminary function to add a new project. TODO: Implement backend call
 function addProject(projectName) {
   fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/project?name=' + projectName +'&mail=testmail@mymail.org', {method: "POST"}) 
-  //.then((resp) => resp.json())
     .then((data) => {
       console.log(data)
     })
     .catch(function(){
       alert("Backend ist nicht errreichbar")
     })
+    
 }
 
 </script>
@@ -33,7 +33,7 @@ function addProject(projectName) {
             </div>
             <div class="flex justify-content-end gap-2">
                 <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Save" @click="visible = false; addProject(newName)"></Button>
+                <Button type="button" label="Save" @click="visible = false; addProject(newName); "></Button>
             </div>
         </Dialog>
     </div>
