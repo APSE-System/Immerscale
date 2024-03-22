@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import java.beans.Transient;
 
 public interface ImageRepository extends JpaRepository<Image, ImageId> {
 
@@ -16,4 +15,9 @@ public interface ImageRepository extends JpaRepository<Image, ImageId> {
     @Modifying
     @Transactional
     void saveImage(String url_token, Integer project_id, String image);
+
+
+    @Query(value = "SELECT * FROM image WHERE project_id=?1", nativeQuery = true)
+    @Transactional
+    Iterable<Image> getImages(Integer projectId);
 }
