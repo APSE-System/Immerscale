@@ -12,8 +12,9 @@ const Projects = ref([
   { id: 5, name: 'Dagobert Duck', active: true },*/
 ]);
 
-
+// Fetches all the projects from the backend and adds them to the project list.
 function fetchProjects() {
+  Projects.value = []
     fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projects')
       .then((resp) => resp.json())
       .then((data) => {
@@ -36,7 +37,7 @@ onMounted(() => {
 <template>
   <h1>Projects</h1>
   <div class="ProjectButton">
-    <AddNewProject/>
+    <AddNewProject @fetchProjects="fetchProjects"/>
   </div>
   <div class="ProjectList">
     <ProjectWidget v-for="project in Projects" :id="project.project_id" :name="project.name", :active="true"/>
