@@ -6,6 +6,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.catalina.filters.RequestFilter;
 import org.apache.juli.logging.Log;
 
@@ -20,12 +21,25 @@ public class PhotoViewFilter extends RequestFilter {
 
         System.out.println("Filtering PhotoView Request");
 
-        // Get Cookie from Request
-        List<Cookie> cookies  = Arrays.stream(((HttpServletRequest) servletRequest).getCookies()).toList();
+        List<Cookie> cookies;
 
+        // Get Cookie from Request
+        try{
+            cookies  = Arrays.stream(((HttpServletRequest) servletRequest).getCookies()).toList();
+        }
+        catch (NullPointerException e){
+            System.out.println("No Cookies found");
+            HttpServletResponse response = (HttpServletResponse) servletResponse;
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
+        System.out.println("Cookies found");
         // 1. Verification Step: Check if Enduser Cookie is present
         if(cookies.stream().noneMatch(cookie -> cookie.getName().equals("BenisUserCookie"))){
-            throw new ServletException("Unauthorized");
+            HttpServletResponse response = (HttpServletResponse) servletResponse;
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
         // TODO: 2. Verification Step: Check if Enduser Cookie is valid

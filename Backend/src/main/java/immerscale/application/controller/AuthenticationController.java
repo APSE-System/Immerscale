@@ -33,7 +33,9 @@ public class AuthenticationController {
 
         // Token if present in database -> issue cookie
         if(accessToken.isPresent()){
-            response.addCookie(new Cookie("BenisUserCookie", tokend_id));
+            Cookie cookie = new Cookie("BenisUserCookie", tokend_id);
+            cookie.setPath("/photoView");
+            response.addCookie(cookie);
             return ResponseEntity.ok("Success");
         }
 
@@ -48,7 +50,9 @@ public class AuthenticationController {
     public ResponseEntity<String> verifyWorker(@RequestParam(value = "token_id") String token_id, HttpServletResponse response){
 
          if(true){
-            response.addCookie(new Cookie("BenisWorkerCookie", "123456789"));
+            Cookie cookie = new Cookie("BenisWorkerCookie", "123456789");
+            cookie.setPath("/workerView/");
+            response.addCookie(cookie);
             return ResponseEntity.ok("Success");
         }
 
