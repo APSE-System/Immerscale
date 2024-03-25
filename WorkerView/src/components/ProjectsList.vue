@@ -4,7 +4,7 @@ import AddNewProject from './AddNewProject.vue'
 import { onMounted, onUpdated, ref } from 'vue'
 
 // Define some bogus data for the projects until an actual backend call is implemented here
-const Projects = ref([
+const projects = ref([
   /*{ id: 1, name: 'Max Mustermann', active: true },
   { id: 2, name: 'Erika Mustermann', active: false },
   { id: 3, name: 'Hans Peter', active: true },
@@ -14,13 +14,13 @@ const Projects = ref([
 
 // Fetches all the projects from the backend and adds them to the project list.
 function fetchProjects() {
-  Projects.value = []
+  projects.value = []
     fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projects')
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data)
         for (var key in data){
-          Projects.value.push(data[key])
+          projects.value.push(data[key])
         }
       })
       .catch(function(){
@@ -40,7 +40,7 @@ onMounted(() => {
     <AddNewProject @fetchProjects="fetchProjects"/>
   </div>
   <div class="ProjectList">
-    <ProjectWidget v-for="project in Projects" :id="project.project_id" :name="project.name", :active="true"/>
+    <ProjectWidget v-for="project in projects" :id="project.project_id" :name="project.name", :active="true"/>
   </div>
 </template>
 
