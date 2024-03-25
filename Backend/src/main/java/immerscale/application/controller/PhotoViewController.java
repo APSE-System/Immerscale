@@ -43,7 +43,7 @@ public class PhotoViewController {
 
         // Call the SQL query in the ImageRepository to save the image
         // TODO: The token and the project id are hardcoded for now
-        imageRepository.saveImage((int) imageCount, "test", 1, photoString);
+        imageRepository.saveImage( "test", 1, photoString);
 
         return ResponseEntity.ok("Success");
     }
