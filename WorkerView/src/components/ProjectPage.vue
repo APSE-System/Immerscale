@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import TabBar from './TabBar.vue';
 
 const route = useRoute()
 
@@ -26,24 +27,31 @@ onMounted(() => {
 
 
 <template>
-  <div>
-    <h2>Project {{ $route.params.id }}</h2>
-    <!-- Depending wether there were images fetched from the backend they are displayed or not. -->
-    <div v-if="images.length>0">
-      <!-- Iterating through the image list and displaying them. -->
-      <div v-for="(image, index) in images" :key="index">
-        <!-- Add the logic here for clicking on an image and opening the measuring editor. -->
-        <img :src="image" alt="Image {{ index + 1 }}">
+  <div class="content">
+    <TabBar/>
+    <div>
+      <h2>Project {{ $route.params.id }}</h2>
+      <!-- Depending wether there were images fetched from the backend they are displayed or not. -->
+      <div v-if="images.length>0">
+        <!-- Iterating through the image list and displaying them. -->
+        <div v-for="(image, index) in images" :key="index">
+          <!-- Add the logic here for clicking on an image and opening the measuring editor. -->
+          <img :src="image" alt="Image {{ index + 1 }}">
+        </div>
       </div>
-    </div>
-    <div v-if="images.length==0">
-      <h3>No images in this project</h3>
+      <div v-if="images.length==0">
+        <h3>No images in this project</h3>
+      </div>
     </div>
   </div>
 </template>
 
 
 <style scoped>
+  .content{
+    display: flex;
+  }
+
   img {
     width: 400px; 
     object-fit: cover;
