@@ -146,7 +146,7 @@ function updateView(e) {
       <canvas id="canvas" ref="canvas" class="video-mask"></canvas>
     </div>
 
-    <divddd>
+    <div>
       <!-- Will open the Popup -->
       <button
         @click="openModal"
@@ -155,6 +155,6 @@ function updateView(e) {
       >
         Bild erstellen
       </button>
-    </divddd>
+    </div>
   </div>
 </template>
