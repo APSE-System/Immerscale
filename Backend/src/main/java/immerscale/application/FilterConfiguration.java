@@ -6,10 +6,14 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.swing.plaf.PanelUI;
+
+// Configuration for mapping the requests to certain Filter:
+//
+// => /workerView/* Requests should be filtered by the WorkerView Filter
+// => /photoView/* Requests should be filtered by the PhotoView Filter
 
 @Configuration
-public class FilterConfig {
+public class FilterConfiguration {
 
     @Bean
     public FilterRegistrationBean<WorkerViewFilter> filterRegistrationBean() {
