@@ -62,7 +62,7 @@ public class WorkerViewController {
 
     // Endpoint for generating a new token for a project
     @PostMapping("/token")
-    public ResponseEntity<String> generateToken(@RequestParam(name = "name") String name, @RequestParam(name = "id") Integer projectId, HttpServletRequest request){
+    public ResponseEntity<String> generateToken(@RequestParam(name = "name") String name, @RequestParam(name = "project_id") Integer projectId, HttpServletRequest request){
 
         // Verify that the project 1. exists and 2. belongs to the worker
         String worker_email = request.getAttribute("worker_email").toString();
