@@ -6,6 +6,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 // implement as singleton
 public class AESEncrypter {
@@ -40,7 +41,7 @@ public class AESEncrypter {
 
         byte[] encrypted = cipher.doFinal(plaintext.getBytes());
 
-        return new String(encrypted);
+        return Base64.getEncoder().encodeToString(encrypted);
     }
 
     public String decrypt(String ciphertext) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -49,7 +50,7 @@ public class AESEncrypter {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, secretKey, initializationVector);
 
-        byte[] decrypted = cipher.doFinal(ciphertext.getBytes());
+        byte[] decrypted = cipher.doFinal(Base64.getDecoder().decode(ciphertext));
         return new String(decrypted);
     }
 

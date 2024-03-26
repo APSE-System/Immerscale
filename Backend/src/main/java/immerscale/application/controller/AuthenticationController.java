@@ -1,6 +1,7 @@
 package immerscale.application.controller;
 
 import immerscale.application.entities.AccessToken;
+import immerscale.application.helper.AESEncrypter;
 import immerscale.application.repositories.AccessTokenRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,10 +34,20 @@ public class AuthenticationController {
 
         // Token if present in database -> issue cookie
         if(accessToken.isPresent()){
-            Cookie cookie = new Cookie("BenisUserCookie", tokend_id);
-            cookie.setPath("/photoView");
-            response.addCookie(cookie);
-            return ResponseEntity.ok("Success");
+            try {
+                Cookie cookie = new Cookie("EnduserCookie", AESEncrypter.getInstance().encrypt(tokend_id));
+                cookie.setPath("/photoView");
+
+                // Set another key value pair in the cookie
+                cookie.setSecure(true);
+                cookie.setHttpOnly(true);
+
+                response.addCookie(cookie);
+                return ResponseEntity.ok("Success");
+            }
+            catch (Exception e){
+                return new ResponseEntity<String>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
 
         return new ResponseEntity<String>("Unauthorized",HttpStatus.UNAUTHORIZED);
@@ -50,8 +61,12 @@ public class AuthenticationController {
     public ResponseEntity<String> verifyWorker(@RequestParam(value = "token_id") String token_id, HttpServletResponse response){
 
          if(true){
-            Cookie cookie = new Cookie("BenisWorkerCookie", "123456789");
-            cookie.setPath("/workerView/");
+            Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");
+            cookie.setPath("/workerView");
+
+            cookie.setSecure(true);
+            cookie.setHttpOnly(true);
+
             response.addCookie(cookie);
             return ResponseEntity.ok("Success");
         }
