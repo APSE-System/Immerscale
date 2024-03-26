@@ -12,7 +12,7 @@ const routes = [
   { 
     path: '/project/:id', 
     component: ProjectPage,
-    children: [
+    children: [ // these are nested routes which means they are appended to the project path and are rendered inside the project page.
       {
         path: "images",
         component: ImageList

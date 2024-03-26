@@ -10,6 +10,7 @@ const route = useRoute()
 <template>
   <h2>Project {{ $route.params.id }}</h2>
   <div class="projectPage">
+    <!-- shows the tab bar and then the selected tab using nested routes -->
     <TabBar/>
     <RouterView/>
   </div>
