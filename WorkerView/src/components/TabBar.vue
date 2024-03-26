@@ -1,15 +1,18 @@
 <script setup>
-
     import Button from 'primevue/button';
+    import { useRouter } from 'vue-router'
+
+    // get the router for routing to the project sub pages
+    const router = useRouter()
 
 </script>
 
 
 <template>
     <div class="sidebar card flex justify-content-left">
-        <Button label="Bilder" />
-        <Button label="Zugriffe" />
-        <Button label="Projekteinstellungen" />
+        <Button label="Bilder" @click="router.push('images')"/>
+        <Button label="Zugriffe" @click="router.push('access')"/>
+        <Button label="Projekteinstellungen" @click="router.push('settings')"/>
     </div>
 </template>
 

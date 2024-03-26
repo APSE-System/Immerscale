@@ -3,6 +3,8 @@ import { createWebHistory, createRouter } from 'vue-router'
 import ProjectsList from '../components/ProjectsList.vue'
 import ProjectPage from '../components/ProjectPage.vue'
 import ImageList from '../components/ImageList.vue'
+import TokenList from '../components/TokenList.vue'
+import ProjectSettings from '../components/ProjectSettings.vue'
 
 // Define the routes for the application here
 const routes = [
@@ -14,6 +16,14 @@ const routes = [
       {
         path: "images",
         component: ImageList
+      },
+      {
+        path: "access",
+        component: TokenList
+      },
+      {
+        path: "settings",
+        component: ProjectSettings
       },
     ]
   },
