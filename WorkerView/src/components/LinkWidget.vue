@@ -1,6 +1,6 @@
 <script setup>
-
-//define properties for the project items
+import Panel from 'primevue/panel';
+//define properties for the link items
 const props = defineProps({
     url: String,
     name: String,
@@ -13,20 +13,18 @@ const props = defineProps({
 
 
 <template>
-  <!-- TODO: Fix this more elegantly. Empty Div workaround to show project Items -->
-  <div></div>
+    <!-- Panel with a header that can be toggled TODO: fix DOM issues to show url or name in header-->
+  <Panel header="Header" toggleable="true" collapsed="false">
   <div class="LinkItem">
     <!-- Values taken from properties -->
-    <div class urlItemInfos>
+    <div class="ItemInfos">
       <p>{{ url }}</p>
-    </div>
-    <div class="CreationInfos">
-
       <p>Name: {{ name }}</p>
       <p>Created at: {{ activation }}</p>
       <p>Expires at: {{ expiration }}</p>
     </div>
   </div>
+  </Panel>
 </template>
 
 
