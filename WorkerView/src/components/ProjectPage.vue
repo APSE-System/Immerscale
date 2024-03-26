@@ -50,6 +50,8 @@ onMounted(() => {
 <style scoped>
   .content{
     display: flex;
+    justify-content: space-between;
+    height: 100%;
   }
 
   img {
