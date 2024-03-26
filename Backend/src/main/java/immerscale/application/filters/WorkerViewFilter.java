@@ -15,35 +15,26 @@ import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
 
-public class WorkerViewFilter extends RequestFilter {
+public class WorkerViewFilter extends CookieFilter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("Filtering Worker View Request");
 
-        List<Cookie> cookies;
-
-        // Get Cookie from Request
-        try{
-            cookies  = Arrays.stream(((HttpServletRequest) servletRequest).getCookies()).toList();
-        }
-        catch (NullPointerException e){
-            System.out.println("No Cookies found");
-            HttpServletResponse response = (HttpServletResponse) servletResponse;
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
-
-        System.out.println("Cookies found");
         // 1. Verification Step: Check if Worker Cookie is present
-        if(cookies.stream().noneMatch(cookie -> cookie.getName().equals("WorkerCookie"))){
+
+        Cookie workerCookie;
+        try {
+            workerCookie = getCookie(servletRequest, "WorkerCookie");
+        } catch (NullPointerException e) {
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
-        // TODO: 2. Verification Step: Check if Worker Cookie is valid
+        // TODO: 2. Verification Step: Check if Worker Cookie is valid currently every caller gets a valid cookie
+        String worker_email = workerCookie.getValue();
 
         // If all verifications are passed, continue with the request
+        servletRequest.setAttribute("worker_email", worker_email);
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
