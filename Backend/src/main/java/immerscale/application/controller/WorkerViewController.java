@@ -4,6 +4,7 @@ import immerscale.application.entities.Image;
 import immerscale.application.entities.Project;
 import immerscale.application.repositories.ProjectRepository;
 import immerscale.application.repositories.ImageRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +32,14 @@ public class WorkerViewController {
         return new ResponseEntity<Iterable<Project>>(projectRepository.getAllProjects(), HttpStatus.OK);
     }
 
+
+    // Method receives a project name and a worker email and saves it to the database
     @PostMapping("/project")
     @ResponseBody
-    //TODO: Make ID auto increment/calculated on the backend
-    public ResponseEntity<String> postProject(@RequestParam(name = "name") String name, @RequestParam(name = "mail") String worker_email){
+    public ResponseEntity<String> postProject(@RequestParam(name = "name") String name, HttpServletRequest request){
         long projectCount = projectRepository.count();
-        //auto incrementing the project id for now TODO: change this
-        projectRepository.saveProject((int)projectCount, name, worker_email);
+        projectRepository.saveProject( name, request.getAttribute("worker_email").toString());
+
         return ResponseEntity.ok("Success");
     }
 

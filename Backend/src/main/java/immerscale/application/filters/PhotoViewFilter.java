@@ -20,40 +20,31 @@ import java.util.List;
 
 // Filter PhotoView Requests
 // Each Request must have an Enduser Cookie
-public class PhotoViewFilter extends RequestFilter {
+public class PhotoViewFilter extends CookieFilter {
 
     @Autowired
     private AccessTokenRepository accessTokenRepository;
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
 
         System.out.println("Filtering PhotoView Request");
 
-        List<Cookie> cookies;
 
-        // Get Cookie from Request if there are any
-        try{
-            cookies  = Arrays.stream(((HttpServletRequest) servletRequest).getCookies()).toList();
+        // 1. Verification Step: Check if Enduser Cookie is present
+
+        Cookie userCookie;
+        try {
+            userCookie = getCookie(servletRequest, "UserCookie");
         }
         catch (NullPointerException e){
-            System.out.println("No Cookies found");
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
-        System.out.println("Cookies found");
-        // 1. Verification Step: Check if Enduser Cookie is present
-        if(cookies.stream().noneMatch(cookie -> cookie.getName().equals("UserCookie"))){
-            HttpServletResponse response = (HttpServletResponse) servletResponse;
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
-        }
 
-        // 2. Verification Step: Check if Enduser in cookie is valid
-
-        Cookie userCookie = cookies.stream().filter(cookie -> cookie.getName().equals("UserCookie")).findFirst().get();
+        // 2. Verification Step: Check if Enduser Cookie is valid
         String token_id;
         try{
             token_id = AESEncrypter.getInstance().decrypt(userCookie.getValue());
@@ -73,7 +64,6 @@ public class PhotoViewFilter extends RequestFilter {
         // If all verifications are passed, continue with the request and add the token_id to the request
         servletRequest.setAttribute("token_id", token_id);
         filterChain.doFilter(servletRequest, servletResponse);
-
     }
 
     @Override

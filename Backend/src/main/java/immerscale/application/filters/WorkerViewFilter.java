@@ -35,7 +35,7 @@ public class WorkerViewFilter extends RequestFilter {
 
         System.out.println("Cookies found");
         // 1. Verification Step: Check if Worker Cookie is present
-        if(cookies.stream().noneMatch(cookie -> cookie.getName().equals("BenisWorkerCookie"))){
+        if(cookies.stream().noneMatch(cookie -> cookie.getName().equals("WorkerCookie"))){
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;

@@ -16,8 +16,8 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     Iterable<Project> getAllProjects();
 
 
-    @Query(value = "INSERT INTO project (project_id, name, worker_email) VALUES (?1, ?2, ?3)", nativeQuery = true)
+    @Query(value = "INSERT INTO project ( name, worker_email) VALUES (?1, ?2, ?3)", nativeQuery = true)
     @Modifying
     @Transactional
-    void saveProject(Integer project_id, String name, String worker_email);
+    void saveProject( String name, String worker_email);
 }

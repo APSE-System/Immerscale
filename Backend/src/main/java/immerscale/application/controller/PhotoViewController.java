@@ -37,7 +37,7 @@ public class PhotoViewController {
             return ResponseEntity.badRequest().body("Invalid JSON");
         }
 
-        Optional<AccessToken> accessTokenOptional = accessTokenRepository.findById((String) request.getAttribute("token_id"));
+        Optional<AccessToken> accessTokenOptional = accessTokenRepository.findById(request.getAttribute("token_id").toString());
         if(!accessTokenOptional.isPresent())
             return ResponseEntity.badRequest().body("Invalid Token");
         AccessToken accessToken = accessTokenOptional.get();
