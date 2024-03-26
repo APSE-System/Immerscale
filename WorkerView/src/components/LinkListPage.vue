@@ -1,14 +1,17 @@
 <script setup>
-//import LinkWidget from './ProjectWidget.vue'
+import LinkWidget from './LinkWidget.vue'
 //import GenerateNewLink from './AddNewProject.vue'
 import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const links = ref([
 ]);
 
 // Fetches all the projects from the backend and adds them to the project list.
 function fetchLinks() {
-  projects.value = []
+  links.value = []
     fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/tokens?id=' + route.params.id)
       .then((resp) => resp.json())
       .then((data) => {
@@ -23,18 +26,18 @@ function fetchLinks() {
     }
 
 onMounted(() => {
-  fetchProjects()
+  fetchLinks()
 })
 
 </script>
 
 <template>
   <h1>Project Links</h1>
-  <div class="ProjectButton">
-    <!--<AddNewProject @fetchLinks="fetchLinks"/>-->
-  </div>
+  <!--<div class="ProjectButton">
+    <AddNewProject @fetchLinks="fetchLinks"/>
+  </div>-->
   <div class="LinkList">
-    <LinkWidget v-for="link in links" :url="links.url_token" :name="links.name" :activation="links.activation_date" :expiration="links.expiration_date"/>
+    <LinkWidget v-for="link in links" :url="link.url_token" :name="link.name" :activation="link.activation_date" :expiration="link.expiration_date"/>
   </div>
 </template>
 

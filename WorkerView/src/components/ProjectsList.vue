@@ -1,15 +1,9 @@
 <script setup>
 import ProjectWidget from './ProjectWidget.vue'
 import AddNewProject from './AddNewProject.vue'
-import { onMounted, onUpdated, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
-// Define some bogus data for the projects until an actual backend call is implemented here
 const projects = ref([
-  /*{ id: 1, name: 'Max Mustermann', active: true },
-  { id: 2, name: 'Erika Mustermann', active: false },
-  { id: 3, name: 'Hans Peter', active: true },
-  { id: 4, name: 'Gustav Gans', active: false },
-  { id: 5, name: 'Dagobert Duck', active: true },*/
 ]);
 
 // Fetches all the projects from the backend and adds them to the project list.
