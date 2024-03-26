@@ -15,7 +15,7 @@ const props = defineProps({
 //call this when the user clicks a project to view its details
 function clickedProject() {
   // Redirects to the Project page listing the according images.
-  router.push('/project/'+ props.id)
+  router.push('/project/'+ props.id +'/images')
 }
 </script>
 

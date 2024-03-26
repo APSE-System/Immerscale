@@ -1,7 +1,6 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import TabBar from './TabBar.vue';
-import ImageList from './ImageList.vue';
 
 const route = useRoute()
 
@@ -12,7 +11,7 @@ const route = useRoute()
   <h2>Project {{ $route.params.id }}</h2>
   <div class="projectPage">
     <TabBar/>
-    <ImageList/>
+    <RouterView/>
   </div>
 </template>
 
