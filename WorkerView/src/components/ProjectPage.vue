@@ -27,10 +27,10 @@ onMounted(() => {
 
 
 <template>
-  <div class="content">
+  <h2>Project {{ $route.params.id }}</h2>
+  <div class="projectPage">
     <TabBar/>
-    <div>
-      <h2>Project {{ $route.params.id }}</h2>
+    <div class="content">
       <!-- Depending wether there were images fetched from the backend they are displayed or not. -->
       <div v-if="images.length>0">
         <!-- Iterating through the image list and displaying them. -->
@@ -48,10 +48,13 @@ onMounted(() => {
 
 
 <style scoped>
-  .content{
+  .projectPage{
     display: flex;
-    justify-content: space-between;
-    height: 100%;
+    justify-content: left;
+  }
+
+  .content{
+    width: 100%;
   }
 
   img {

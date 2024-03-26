@@ -14,11 +14,16 @@
 </template>
 
 <style scoped>
+#app{
+    width: 100%;
+}
+
 .sidebar{
     flex-direction: column;
     justify-content: space-between;
     background-color: #37404c;
     border-radius: 10px;
     padding: 10px;
+    height: 150px;
 }
 </style>

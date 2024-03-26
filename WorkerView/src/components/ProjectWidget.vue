@@ -44,8 +44,6 @@ function clickedProject() {
   border: 1px solid #e1e1e1;
   border-radius: 7px;
   transition: transform 0.3s ease;
-  width: 100%;
-  max-width: 100%;
   position: relative;
   display: flex;
   flex-direction: row;
