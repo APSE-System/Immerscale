@@ -58,7 +58,7 @@ public class AuthenticationController {
     // This cookie allows access to all endpoint from the WorkerViewController
     // TODO: Verification Logic must be added, currently every caller gets a valid cookie
     @GetMapping("/cookie/worker")
-    public ResponseEntity<String> verifyWorker(@RequestParam(value = "token_id") String token_id, HttpServletResponse response){
+    public ResponseEntity<String> verifyWorker(@RequestParam(value = "credential") String credential, HttpServletResponse response){
 
          if(true){
             Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");

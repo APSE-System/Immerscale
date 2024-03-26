@@ -28,8 +28,9 @@ public class WorkerViewController {
     // Method returns all projects
     // TODO: Only return the projects belonging to a specific worker
     @GetMapping(value = "/projects")
-    public ResponseEntity<Iterable<Project>> getProjects(){
-        return new ResponseEntity<Iterable<Project>>(projectRepository.getAllProjects(), HttpStatus.OK);
+    public ResponseEntity<Iterable<Project>> getProjects(HttpServletRequest request){
+        String worker_email = request.getAttribute("worker_email").toString();
+        return new ResponseEntity<Iterable<Project>>(projectRepository.getAllProjects(worker_email), HttpStatus.OK);
     }
 
 
