@@ -7,14 +7,11 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.catalina.filters.RequestFilter;
 import org.apache.juli.logging.Log;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.net.http.HttpResponse;
-import java.util.Arrays;
-import java.util.List;
-
+@Component
 public class WorkerViewFilter extends CookieFilter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

@@ -7,19 +7,17 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.catalina.filters.RequestFilter;
 import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 
 // Filter PhotoView Requests
 // Each Request must have an Enduser Cookie
+@Component
 public class PhotoViewFilter extends CookieFilter {
 
     @Autowired
@@ -35,7 +33,7 @@ public class PhotoViewFilter extends CookieFilter {
 
         Cookie userCookie;
         try {
-            userCookie = getCookie(servletRequest, "UserCookie");
+            userCookie = getCookie(servletRequest, "EnduserCookie");
         }
         catch (NullPointerException e){
             HttpServletResponse response = (HttpServletResponse) servletResponse;
