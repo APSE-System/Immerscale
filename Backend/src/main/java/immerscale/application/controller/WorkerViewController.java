@@ -3,6 +3,7 @@ package immerscale.application.controller;
 import immerscale.application.entities.AccessToken;
 import immerscale.application.entities.Image;
 import immerscale.application.entities.Project;
+import immerscale.application.repositories.AccessTokenRepository;
 import immerscale.application.repositories.ProjectRepository;
 import immerscale.application.repositories.AccessTokenRepository;
 import immerscale.application.repositories.ImageRepository;
@@ -32,7 +33,6 @@ public class WorkerViewController {
 
     @Autowired
     private AccessTokenRepository accessTokenRepository;
-
 
 
     // Method returns all projects
@@ -97,6 +97,13 @@ public class WorkerViewController {
                 .limit(length)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
+    }
+  
+    // Returns all the links which belong to the given project ID
+    @GetMapping("/tokens")
+    public ResponseEntity<Iterable<AccessToken>> getAccessTokens(@RequestParam(name = "id") Integer projectId){
+        return new ResponseEntity<Iterable<AccessToken>>(accessTokenRepository.getAccessTokens(projectId), HttpStatus.OK);
+
     }
 
 }
