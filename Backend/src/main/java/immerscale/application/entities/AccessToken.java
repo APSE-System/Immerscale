@@ -9,13 +9,13 @@ import java.util.Date;
 public class AccessToken {
 
     @Id
-    private String url_token;
+    public String url_token;
 
-    private String name;
-    private Date creation_date;
-    private Date expiration_date;
+    public String name;
+    public Date creation_date;
+    public Date expiration_date;
 
-    private Integer project_id;
+    public Integer project_id;
 
 
 }
