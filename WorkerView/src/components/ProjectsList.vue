@@ -48,6 +48,7 @@ onMounted(() => {
 .ProjectList {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
 </style>./components/ProjectWidget.vue
