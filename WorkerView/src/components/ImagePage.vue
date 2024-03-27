@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-var images = ref([]);
+var image = ref([]);
 var zoom_inner = ref(null);
 
 let pos = { x: 0, y: 0 };
@@ -20,15 +20,14 @@ onMounted(() => {
   fetch(
     "http://" +
       import.meta.env.VITE_BACKEND_IP +
-      "/workerView/images?id=" +
-      route.params.id
+      "/workerView/image?id=" +
+      route.params.id + "&index=" + route.params.index
   )
     .then((resp) => resp.json())
     .then((data) => {
       // extract the base64 images from the response and store them as dataURLs
-      for (var key in data) {
-        images.value.push("data:image/png;base64," + data[key].image);
-      }
+      image.value = "data:image/png;base64," + data.image;
+    
     })
     .catch(function () {
       alert("Backend ist nicht errreichbar");
@@ -117,9 +116,7 @@ onMounted(() => {
 <template>
   <div id="zoom-outer">
     <div ref="zoom_inner" class="zoom" id="zoom">
-      <div @wheel="onWheel" v-if="images.length > 0">
-        <img id="our-image" :src="images[$route.params.index]" alt="image" />
-      </div>
+        <img id="our-image" :src="image" alt="image" />
     </div>
   </div>
 </template>

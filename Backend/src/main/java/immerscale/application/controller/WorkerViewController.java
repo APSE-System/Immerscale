@@ -51,10 +51,22 @@ public class WorkerViewController {
         return new ResponseEntity<Iterable<Image>>(imageRepository.getImages(projectId), HttpStatus.OK);
     }
 
+    // This endpoint will only return one image
+    // The index will return the nth element from the project
+    @GetMapping("/image")
+    public ResponseEntity<Image> getImage(@RequestParam(name = "id") Integer projectId, @RequestParam(name = "index") Integer index){
+        Image image = imageRepository.getImage(projectId, index);
+
+        if(image == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(image, HttpStatus.OK);
+    }
+
     // Returns all the links which belong to the given project ID
     @GetMapping("/tokens")
     public ResponseEntity<Iterable<AccessToken>> getAccessTokens(@RequestParam(name = "id") Integer projectId){
         return new ResponseEntity<Iterable<AccessToken>>(accessTokenRepository.getAccessTokens(projectId), HttpStatus.OK);
     }
-
 }
