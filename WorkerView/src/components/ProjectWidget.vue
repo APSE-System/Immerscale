@@ -21,6 +21,7 @@ function clickedProject() {
 
 
 <template>
+  <div></div>
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side colored depending on whether the project is active or not -->
     <div class="pi pi-building"  v-if="active" style="color: lightgreen" ></div>
