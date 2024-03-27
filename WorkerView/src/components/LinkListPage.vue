@@ -1,6 +1,7 @@
 <script setup>
 import LinkWidget from './LinkWidget.vue'
-//import GenerateNewLink from './AddNewProject.vue'
+import GenerateNewLink from './GenerateNewLink.vue'
+import Divider from 'primevue/divider';
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -33,9 +34,10 @@ onMounted(() => {
 
 <template>
   <h1>Project Links</h1>
-  <!--<div class="ProjectButton">
-    <AddNewProject @fetchLinks="fetchLinks"/>
-  </div>-->
+  <div class="LinkButton">
+    <GenerateNewLink @fetchLinks="fetchLinks"/>
+  </div>
+  <Divider />
   <div class="LinkList">
     <LinkWidget v-for="link in links" :url="link.url_token" :name="link.name" :activation="link.activation_date" :expiration="link.expiration_date"/>
   </div>

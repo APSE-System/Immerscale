@@ -57,4 +57,10 @@ public class WorkerViewController {
         return new ResponseEntity<Iterable<AccessToken>>(accessTokenRepository.getAccessTokens(projectId), HttpStatus.OK);
     }
 
+    @PostMapping("/token")
+    public ResponseEntity<AccessToken> createAccessToken(@RequestParam(name = "name") String name, @RequestParam(name = "id") Integer projectId){
+        //temporary test code
+        return new ResponseEntity<AccessToken>(HttpStatus.OK);
+    }
+
 }
