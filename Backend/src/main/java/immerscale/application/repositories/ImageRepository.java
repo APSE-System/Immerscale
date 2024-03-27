@@ -19,4 +19,10 @@ public interface ImageRepository extends JpaRepository<Image, Integer> {
     @Query(value = "SELECT * FROM image WHERE project_id=?1", nativeQuery = true)
     @Transactional
     Iterable<Image> getImages(Integer projectId);
+
+    // returns only one image
+    // this will be the nth element from the project
+    @Query(value = "SELECT * FROM image WHERE project_id=?1 LIMIT 1 OFFSET ?2", nativeQuery = true)
+    @Transactional
+    Image getImage(Integer projectId, Integer imageId);
 }
