@@ -33,20 +33,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Project Links</h1>
-  <div class="LinkButton">
-    <GenerateNewLink @fetchLinks="fetchLinks"/>
-  </div>
-  <Divider />
-  <div class="LinkList">
-    <LinkWidget v-for="link in links" :url="link.url_token" :name="link.name" :activation="link.activation_date" :expiration="link.expiration_date"/>
+  <div class="content">
+    <div class="LinkButton">
+      <GenerateNewLink @fetchLinks="fetchLinks"/>
+    </div>
+    <Divider />
+    <div class="LinkList">
+      <LinkWidget v-for="link in links" :url="link.url_token" :name="link.name" :activation="link.activation_date" :expiration="link.expiration_date"/>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.content{
+  width: 100%;
+}
 .LinkList {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
 </style>
