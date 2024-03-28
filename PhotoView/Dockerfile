@@ -1,4 +1,4 @@
-FROM node:latest as builder
+FROM node:19.2 as builder
 RUN npm install -g http-server
 WORKDIR /app
 COPY package.json ./

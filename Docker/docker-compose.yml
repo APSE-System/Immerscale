@@ -10,3 +10,13 @@ services:
       MYSQL_PASSWORD: benispassword
     ports:
       - "3306:3306"
+
+  photoview:
+    build:
+      context: ../PhotoView
+      dockerfile: Dockerfile
+      target: dev
+    volumes: 
+      - ../PhotoView/src:/app/src
+    ports:
+      - "8888:8888"
