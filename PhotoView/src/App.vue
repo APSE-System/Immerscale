@@ -4,6 +4,7 @@
 </script>
 
 <template>
+<h2>benis</h2>
   <div>
     <Camera/>
     <Popup/>
