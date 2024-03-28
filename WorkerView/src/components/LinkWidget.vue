@@ -14,11 +14,11 @@ const props = defineProps({
 
 <template>
     <!-- Panel with a header that can be toggled TODO: fix DOM issues to show url or name in header-->
-  <Panel header="Header" toggleable="true" collapsed="false">
+  <Panel :header=name toggleable="true" collapsed="false">
   <div class="LinkItem">
     <!-- Values taken from properties -->
     <div class="ItemInfos">
-      <p>{{ url }}</p>
+      <p>Token: {{ url }}</p>
       <p>Name: {{ name }}</p>
       <p>Created at: {{ activation }}</p>
       <p>Expires at: {{ expiration }}</p>
