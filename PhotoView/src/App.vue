@@ -4,7 +4,7 @@
 </script>
 
 <template>
-<h2>bennnis</h2>
+<h2>bitte</h2>
   <div>
     <Camera/>
     <Popup/>

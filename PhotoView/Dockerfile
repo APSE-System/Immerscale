@@ -7,7 +7,7 @@ COPY . .
 
 FROM builder as dev
 EXPOSE 5173
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["npm", "run", "dev"]
 
 FROM builder as build
 RUN npm run build
