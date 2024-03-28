@@ -28,14 +28,14 @@ public class AuthenticationController {
     @Autowired
     AccessTokenRepository accessTokenRepository;
     @GetMapping("/cookie/enduser")
-    public ResponseEntity<String> verifyEnduser(@RequestParam(value = "tokend_id") String tokend_id, HttpServletResponse response){
+    public ResponseEntity<String> verifyEnduser(@RequestParam(value = "token_id") String token_id, HttpServletResponse response){
 
-        Optional<AccessToken> accessToken = accessTokenRepository.findById(tokend_id);
+        Optional<AccessToken> accessToken = accessTokenRepository.findById(token_id);
 
         // Token if present in database -> issue cookie
         if(accessToken.isPresent()){
             try {
-                Cookie cookie = new Cookie("EnduserCookie", AESEncrypter.getInstance().encrypt(tokend_id));
+                Cookie cookie = new Cookie("EnduserCookie", AESEncrypter.getInstance().encrypt(token_id));
                 cookie.setPath("/photoView");
 
                 // Set another key value pair in the cookie
