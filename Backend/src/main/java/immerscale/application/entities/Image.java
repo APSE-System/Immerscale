@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Image {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer image_id;
     public String url_token;
 
