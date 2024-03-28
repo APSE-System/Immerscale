@@ -5,6 +5,7 @@ import ProjectPage from '../components/ProjectPage.vue'
 import ImageList from '../components/ImageList.vue'
 import TokenList from '../components/TokenList.vue'
 import ProjectSettings from '../components/ProjectSettings.vue'
+import ImagePage from '../components/ImagePage.vue'
 
 // Define the routes for the application here
 const routes = [
@@ -15,7 +16,7 @@ const routes = [
     children: [ // these are nested routes which means they are appended to the project path and are rendered inside the project page.
       {
         path: "images",
-        component: ImageList
+        component: ImageList,
       },
       {
         path: "access",
@@ -27,6 +28,7 @@ const routes = [
       },
     ]
   },
+  { path: '/project/:id/image/:index', component: ImagePage},
 ]
 
 // This makes the URL work "normal" so you can just type in an URL and you are routed
