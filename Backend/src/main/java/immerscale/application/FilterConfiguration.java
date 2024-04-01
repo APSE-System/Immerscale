@@ -1,5 +1,6 @@
 package immerscale.application;
 
+import immerscale.application.filters.CorsFilter;
 import immerscale.application.filters.PhotoViewFilter;
 import immerscale.application.filters.WorkerViewFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +23,42 @@ public class FilterConfiguration {
     @Autowired
     private PhotoViewFilter photoViewFilter;
 
+    @Autowired
+    private CorsFilter corsFilter;
+
     @Bean
-    public FilterRegistrationBean<WorkerViewFilter> filterRegistrationBean() {
+    public FilterRegistrationBean<WorkerViewFilter> registerWorkerViewFilter() {
 
         FilterRegistrationBean<WorkerViewFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(workerViewFilter);
         registrationBean.addUrlPatterns("/workerView/*");
+        registrationBean.setOrder(2);
 
         return registrationBean;
     }
 
     @Bean
-    public FilterRegistrationBean<PhotoViewFilter> filterFilterRegistrationBean() {
+    public FilterRegistrationBean<PhotoViewFilter> registerPhotoViewFilter() {
 
         FilterRegistrationBean<PhotoViewFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(photoViewFilter);
         registrationBean.addUrlPatterns("/photoView/*");
+        registrationBean.setOrder(1);
 
         return registrationBean;
     }
+
+    @Bean
+    public FilterRegistrationBean<CorsFilter> registerCorsFilter() {
+
+        FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(corsFilter);
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.setOrder(0);
+
+        return registrationBean;
+    }
+
+
+
 }
