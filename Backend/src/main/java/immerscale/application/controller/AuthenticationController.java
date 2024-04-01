@@ -36,11 +36,11 @@ public class AuthenticationController {
         if(accessToken.isPresent()){
             try {
                 Cookie cookie = new Cookie("EnduserCookie", AESEncrypter.getInstance().encrypt(token_id));
-                cookie.setPath("/photoView");
+                cookie.setPath("/");
 
-                // Set another key value pair in the cookie
-                cookie.setSecure(true);
-                cookie.setHttpOnly(true);
+               // Set another key value pair in the cookie
+                //cookie.setSecure(true);
+                //cookie.setHttpOnly(true);
 
                 response.addCookie(cookie);
                 return ResponseEntity.ok("Success");

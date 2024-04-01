@@ -11,9 +11,14 @@ public class CorsConfiguration implements WebMvcConfigurer {
     // This is necessary so you don't get a cross origin error when testing locally
     @Override
     public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*");
-        // tried:
-        //registry.addMapping("/**").allowedOrigins("https://localhost:5173/").allowCredentials(true);
+        registry.addMapping("/**")
+                .allowedOrigins("*") // Use htp and no trailing slash
+                .allowedMethods("*");
+
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:8889") // Use http and no trailing slash
+                .allowedMethods("*")
+                .allowCredentials(true);
     }
 
 }

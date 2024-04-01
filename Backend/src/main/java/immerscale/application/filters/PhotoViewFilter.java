@@ -32,6 +32,7 @@ public class PhotoViewFilter extends CookieFilter {
         try {
             userCookie = getCookie(servletRequest, "EnduserCookie");
         } catch (NullPointerException e) {
+            System.out.println("No Cookies found");
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;

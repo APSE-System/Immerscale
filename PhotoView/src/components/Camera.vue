@@ -27,7 +27,9 @@ onMounted(() => {
   const currentUrl = window.location.href;
   console.log("get request: ")
 
-  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + 'sooos')
+  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + 'sooos', {
+   // credentials: 'include'
+  })
   .then((response) => {
     console.log(response)
     if (response.ok) {

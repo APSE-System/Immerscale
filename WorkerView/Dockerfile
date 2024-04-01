@@ -1,4 +1,4 @@
-FROM node:19.2 as builder
+FROM node:latest as builder
 RUN npm install -g http-server
 WORKDIR /app
 COPY package.json ./
@@ -6,7 +6,7 @@ RUN npm install
 COPY . .
 
 FROM builder as dev
-EXPOSE 8888
+EXPOSE 8889
 CMD ["npm", "run", "dev"]
 
 FROM builder as build

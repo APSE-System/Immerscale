@@ -31,6 +31,26 @@ function closeModal() {
 
 // this function posts the image to the backend
 async function sendPicture() {
+
+
+  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + 'sooos', {
+    method: "POST",
+    credentials: 'include'
+  })
+      .then((response) => {
+        console.log(response)
+        if (response.ok) {
+          // Handle success response
+          console.log("Success");
+        } else {
+          // Handle error response
+          console.log("Unauthorized");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
   image = document.getElementById("my-image");
 
   const backendUrl =
@@ -74,8 +94,10 @@ async function sendPicture() {
   // another fetch for testing
   fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo", {
     method: "POST",
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
+
     },
     body: JSON.stringify({ photo: imageAsBase64 }),
   })

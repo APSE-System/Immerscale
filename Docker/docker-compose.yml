@@ -20,3 +20,13 @@ services:
       - ../PhotoView/src:/app/src
     ports:
       - 8888:8888
+  
+  workerview:
+    build:
+      context: ../WorkerView
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - ../WorkerView/src:/app/src
+    ports:
+      - 8889:8888
