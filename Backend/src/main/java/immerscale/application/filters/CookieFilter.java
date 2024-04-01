@@ -11,6 +11,7 @@ import org.apache.juli.logging.Log;
 import java.io.IOException;
 
 
+// Abstract class for filtering requests based on cookies
 public abstract class CookieFilter extends RequestFilter {
     public abstract void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException;
     protected abstract Log getLogger();

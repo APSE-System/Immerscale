@@ -24,4 +24,10 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Query(value = "SELECT * FROM project WHERE worker_email=?1", nativeQuery = true)
     @Transactional
     Iterable<Project> getAllProjects(String worker_email);
+
+    @Query(value = "SELECT IF( COUNT(*) > 0, 'true', 'false') FROM project WHERE project_id=?1 AND worker_email=?2", nativeQuery = true)
+    @Transactional
+    boolean containsProject(Integer projectId, String worker_email);
+
+
 }

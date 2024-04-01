@@ -10,6 +10,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -22,38 +23,32 @@ public class PhotoViewFilter extends CookieFilter {
 
     @Autowired
     private AccessTokenRepository accessTokenRepository;
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
 
         System.out.println("Filtering PhotoView Request");
 
-
         // 1. Verification Step: Check if Enduser Cookie is present
-
         Cookie userCookie;
         try {
             userCookie = getCookie(servletRequest, "EnduserCookie");
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-
 
         // 2. Verification Step: Check if Enduser Cookie is valid
         String token_id;
-        try{
+        try {
             token_id = AESEncrypter.getInstance().decrypt(userCookie.getValue());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
-        if(!verifyEnduser(token_id)){
+        if (!verifyEnduser(token_id)) {
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
@@ -69,7 +64,7 @@ public class PhotoViewFilter extends CookieFilter {
         return null;
     }
 
-    private boolean verifyEnduser(String token_id){
+    private boolean verifyEnduser(String token_id) {
         return accessTokenRepository.findById(token_id).isPresent();
     }
 
