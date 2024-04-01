@@ -36,6 +36,7 @@ public class AuthenticationController {
         if(accessToken.isPresent()){
             try {
                 Cookie cookie = new Cookie("EnduserCookie", AESEncrypter.getInstance().encrypt(token_id));
+
                 cookie.setPath("/");
                 cookie.setAttribute("SameSite", "None");
 
