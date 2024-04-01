@@ -39,6 +39,8 @@ public class AuthenticationController {
                 cookie.setPath("/");
                 cookie.setAttribute("SameSite", "None");
 
+                cookie.setSecure(true);
+
                 response.addCookie(cookie);
                 return ResponseEntity.ok("Success");
             }
@@ -61,6 +63,8 @@ public class AuthenticationController {
             Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");
             cookie.setPath("/");
             cookie.setAttribute("SameSite", "None");
+
+            cookie.setSecure(true);
 
             response.addCookie(cookie);
             return ResponseEntity.ok("Success");
