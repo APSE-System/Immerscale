@@ -5,10 +5,12 @@
 
 
     onMounted(() => {
-  const currentUrl = window.location.href;
-  console.log("get request: ")
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
 
-  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + 'UMOLSN9QDnFFbjHh', {credentials: "include"})
+  console.log("get request: " + token)
+
+  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + token, {credentials: "include"})
   .then((response) => {
     console.log(response)
     if (response.ok) {
