@@ -17,6 +17,7 @@ public abstract class CookieFilter extends RequestFilter {
     protected abstract Log getLogger();
 
     public Cookie getCookie(ServletRequest servletRequest, String cookieName) throws NullPointerException{
+        // TODO cookies = null
         Cookie[] cookies = ((jakarta.servlet.http.HttpServletRequest) servletRequest).getCookies();
         if (cookies == null) {
             throw new NullPointerException("No Cookies found");

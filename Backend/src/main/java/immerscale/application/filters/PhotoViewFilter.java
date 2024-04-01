@@ -37,6 +37,8 @@ public class PhotoViewFilter extends CookieFilter {
             return;
         }
 
+        System.out.println("made it this far");
+
         // 2. Verification Step: Check if Enduser Cookie is valid
         String token_id;
         try {

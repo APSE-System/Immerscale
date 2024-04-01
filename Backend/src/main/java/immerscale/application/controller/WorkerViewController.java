@@ -106,10 +106,10 @@ public class WorkerViewController {
 
     }
 
-    @PostMapping("/token")
-    public ResponseEntity<AccessToken> createAccessToken(@RequestParam(name = "name") String name, @RequestParam(name = "id") Integer projectId){
+    // @PostMapping("/token")
+    // public ResponseEntity<AccessToken> createAccessToken(@RequestParam(name = "name") String name, @RequestParam(name = "id") Integer projectId){
         //temporary test code
-        return new ResponseEntity<AccessToken>(HttpStatus.OK);
-    }
+    //    return new ResponseEntity<AccessToken>(HttpStatus.OK);
+    //}
 
 }
