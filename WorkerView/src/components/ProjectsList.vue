@@ -9,8 +9,13 @@ const projects = ref([
 
 // Fetches all the projects from the backend and adds them to the project list.
 function fetchProjects() {
+  
+
+
   projects.value = []
-    fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projects')
+    fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projects', {
+      credentials: "include"
+    })
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data)

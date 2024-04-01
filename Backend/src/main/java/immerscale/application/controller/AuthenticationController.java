@@ -36,11 +36,8 @@ public class AuthenticationController {
         if(accessToken.isPresent()){
             try {
                 Cookie cookie = new Cookie("EnduserCookie", AESEncrypter.getInstance().encrypt(token_id));
-                cookie.setPath("/photoView");
-
-                // Set another key value pair in the cookie
-                cookie.setSecure(true);
-                cookie.setHttpOnly(true);
+                cookie.setPath("/");
+                cookie.setAttribute("SameSite", "None");
 
                 response.addCookie(cookie);
                 return ResponseEntity.ok("Success");
@@ -62,10 +59,8 @@ public class AuthenticationController {
 
          if(true){
             Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");
-            cookie.setPath("/workerView");
-
-            cookie.setSecure(true);
-            cookie.setHttpOnly(true);
+            cookie.setPath("/");
+            cookie.setAttribute("SameSite", "None");
 
             response.addCookie(cookie);
             return ResponseEntity.ok("Success");

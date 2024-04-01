@@ -9,7 +9,7 @@ var images = ref([])
 
 // When the component is mounted the images which refer to this component should be fetched from the backend.
 onMounted(() => {
-  fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/images?id=' + route.params.id)
+  fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/images?id=' + route.params.id, {credentials: "include"})
     .then((resp) => resp.json())
     .then((data) => {
       console.log(data)
