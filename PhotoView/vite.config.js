@@ -4,6 +4,13 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {https: true},
+  server: {
+    https: true,
+    watch: {
+      usePolling: true,
+      interval: 100, // Check files every 100ms
+    },
+  },
+
   plugins: [vue(), basicSsl()],
 })
