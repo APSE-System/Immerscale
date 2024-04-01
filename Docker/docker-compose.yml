@@ -30,3 +30,10 @@ services:
       - ../WorkerView/src:/app/src
     ports:
       - 8889:8888
+
+  backend:
+    build:
+      context: ../Backend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
