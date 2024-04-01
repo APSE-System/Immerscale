@@ -12,6 +12,8 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
         registry.addMapping("/**").allowedMethods("*");
+        // tried:
+        //registry.addMapping("/**").allowedOrigins("https://localhost:5173/").allowCredentials(true);
     }
 
 }

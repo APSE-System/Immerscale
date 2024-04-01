@@ -22,6 +22,28 @@ const constraints = ref({
 let HEIGHT;
 let WIDTH;
 
+// get cookie from backend
+onMounted(() => {
+  const currentUrl = window.location.href;
+  console.log("get request: ")
+
+  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + 'sooos')
+  .then((response) => {
+    console.log(response)
+    if (response.ok) {
+      // Handle success response
+      console.log("Success");
+    } else {
+      // Handle error response
+      console.log("Unauthorized");
+    }
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
+});
+
 // The onMounted lifecycle hook is used to run an async function when the component is mounted.
 // Inside this function, it checks if both the video and canvas elements are available.
 // If they are, it gets the 2D rendering context of the canvas element.

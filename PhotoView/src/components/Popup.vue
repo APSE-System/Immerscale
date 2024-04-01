@@ -38,6 +38,7 @@ async function sendPicture() {
 
   // // get the base64 part of the image and remove the prefix "data:image/jpeg;base64," with split
   // the try catch is there just in the case some 'funny' things happen
+  console.log("post request: ")
   try {
     var imageAsBase64 = image.attributes.src.value.split(",")[1];
   } catch (error) {
@@ -45,29 +46,52 @@ async function sendPicture() {
     return;
   }
 
-  // for debuging
-  // TODO comment the console.log
-  console.log(imageAsBase64);
 
   // this is is actually sending the picture using the axios library
-  try {
-    const response = await axios.post(
-      backendUrl,
-      {
-        photo: imageAsBase64,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  // try {
+  //   const response = await axios.post(
+  //     backendUrl,
+  //     {
+  //       photo: imageAsBase64,
+  //     },
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // "Access-Control-Allow-Origin": "*",//"https://example.com"
+  //         // 'Cookie': `cookName=${cookieValue}`
+  //       },
+  //     }
+  //   );
+    
+  //   // TODO in the future remove this
+  //   console.log("------------------")
+  //   console.log(response.data);
+  // } catch (error) {
+  //   console.log("------------------")
+  //   console.log(error);
+  // }
 
-    // TODO in the future make this not an alert
-    alert(response.data);
-  } catch (error) {
-    alert(error);
-  }
+  // another fetch for testing
+  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ photo: imageAsBase64 }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        // Handle success response
+        alert(response);
+      } else {
+        // Handle error response
+        alert(response);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
 }
 </script>
 
@@ -85,7 +109,6 @@ async function sendPicture() {
       <img id="my-image" src="" alt="" />
     </div>
     <div class="modal-footer">
-      <!-- TODO implement the 'send'-function -->
       <button @click="sendPicture">Absenden</button>
       <button @click="closeModal" data-model-close>Verwerfen</button>
     </div>
