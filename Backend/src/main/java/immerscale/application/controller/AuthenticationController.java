@@ -40,6 +40,7 @@ public class AuthenticationController {
                 cookie.setPath("/");
                 cookie.setAttribute("SameSite", "None");
 
+
                 cookie.setSecure(true);
 
                 response.addCookie(cookie);

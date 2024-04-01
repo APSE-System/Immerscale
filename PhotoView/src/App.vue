@@ -27,6 +27,7 @@
 </script>
 
 <template>
+<h2>bitte</h2>
   <div>
     <Camera/>
     <Popup/>
