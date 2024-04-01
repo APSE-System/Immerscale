@@ -8,7 +8,7 @@
   const currentUrl = window.location.href;
   console.log("get request: ")
 
-  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + '7n2ylY2VkocWEvRG', {credentials: "include"})
+  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + 'UMOLSN9QDnFFbjHh', {credentials: "include"})
   .then((response) => {
     console.log(response)
     if (response.ok) {

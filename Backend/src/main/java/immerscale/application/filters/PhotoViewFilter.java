@@ -24,7 +24,6 @@ public class PhotoViewFilter extends CookieFilter {
     @Autowired
     private AccessTokenRepository accessTokenRepository;
     @Override
-    @Order(1)
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
 
         System.out.println("Filtering PhotoView Request");

@@ -15,7 +15,6 @@ import java.net.http.HttpHeaders;
 public class CorsFilter extends OncePerRequestFilter {
 
     @Override
-    @Order(0)
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         System.out.println();
