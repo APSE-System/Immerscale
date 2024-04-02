@@ -29,7 +29,7 @@
 </script>
 
 <template>
-<h2>bitte</h2>
+<h2>PhotoView</h2>
   <div>
     <Camera/>
     <Popup/>

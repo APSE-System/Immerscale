@@ -21,7 +21,8 @@ onMounted(() => {
     "http://" +
       import.meta.env.VITE_BACKEND_IP +
       "/workerView/image?id=" +
-      route.params.id + "&index=" + route.params.index
+      route.params.id + "&index=" + route.params.index,
+      {credentials: "include"}
   )
     .then((resp) => resp.json())
     .then((data) => {
