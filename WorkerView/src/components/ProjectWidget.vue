@@ -15,13 +15,12 @@ const props = defineProps({
 //call this when the user clicks a project to view its details
 function clickedProject() {
   // Redirects to the Project page listing the according images.
-  router.push('/project/'+ props.id)
+  router.push('/project/'+ props.id +'/images')
 }
 </script>
 
 
 <template>
-  <!-- TODO: Fix this more elegantly. Empty Div workaround to show project Items -->
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side colored depending on whether the project is active or not -->
@@ -44,8 +43,6 @@ function clickedProject() {
   border: 1px solid #e1e1e1;
   border-radius: 7px;
   transition: transform 0.3s ease;
-  width: 100%;
-  max-width: 100%;
   position: relative;
   display: flex;
   flex-direction: row;

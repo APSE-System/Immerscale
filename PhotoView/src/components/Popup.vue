@@ -50,24 +50,24 @@ async function sendPicture() {
   console.log(imageAsBase64);
 
   // this is is actually sending the picture using the axios library
-  try {
-    const response = await axios.post(
-      backendUrl,
-      {
-        photo: imageAsBase64,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo", {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ photo: imageAsBase64 }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        // Handle success response
+        alert(response);
+      } else {
+        // Handle error response
+        alert(response);
       }
-    );
-
-    // TODO in the future make this not an alert
-    alert(response.data);
-  } catch (error) {
-    alert(error);
-  }
+    })
+    
 }
 </script>
 
