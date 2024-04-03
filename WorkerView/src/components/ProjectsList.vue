@@ -35,7 +35,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Projects</h1>
+  <h1 class="headline">Projects</h1>
   <div class="ProjectButton">
     <AddNewProject @fetchProjects="fetchProjects"/>
   </div>
@@ -52,4 +52,12 @@ onMounted(() => {
   align-items: center;
   gap: 0.5rem;
 }
+/* .headline {
+  text-align: left;
+  text-shadow:
+    2px 2px 0 #000,
+    -2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000;
+} */
 </style>./components/ProjectWidget.vue

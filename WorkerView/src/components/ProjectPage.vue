@@ -8,7 +8,7 @@ const route = useRoute();
 </script>
 
 <template>
-  <h2>Project {{ $route.params.id }}</h2>
+  <h2 class="headline">Project {{ $route.params.id }}</h2>
   <div class="flex justify-content-left">
     <Button @click="router.push('/')" label="← Projects" id="back-button" />
     <!-- <Button @click="toggleSidebar" label="≡"/> --> <!-- TODO implement burger button if screen size is to small, which opens the sidebar-->
@@ -46,5 +46,13 @@ const route = useRoute();
     flex-direction: column;
     justify-content: space-between;
     height: 80px;
+  } */
+  /* .headline {
+    text-align: left;
+    text-shadow:
+    1px 1px 0 #000,
+    -1px 1px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000;
   } */
 </style>
