@@ -32,8 +32,13 @@ const route = useRoute();
     top: 5px;
     z-index: 2;
     background-color: transparent;
+    color: black;
   }
-
+  @media (prefers-color-scheme: dark) {
+    #back-button{
+      color: white;
+    }
+  }
   #back-button:hover {
     color: rgb(35, 115, 210);
   }

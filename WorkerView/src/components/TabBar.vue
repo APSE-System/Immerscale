@@ -61,19 +61,30 @@
 }
 /* TODO make it flex with burger menu (maybe with primevue sidebar?)*/
 .sidebar-box {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   height: 100vh;
   width: 230px;
-  background-color: #23282e;
+  background-color: white;
   z-index: 1;
 }
-
+/* TODO make the sidebar-box span over the whole screen height */
+@media (prefers-color-scheme: dark) {
+    .sidebar-box{
+        /* background-color: #23282e; */
+        background-color: transparent;
+    }
+  }
 .p-button{
-    color: white;
+    color: black;
     background-color: transparent;
 }
+@media (prefers-color-scheme: dark) {
+    .p-button{
+      color: white;
+    }
+  }
 
 .p-button:hover{
     color: rgb(35, 115, 210);
