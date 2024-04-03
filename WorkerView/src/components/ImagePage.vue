@@ -1,7 +1,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+import Button from "primevue/button";
 
+const router = useRouter();
 const route = useRoute();
 var image = ref([]);
 var zoom_inner = ref(null);
@@ -115,6 +117,14 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="flex justify-content-left">
+    <Button
+      @click="router.push('/project/' + route.params.id + '/images')"
+      label="← Images"
+      id="back-button"
+    />
+  </div>
+
   <div id="zoom-outer">
     <div ref="zoom_inner" class="zoom" id="zoom">
         <img id="our-image" :src="image" alt="image" />
@@ -141,5 +151,9 @@ onMounted(() => {
 #our-image {
   width: 100%;
   height: auto;
+}
+#back-button {
+  position: absolute;
+  top: 5px;
 }
 </style>
