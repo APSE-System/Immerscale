@@ -28,9 +28,14 @@ const route = useRoute();
   }
 
   #back-button {
-    position: absolute;
+    position: fixed;
     top: 5px;
     z-index: 2;
+    background-color: transparent;
+  }
+
+  #back-button:hover {
+    color: rgb(35, 115, 210);
   }
 
   /* could be used later to contain the back button and burger menu */

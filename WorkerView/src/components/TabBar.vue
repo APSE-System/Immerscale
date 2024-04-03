@@ -49,7 +49,7 @@
     position: fixed;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #37404c;
+    /* background-color: #37404c; */
     border-radius: 10px;
     padding: 10px;
     height: 150px;
@@ -68,5 +68,14 @@
   width: 230px;
   background-color: #23282e;
   z-index: 1;
+}
+
+.p-button{
+    color: white;
+    background-color: transparent;
+}
+
+.p-button:hover{
+    color: rgb(35, 115, 210);
 }
 </style>
