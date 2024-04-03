@@ -1,6 +1,7 @@
 <script setup>
     import { onMounted, ref } from "vue";
     import Button from 'primevue/button';
+    // import Sidebar from 'primevue/sidebar';
     import { useRouter, useRoute } from 'vue-router'
 
     // get the router for routing to the project sub pages
@@ -30,10 +31,12 @@
 
 
 <template>
-    <div class="sidebar card flex justify-content-left">
-        <Button label="Bilder" @click="router.push('images'); primary = 1;" :class="['p-button-' + ((primary === 1) ? 'primary' : 'secondary')]"/>
-        <Button label="Zugriffe" @click="router.push('access'); primary = 2;" :class="['p-button-' + ((primary === 2) ? 'primary' : 'secondary')]"/>
-        <Button label="Projekteinstellungen" @click="router.push('settings'); primary = 3;" :class="['p-button-' + ((primary === 3) ? 'primary' : 'secondary')]"/>
+    <div class="sidebar-box">
+        <div class="sidebar card flex justify-content-left">
+            <Button label="Bilder" @click="router.push('images'); primary = 1;" :class="['p-button-' + ((primary === 1) ? 'primary' : 'secondary')]"/>
+            <Button label="Zugriffe" @click="router.push('access'); primary = 2;" :class="['p-button-' + ((primary === 2) ? 'primary' : 'secondary')]"/>
+            <Button label="Projekteinstellungen" @click="router.push('settings'); primary = 3;" :class="['p-button-' + ((primary === 3) ? 'primary' : 'secondary')]"/>
+        </div>
     </div>
 </template>
 
@@ -43,11 +46,27 @@
 }
 
 .sidebar{
+    position: fixed;
     flex-direction: column;
     justify-content: space-between;
     background-color: #37404c;
     border-radius: 10px;
     padding: 10px;
     height: 150px;
+    z-index: 1; 
+    top: 50%;
+    transform: translateY(-50%);
+    left : 10px;
+    width: 200px;
+}
+/* TODO make it flex with burger menu (maybe with primevue sidebar?)*/
+.sidebar-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 230px;
+  background-color: #23282e;
+  z-index: 1;
 }
 </style>
