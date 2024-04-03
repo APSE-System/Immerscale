@@ -28,7 +28,7 @@ function addProject(projectName) {
 <template>
     <div class="card flex justify-content-center">
         <!--<Button class="pi pi-plus" @click="visible = true"></Button>-->
-        <i class="pi pi-plus" @click="visible = true" v-tooltip="{ value: 'Create new Project', showDelay: 400, hideDelay: 200  }"></i>
+        <Button class="addBtn" icon="pi pi-plus" outlined rounded @click="visible = true" v-tooltip="{ value: 'Create new Project', showDelay: 400, hideDelay: 200  }"></Button>
 
         <!-- Dialog for adding new project, will only show once "Create New Project Button" is pressed -->
         <Dialog v-model:visible="visible" modal header="New Project" :style="{ width: '25rem' }">
@@ -68,10 +68,12 @@ function addProject(projectName) {
     gap: 5px;
 }
 
-.pi-plus{
-    font-size: 2rem;
-}
-.pi-plus:hover{
+
+.addBtn:hover{
     transform: scale(1.1);
+}
+.addBtn{
+    border-radius:28px!important;
+    border: 1px solid #697dff;
 }
 </style>

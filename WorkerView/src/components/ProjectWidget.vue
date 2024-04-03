@@ -24,7 +24,7 @@ function clickedProject() {
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side TODO: make it possible to load an image here if no files are loaded in the project-->
-    <div class="pi pi-images" style="color: grey" ></div>  
+    <div class="pi pi-images" style="color: lightgray" ></div>  
     <!-- Values taken from properties -->
     <div class="ItemInfos">
       <p>Project Name: {{ name }}</p>
