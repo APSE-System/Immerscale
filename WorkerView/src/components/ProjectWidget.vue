@@ -51,7 +51,7 @@ onMounted(() => {
     </div>
     <!-- Values taken from properties -->
     <div class="ItemInfos">
-      <p>Project Name: {{ name }}</p>
+      <p >Project Name: <b> {{ name }}</b></p>
       <!--<p>Project id: {{ id }}</p>-->
       <p>Customer Name: Max MusterMann</p>
     </div>
@@ -70,6 +70,7 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   gap: 8rem;
   width: 37%;
 }
