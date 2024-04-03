@@ -51,9 +51,8 @@ onMounted(() => {
     </div>
     <!-- Values taken from properties -->
     <div class="ItemInfos">
-      <p >Project Name: <b> {{ name }}</b></p>
-      <!--<p>Project id: {{ id }}</p>-->
-      <p>Customer Name: Max MusterMann</p>
+      <b> {{ name }}</b>
+      <p>Max MusterMann</p>
     </div>
   </div>
 </template>
@@ -73,6 +72,7 @@ onMounted(() => {
   align-items: center;
   gap: 8rem;
   width: 37%;
+  color: black;
 }
 
 .ProjectItem:hover {

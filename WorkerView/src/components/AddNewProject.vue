@@ -27,7 +27,6 @@ function addProject(projectName) {
 
 <template>
     <div class="card flex justify-content-center">
-        <!--<Button class="pi pi-plus" @click="visible = true"></Button>-->
         <Button class="addBtn" icon="pi pi-plus" outlined rounded @click="visible = true" v-tooltip="{ value: 'Create new Project', showDelay: 400, hideDelay: 200  }"></Button>
 
         <!-- Dialog for adding new project, will only show once "Create New Project Button" is pressed -->
