@@ -1,6 +1,7 @@
 <script setup>
 import 'primeicons/primeicons.css'
 import { useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
 
 // get the router for routing to the project pages
 const router = useRouter()
@@ -17,6 +18,24 @@ function clickedProject() {
   // Redirects to the Project page listing the according images.
   router.push('/project/'+ props.id +'/images')
 }
+
+var images = ref([])
+
+onMounted(() => {
+  fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/images?id=' + props.id, {credentials: "include"})
+    .then((resp) => resp.json())
+    .then((data) => {
+      console.log(data)
+      // extract the base64 images from the response and store them as dataURLs
+      for (var key in data){
+        images.value.push("data:image/png;base64," + data[key].image)
+      }
+      console.log(images.value)
+    })
+    .catch(function(){
+      alert("Backend ist nicht errreichbar")
+    })
+})
 </script>
 
 
@@ -24,7 +43,12 @@ function clickedProject() {
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side TODO: make it possible to load an image here if no files are loaded in the project-->
-    <div class="pi pi-images" style="color: lightgray" ></div>  
+    <div v-if="images.length>0">
+      <img :src="images[0]" alt="Image 1">
+    </div>
+    <div v-if="images.length==0">
+      <div class="pi pi-images" style="color: darkgray" ></div>
+    </div>
     <!-- Values taken from properties -->
     <div class="ItemInfos">
       <p>Project Name: {{ name }}</p>
@@ -37,7 +61,7 @@ function clickedProject() {
 
 <style scoped>
 .ProjectItem {
-  background-color: #6c80ff;
+  background-color: #d2d4dd;
   padding: 0.5rem;
   border: 1px solid #e1e1e1;
   border-radius: 10px;
@@ -47,7 +71,7 @@ function clickedProject() {
   flex-direction: row;
   justify-content: center;
   gap: 8rem;
-  width: 38%;
+  width: 37%;
 }
 
 .ProjectItem:hover {
@@ -60,9 +84,16 @@ function clickedProject() {
   justify-content: left;
   text-align: left;
   gap: 0rem;
+  padding-top: 0px;
 }
 
 .pi-images{
   font-size: 6rem;
+}
+img {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 15%;
 }
 </style>
