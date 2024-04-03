@@ -5,7 +5,7 @@ import Button from "primevue/button";
 
 const router = useRouter();
 const route = useRoute();
-var image = ref([]);
+const image = ref([]);
 var zoom_inner = ref(null);
 
 let pos = { x: 0, y: 0 };
@@ -30,12 +30,30 @@ onMounted(() => {
     .then((data) => {
       // extract the base64 images from the response and store them as dataURLs
       image.value = "data:image/png;base64," + data.image;
-    
+
+      drawImage();
     })
     .catch(function () {
       alert("Backend ist nicht errreichbar");
     });
 });
+
+// this will draw the image into the canvas
+function drawImage() {
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  var img = new Image();
+  img.src = image.value;
+
+  img.onload = function () {
+    // Adjust canvas size to image size
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    ctx.drawImage(img, 0, 0);
+  };
+}
 
 // original code from: https://blog.stackfindover.com/zoom-image-point-with-mouse-wheel
 // mixed with: https://stackoverflow.com/questions/60190965/zoom-scale-at-mouse-position
@@ -127,28 +145,31 @@ onMounted(() => {
 
   <div id="zoom-outer">
     <div ref="zoom_inner" class="zoom" id="zoom">
-        <img id="our-image" :src="image" alt="image" />
+      <canvas ref="canvas" id="canvas"></canvas>
     </div>
   </div>
 </template>
 
 <style scoped>
 #zoom-outer {
-  width: 60%;
-  height: 60%;
+  width: 40%;
+  height: auto;
   background: #3a3838;
   overflow: hidden;
-  cursor: grab;
   margin: auto;
 }
 #zoom {
   width: 100%;
-  height: 100%;
+  height: auto;
   transform-origin: 0 0;
   transform: scale(1) translate(0px, 0px);
-  cursor: grab;
+  /* margin: auto; */
 }
 #our-image {
+  width: 100%;
+  height: auto;
+}
+#canvas {
   width: 100%;
   height: auto;
 }
