@@ -27,7 +27,7 @@ function clickedProject() {
     <div class="pi pi-images" style="color: grey" ></div>  
     <!-- Values taken from properties -->
     <div class="ItemInfos">
-      <p>{{ name }}</p>
+      <p>Project Name: {{ name }}</p>
       <!--<p>Project id: {{ id }}</p>-->
       <p>Customer Name: Max MusterMann</p>
     </div>
@@ -37,7 +37,7 @@ function clickedProject() {
 
 <style scoped>
 .ProjectItem {
-  background-color: #445dff;
+  background-color: #6c80ff;
   padding: 0.5rem;
   border: 1px solid #e1e1e1;
   border-radius: 10px;
@@ -45,9 +45,9 @@ function clickedProject() {
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-  width: 35%;
+  justify-content: center;
+  gap: 8rem;
+  width: 38%;
 }
 
 .ProjectItem:hover {
@@ -55,7 +55,10 @@ function clickedProject() {
 }
 
 .ItemInfos {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
   gap: 0rem;
 }
 
