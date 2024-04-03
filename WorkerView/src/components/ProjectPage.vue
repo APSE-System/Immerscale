@@ -8,7 +8,7 @@ const route = useRoute();
 </script>
 
 <template>
-  <h2>Project {{ $route.params.id }}</h2>
+  <h2 class="headline">Project {{ $route.params.id }}</h2>
   <div class="flex justify-content-left">
     <Button @click="router.push('/')" label="← Projects" id="back-button" />
   </div>
@@ -29,5 +29,12 @@ const route = useRoute();
   #back-button {
     position: absolute;
     top: 5px;
+  }
+  .headline {
+    text-shadow:
+    1px 1px 0 #000,
+    -1px 1px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000;
   }
 </style>
