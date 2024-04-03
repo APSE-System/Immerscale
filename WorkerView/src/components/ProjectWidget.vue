@@ -23,14 +23,13 @@ function clickedProject() {
 <template>
   <div></div>
   <div class="ProjectItem" @click="clickedProject">
-    <!-- Icon on the left side colored depending on whether the project is active or not -->
-    <div class="pi pi-building"  v-if="active" style="color: lightgreen" ></div>
-    <div class="pi pi-building"  v-if="!active" style="color: darkgrey" ></div>  
+    <!-- Icon on the left side TODO: make it possible to load an image here if no files are loaded in the project-->
+    <div class="pi pi-images" style="color: grey" ></div>  
     <!-- Values taken from properties -->
     <div class="ItemInfos">
       <p>{{ name }}</p>
-      <p>Project id: {{ id }}</p>
-      <p>Activity status: {{ active }}</p>
+      <!--<p>Project id: {{ id }}</p>-->
+      <p>Customer Name: Max MusterMann</p>
     </div>
   </div>
 </template>
@@ -38,16 +37,17 @@ function clickedProject() {
 
 <style scoped>
 .ProjectItem {
-  background-color: #697dff;
+  background-color: #445dff;
   padding: 0.5rem;
   border: 1px solid #e1e1e1;
-  border-radius: 7px;
+  border-radius: 10px;
   transition: transform 0.3s ease;
   position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 15px;
+  gap: 20px;
+  width: 35%;
 }
 
 .ProjectItem:hover {
@@ -59,7 +59,7 @@ function clickedProject() {
   gap: 0rem;
 }
 
-.pi-building{
-  font-size: 8rem;
+.pi-images{
+  font-size: 6rem;
 }
 </style>
