@@ -2,6 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import Button from "primevue/button";
+import ToolLists from "./ToolLists.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -117,22 +118,36 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-content-left">
-    <Button
-      @click="router.push('/project/' + route.params.id + '/images')"
-      label="← Images"
-      id="back-button"
-    />
-  </div>
+  <div class="editor">
+    <div class="flex justify-content-left left-bar">
+      <Button
+        @click="router.push('/project/' + route.params.id + '/images')"
+        label="← Images"
+        id="back-button"
+      />
+      <ToolLists/>
+    </div>
 
-  <div id="zoom-outer">
-    <div ref="zoom_inner" class="zoom" id="zoom">
-        <img id="our-image" :src="image" alt="image" />
+    <div id="zoom-outer">
+      <div ref="zoom_inner" class="zoom" id="zoom">
+          <img id="our-image" :src="image" alt="image" />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.editor{
+  display: flex;
+}
+
+.left-bar{
+  position: absolute;
+  left: 2%;
+  width: 15%;
+}
+
+
 #zoom-outer {
   width: 60%;
   height: 60%;
