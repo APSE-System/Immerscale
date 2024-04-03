@@ -34,12 +34,13 @@ onMounted( () => {
 </template>
 
 <style scoped>
-  #headline {
+  /* #headline {
+    text-align: left;
     color: gray;
     text-shadow:
     3px 3px 0 #000,
     -3px 3px 0 #000,
     -3px -3px 0 #000,
     3px -3px 0 #000;
-  }
+  } */
 </style>

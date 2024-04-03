@@ -52,11 +52,12 @@ onMounted(() => {
   align-items: center;
   gap: 0.5rem;
 }
-.headline {
+/* .headline {
+  text-align: left;
   text-shadow:
     2px 2px 0 #000,
     -2px 2px 0 #000,
     -2px -2px 0 #000,
     2px -2px 0 #000;
-}
+} */
 </style>./components/ProjectWidget.vue
