@@ -165,6 +165,8 @@ function canvasClicked(event) {
 
   console.log("x: " + img.width + " y: " + img.height)
   console.log("x: " + x + " y: " + y)
+
+  model.value.addPoint(x, y, "35FF54")
 }
 
 </script>
@@ -183,8 +185,9 @@ function canvasClicked(event) {
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
+        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" :width="imgWidth" :height="imgHeight"></canvas>
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
-        <canvas ref="canvas" id="canvas" @click="canvasClicked($event)"></canvas>
+        <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
   </div>
@@ -226,6 +229,15 @@ function canvasClicked(event) {
 #canvas {
   width: 100%;
   height: auto;
+}
+
+#clickListenerCanvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 42069;
 }
 
 #back-button {
