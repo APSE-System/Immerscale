@@ -1,3 +1,3 @@
 class MeasurementResult extends Command{
-    
+
 }

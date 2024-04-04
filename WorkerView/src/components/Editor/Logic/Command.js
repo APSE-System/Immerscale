@@ -23,20 +23,20 @@ class Command{
     }
 
 
-    get previous() {
+    getPrevious() {
         return this._previous;
     }
 
-    set previous(previous) {
+    setPrevious(previous) {
         this._previous = previous;
     }
 
 
-    get next() {
+    getNext() {
         return this._next;
     }
 
-    set next(next) {
+    setNext(next) {
         this._next = next;
     }
 }

@@ -1,3 +1,5 @@
+import model from "../Model.js";
+
 class AddPointCommand extends Command{
 
     _x;
@@ -13,13 +15,21 @@ class AddPointCommand extends Command{
     execute() {
         super.execute();
 
-        // Vue should be accessed here and a point should be added to the image
+        this._model.addPoint(this._x, this._y, "#00ff00");
     }
 
     unExecute() {
         super.unExecute();
 
-        // Vue should be accessed here and the point in the image should be removed.
+        this._model.removePoint(this._x, this._y, "#00ff00");
     }
 
+
+    getX() {
+        return this._x;
+    }
+
+    getY() {
+        return this._y;
+    }
 }
