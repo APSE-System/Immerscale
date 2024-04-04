@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import {onMounted, ref} from "vue";
+import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
 
@@ -9,34 +9,34 @@ const route = useRoute();
 const image = ref([]);
 var zoom_inner = ref(null);
 
-let pos = { x: 0, y: 0 };
-let target = { x: 0, y: 0 };
-let pointer = { x: 0, y: 0 };
+let pos = {x: 0, y: 0};
+let target = {x: 0, y: 0};
+let pointer = {x: 0, y: 0};
 let scale = 1;
 const speed = 0.1;
 // if true you can move around in the canvas
 var dragging = false;
-var start = { x: 0, y: 0 };
+var start = {x: 0, y: 0};
 
 // fetch to get the images of the project
 onMounted(() => {
   fetch(
-    "http://" +
+      "http://" +
       import.meta.env.VITE_BACKEND_IP +
       "/workerView/image?id=" +
       route.params.id + "&index=" + route.params.index,
       {credentials: "include"}
   )
-    .then((resp) => resp.json())
-    .then((data) => {
-      // extract the base64 images from the response and store them as dataURLs
-      image.value = "data:image/png;base64," + data.image;
+      .then((resp) => resp.json())
+      .then((data) => {
+        // extract the base64 images from the response and store them as dataURLs
+        image.value = "data:image/png;base64," + data.image;
 
-      drawImage();
-    })
-    .catch(function () {
-      alert("Backend ist nicht errreichbar");
-    });
+        drawImage();
+      })
+      .catch(function () {
+        alert("Backend ist nicht errreichbar");
+      });
 });
 
 // this will draw the image into the canvas
@@ -62,7 +62,7 @@ function drawImage() {
 // transforms the image
 function setTransform() {
   zoom_inner.style.transform =
-    "translate(" + pos.x + "px, " + pos.y + "px) scale(" + scale + ")";
+      "translate(" + pos.x + "px, " + pos.y + "px) scale(" + scale + ")";
   // zoom_inner.style.transform = `translate(${pos.x}px,${pos.y}px) scale(${scale},${scale})`;
 }
 
@@ -79,7 +79,7 @@ onMounted(() => {
     // check if the mouse wheel button is pressed
     if (e.button == 1) {
       e.preventDefault();
-      start = { x: e.clientX - pos.x, y: e.clientY - pos.y };
+      start = {x: e.clientX - pos.x, y: e.clientY - pos.y};
       dragging = true;
     }
   }
@@ -114,23 +114,23 @@ onMounted(() => {
 
   // zoom into the picture
   zoom_outer.addEventListener(
-    "wheel",
-    (event) => {
-      event.preventDefault();
+      "wheel",
+      (event) => {
+        event.preventDefault();
 
-      pointer.x = event.pageX - zoom_outer.offsetLeft;
-      pointer.y = event.pageY - zoom_outer.offsetTop;
-      target.x = (pointer.x - pos.x) / scale;
-      target.y = (pointer.y - pos.y) / scale;
+        pointer.x = event.pageX - zoom_outer.offsetLeft;
+        pointer.y = event.pageY - zoom_outer.offsetTop;
+        target.x = (pointer.x - pos.x) / scale;
+        target.y = (pointer.y - pos.y) / scale;
 
-      scale += -1 * Math.max(-1, Math.min(1, event.deltaY)) * speed * scale;
+        scale += -1 * Math.max(-1, Math.min(1, event.deltaY)) * speed * scale;
 
-      pos.x = -target.x * scale + pointer.x;
-      pos.y = -target.y * scale + pointer.y;
+        pos.x = -target.x * scale + pointer.x;
+        pos.y = -target.y * scale + pointer.y;
 
-      setTransform();
-    },
-    { passive: false }
+        setTransform();
+      },
+      {passive: false}
   );
 });
 </script>
@@ -139,27 +139,28 @@ onMounted(() => {
   <div class="editor">
     <div class="flex justify-content-left left-bar">
       <Button
-        @click="router.push('/project/' + route.params.id + '/images')"
-        label="← Images"
-        id="back-button"
+          @click="router.push('/project/' + route.params.id + '/images')"
+          label="← Images"
+          id="back-button"
       />
       <ToolLists/>
     </div>
 
 
-  <div id="zoom-outer">
-    <div ref="zoom_inner" class="zoom" id="zoom">
-      <canvas ref="canvas" id="canvas"></canvas>
+    <div id="zoom-outer">
+      <div ref="zoom_inner" class="zoom" id="zoom">
+        <canvas ref="canvas" id="canvas"></canvas>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.editor{
+.editor {
   display: flex;
 }
 
-.left-bar{
+.left-bar {
   position: absolute;
   left: 2%;
   width: 15%;
@@ -173,6 +174,7 @@ onMounted(() => {
   overflow: hidden;
   margin: auto;
 }
+
 #zoom {
   width: 100%;
   height: auto;
@@ -180,14 +182,17 @@ onMounted(() => {
   transform: scale(1) translate(0px, 0px);
   /* margin: auto; */
 }
+
 #our-image {
   width: 100%;
   height: auto;
 }
+
 #canvas {
   width: 100%;
   height: auto;
 }
+
 #back-button {
   position: absolute;
   top: 5px;

@@ -10,16 +10,33 @@ class Command{
     }
 
 
-    execute();
+    execute(){
+        this._creator.updateExecute(this);
+    }
 
-    unExecute();
+    unExecute(){
+        this._creator.updateUnExecute(this);
+    }
 
     setNext(next){
         this._next = next;
     }
 
 
+    get previous() {
+        return this._previous;
+    }
+
     set previous(previous) {
         this._previous = previous;
+    }
+
+
+    get next() {
+        return this._next;
+    }
+
+    set next(next) {
+        this._next = next;
     }
 }
