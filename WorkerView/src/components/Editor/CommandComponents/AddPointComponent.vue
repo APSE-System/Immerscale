@@ -14,7 +14,6 @@ const props = defineProps({
   height: Number
 });
 
-const canvases = ref([]);
 
 function drawPoint(canvas, point) {
   const ctx = canvas.getContext('2d');
@@ -25,24 +24,11 @@ function drawPoint(canvas, point) {
   ctx.beginPath();
   ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI); // Draw a circle to represent the point
   ctx.fill();
-
-  canvas.addEventListener('resize', (event) => {
-
-    const ctx = canvas.getContext('2d');
-    // Assuming CanvasPoint has x, y properties
-    // set ctx color from hex
-    ctx.clear()
-    console.log(point.color)
-    ctx.fillStyle = "#" + point.color;
-    ctx.beginPath();
-    ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI); // Draw a circle to represent the point
-    ctx.fill();
-    console.log("soos")
-  })
 }
 
 function setCanvasRef(canvas, index){
-  canvases.value[index] = canvas;
+  if(canvas === null)
+    return
   drawPoint(canvas, props.canvasPoints[index]);
 }
 

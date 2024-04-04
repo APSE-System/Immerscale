@@ -14,6 +14,10 @@ class Controller{
         this._currentTool.onClick(x, y)
     }
 
+    undo(){
+        this._model.undo()
+    }
+
 }
 
 export default Controller;

@@ -30,6 +30,10 @@ let imgHeight = ref(0)
 
 // fetch to get the images of the project
 onMounted(() => {
+
+  document.addEventListener('keydown', canvasBack);
+
+
   fetch(
       "http://" +
       import.meta.env.VITE_BACKEND_IP +
@@ -67,8 +71,6 @@ function drawImage() {
 
     ctx.drawImage(img, 0, 0);
 
-
-    model.value.addPoint(100, 100, "FFFF00")
   };
 }
 
@@ -172,6 +174,15 @@ function canvasClicked(event) {
   controller.onClick(x,y);
 }
 
+function canvasBack(event){
+  console.log("Event fired")
+  if (event.ctrlKey && (event.key === 'z' || event.keyCode === 'Z')) {
+    console.log("Dobbl fired")
+    controller.undo()
+  }
+
+}
+
 </script>
 
 <template>
@@ -188,7 +199,7 @@ function canvasClicked(event) {
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
-        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" :width="imgWidth" :height="imgHeight"></canvas>
+        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)"  :width="imgWidth" :height="imgHeight"></canvas>
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
