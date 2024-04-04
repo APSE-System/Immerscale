@@ -1,8 +1,8 @@
 class Command{
     _creator;
     _model;
-    _previous;
-    _next;
+    _previous = null;
+    _next = null;
 
     constructor(creator, model) {
         this._creator = creator;
