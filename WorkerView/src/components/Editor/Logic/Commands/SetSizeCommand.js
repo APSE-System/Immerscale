@@ -11,14 +11,13 @@ class SetSizeCommand extends Command{
     execute() {
         super.execute();
 
-
+        this._model.addSize();
     }
 
     unExecute() {
         super.unExecute();
 
-
-
+        this._model.removeSize();
     }
 
 

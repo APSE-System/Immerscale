@@ -1,3 +1,3 @@
-class ReferenceResult extends Command{
+class MeasurementResult extends Command{
 
 }
