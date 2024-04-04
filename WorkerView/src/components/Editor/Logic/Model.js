@@ -68,5 +68,8 @@ class Model {
             this.currentCommand = this.currentCommand.getPrevious();
         }
     }
+
+    export(){}
+    import(){}
 }
 export default Model;
