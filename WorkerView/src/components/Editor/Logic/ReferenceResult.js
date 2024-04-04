@@ -1,3 +1,0 @@
-class ReferenceResult extends Command{
-
-}
