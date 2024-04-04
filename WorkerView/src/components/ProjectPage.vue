@@ -1,14 +1,17 @@
 <script setup>
-import { useRoute } from 'vue-router'
-import TabBar from './TabBar.vue';
+import { useRouter, useRoute } from "vue-router";
+import TabBar from "./TabBar.vue";
+import Button from "primevue/button";
 
-const route = useRoute()
-
+const router = useRouter();
+const route = useRoute();
 </script>
-
 
 <template>
   <h2>Project {{ $route.params.id }}</h2>
+  <div class="flex justify-content-left">
+    <Button @click="router.push('/')" label="← Projects" id="back-button" />
+  </div>
   <div class="projectPage">
     <!-- shows the tab bar and then the selected tab using nested routes -->
     <TabBar/>
@@ -23,4 +26,8 @@ const route = useRoute()
     justify-content: left;
   }
 
+  #back-button {
+    position: absolute;
+    top: 5px;
+  }
 </style>
