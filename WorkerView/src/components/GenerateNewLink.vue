@@ -29,7 +29,7 @@ function generateLink(linkName) {
 
 <template>
     <div class="card flex justify-content-center">
-        <Button label="Generate New Link" @click="visible = true"></Button>
+        <Button class="addBtn" icon="pi pi-plus" outlined rounded @click="visible = true" v-tooltip="{ value: 'Generate new Link', showDelay: 400, hideDelay: 200  }"></Button>
 
         <!-- Dialog for generating a new link, will only show once "Generate new Link" Button is pressed -->
         <Dialog v-model:visible="visible" modal header="Generate Link" :style="{ width: '25rem' }">
@@ -67,5 +67,13 @@ function generateLink(linkName) {
     flex-direction: row;
     justify-content: space-between;
     gap: 5px;
+}
+
+.addBtn:hover{
+    transform: scale(1.1);
+}
+.addBtn{
+    border-radius:28px!important;
+    border: 1px solid #697dff;
 }
 </style>
