@@ -41,7 +41,7 @@ onMounted(() => {
   </div>
   <Divider />
   <div class="ProjectList">
-    <ProjectWidget v-for="project in projects" :id="project.project_id" :name="project.name", :active="true"/>
+    <ProjectWidget v-for="project in projects" :id="project.project_id" :name="project.name"/>
   </div>
 </template>
 
