@@ -1,12 +1,25 @@
 class Command{
-    creator;
+    _creator;
+    _model;
+    _previous;
+    _next;
 
-    execute(){
-
+    constructor(creator, model) {
+        this._creator = creator;
+        this._model = model;
     }
 
-    unExecute(){
 
+    execute();
+
+    unExecute();
+
+    setNext(next){
+        this._next = next;
     }
 
+
+    set previous(previous) {
+        this._previous = previous;
+    }
 }

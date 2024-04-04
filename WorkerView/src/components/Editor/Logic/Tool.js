@@ -2,6 +2,12 @@ class Tool {
   _name;
   _icon;
 
+
+  constructor(name, icon) {
+    this._name = name;
+    this._icon = icon;
+  }
+
   select(){
 
   }
@@ -9,5 +15,8 @@ class Tool {
   onFinish(){
       
   }
+
+  updateExecute(command);
+  updateUnExecute(command);
 
 }
