@@ -18,6 +18,10 @@ class Controller{
         this._model.undo()
     }
 
+    redo(){
+        this._model.redo()
+    }
+
 }
 
 export default Controller;

@@ -175,10 +175,11 @@ function canvasClicked(event) {
 }
 
 function canvasBack(event){
-  console.log("Event fired")
   if (event.ctrlKey && (event.key === 'z' || event.keyCode === 'Z')) {
-    console.log("Dobbl fired")
     controller.undo()
+  }
+  else if(event.ctrlKey && (event.key === 'y' || event.key === 'Y')){
+    controller.redo()
   }
 
 }

@@ -49,6 +49,13 @@ class Model {
         }
     }
 
+    redo(){
+        if(this.currentCommand === null || this.currentCommand.getNext() === null)
+            return
+
+        this.do(this.currentCommand.getNext())
+    }
+
     export(){}
     import(){}
 }
