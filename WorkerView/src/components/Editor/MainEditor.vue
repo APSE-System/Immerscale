@@ -136,6 +136,27 @@ onMounted(() => {
       {passive: false}
   );
 });
+
+
+// When the canvas is clicked, the coordinates of the click have to be calculated. 
+// As we are dealing with a zoom here, we must map the screen coordinates to the image coordinates again.
+function canvasClicked(event) {
+  // These coordinates are relative to the canvas size.
+  const rect = event.target.getBoundingClientRect()
+  const x_canv = event.clientX - rect.left
+  const y_canv = event.clientY - rect.top
+
+  var img = new Image();
+  img.src = image.value;
+
+  // By taking the ratio between the relative coordinates and the canvas, we can map them to the image size.
+  const x = (x_canv / rect.width) * img.width;
+  const y = (y_canv / rect.height) * img.height;
+
+  console.log("x: " + img.width + " y: " + img.height)
+  console.log("x: " + x + " y: " + y)
+}
+
 </script>
 
 <template>
@@ -152,7 +173,7 @@ onMounted(() => {
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
-        <canvas ref="canvas" id="canvas"></canvas>
+        <canvas ref="canvas" id="canvas" @click="canvasClicked($event)"></canvas>
       </div>
     </div>
   </div>
