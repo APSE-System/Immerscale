@@ -1,32 +1,34 @@
 import {calculatePerspectiveMatrix} from "../Utils/MathUtils.js";
 import * as MathUtils from "../Utils/MathUtils.js";
+import Tool from "../Tool.js";
+import AddPointCommand from "../Commands/AddPointCommand.js";
+import SetSizeCommand from "../Commands/SetSizeCommand.js";
+import ReferenceResultCommand from "../Commands/ReferenceResultCommand.js";
+import LordImmerScaler from "../LordImmerScaler.js";
 
 class RectangleReferenceTool extends Tool {
-
-    _model;
-
     _first = [];
     _pointCount = 0;
 
     _width = -1;
     _height = -1;
 
-    constructor() {
-        super("Rectangle Reference", "pi-icon");
+    constructor(model) {
+        super(model, "Rectangle Reference", "pi-icon");
     }
 
 
     // It is likely that this will be split up in different methods to handle the according events...
-    onMouseClicked(x, y) {
-        if (this._points.length < 4) {
-            this._model.do(new AddPointCommand(this, model, x, y));
+    onClick(x, y) {
+        if (this._pointCount < 4) {
+            this._model.do(new AddPointCommand(this, this._model, x, y));
         } else if (this._width != -1 && this._height != -1) {
             this._model.do(new ReferenceResultCommand())
         }
     }
 
     onValueEntered(size) {
-        if (this._points.length > 3) {
+        if (this._pointCount > 3) {
             this._model.do(new SetSizeCommand(this, model, size));
         }
     }
@@ -79,3 +81,5 @@ class RectangleReferenceTool extends Tool {
 
 
 }
+
+export default RectangleReferenceTool;

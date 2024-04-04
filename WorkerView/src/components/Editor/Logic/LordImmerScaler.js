@@ -14,3 +14,5 @@ class LordImmerScaler {
     }
 
 }
+
+export default LordImmerScaler;

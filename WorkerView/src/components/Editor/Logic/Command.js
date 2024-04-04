@@ -40,3 +40,5 @@ class Command{
         this._next = next;
     }
 }
+
+export default Command;

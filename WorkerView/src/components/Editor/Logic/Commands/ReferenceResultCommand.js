@@ -1,3 +1,5 @@
+import Command from "../Command.js";
+
 class ReferenceResultCommand extends Command{
 
     constructor(creator, model, title) {
@@ -18,3 +20,4 @@ class ReferenceResultCommand extends Command{
 
 
 }
+export default ReferenceResultCommand;

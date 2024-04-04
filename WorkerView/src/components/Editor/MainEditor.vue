@@ -4,6 +4,7 @@ import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
 import Model from "./Logic/Model/Model.js";
+import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 
 const router = useRouter();
@@ -21,6 +22,8 @@ var dragging = false;
 var start = {x: 0, y: 0};
 
 let model = ref(new Model())
+let controller = new Controller(model.value)
+
 let imgWidth = ref(0)
 let imgHeight = ref(0)
 
@@ -166,7 +169,7 @@ function canvasClicked(event) {
   console.log("x: " + img.width + " y: " + img.height)
   console.log("x: " + x + " y: " + y)
 
-  model.value.addPoint(x, y, "35FF54")
+  controller.onClick(x,y);
 }
 
 </script>

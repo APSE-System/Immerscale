@@ -1,3 +1,5 @@
+import Command from "../Command.js";
+
 class SetSizeCommand extends Command{
 
     _size;
@@ -22,3 +24,6 @@ class SetSizeCommand extends Command{
 
 
 }
+
+
+export default SetSizeCommand;

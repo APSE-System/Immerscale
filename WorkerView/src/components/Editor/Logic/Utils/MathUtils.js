@@ -47,14 +47,6 @@ export function calculatePerspectiveMatrix(src, dst){
     return math.multiply(base_to_real_matrix, pixel_to_base_matrix)
 }
 
-// Same as above but with 8 parameters
-export function calculatePerspectiveMatrix(src_1, src_2, src_3, src_4, dst_1, dst_2, dst_3, dst_4){
-    let src = [src_1, src_2, src_3, src_4]
-    let dst = [dst_1, dst_2, dst_3, dst_4]
-
-    return calculatePerspectiveMatrix(src, dst)
-}
-
 
 // This method applies a matrix to a list of points
 export function applyMatrixToPoints(matrix, ...points){

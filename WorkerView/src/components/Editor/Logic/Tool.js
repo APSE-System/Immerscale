@@ -1,9 +1,12 @@
 class Tool {
+
+  _model;
+
   _name;
   _icon;
 
-
-  constructor(name, icon) {
+  constructor(model, name, icon) {
+    this._model = model;
     this._name = name;
     this._icon = icon;
   }
@@ -16,7 +19,9 @@ class Tool {
       
   }
 
-  updateExecute(command);
-  updateUnExecute(command);
+  updateExecute(command){}
+  updateUnExecute(command){}
 
 }
+
+export default Tool;

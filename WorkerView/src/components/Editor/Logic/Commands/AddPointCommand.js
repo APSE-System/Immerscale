@@ -1,4 +1,5 @@
-import model from "../Model.js";
+import model from "../Model/Model.js";
+import Command from "../Command.js";
 
 class AddPointCommand extends Command{
 
@@ -15,13 +16,13 @@ class AddPointCommand extends Command{
     execute() {
         super.execute();
 
-        this._model.addPoint(this._x, this._y, "#00ff00");
+        this._model.addPoint(this._x, this._y, "00ff00");
     }
 
     unExecute() {
         super.unExecute();
 
-        this._model.removePoint(this._x, this._y, "#00ff00");
+        this._model.removePoint(this._x, this._y, "00ff00");
     }
 
 
@@ -33,3 +34,5 @@ class AddPointCommand extends Command{
         return this._y;
     }
 }
+
+export default AddPointCommand;
