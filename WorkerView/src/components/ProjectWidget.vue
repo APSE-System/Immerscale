@@ -68,10 +68,11 @@ onMounted(() => {
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
-  gap: 8rem;
+  gap: 3rem;
   width: 37%;
+  min-width: 300px;
   color: black;
 }
 
