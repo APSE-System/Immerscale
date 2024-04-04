@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
+import Model from "./Logic/Model.js";
 
 const router = useRouter();
 const route = useRoute();
@@ -17,6 +18,8 @@ const speed = 0.1;
 // if true you can move around in the canvas
 var dragging = false;
 var start = { x: 0, y: 0 };
+
+let model = ref(new Model())
 
 // fetch to get the images of the project
 onMounted(() => {

@@ -26,6 +26,8 @@ class Model {
     canvasPoints = [];
     canvasLines = [];
 
+    currentCommand = null;
+
     addPoint(x, y, color) {
         this.canvasPoints.push(new CanvasPoint(x, y, color));
     }
@@ -47,4 +49,24 @@ class Model {
             this.canvasLines.splice(index, 1);
         }
     }
+
+    do(command) {
+        if(this.currentCommand === null)
+            this.currentCommand = command;
+        else{
+            this.currentCommand.setNext(command);
+            command.setPrevious(this.currentCommand);
+            this.currentCommand = command;
+        }
+
+        command.execute();
+    }
+
+    undo() {
+        if(this.currentCommand !== null) {
+            this.currentCommand.unExecute();
+            this.currentCommand = this.currentCommand.getPrevious();
+        }
+    }
 }
+export default Model;
