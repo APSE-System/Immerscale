@@ -3,7 +3,8 @@ import {onMounted, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
-import Model from "./Logic/Model.js";
+import Model from "./Logic/Model/Model.js";
+import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -20,6 +21,9 @@ var dragging = false;
 var start = {x: 0, y: 0};
 
 let model = ref(new Model())
+let imgWidth = ref(0)
+let imgHeight = ref(0)
+
 
 // fetch to get the images of the project
 onMounted(() => {
@@ -55,7 +59,13 @@ function drawImage() {
     canvas.width = img.width;
     canvas.height = img.height;
 
+    imgWidth.value = img.width
+    imgHeight.value = img.height
+
     ctx.drawImage(img, 0, 0);
+
+
+    model.value.addPoint(100, 100, "FFFF00")
   };
 }
 
@@ -152,6 +162,7 @@ onMounted(() => {
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
+        <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
         <canvas ref="canvas" id="canvas"></canvas>
       </div>
     </div>
