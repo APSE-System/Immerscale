@@ -31,11 +31,15 @@
 
 
 <template>
-    <div class="sidebar-box">
-        <div class="sidebar card flex justify-content-left">
-            <Button label="Bilder" @click="router.push('images'); primary = 1;" :class="['p-button-' + ((primary === 1) ? 'primary' : 'secondary')]"/>
-            <Button label="Zugriffe" @click="router.push('access'); primary = 2;" :class="['p-button-' + ((primary === 2) ? 'primary' : 'secondary')]"/>
-            <Button label="Projekteinstellungen" @click="router.push('settings'); primary = 3;" :class="['p-button-' + ((primary === 3) ? 'primary' : 'secondary')]"/>
+    <div id="outer-sidebar">
+        <div class="sidebar">
+            <Button @click="router.push('/')" label="← Projects" id="back-button" />
+            <h2 class="headline">Project {{ $route.params.id }}</h2>
+            <div class="button-box card flex justify-content-left">
+                <Button label="Bilder" @click="router.push('images'); primary = 1;" :class="['p-button-' + ((primary === 1) ? 'primary' : 'secondary')]"/>
+                <Button label="Zugriffe" @click="router.push('access'); primary = 2;" :class="['p-button-' + ((primary === 2) ? 'primary' : 'secondary')]"/>
+                <Button label="Projekteinstellungen" @click="router.push('settings'); primary = 3;" :class="['p-button-' + ((primary === 3) ? 'primary' : 'secondary')]"/>
+            </div>
         </div>
     </div>
 </template>
@@ -44,8 +48,11 @@
 #app{
     width: 100%;
 }
-
-.sidebar{
+#outer-sidebar{
+    height: 100vh;
+    width: 250px;
+}
+.button-box{
     position: fixed;
     flex-direction: column;
     justify-content: space-between;
@@ -60,20 +67,20 @@
     width: 200px;
 }
 /* TODO make it flex with burger menu (maybe with primevue sidebar?)*/
-.sidebar-box {
-  position: sticky;
+.sidebar {
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 230px;
-  background-color: white;
+  width: 220px;
+  background-color: lightgrey;
   z-index: 1;
 }
 /* TODO make the sidebar-box span over the whole screen height */
 @media (prefers-color-scheme: dark) {
-    .sidebar-box{
-        /* background-color: #23282e; */
-        background-color: transparent;
+    .sidebar{
+        background-color: #23282e;
+        /* background-color: transparent; */
     }
   }
 .p-button{
@@ -89,4 +96,19 @@
 .p-button:hover{
     color: rgb(35, 115, 210);
 }
+
+#back-button {
+    top: 5px;
+    z-index: 2;
+    background-color: transparent;
+    color: black;
+  }
+  @media (prefers-color-scheme: dark) {
+    #back-button{
+      color: white;
+    }
+  }
+  #back-button:hover {
+    color: rgb(35, 115, 210);
+  }
 </style>

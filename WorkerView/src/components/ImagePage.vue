@@ -157,9 +157,11 @@ onMounted(() => {
   width: 100%;
   height: auto;
 }
+/* TODO maybe add the sidbar in the ImagePage too */
 #back-button {
     position: fixed;
     top: 5px;
+    left: 52px;
     z-index: 2;
     background-color: transparent;
     color: black;
