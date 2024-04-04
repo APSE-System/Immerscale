@@ -1,26 +1,6 @@
-class CanvasPoint {
-    x;
-    y;
-    color;
+import CanvasPoint from "./ModelComponents/CanvasPoint.js";
+import CanvasLine from "./ModelComponents/CanvasLine.js";
 
-    constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-    }
-}
-
-class CanvasLine {
-    startPoint;
-    endPoint;
-    color;
-
-    constructor(startPoint, endPoint, color) {
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
-        this.color = color;
-    }
-}
 
 class Model {
     canvasPoints = [];
