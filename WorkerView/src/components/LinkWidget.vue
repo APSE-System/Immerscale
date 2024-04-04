@@ -1,26 +1,28 @@
 <script setup>
 import Panel from 'primevue/panel';
+
 //define properties for the link items
 const props = defineProps({
     url: String,
     name: String,
-    activation: Date,
-    expiration: Date,
+    creation: Date,
+    expiration: Date
 })
-//fullHeader = props.name +": https://localhost:8888/?token_id=" + props.url
+
 </script>
 
 
 <template>
     <!-- Panel with a header that can be toggled TODO: fix DOM issues to show url or name in header-->
-  <Panel :header=url toggleable="true" collapsed="false">
+  <Panel :header=url toggleable="true" :collapsed=true>
   <div class="LinkItem">
     <!-- Values taken from properties -->
     <div class="ItemInfos">
       <p>Name: {{ name }}</p>
       <p>Link: https://localhost:8888/?token_id={{ url }}</p>
-      <p>Created at: {{ activation }}</p>
-      <p>Expires at: {{ expiration }}</p>
+      <!--Dates are given in YYYY-MM-DD, hence why the substring stuff here-->
+      <p v-if="creation">Created at: {{creation.substring(8,10)+"."+creation.substring(5,7)+"."+creation.substring(0,4) +" at "+ creation.substring(11,16)}}</p>
+      <p v-if="expiration">Expires at: {{expiration.substring(8,10)+"."+expiration.substring(5,7)+"."+expiration.substring(0,4) +" at "+ expiration.substring(11,16)}}</p>
     </div>
   </div>
   </Panel>
@@ -41,11 +43,16 @@ const props = defineProps({
   gap: 0.5rem;
   width: 100%;
   min-width: 300px;
+  max-width: 500px;
   height: 20%;
 }
 
 .LinkItem:hover {
   transform: scale(1.03);
+}
+
+.Panel {
+  width: 300px!important;
 }
 
 .ItemInfos {
