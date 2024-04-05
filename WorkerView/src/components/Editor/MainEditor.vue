@@ -6,6 +6,7 @@ import ToolLists from "./ToolLists.vue";
 import Model from "./Logic/Model/Model.js";
 import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
+import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
 
 const router = useRouter();
 const route = useRoute();
@@ -23,10 +24,21 @@ var start = {x: 0, y: 0};
 
 let model = ref(new Model())
 let controller = new Controller(model.value)
+let toolsList = ref([])
 
 let imgWidth = ref(0)
 let imgHeight = ref(0)
 
+//initialize tools
+onMounted(()=>{
+
+  // create tool
+  let rectangleReferenceTool = new RectangleReferenceTool(model.value)
+  rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
+  toolsList.value.push(rectangleReferenceTool)
+
+
+})
 
 // fetch to get the images of the project
 onMounted(() => {
@@ -194,7 +206,7 @@ function canvasBack(event){
           label="← Images"
           id="back-button"
       />
-      <ToolLists/>
+      <ToolLists :tools="toolsList"/>
     </div>
 
 

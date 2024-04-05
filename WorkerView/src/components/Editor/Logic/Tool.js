@@ -5,6 +5,7 @@ class Tool {
   _name;
   _icon;
 
+
   constructor(model, name, icon) {
     this._model = model;
     this._name = name;

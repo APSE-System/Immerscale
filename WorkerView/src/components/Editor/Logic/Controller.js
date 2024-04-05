@@ -4,14 +4,13 @@ import ReferenceTool from "./ReferenceTool.js";
 class Controller{
 
     _model;
-    _currentTool;
+    _currentTool = null;
 
     _referenceTools = [];
     _measurementTools = [];
 
     constructor(model){
         this._model = model;
-        this._currentTool = new RectangleReferenceTool(this._model);
     }
 
     addTool(tool){
@@ -22,14 +21,17 @@ class Controller{
         }
 
         return ()=>{
-            this._currentTool.deselect();
+            if(this._currentTool !== null)
+                this._currentTool.deselect();
+            console.log("callback executed")
             this._currentTool = tool;
             this._currentTool.select();
         }
     }
 
     onClick(x, y){
-        this._currentTool.onClick(x, y)
+        if(this._currentTool !== null)
+            this._currentTool.onClick(x, y)
     }
 
     undo(){
