@@ -1,13 +1,31 @@
 import RectangleReferenceTool from "./Tools/RectangleReferenceTool.js";
+import ReferenceTool from "./ReferenceTool.js";
 
 class Controller{
 
     _model;
     _currentTool;
 
+    _referenceTools = [];
+    _measurementTools = [];
+
     constructor(model){
         this._model = model;
         this._currentTool = new RectangleReferenceTool(this._model);
+    }
+
+    addTool(tool){
+        if(tool instanceof ReferenceTool){
+            this._referenceTools.push(tool)
+        }else{
+            this._measurementTools.push(tool)
+        }
+
+        return ()=>{
+            this._currentTool.deselect();
+            this._currentTool = tool;
+            this._currentTool.select();
+        }
     }
 
     onClick(x, y){
