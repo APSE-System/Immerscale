@@ -39,7 +39,7 @@ onMounted(() => {
     </div>
     <Divider />
     <div class="LinkList">
-      <LinkWidget v-for="link in links" :url="link.url_token" :name="link.name" :activation="link.activation_date" :expiration="link.expiration_date"/>
+      <LinkWidget v-for="link in links" :url="link.url_token" :name="link.name" :creation="link.creation_date" :expiration="link.expiration_date"/>
     </div>
   </div>
 </template>
@@ -50,8 +50,10 @@ onMounted(() => {
 }
 .LinkList {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 </style>
