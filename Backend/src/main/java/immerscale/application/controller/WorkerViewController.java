@@ -54,6 +54,12 @@ public class WorkerViewController {
         return ResponseEntity.ok("Success");
     }
 
+    // This endpoint returns the name of the project for a given project ID
+    @GetMapping("/projectName")
+    public ResponseEntity<String> getProjectName(@RequestParam(name = "id") Integer projectId){
+        return new ResponseEntity<String>(projectRepository.getProjectName(projectId), HttpStatus.OK);
+    }
+
     // This endpoints returns all the images which belong to the given project ID
     @GetMapping("/images")
     public ResponseEntity<Iterable<Image>> getImages(@RequestParam(name = "id") Integer projectId){
