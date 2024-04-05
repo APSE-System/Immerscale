@@ -43,15 +43,16 @@ function clickedImage(index) {
 <template>
   <div class="content">
     <!-- Depending wether there were images fetched from the backend they are displayed or not. -->
-    <div v-if="images.length > 0">
+    <div class="grid-box" v-if="images.length > 0">
       <!-- Iterating through the image list and displaying them. -->
       <div v-for="(image, index) in images" :key="index">
-        <!-- Add the logic here for clicking on an image and opening the measuring editor. -->
-        <img
-          @click="clickedImage(index)"
-          :src="image"
-          alt="Image {{ index + 1 }}"
-        />
+        <div class="square">
+          <img
+            @click="clickedImage(index)"
+            :src="image"
+            alt="Image {{ index + 1 }}"
+          />
+        </div>
       </div>
     </div>
     <div v-if="images.length == 0">
@@ -65,12 +66,30 @@ function clickedImage(index) {
   width: 100%;
 }
 
+.grid-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  width: 90%;
+  padding: 20px;
+}
+/* this is not a square */
+.square {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  overflow: hidden;
+}
+
 img {
-  width: 400px;
+  max-width: 100%;
+  height: 100%;
   object-fit: cover;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
 img:hover {
-  transform: scale(1.04);
+  transform: scale(1.1);
 }
 </style>

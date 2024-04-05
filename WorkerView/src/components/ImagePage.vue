@@ -136,11 +136,16 @@ onMounted(() => {
 #zoom-outer {
   width: 60%;
   height: 60%;
-  background: #3a3838;
+  background: lightgray;
   overflow: hidden;
   cursor: grab;
   margin: auto;
 }
+@media (prefers-color-scheme: dark) {
+    #zoom-outer{
+      background: #3a3838;
+    }
+  }
 #zoom {
   width: 100%;
   height: 100%;
@@ -152,8 +157,21 @@ onMounted(() => {
   width: 100%;
   height: auto;
 }
+/* TODO maybe add the sidbar in the ImagePage too */
 #back-button {
-  position: absolute;
-  top: 5px;
-}
+    position: fixed;
+    top: 5px;
+    left: 52px;
+    z-index: 2;
+    background-color: transparent;
+    color: black;
+  }
+  @media (prefers-color-scheme: dark) {
+    #back-button{
+      color: white;
+    }
+  }
+  #back-button:hover {
+    color: rgb(35, 115, 210);
+  }
 </style>
