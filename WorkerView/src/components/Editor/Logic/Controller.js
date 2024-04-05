@@ -8,7 +8,9 @@ class Controller{
     _referenceTools = [];
     _measurementTools = [];
 
-    constructor(){
+    constructor(model){
+        this._model = model;
+        this._currentTool = new RectangleReferenceTool(this._model);
     }
 
     addTool(tool){
