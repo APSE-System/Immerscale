@@ -18,7 +18,7 @@ const props = defineProps({
 
     <template #header>
       <div class="HeaderClass">
-        <span><b>{{ name }}</b>{{": https://localhost:8888/?token_id=" + url }}</span>
+        <span><b>{{ name }}</b>{{": https://localhost:8888/?token=" + url }}</span>
       </div>
     </template>
 
