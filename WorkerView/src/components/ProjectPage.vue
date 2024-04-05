@@ -22,11 +22,11 @@ onMounted(() => {
 })
 
 const router = useRouter();
-const route = useRoute();
 </script>
 
 <template>
-  <h2>Project {{ projectName }}</h2>
+  <!-- TODO this h2 is bugged due to merge -->
+  <!-- <h2>Project {{ projectName }}</h2> --> 
   <div class="projectPage">
     <!-- shows the tab bar and then the selected tab using nested routes -->
     <TabBar/>
