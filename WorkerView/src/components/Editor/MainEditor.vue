@@ -22,7 +22,7 @@ var dragging = false;
 var start = {x: 0, y: 0};
 
 let model = ref(new Model())
-let controller = new Controller(model.value)
+let controller = new Controller()
 
 let imgWidth = ref(0)
 let imgHeight = ref(0)

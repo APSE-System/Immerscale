@@ -3,15 +3,12 @@ import ReferenceTool from "./ReferenceTool.js";
 
 class Controller{
 
-    _model;
-    _currentTool;
+    _currentTool = null;
 
     _referenceTools = [];
     _measurementTools = [];
 
-    constructor(model){
-        this._model = model;
-        this._currentTool = new RectangleReferenceTool(this._model);
+    constructor(){
     }
 
     addTool(tool){
