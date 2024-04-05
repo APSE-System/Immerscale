@@ -46,8 +46,7 @@ async function sendPicture() {
   }
 
   // for debuging
-  // TODO comment the console.log
-  console.log(imageAsBase64);
+  // console.log(imageAsBase64);
 
   // this is is actually sending the picture using the axios library
   fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo", {
@@ -67,7 +66,8 @@ async function sendPicture() {
         alert(response);
       }
     })
-    
+    // close popup after sending an image
+    closeModal();
 }
 </script>
 
@@ -85,7 +85,6 @@ async function sendPicture() {
       <img id="my-image" src="" alt="" />
     </div>
     <div class="modal-footer">
-      <!-- TODO implement the 'send'-function -->
       <button @click="sendPicture">Absenden</button>
       <button @click="closeModal" data-model-close>Verwerfen</button>
     </div>
