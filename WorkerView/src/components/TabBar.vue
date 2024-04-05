@@ -1,5 +1,5 @@
 <script setup>
-    import { onMounted, ref } from "vue";
+    import { onMounted, ref, defineProps } from "vue";
     import Button from 'primevue/button';
     // import Sidebar from 'primevue/sidebar';
     import { useRouter, useRoute } from 'vue-router'
@@ -10,6 +10,10 @@
 
     // this value is used to determine which button should be highlighted. This depends on which tab is selected.
     const primary = ref(0); 
+
+    const props = defineProps({
+        projectName: String
+    })
 
     // As the tabs can be accessed directly via the URL, the path has to be checked which tab is selected to highlight the according button.
     onMounted(()=>{
@@ -34,7 +38,7 @@
     <div id="outer-sidebar">
         <div class="sidebar">
             <Button @click="router.push('/')" label="← Projects" id="back-button" />
-            <h2 class="headline">Project {{ $route.params.id }}</h2>
+            <h2 class="headline">Project {{ projectName }}</h2>
             <div class="button-box card flex justify-content-left">
                 <Button label="Bilder" @click="router.push('images'); primary = 1;" :class="['p-button-' + ((primary === 1) ? 'primary' : 'secondary')]"/>
                 <Button label="Zugriffe" @click="router.push('access'); primary = 2;" :class="['p-button-' + ((primary === 2) ? 'primary' : 'secondary')]"/>

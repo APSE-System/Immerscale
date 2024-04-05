@@ -29,7 +29,7 @@ const router = useRouter();
   <!-- <h2>Project {{ projectName }}</h2> --> 
   <div class="projectPage">
     <!-- shows the tab bar and then the selected tab using nested routes -->
-    <TabBar/>
+    <TabBar :projectName="projectName"/>
     <RouterView/>
   </div>
 </template>
