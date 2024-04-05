@@ -14,17 +14,26 @@ const props = defineProps({
 
 <template>
     <!-- Panel with a header that can be toggled TODO: fix DOM issues to show url or name in header-->
-  <Panel :header=url toggleable="true" :collapsed=true>
-  <div class="LinkItem">
-    <!-- Values taken from properties -->
-    <div class="ItemInfos">
-      <p>Name: {{ name }}</p>
-      <p>Link: https://localhost:8888/?token_id={{ url }}</p>
-      <!--Dates are given in YYYY-MM-DD, hence why the substring stuff here-->
-      <p v-if="creation">Created at: {{creation.substring(8,10)+"."+creation.substring(5,7)+"."+creation.substring(0,4) +" at "+ creation.substring(11,16)}}</p>
-      <p v-if="expiration">Expires at: {{expiration.substring(8,10)+"."+expiration.substring(5,7)+"."+expiration.substring(0,4) +" at "+ expiration.substring(11,16)}}</p>
-    </div>
-  </div>
+  <Panel :header=url toggleable :collapsed=true>
+
+    <template #header>
+      <div class="HeaderClass">
+        <span><b>{{ name }}</b>{{": https://localhost:8888/?token_id=" + url }}</span>
+      </div>
+    </template>
+
+    <template #footer>
+      <div class="LinkItem">
+        <!-- Values taken from properties -->
+        <div class="ItemInfos">
+          <p>{{"Name: " + name }}</p>
+          <p>{{"Link: https://localhost:8888/?token_id=" + url }}</p>
+          <!--Dates are given in YYYY-MM-DD, hence why the substring stuff here-->
+          <p v-if="creation">{{"Created at: " + creation.substring(8,10)+"."+creation.substring(5,7)+"."+creation.substring(0,4) +" at "+ creation.substring(11,16)}}</p>
+          <p v-if="expiration">{{"Expires at: " +expiration.substring(8,10)+"."+expiration.substring(5,7)+"."+expiration.substring(0,4) +" at "+ expiration.substring(11,16)}}</p>
+        </div>
+      </div>
+    </template>
   </Panel>
 </template>
 
@@ -43,12 +52,17 @@ const props = defineProps({
   gap: 0.5rem;
   width: 100%;
   min-width: 300px;
-  max-width: 500px;
-  height: 20%;
+  height: fit-content;
 }
-
-.LinkItem:hover {
-  transform: scale(1.03);
+.HeaderClass {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: top;
+  gap: 0.5rem;
+  padding-top: 0px;
+  width: 600px;
+  
 }
 
 .Panel {
