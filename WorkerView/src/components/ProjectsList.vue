@@ -35,7 +35,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Projects</h1>
+  <h1 id="headline">Immerscale</h1>
+  <h1 class="headline">Projects</h1>
   <div class="ProjectButton">
     <AddNewProject @fetchProjects="fetchProjects"/>
   </div>

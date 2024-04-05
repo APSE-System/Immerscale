@@ -1,7 +1,8 @@
 <script setup>
-import { useRoute} from 'vue-router'
+import { useRouter, useRoute } from "vue-router";
 import {onMounted, ref } from 'vue';
 import TabBar from './TabBar.vue';
+import Button from "primevue/button";
 
 const route = useRoute()
 const projectName = ref("")
@@ -20,8 +21,9 @@ onMounted(() => {
   getName()
 })
 
+const router = useRouter();
+const route = useRoute();
 </script>
-
 
 <template>
   <h2>Project {{ projectName }}</h2>
@@ -39,4 +41,13 @@ onMounted(() => {
     justify-content: left;
   }
 
+  /* could be used later to contain the back button and burger menu */
+  /* .navigate-box {
+    position: absolute;
+    top: 5px;
+    z-index: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80px;
+  } */
 </style>

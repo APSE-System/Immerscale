@@ -1,7 +1,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+import Button from "primevue/button";
 
+const router = useRouter();
 const route = useRoute();
 var image = ref([]);
 var zoom_inner = ref(null);
@@ -21,7 +23,8 @@ onMounted(() => {
     "http://" +
       import.meta.env.VITE_BACKEND_IP +
       "/workerView/image?id=" +
-      route.params.id + "&index=" + route.params.index
+      route.params.id + "&index=" + route.params.index,
+      {credentials: "include"}
   )
     .then((resp) => resp.json())
     .then((data) => {
@@ -114,6 +117,14 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="flex justify-content-left">
+    <Button
+      @click="router.push('/project/' + route.params.id + '/images')"
+      label="← Images"
+      id="back-button"
+    />
+  </div>
+
   <div id="zoom-outer">
     <div ref="zoom_inner" class="zoom" id="zoom">
         <img id="our-image" :src="image" alt="image" />
@@ -125,11 +136,16 @@ onMounted(() => {
 #zoom-outer {
   width: 60%;
   height: 60%;
-  background: #3a3838;
+  background: lightgray;
   overflow: hidden;
   cursor: grab;
   margin: auto;
 }
+@media (prefers-color-scheme: dark) {
+    #zoom-outer{
+      background: #3a3838;
+    }
+  }
 #zoom {
   width: 100%;
   height: 100%;
@@ -141,4 +157,21 @@ onMounted(() => {
   width: 100%;
   height: auto;
 }
+/* TODO maybe add the sidbar in the ImagePage too */
+#back-button {
+    position: fixed;
+    top: 5px;
+    left: 52px;
+    z-index: 2;
+    background-color: transparent;
+    color: black;
+  }
+  @media (prefers-color-scheme: dark) {
+    #back-button{
+      color: white;
+    }
+  }
+  #back-button:hover {
+    color: rgb(35, 115, 210);
+  }
 </style>
