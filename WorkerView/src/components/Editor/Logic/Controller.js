@@ -10,7 +10,6 @@ class Controller{
 
     constructor(model){
         this._model = model;
-        this._currentTool = new RectangleReferenceTool(this._model);
     }
 
     addTool(tool){
