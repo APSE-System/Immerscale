@@ -60,14 +60,22 @@ async function sendPicture() {
     .then((response) => {
       if (response.ok) {
         // Handle success response
-        alert(response);
+        showToast("Success");
       } else {
         // Handle error response
-        alert(response);
+        showToast("Unauthorized")
       }
     })
     // close popup after sending an image
     closeModal();
+}
+
+ // function will display the toast with the given message
+ function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.className = "show";
+    toast.innerText = msg;
+    setTimeout(function() {toast.className = toast.className.replace("show", ""); }, 3000);
 }
 </script>
 
@@ -90,4 +98,30 @@ async function sendPicture() {
     </div>
   </div>
   <div id="overlay"></div>
+  <div id="toast"></div>
 </template>
+
+<style scoped>
+  #toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 30px;
+  transform: translateX(-50%);
+  font-size: 17px;
+  transition: 1s;
+  opacity: 0;
+}
+
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
