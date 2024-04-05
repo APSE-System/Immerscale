@@ -12,6 +12,8 @@ class RectangleReferenceTool extends ReferenceTool {
     _width = -1;
     _height = -1;
 
+    _finished = false;
+
     constructor(model) {
         super(model, "Rectangle Reference", "pi-icon");
     }
@@ -47,12 +49,14 @@ class RectangleReferenceTool extends ReferenceTool {
             this._height = command.getSize();
         } else {
             this.setReference()
+            this._finished = true;
         }
     }
 
     updateUnExecute(point) {
         if (this._height != -1) {
             this._height = -1;
+            this._finished = false;
         } else if (this._width != -1) {
             this._width = -1;
         } else if (this._pointCount >= 1) {
@@ -76,6 +80,14 @@ class RectangleReferenceTool extends ReferenceTool {
         var dst = [[0, 0], [0, this._height], [this._width, this._height], [this._width, 0]];
 
         LordImmerScaler.changeMatrix(MathUtils.calculatePerspectiveMatrix(src, dst));
+    }
+
+    deselect() {
+        super.deselect();
+        if(this._finished) return;
+        while(this._model.undo() != this._first){
+            // Undoes all the commands done by this tool if it is not yet finished
+        }
     }
 
 

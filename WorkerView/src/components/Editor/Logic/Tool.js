@@ -15,6 +15,10 @@ class Tool {
 
   }
 
+  deselect(){
+
+  }
+
   onFinish(){
       
   }

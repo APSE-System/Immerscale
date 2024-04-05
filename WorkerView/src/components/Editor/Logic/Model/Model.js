@@ -44,8 +44,10 @@ class Model {
 
     undo() {
         if(this.currentCommand !== null) {
+            var undoneCommand = this.currentCommand;
             this.currentCommand.unExecute();
             this.currentCommand = this.currentCommand.getPrevious();
+            return undoneCommand;
         }
     }
 
