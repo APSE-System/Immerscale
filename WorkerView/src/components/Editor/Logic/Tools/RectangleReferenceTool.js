@@ -1,12 +1,11 @@
-import {calculatePerspectiveMatrix} from "../Utils/MathUtils.js";
 import * as MathUtils from "../Utils/MathUtils.js";
-import Tool from "../Tool.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
 import SetSizeCommand from "../Commands/SetSizeCommand.js";
 import ReferenceResultCommand from "../Commands/ReferenceResultCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
+import ReferenceTool from "../ReferenceTool.js";
 
-class RectangleReferenceTool extends Tool {
+class RectangleReferenceTool extends ReferenceTool {
     _first = [];
     _pointCount = 0;
 
