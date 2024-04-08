@@ -4,12 +4,13 @@ import InputNumber from 'primevue/inputnumber';
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 
+const emit = defineEmits(['callback']);
 
 const props = defineProps({
   header: String,
   description: String,
   valueName: String,
-  popupVisible: Boolean,
+  popupVisible: Boolean
 })
 
 const visible = ref(props.popupVisible);
@@ -24,10 +25,10 @@ const visible = ref(props.popupVisible);
       <span class="p-text-secondary block mb-3">{{ description }}</span>
       <div class="flex align-items-center gap-3 mb-3">
         <label for="name" class="font-semibold w-6rem">{{ valueName }}</label>
-        <InputNumber id="name" class="flex-auto" autocomplete="off" locale="de-DE" mode="decimal" :minFractionDigits="2" :useGrouping="false" />
+        <InputNumber id="name" class="flex-auto" autocomplete="off" locale="de-DE" mode="decimal" :minFractionDigits="2" :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
-        <Button type="button" label="Save" @click="visible = false; console.log('value set'); "></Button>
+        <Button type="button" label="Save" @click="visible = false; console.log('value set'); emit('callback', numberValue);"></Button>
       </div>
     </Dialog>
   </div>

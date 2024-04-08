@@ -11,7 +11,9 @@ class AddPointCommand extends Command {
     _description;
     _value;
 
-    constructor(creator, model, x, y, popup=false, header = "", description = "", value = "") {
+    _callback;
+
+    constructor(creator, model, x, y, popup=false, header = "", description = "", value = "", callback) {
         super(creator, model);
         this._x = x;
         this._y = y;
@@ -19,13 +21,15 @@ class AddPointCommand extends Command {
         this._header = header;
         this._description = description;
         this._value = value;
+
+        this._callback = callback;
     }
 
 
     execute() {
         super.execute();
 
-        this._model.addPoint(this._x, this._y, "00ff00", this._popup, this._header, this._description, this._value);
+        this._model.addPoint(this._x, this._y, "00ff00", this._popup, this._header, this._description, this._value, this._callback);
     }
 
     unExecute() {

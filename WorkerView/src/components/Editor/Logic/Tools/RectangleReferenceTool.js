@@ -23,8 +23,14 @@ class RectangleReferenceTool extends ReferenceTool {
 
     // It is likely that this will be split up in different methods to handle the according events...
     onClick(x, y) {
-        if (this._pointCount < 4) {
-            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Header", "desc", "value"));
+        if (this._pointCount == 0) {
+            this._model.do(new AddPointCommand(this, this._model, x, y));
+        } else if (this._pointCount == 1) {
+            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._width = length; console.log(this._width)}));
+        } else if (this._pointCount == 2) {
+            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._height = length; console.log(this._height)}));
+        } else if (this._pointCount == 3) {
+            this._model.do(new AddPointCommand(this, this._model, x, y));
         } else if (this._width != -1 && this._height != -1) {
             this._model.do(new ReferenceResultCommand())
         }

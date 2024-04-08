@@ -36,7 +36,7 @@ function setCanvasRef(canvas, index){
     <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddPointCanvas"></canvas>
 
 
-    <NumberInputPopup :popupVisible="point.popup" :header="point.header" :description="point.description" :value-name="point.value"/>
+    <NumberInputPopup :popupVisible="point.popup" :header="point.header" :description="point.description" :value-name="point.value" @callback="point.callback"/>
   </div>
 
 </template>
