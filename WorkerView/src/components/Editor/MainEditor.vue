@@ -206,7 +206,7 @@ function canvasBack(event){
           label="← Images"
           id="back-button"
       />
-      <ToolLists :tools="toolsList"/>
+      <ToolLists :tools="toolsList" class="toolList"/>
     </div>
 
 
@@ -270,5 +270,10 @@ function canvasBack(event){
 #back-button {
   position: absolute;
   top: 5px;
+}
+
+.toolList{
+  position: absolute;
+  top: 100px;
 }
 </style>
