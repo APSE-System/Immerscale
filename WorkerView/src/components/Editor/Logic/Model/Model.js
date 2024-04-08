@@ -8,8 +8,8 @@ class Model {
 
     currentCommand = null;
 
-    addPoint(x, y, color) {
-        this.canvasPoints.push(new CanvasPoint(x, y, color));
+    addPoint(x, y, color, popup, header, description, value) {
+        this.canvasPoints.push(new CanvasPoint(x, y, color, popup, header, description, value));
     }
 
     removePoint(x, y, color) {

@@ -24,7 +24,7 @@ class RectangleReferenceTool extends ReferenceTool {
     // It is likely that this will be split up in different methods to handle the according events...
     onClick(x, y) {
         if (this._pointCount < 4) {
-            this._model.do(new AddPointCommand(this, this._model, x, y));
+            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Header", "desc", "value"));
         } else if (this._width != -1 && this._height != -1) {
             this._model.do(new ReferenceResultCommand())
         }

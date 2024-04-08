@@ -5,13 +5,14 @@ import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 
 
-const visible = ref(true);
-
 const props = defineProps({
   header: String,
   description: String,
-  valueName: String
+  valueName: String,
+  popupVisible: Boolean,
 })
+
+const visible = ref(props.popupVisible);
 
 
 </script>

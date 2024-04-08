@@ -1,22 +1,31 @@
 import model from "../Model/Model.js";
 import Command from "../Command.js";
 
-class AddPointCommand extends Command{
+class AddPointCommand extends Command {
 
     _x;
     _y;
 
+    _popup;
+    _header;
+    _description;
+    _value;
 
-    constructor(creator, model, x, y) {
+    constructor(creator, model, x, y, popup=false, header = "", description = "", value = "") {
         super(creator, model);
         this._x = x;
         this._y = y;
+        this._popup = popup;
+        this._header = header;
+        this._description = description;
+        this._value = value;
     }
+
 
     execute() {
         super.execute();
 
-        this._model.addPoint(this._x, this._y, "00ff00");
+        this._model.addPoint(this._x, this._y, "00ff00", this._popup, this._header, this._description, this._value);
     }
 
     unExecute() {
@@ -32,6 +41,23 @@ class AddPointCommand extends Command{
 
     getY() {
         return this._y;
+    }
+
+
+    hasPopup() {
+        return this._popup;
+    }
+
+    getHeader() {
+        return this._header;
+    }
+
+    getDescription() {
+        return this._description;
+    }
+
+    getValueName() {
+        return this._value;
     }
 }
 

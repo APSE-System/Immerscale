@@ -218,8 +218,6 @@ function canvasBack(event){
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
-
-    <NumberInputPopup :header="'Test'" :description="'Testtest'" :value-name="'value'"/>
   </div>
 </template>
 
