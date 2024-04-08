@@ -10,6 +10,8 @@ class LordImmerScaler {
 
     static transformToRealWorld(x, y) {
         if(this._matrix == null) return null;
+        console.log("matrix is set:");
+        console.log(this._matrix);
         return applyMatrixToPoints(this._matrix, [x, y]);
     }
 
