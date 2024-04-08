@@ -40,11 +40,14 @@ class RectangleReferenceTool extends ReferenceTool {
         if (this._pointCount == 0) {
             this._first = command;
             this._pointCount++;
-        } else if (this._pointCount < 4) {
+        } else if (this._pointCount == 1) {
             this._pointCount++;
-
-            //// Show window for entering sizes
-
+            // Popup 1 anzeigen
+        } else if (this._pointCount == 2) {
+            this._pointCount++;
+        } else if (this._pointCount == 3) {
+            this._pointCount++;
+            // Popup 2 anzeigen
         } else if (this._width == -1) {
             this._width = command.getSize();
         } else if (this._height == -1) {
@@ -86,8 +89,8 @@ class RectangleReferenceTool extends ReferenceTool {
 
     deselect() {
         super.deselect();
-        if(this._finished) return;
-        while(this._model.undo() != this._first){
+        if (this._finished) return;
+        while (this._model.undo() != this._first) {
             // Undoes all the commands done by this tool if it is not yet finished
         }
     }
