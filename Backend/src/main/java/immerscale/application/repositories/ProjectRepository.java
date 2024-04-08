@@ -29,5 +29,8 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Transactional
     boolean containsProject(Integer projectId, String worker_email);
 
+    @Query(value = "SELECT name FROM project WHERE project_id=?1", nativeQuery = true)
+    @Transactional
+    String getProjectName(Integer projectId);
 
 }

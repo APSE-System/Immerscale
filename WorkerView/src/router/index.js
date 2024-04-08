@@ -5,7 +5,7 @@ import ProjectPage from '../components/ProjectPage.vue'
 import LinkListPage from '../components/LinkListPage.vue'
 import ImageList from '../components/ImageList.vue'
 import ProjectSettings from '../components/ProjectSettings.vue'
-import ImagePage from '../components/ImagePage.vue'
+import MainEditor from '../components/Editor/MainEditor.vue'
 
 // Define the routes for the application here
 const routes = [
@@ -28,7 +28,7 @@ const routes = [
       },
     ]
   },
-  { path: '/project/:id/image/:index', component: ImagePage},
+  { path: '/project/:id/image/:index', component: MainEditor},
 ]
 
 // This makes the URL work "normal" so you can just type in an URL and you are routed

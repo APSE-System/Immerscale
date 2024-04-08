@@ -10,6 +10,10 @@ services:
       MYSQL_PASSWORD: benispassword
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
 
   photoview:
     build:
@@ -37,3 +41,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy

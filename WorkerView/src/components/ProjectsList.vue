@@ -35,13 +35,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Projects</h1>
+  <h1 id="headline">Immerscale</h1>
+  <h1 class="headline">Projects</h1>
   <div class="ProjectButton">
     <AddNewProject @fetchProjects="fetchProjects"/>
   </div>
   <Divider />
   <div class="ProjectList">
-    <ProjectWidget v-for="project in projects" :id="project.project_id" :name="project.name", :active="true"/>
+    <ProjectWidget v-for="project in projects" :id="project.project_id" :name="project.name"/>
   </div>
 </template>
 

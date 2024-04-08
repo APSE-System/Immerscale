@@ -1,8 +1,9 @@
 <script setup>
-import { ref } from "vue";
+import { createApp, ref } from "vue";
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
+import 'primeicons/primeicons.css'
 
 const emit = defineEmits(['fetchProjects'])
 const visible = ref(false);
@@ -26,7 +27,7 @@ function addProject(projectName) {
 
 <template>
     <div class="card flex justify-content-center">
-        <Button label="Create New Project" @click="visible = true"></Button>
+        <Button class="addBtn" icon="pi pi-plus" outlined rounded @click="visible = true" v-tooltip="{ value: 'Create new Project', showDelay: 400, hideDelay: 200  }"></Button>
 
         <!-- Dialog for adding new project, will only show once "Create New Project Button" is pressed -->
         <Dialog v-model:visible="visible" modal header="New Project" :style="{ width: '25rem' }">
@@ -64,5 +65,14 @@ function addProject(projectName) {
     flex-direction: row;
     justify-content: space-between;
     gap: 5px;
+}
+
+
+.addBtn:hover{
+    transform: scale(1.1);
+}
+.addBtn{
+    border-radius:28px!important;
+    border: 1px solid #697dff;
 }
 </style>
