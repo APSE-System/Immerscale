@@ -1,5 +1,10 @@
 <script setup>
 import Panel from 'primevue/panel';
+import ToggleButton from 'primevue/togglebutton';
+import { ref } from 'vue';
+
+const checked = ref(false);
+
 
 //define properties for the link items
 const props = defineProps({
@@ -8,6 +13,11 @@ const props = defineProps({
     creation: Date,
     expiration: Date
 })
+
+function copy() {
+    navigator.clipboard.writeText("https://localhost:8888/?token=" + props.url)
+    alert("Link copied to clipboard!")
+}
 
 </script>
 
@@ -20,6 +30,11 @@ const props = defineProps({
       <div class="HeaderClass">
         <span><b>{{ name }}</b>{{": https://localhost:8888/?token=" + url }}</span>
       </div>
+    </template>
+    <template #icons>
+        <ToggleButton class="p-panel-header-icon p-link mr-2" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="">
+              <!--<span class="pi pi-copy"></span>-->
+        </ToggleButton>
     </template>
 
     <template #footer>
@@ -77,5 +92,9 @@ const props = defineProps({
   text-align: left;
   gap: 0rem;
   padding-top: 0px;
+}
+
+.pi-check {
+  color: green;
 }
 </style>
