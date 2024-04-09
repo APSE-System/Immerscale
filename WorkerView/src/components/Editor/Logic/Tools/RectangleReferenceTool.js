@@ -2,6 +2,7 @@ import * as MathUtils from "../Utils/MathUtils.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
 import ReferenceTool from "../ReferenceTool.js";
+import AddLineCommand from "../Commands/AddLineCommand.js";
 
 class RectangleReferenceTool extends ReferenceTool {
     _first = [];
@@ -24,11 +25,13 @@ class RectangleReferenceTool extends ReferenceTool {
         if (this._pointCount == 0) {
             this._model.do(new AddPointCommand(this, this._model, x, y));
         } else if (this._pointCount == 1) {
-            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
+            //this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
+            this._model.do(new AddLineCommand(this, this._model, this._first.getX(), this._first.getY(), x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
         } else if (this._pointCount == 2) {
-            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
+            //this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
+            this._model.do(new AddLineCommand(this, this._model, this._first.getNext().getX2(), this._first.getNext().getY2(), x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
         } else if (this._pointCount == 3) {
-            this._model.do(new AddPointCommand(this, this._model, x, y));
+            this._model.do(new AddLineCommand(this, this._model, this._first.getNext().getNext().getX2(), this._first.getNext().getNext().getY2(), x, y));
         }
     }
 
@@ -59,17 +62,18 @@ class RectangleReferenceTool extends ReferenceTool {
 
     setReference() {
         var src = [];
-        var point = this._first;
-        for (let i = 0; i < 4; i++) {
-            src.push([point.getX(), point.getY()]);
-            point = point.getNext();
-        }
+
+        src.push([this._first.getX(), this._first.getY()]);
+        var secondLine = this._first.getNext().getNext();
+        src.push([secondLine.getX1(), secondLine.getY1()]);
+        src.push([secondLine.getX2(), secondLine.getY2()]);
+        src.push([secondLine.getNext().getX2(), secondLine.getNext().getY2()]);
 
         var dst = [[0, 0], [0, this._firstLength], [this._secondLenght, this._firstLength], [this._secondLenght, 0]];
 
         LordImmerScaler.changeMatrix(MathUtils.calculatePerspectiveMatrix(src, dst));
 
-        /*
+
         var table_lower_left = [290, 3519, 1]
         var table_lower_right = [2756, 3464, 1]
         var table_upper_right = [2068, 593, 1]
@@ -87,7 +91,7 @@ class RectangleReferenceTool extends ReferenceTool {
 
         console.log("Width: " + width)
         console.log("Height: " + height)
-        */
+
     }
 
     deselect() {

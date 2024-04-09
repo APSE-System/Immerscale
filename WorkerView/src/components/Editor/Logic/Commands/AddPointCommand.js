@@ -6,30 +6,18 @@ class AddPointCommand extends Command {
     _x;
     _y;
 
-    _popup;
-    _header;
-    _description;
-    _value;
 
-    _callback;
-
-    constructor(creator, model, x, y, popup=false, header = "", description = "", value = "", callback) {
+    constructor(creator, model, x, y) {
         super(creator, model);
         this._x = x;
         this._y = y;
-        this._popup = popup;
-        this._header = header;
-        this._description = description;
-        this._value = value;
-
-        this._callback = callback;
     }
 
 
     execute() {
         super.execute();
 
-        this._model.addPoint(this._x, this._y, "00ff00", this._popup, this._header, this._description, this._value, this._callback);
+        this._model.addPoint(this._x, this._y, "00ff00");
     }
 
     unExecute() {

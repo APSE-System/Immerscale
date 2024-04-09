@@ -8,8 +8,8 @@ class Model {
 
     currentCommand = null;
 
-    addPoint(x, y, color, popup, header, description, value, callback) {
-        this.canvasPoints.push(new CanvasPoint(x, y, color, popup, header, description, value, callback));
+    addPoint(x, y, color) {
+        this.canvasPoints.push(new CanvasPoint(x, y, color));
     }
 
     removePoint(x, y, color) {
@@ -19,8 +19,8 @@ class Model {
         }
     }
 
-    addLine(startX, startY, endX, endY, color) {
-        this.canvasLines.push(new CanvasLine(new CanvasPoint(startX, startY), new CanvasPoint(endX, endY), color));
+    addLine(startX, startY, endX, endY, color, popup, header, description, value, callback) {
+        this.canvasLines.push(new CanvasLine(new CanvasPoint(startX, startY), new CanvasPoint(endX, endY), color, popup, header, description, value, callback));
     }
 
     removeLine(startX, startY, endX, endY, color) {

@@ -1,25 +1,26 @@
 <script setup>
 import {defineProps} from 'vue';
-
-var lastIndex = -1;
+import NumberInputPopup from "../NumberInputPopup.vue";
 
 const props = defineProps({
-  canvasPoints: Array,
+  canvasLines: Array,
   width: Number,
   height: Number
 });
 
 
-function drawLine(canvas, point1, point2) {
+function drawLine(canvas, line) {
   const ctx = canvas.getContext('2d');
   // Assuming CanvasPoint has x, y properties
   // set ctx color from hex
 
+  console.log(line)
+
   ctx.lineWidth = 5;
-  ctx.strokeStyle = "#" + point2.color;
+  ctx.strokeStyle = "#" + line.color;
   ctx.beginPath();
-  ctx.moveTo(point1.x, point1.y);
-  ctx.lineTo(point2.x, point2.y);
+  ctx.moveTo(line.startPoint.x, line.startPoint.y);
+  ctx.lineTo(line.endPoint.x, line.endPoint.y);
 
   ctx.stroke(); // Render the path
 }
@@ -27,13 +28,7 @@ function drawLine(canvas, point1, point2) {
 function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
-
-  if (props.canvasPoints.length === 1 && index === 0) {
-    lastIndex++;
-  } else if (index > lastIndex) {
-    drawLine(canvas, props.canvasPoints[lastIndex], props.canvasPoints[index]);
-    lastIndex++;
-  }
+  drawLine(canvas, props.canvasLines[index]);
 }
 
 
@@ -41,9 +36,14 @@ function setCanvasRef(canvas, index) {
 
 
 <template>
-  <div v-for="(point, index) in canvasPoints" :key="index" class="AddLineCanvasWrapperDiv" style="position: absolute">
+  <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv" style="position: absolute">
     <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddLineCanvas"></canvas>
+
+
+    <NumberInputPopup :popupVisible="line.popup" :header="line.header" :description="line.description"
+                      :value-name="line.value" @callback="line.callback"/>
   </div>
+
 </template>
 
 
