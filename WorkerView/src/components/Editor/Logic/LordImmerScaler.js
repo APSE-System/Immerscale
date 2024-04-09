@@ -5,13 +5,13 @@ class LordImmerScaler {
     static _matrix = null;
 
     static changeMatrix(m) {
-        this._instance = m;
+        this._matrix = m;
+        console.log("matrix is set:");
+        console.log(this._matrix);
     }
 
     static transformToRealWorld(x, y) {
         if(this._matrix == null) return null;
-        console.log("matrix is set:");
-        console.log(this._matrix);
         return applyMatrixToPoints(this._matrix, [x, y]);
     }
 
