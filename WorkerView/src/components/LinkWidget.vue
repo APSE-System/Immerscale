@@ -1,6 +1,7 @@
 <script setup>
 import Panel from 'primevue/panel';
 import ToggleButton from 'primevue/togglebutton';
+import Button from 'primevue/button';
 import Toast from 'primevue/toast';
 import {useToast} from 'primevue/usetoast';
 import { ref } from 'vue';
@@ -26,7 +27,7 @@ function copy() {
 
 <template>
   <Toast/>
-    <!-- Panel with a header that can be toggled TODO: fix DOM issues to show url or name in header-->
+    <!-- Panel with a header that can be toggled-->
   <Panel :header=url toggleable :collapsed=true>
 
     <template #header>
@@ -38,6 +39,7 @@ function copy() {
         <ToggleButton class="p-panel-header-icon p-link mr-2" v-on:click="disabled = true" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="">
               <span class="pi pi-copy"></span>
         </ToggleButton>
+        <!--<Button class="p-link" icon="pi pi-copy" @click="copy" rounded severity="secondary"/>-->
     </template>
 
     <template #footer>
@@ -97,7 +99,7 @@ function copy() {
   padding-top: 0px;
 }
 
-.pi-check {
+.benis {
   color: green;
 }
 </style>
