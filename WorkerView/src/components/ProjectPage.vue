@@ -33,7 +33,7 @@ const router = useRouter();
     <TabBar>
       <template #back>
         <Button @click="router.push('/')" label="← Projects" id="back-button" />
-        <h2 class="headline">Project {{ projectName }}</h2>
+        <h2 class="headline">Project<br>{{ projectName }}</h2>
       </template>
       <template #main>
         <TabButtons/>
