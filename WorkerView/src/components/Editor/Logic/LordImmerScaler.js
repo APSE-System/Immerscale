@@ -6,13 +6,12 @@ class LordImmerScaler {
 
     static changeMatrix(m) {
         this._matrix = m;
-        console.log("matrix is set:");
-        console.log(this._matrix);
     }
 
     static transformToRealWorld(x, y) {
         if(this._matrix == null) return null;
-        return applyMatrixToPoints(this._matrix, [x, y]);
+        const transformedPoint = applyMatrixToPoints(this._matrix, [x, y, 1])
+        return [transformedPoint[0].get([0])/transformedPoint[0].get([2]), transformedPoint[0].get([1])/transformedPoint[0].get([2])];
     }
 
 }

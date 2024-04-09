@@ -28,7 +28,7 @@ const visible = ref(props.popupVisible);
         <InputNumber id="name" class="flex-auto" autocomplete="off" locale="de-DE" mode="decimal" :minFractionDigits="2" :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
-        <Button type="button" label="Save" @click="visible = false; console.log('value set'); emit('callback', numberValue);"></Button>
+        <Button type="button" label="Save" @click="visible = false; emit('callback', numberValue);"></Button>
       </div>
     </Dialog>
   </div>

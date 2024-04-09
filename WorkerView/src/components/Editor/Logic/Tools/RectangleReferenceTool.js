@@ -9,8 +9,8 @@ class RectangleReferenceTool extends ReferenceTool {
     _first = [];
     _pointCount = 0;
 
-    _width = -1;
-    _height = -1;
+    _firstLength = -1;
+    _secondLenght = -1;
 
     _finished = false;
 
@@ -26,12 +26,12 @@ class RectangleReferenceTool extends ReferenceTool {
         if (this._pointCount == 0) {
             this._model.do(new AddPointCommand(this, this._model, x, y));
         } else if (this._pointCount == 1) {
-            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._width = length; console.log(this._width)}));
+            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
         } else if (this._pointCount == 2) {
-            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._height = length; console.log(this._height)}));
+            this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
         } else if (this._pointCount == 3) {
             this._model.do(new AddPointCommand(this, this._model, x, y));
-        } else if (this._width != -1 && this._height != -1) {
+        } else if (this._firstLength != -1 && this._secondLenght != -1) {
             this._model.do(new ReferenceResultCommand())
         }
     }
@@ -70,9 +70,32 @@ class RectangleReferenceTool extends ReferenceTool {
             point = point.getNext();
         }
 
-        var dst = [[0, 0], [0, this._height], [this._width, this._height], [this._width, 0]];
+        var dst = [[0, this._secondLenght], [this._firstLength, this._secondLenght], [this._firstLength, 0], [0, 0]];
 
         LordImmerScaler.changeMatrix(MathUtils.calculatePerspectiveMatrix(src, dst));
+
+
+        var table_lower_left = [290, 3519, 1]
+        var table_lower_right = [2756, 3464, 1]
+        var table_upper_right = [2068, 593, 1]
+        var table_upper_left = [997, 675, 1]
+
+        var table_points = [table_lower_left, table_lower_right, table_upper_right, table_upper_left]
+
+        var transformed_points = []
+        for(let i = 0; i < table_points.length; i++){
+            transformed_points.push(LordImmerScaler.transformToRealWorld(table_points[i][0], table_points[i][1]))
+        }
+
+        console.log("Points of Table in real world:")
+        console.log(transformed_points)
+
+        var width = MathUtils.getDistance(transformed_points[0], transformed_points[1])
+        var height = MathUtils.getDistance(transformed_points[1], transformed_points[2])
+
+        console.log("Width: " + width)
+        console.log("Height: " + height)
+
     }
 
     deselect() {

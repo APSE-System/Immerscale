@@ -181,7 +181,6 @@ function canvasClicked(event) {
   const x = (x_canv / rect.width) * img.width;
   const y = (y_canv / rect.height) * img.height;
 
-  console.log("x: " + img.width + " y: " + img.height)
   console.log("x: " + x + " y: " + y)
 
   controller.onClick(x,y);
