@@ -2,6 +2,7 @@
 import { useRouter, useRoute } from "vue-router";
 import {onMounted, ref } from 'vue';
 import TabBar from './TabBar.vue';
+import TabButtons from "./TabButtons.vue";
 import Button from "primevue/button";
 
 const route = useRoute()
@@ -29,7 +30,14 @@ const router = useRouter();
   <!-- <h2>Project {{ projectName }}</h2> --> 
   <div class="projectPage">
     <!-- shows the tab bar and then the selected tab using nested routes -->
-    <TabBar :projectName="projectName"/>
+    <TabBar :projectName=projectName>
+      <template #back>
+        <Button @click="router.push('/')" label="← Projects" id="back-button" />
+      </template>
+      <template #main>
+        <TabButtons/>
+      </template>
+    </TabBar>
     <RouterView/>
   </div>
 </template>
@@ -50,4 +58,33 @@ const router = useRouter();
     justify-content: space-between;
     height: 80px;
   } */
+
+  .p-button{
+    color: black;
+    background-color: transparent;
+}
+@media (prefers-color-scheme: dark) {
+    .p-button{
+      color: white;
+    }
+  }
+
+.p-button:hover{
+    color: rgb(35, 115, 210);
+}
+
+#back-button {
+    top: 5px;
+    z-index: 2;
+    background-color: transparent;
+    color: black;
+  }
+  @media (prefers-color-scheme: dark) {
+    #back-button{
+      color: white;
+    }
+  }
+  #back-button:hover {
+    color: rgb(35, 115, 210);
+  }
 </style>

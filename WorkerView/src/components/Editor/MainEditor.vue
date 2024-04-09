@@ -3,6 +3,7 @@ import {onMounted, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
+import TabBar from "../TabBar.vue";
 import Model from "./Logic/Model/Model.js";
 import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
@@ -210,7 +211,7 @@ function canvasBack(event){
     </div> -->
 
     <!-- new -->
-    <div id="outer-sidebar">
+    <!-- <div id="outer-sidebar">
         <div class="sidebar">
             <Button
             @click="router.push('/project/' + route.params.id + '/images')"
@@ -221,8 +222,21 @@ function canvasBack(event){
               <ToolLists :tools="toolsList" class="toolList"/>
             </div>
         </div>
-    </div>
+    </div> -->
 
+    <!-- newer -->
+    <TabBar :projectName="projectName">
+      <template #back>
+        <Button
+            @click="router.push('/project/' + route.params.id + '/images')"
+            label="← Images"
+            id="back-button"
+            />
+      </template>
+      <template #main>
+        <ToolLists :tools="toolsList" class="toolList"/>
+      </template>
+    </TabBar>
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
@@ -291,39 +305,6 @@ function canvasBack(event){
   top: 100px;
 } */
 
-#outer-sidebar{
-    height: 100vh;
-    width: 250px;
-}
-.list-box{
-    position: fixed;
-    flex-direction: column;
-    justify-content: space-between;
-    /* background-color: #37404c; */
-    border-radius: 10px;
-    padding: 10px;
-    height: 150px;
-    z-index: 1; 
-    top: 50%;
-    transform: translateY(-50%);
-    left : 10px;
-    width: 200px;
-}
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 220px;
-  background-color: lightgrey;
-  z-index: 1;
-}
-@media (prefers-color-scheme: dark) {
-    .sidebar{
-        background-color: #23282e;
-        /* background-color: transparent; */
-    }
-  }
 .p-button{
     color: black;
     background-color: transparent;
