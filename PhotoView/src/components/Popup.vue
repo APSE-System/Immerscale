@@ -35,7 +35,7 @@ async function sendPicture() {
   // for debuging
   // console.log(imageAsBase64);
 
-  // this is is actually sending the picture using the axios library
+  // this is is actually sending the picture
   fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo", {
     credentials: "include",
     method: "POST",
@@ -53,13 +53,28 @@ async function sendPicture() {
         showToast("Unauthorized")
       }
     })
+    .catch((error) => {
+      showToast("Error");
+      console.error("Error:", error);
+    })
   }
 
- // function will display the toast with the given message
+ // function will display the toast with the given message also changes color based on msg
  function showToast(msg) {
     const toast = document.getElementById('toast');
     toast.className = "show";
     toast.innerText = msg;
+
+    if(msg === "Success") {
+      toast.style.backgroundColor = "green";
+    }
+    else if(msg === "Unauthorized" || msg === "Error") {
+      toast.style.backgroundColor = "red";
+    }
+    else {
+      toast.style.backgroundColor = "#333";
+    }
+
     setTimeout(function() {toast.className = toast.className.replace("show", ""); }, 3000);
 }
 
@@ -157,7 +172,7 @@ function loadImage() {
 .modal-footer Button {
   color: black;
 }
-
+/* the background color also changes based on the text (Success or Unauthorized) */
 #toast {
   visibility: hidden;
   min-width: 250px;
