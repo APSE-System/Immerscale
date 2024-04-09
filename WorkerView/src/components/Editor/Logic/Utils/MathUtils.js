@@ -6,9 +6,6 @@ import * as math from 'mathjs'
 //
 // https://math.stackexchange.com/questions/296794/finding-the-transform-matrix-from-4-projected-points-with-javascript/339033#339033
 export function calculatePerspectiveMatrix(src, dst){
-    console.log(src)
-    console.log(dst)
-
     // 1. Step solve the linear system for x to create a matrix that maps pixel to base vectors
     let A = math.matrix([
         [src[0][0], src[0][1], 1],
@@ -17,9 +14,6 @@ export function calculatePerspectiveMatrix(src, dst){
     ])
     let b = [src[3][0], src[3][1], 1]
     let x_to_pixel = math.lusolve(A, b)
-
-
-    console.log("solved step 1 :" + x_to_pixel)
 
     // 2. Step solve the linear system for y to create a matrix that maps base to real vectors
     A = math.matrix([
@@ -30,27 +24,21 @@ export function calculatePerspectiveMatrix(src, dst){
     b = [dst[3][0], dst[3][1], 1]
     let x_to_real = math.lusolve(A, b)
 
-    console.log("solved step 2 :" + x_to_real.get([1]))
     // 3. Step construct pixel to base vector matrix
     let base_to_pixel_matrix = math.matrix([
         [x_to_pixel.get([0, 0]) * src[0][0], x_to_pixel.get([1, 0]) * src[1][0], x_to_pixel.get([2, 0]) * src[2][0]],
         [x_to_pixel.get([0, 0]) * src[0][1], x_to_pixel.get([1, 0]) * src[1][1], x_to_pixel.get([2, 0]) * src[2][1]],
-        x_to_pixel
+        [x_to_pixel.get([0, 0]), x_to_pixel.get([1, 0]), x_to_pixel.get([2, 0])]
     ])
     // invert the matrix to get pixel to base matrix
     let pixel_to_base_matrix = math.inv(base_to_pixel_matrix)
 
-    console.log("solved 3")
-
     // 4. Step construct base vector to real world matrix
     let base_to_real_matrix = math.matrix([
-        [x_to_real[0] * dst[0][0], x_to_real[1] * dst[1][0], x_to_real[2] * dst[2][0]],
-        [x_to_real[0] * dst[0][1], x_to_real[1] * dst[1][1], x_to_real[2] * dst[2][1]],
-        x_to_real
+        [x_to_real.get([0, 0]) * dst[0][0], x_to_real.get([1, 0]) * dst[1][0], x_to_real.get([2, 0]) * dst[2][0]],
+        [x_to_real.get([0, 0]) * dst[0][1], x_to_real.get([1, 0]) * dst[1][1], x_to_real.get([2, 0]) * dst[2][1]],
+        [x_to_real.get([0, 0]), x_to_real.get([1, 0]), x_to_real.get([2, 0])]
     ])
-
-    console.log("solved 4")
-
 
     // 5.Step construct pixel to real world matrix and return
     return math.multiply(base_to_real_matrix, pixel_to_base_matrix)
