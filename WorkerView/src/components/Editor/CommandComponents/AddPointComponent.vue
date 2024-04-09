@@ -1,6 +1,5 @@
 <script setup>
 import {defineProps} from 'vue';
-import {ref} from "vue";
 import NumberInputPopup from "../NumberInputPopup.vue";
 
 const props = defineProps({

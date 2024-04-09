@@ -8,6 +8,7 @@ import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
 import NumberInputPopup from "./NumberInputPopup.vue";
+import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -214,6 +215,7 @@ function canvasBack(event){
       <div ref="zoom_inner" class="zoom" id="zoom">
         <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)"  :width="imgWidth" :height="imgHeight"></canvas>
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
+        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddLineComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>

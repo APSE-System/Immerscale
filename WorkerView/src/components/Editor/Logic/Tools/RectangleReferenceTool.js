@@ -1,7 +1,5 @@
 import * as MathUtils from "../Utils/MathUtils.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
-import SetSizeCommand from "../Commands/SetSizeCommand.js";
-import ReferenceResultCommand from "../Commands/ReferenceResultCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
 import ReferenceTool from "../ReferenceTool.js";
 
@@ -31,8 +29,6 @@ class RectangleReferenceTool extends ReferenceTool {
             this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
         } else if (this._pointCount == 3) {
             this._model.do(new AddPointCommand(this, this._model, x, y));
-        } else if (this._firstLength != -1 && this._secondLenght != -1) {
-            this._model.do(new ReferenceResultCommand())
         }
     }
 
