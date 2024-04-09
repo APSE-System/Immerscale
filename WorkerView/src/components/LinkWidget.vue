@@ -47,7 +47,7 @@ function copy() {
         <!-- Values taken from properties -->
         <div class="ItemInfos">
           <p>{{"Name: " + name }}</p>
-          <p>{{"Link: https://localhost:8888/?token_id=" + url }}</p>
+          <p>{{"Link: https://localhost:8888/?token=" + url }}</p>
           <!--Dates are given in YYYY-MM-DD, hence why the substring stuff here-->
           <p v-if="creation">{{"Created at: " + creation.substring(8,10)+"."+creation.substring(5,7)+"."+creation.substring(0,4) +" at "+ creation.substring(11,16)}}</p>
           <p v-if="expiration">{{"Expires at: " +expiration.substring(8,10)+"."+expiration.substring(5,7)+"."+expiration.substring(0,4) +" at "+ expiration.substring(11,16)}}</p>
