@@ -12,11 +12,11 @@ let image;
 // based on the ideal width and height a different camera is used
 const constraints = ref({
   audio: false,
-  video: { facingMode: "environment" },
-  // video: {
-  //  width: { ideal: 1280 },
-  //  height: { ideal: 720 },
-  // },
+  video: {
+  //  width: { ideal: 4096 }, // TODO fix this
+  //  height: { ideal: 4096 },
+   facingMode: "environment"
+  },
 });
 
 let HEIGHT;
