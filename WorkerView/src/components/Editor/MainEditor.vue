@@ -210,21 +210,6 @@ function canvasBack(event){
       <ToolLists :tools="toolsList" class="toolList"/>
     </div> -->
 
-    <!-- new -->
-    <!-- <div id="outer-sidebar">
-        <div class="sidebar">
-            <Button
-            @click="router.push('/project/' + route.params.id + '/images')"
-            label="← Images"
-            id="back-button"
-            />
-            <div class="list-box card flex justify-content-left">
-              <ToolLists :tools="toolsList" class="toolList"/>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- newer -->
     <TabBar :projectName="projectName">
       <template #back>
         <Button

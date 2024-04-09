@@ -6,28 +6,9 @@ import Button from "primevue/button";
 // get the router for routing to the project sub pages
 const route = useRoute()
 const router = useRouter();
-const projectName = ref("")
-
-async function getName(){
-fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projectName?id=' + route.params.id, {credentials: "include"})
-  .then(async (resp) => {
-    projectName.value = await resp.text()}
-  )
-  .catch(function(){
-    alert("Backend ist nicht errreichbar")
-  })
-}
-
-onMounted(() => {
-  getName()
-})
 
 // this value is used to determine which button should be highlighted. This depends on which tab is selected.
 const primary = ref(0); 
-
-const props = defineProps({
-    projectName: String
-})
 
 // As the tabs can be accessed directly via the URL, the path has to be checked which tab is selected to highlight the according button.
 onMounted(()=>{
