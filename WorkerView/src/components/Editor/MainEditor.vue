@@ -200,13 +200,27 @@ function canvasBack(event){
 
 <template>
   <div class="editor">
-    <div class="flex justify-content-left left-bar">
+    <!-- <div class="flex justify-content-left left-bar">
       <Button
           @click="router.push('/project/' + route.params.id + '/images')"
           label="← Images"
           id="back-button"
       />
       <ToolLists :tools="toolsList" class="toolList"/>
+    </div> -->
+
+    <!-- new -->
+    <div id="outer-sidebar">
+        <div class="sidebar">
+            <Button
+            @click="router.push('/project/' + route.params.id + '/images')"
+            label="← Images"
+            id="back-button"
+            />
+            <div class="list-box card flex justify-content-left">
+              <ToolLists :tools="toolsList" class="toolList"/>
+            </div>
+        </div>
     </div>
 
 
@@ -225,11 +239,11 @@ function canvasBack(event){
   display: flex;
 }
 
-.left-bar {
+/* .left-bar {
   position: absolute;
   left: 2%;
   width: 15%;
-}
+} */
 
 
 #zoom-outer {
@@ -267,7 +281,7 @@ function canvasBack(event){
   z-index: 42069;
 }
 
-#back-button {
+/* #back-button {
   position: absolute;
   top: 5px;
 }
@@ -275,5 +289,67 @@ function canvasBack(event){
 .toolList{
   position: absolute;
   top: 100px;
+} */
+
+#outer-sidebar{
+    height: 100vh;
+    width: 250px;
 }
+.list-box{
+    position: fixed;
+    flex-direction: column;
+    justify-content: space-between;
+    /* background-color: #37404c; */
+    border-radius: 10px;
+    padding: 10px;
+    height: 150px;
+    z-index: 1; 
+    top: 50%;
+    transform: translateY(-50%);
+    left : 10px;
+    width: 200px;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 220px;
+  background-color: lightgrey;
+  z-index: 1;
+}
+@media (prefers-color-scheme: dark) {
+    .sidebar{
+        background-color: #23282e;
+        /* background-color: transparent; */
+    }
+  }
+.p-button{
+    color: black;
+    background-color: transparent;
+}
+@media (prefers-color-scheme: dark) {
+    .p-button{
+      color: white;
+    }
+  }
+
+.p-button:hover{
+    color: rgb(35, 115, 210);
+}
+
+#back-button {
+    top: 5px;
+    z-index: 2;
+    background-color: transparent;
+    color: black;
+  }
+  @media (prefers-color-scheme: dark) {
+    #back-button{
+      color: white;
+    }
+  }
+  #back-button:hover {
+    color: rgb(35, 115, 210);
+  }
 </style>

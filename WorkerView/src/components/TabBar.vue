@@ -80,7 +80,6 @@
   background-color: lightgrey;
   z-index: 1;
 }
-/* TODO make the sidebar-box span over the whole screen height */
 @media (prefers-color-scheme: dark) {
     .sidebar{
         background-color: #23282e;
