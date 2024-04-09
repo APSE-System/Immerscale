@@ -2,12 +2,14 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import Button from "primevue/button";
+import Dialog from "primevue/dialog";
 
 //references
 let image;
+const visible = ref(false);
 
-//! this function will not be necessary in the future (maybe)
+//! this function will not necessary in the future
 function downloadPicture() {
   var link = document.createElement("a");
   link.download = "immerscale-picture";
@@ -17,24 +19,9 @@ function downloadPicture() {
   link.click();
 }
 
-//this will close the popup
-function closeModal() {
-  const modal = document.getElementById("modal");
-  const overlay = document.getElementById("overlay");
-  if (modal == null) return;
-
-  //by removing active the scale of will
-  //be transformed from 1->0
-  modal.classList.remove("active");
-  overlay.classList.remove("active");
-}
-
 // this function posts the image to the backend
 async function sendPicture() {
   image = document.getElementById("my-image");
-
-  const backendUrl =
-    "http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo";
 
   // // get the base64 part of the image and remove the prefix "data:image/jpeg;base64," with split
   // the try catch is there just in the case some 'funny' things happen
@@ -46,10 +33,9 @@ async function sendPicture() {
   }
 
   // for debuging
-  // TODO comment the console.log
-  console.log(imageAsBase64);
+  // console.log(imageAsBase64);
 
-  // this is is actually sending the picture using the axios library
+  // this is is actually sending the picture
   fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo", {
     credentials: "include",
     method: "POST",
@@ -61,34 +47,152 @@ async function sendPicture() {
     .then((response) => {
       if (response.ok) {
         // Handle success response
-        alert(response);
+        showToast("Success");
       } else {
         // Handle error response
-        alert(response);
+        showToast("Unauthorized")
       }
     })
-    
+    .catch((error) => {
+      showToast("Error");
+      console.error("Error:", error);
+    })
+  }
+
+ // function will display the toast with the given message also changes color based on msg
+ function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.className = "show";
+    toast.innerText = msg;
+
+    if(msg === "Success") {
+      toast.style.backgroundColor = "green";
+    }
+    else if(msg === "Unauthorized" || msg === "Error") {
+      toast.style.backgroundColor = "red";
+    }
+    else {
+      toast.style.backgroundColor = "#333";
+    }
+
+    setTimeout(function() {toast.className = toast.className.replace("show", ""); }, 3000);
+}
+
+// TODO clean up this function
+// this loads the image into the Popup
+function loadImage() {
+  let canvas = document.getElementById("canvas");
+  image = new Image();
+  image.src = canvas.toDataURL("image/jpeg");
+
+  // the on load is needed
+  image.onload = function() {
+    image = canvas.toDataURL("image/jpeg");
+    let myImage = document.getElementById("my-image");
+    myImage.src = image;
+  }
 }
 </script>
 
 <template>
-  <!-- Popup -->
-  <div class="modal" id="modal">
-    <div class="modal-header">
-      Senden?
-      <button @click="closeModal" class="close">
-        <!-- this is a x -->
-        &times;
-      </button>
-    </div>
-    <div class="modal-body">
-      <img id="my-image" src="" alt="" />
-    </div>
-    <div class="modal-footer">
-      <!-- TODO implement the 'send'-function -->
-      <button @click="sendPicture">Absenden</button>
-      <button @click="closeModal" data-model-close>Verwerfen</button>
-    </div>
+  <div id="toast"></div>
+
+  <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem' }">
+  <div class="modal-body">
+    <img id="my-image" src="" alt="" />
   </div>
-  <div id="overlay"></div>
+  <div class="modal-footer">
+    <Button class="button" @click="visible = false; sendPicture()" label="Absenden"></Button>
+    <Button
+      class="button"
+      @click="visible = false"
+      data-model-close
+      label="Verwerfen"
+    ></Button>
+  </div>
+  </Dialog>
+
+  <Button @click="visible = true; loadImage();" label="Bild erstellen"></Button>
 </template>
+
+<style scoped>
+.p-button {
+  color: black;
+  background-color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  .p-button {
+    color: white;
+  }
+}
+
+.p-button:hover {
+  color: rgb(35, 115, 210);
+}
+
+/* this is for the popup */
+/* the picture will be displayed in the body */
+.modal-body {
+  padding-top: 5px;
+  max-height: 250px;
+  overflow: hidden;
+  justify-content: center;
+  justify-items: center;
+  display: flex;
+  align-items: center;
+}
+
+.modal-body img {
+  max-height: 250px;
+  min-height: 50px;
+  widows: auto;
+}
+
+/* this looks nicer in landscape */
+@media (orientation: landscape) {
+  #my-image {
+    max-width: auto; 
+    max-height: 50vh;
+  }
+} 
+
+
+/* here are the 'absenden' and 'verwerfen' buttons */
+.modal-footer {
+  min-width: 0;
+  min-height: 0;
+  padding: 5px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-footer Button {
+  color: black;
+}
+/* the background color also changes based on the text (Success or Unauthorized) */
+#toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 30px;
+  transform: translateX(-50%);
+  font-size: 17px;
+  transition: 1s;
+  opacity: 0;
+}
+
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+</style>

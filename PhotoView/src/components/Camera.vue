@@ -12,11 +12,11 @@ let image;
 // based on the ideal width and height a different camera is used
 const constraints = ref({
   audio: false,
-  video: { facingMode: "environment" },
-  // video: {
-  //  width: { ideal: 1280 },
-  //  height: { ideal: 720 },
-  // },
+  video: {
+  //  width: { ideal: 4096 }, // TODO fix this
+  //  height: { ideal: 4096 },
+   facingMode: "environment"
+  },
 });
 
 let HEIGHT;
@@ -128,7 +128,7 @@ function updateView(e) {
 </script>
 
 <template>
-  <!-- the main contianer contains the camera view and the 'Bild erstellen'-button -->
+  <!-- the main contianer contains the camera view-->
   <div class="main-container">
     <div>
       <video
@@ -144,17 +144,6 @@ function updateView(e) {
       <!-- the canvas with and height are dynamically adjusted -->
       <!-- the size of width and heigt determine the dimension of the picture taken -->
       <canvas id="canvas" ref="canvas" class="video-mask"></canvas>
-    </div>
-
-    <div>
-      <!-- Will open the Popup -->
-      <button
-        @click="openModal"
-        data-modal-target="#modal"
-        class="take-picture-button"
-      >
-        Bild erstellen
-      </button>
     </div>
   </div>
 </template>
