@@ -36,12 +36,6 @@ class RectangleReferenceTool extends ReferenceTool {
         }
     }
 
-    onValueEntered(size) {
-        if (this._pointCount > 3) {
-            this._model.do(new SetSizeCommand(this, model, size));
-        }
-    }
-
     updateExecute(command) {
         if (this._pointCount == 0) {
             this._first = command;
@@ -51,11 +45,16 @@ class RectangleReferenceTool extends ReferenceTool {
         } else {
             this.setReference()
             this._finished = true;
+            this._pointCount++;
         }
     }
 
     updateUnExecute(point) {
-        if (this._pointCount >= 1) {
+        if (this._pointCount == 4) {
+            this._pointCount--;
+            LordImmerScaler.changeMatrix(null);
+            this._finished = false;
+        } else if (this._pointCount >= 1) {
             this._pointCount--;
         } else {
             this._first = null;
@@ -70,11 +69,11 @@ class RectangleReferenceTool extends ReferenceTool {
             point = point.getNext();
         }
 
-        var dst = [[0, this._secondLenght], [this._firstLength, this._secondLenght], [this._firstLength, 0], [0, 0]];
+        var dst = [[0, 0], [0, this._firstLength], [this._secondLenght, this._firstLength], [this._secondLenght, 0]];
 
         LordImmerScaler.changeMatrix(MathUtils.calculatePerspectiveMatrix(src, dst));
 
-
+        /*
         var table_lower_left = [290, 3519, 1]
         var table_lower_right = [2756, 3464, 1]
         var table_upper_right = [2068, 593, 1]
@@ -87,15 +86,12 @@ class RectangleReferenceTool extends ReferenceTool {
             transformed_points.push(LordImmerScaler.transformToRealWorld(table_points[i][0], table_points[i][1]))
         }
 
-        console.log("Points of Table in real world:")
-        console.log(transformed_points)
-
         var width = MathUtils.getDistance(transformed_points[0], transformed_points[1])
         var height = MathUtils.getDistance(transformed_points[1], transformed_points[2])
 
         console.log("Width: " + width)
         console.log("Height: " + height)
-
+        */
     }
 
     deselect() {

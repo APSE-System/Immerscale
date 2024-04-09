@@ -14,7 +14,6 @@ function drawPoint(canvas, point) {
   const ctx = canvas.getContext('2d');
   // Assuming CanvasPoint has x, y properties
   // set ctx color from hex
-  console.log(point.color)
   ctx.fillStyle = "#" + point.color;
   ctx.beginPath();
   ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI); // Draw a circle to represent the point
