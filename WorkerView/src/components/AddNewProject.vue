@@ -1,5 +1,5 @@
 <script setup>
-import { createApp, ref } from "vue";
+import { ref } from "vue";
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
