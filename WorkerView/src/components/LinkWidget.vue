@@ -1,10 +1,12 @@
 <script setup>
 import Panel from 'primevue/panel';
 import ToggleButton from 'primevue/togglebutton';
+import Toast from 'primevue/toast';
+import {useToast} from 'primevue/usetoast';
 import { ref } from 'vue';
 
 const checked = ref(false);
-
+const toast = useToast();
 
 //define properties for the link items
 const props = defineProps({
@@ -16,13 +18,14 @@ const props = defineProps({
 
 function copy() {
     navigator.clipboard.writeText("https://localhost:8888/?token=" + props.url)
-    alert("Link copied to clipboard!")
+    toast.add({severity:'success', summary:'Copied', detail:'Link copied to clipboard', life: 3000});
 }
 
 </script>
 
 
 <template>
+  <Toast/>
     <!-- Panel with a header that can be toggled TODO: fix DOM issues to show url or name in header-->
   <Panel :header=url toggleable :collapsed=true>
 
@@ -32,8 +35,8 @@ function copy() {
       </div>
     </template>
     <template #icons>
-        <ToggleButton class="p-panel-header-icon p-link mr-2" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="">
-              <!--<span class="pi pi-copy"></span>-->
+        <ToggleButton class="p-panel-header-icon p-link mr-2" v-on:click="disabled = true" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="">
+              <span class="pi pi-copy"></span>
         </ToggleButton>
     </template>
 

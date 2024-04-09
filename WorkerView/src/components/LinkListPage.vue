@@ -4,8 +4,10 @@ import GenerateNewLink from './GenerateNewLink.vue'
 import Divider from 'primevue/divider';
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import {useToast} from 'primevue/usetoast';
 
 const route = useRoute()
+const toast = useToast();
 
 const links = ref([
 ]);
@@ -29,6 +31,11 @@ function fetchLinks() {
 onMounted(() => {
   fetchLinks()
 })
+
+function showToast() {
+  toast.add({severity:'success', summary:'Copied', detail:'Link copied to clipboard', life: 3000});
+  alert("Link copied to clipboard")
+}
 
 </script>
 
