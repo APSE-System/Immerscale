@@ -264,7 +264,7 @@ function canvasBack(event){
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   z-index: 42069;
 }
 

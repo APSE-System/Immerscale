@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue';
+import {defineProps} from 'vue';
 import {ref} from "vue";
 import NumberInputPopup from "../NumberInputPopup.vue";
 
@@ -21,8 +21,8 @@ function drawPoint(canvas, point) {
   ctx.fill();
 }
 
-function setCanvasRef(canvas, index){
-  if(canvas === null)
+function setCanvasRef(canvas, index) {
+  if (canvas === null)
     return
   drawPoint(canvas, props.canvasPoints[index]);
 }
@@ -53,9 +53,9 @@ function setCanvasRef(canvas, index){
   height: 100%;
 }
 
-.AddPointCanvas{
-width: 100%;
-  height: 100%;
+.AddPointCanvas {
+  width: 100%;
+  height: auto;
   left: 0;
   right: 0;
 }
