@@ -1,6 +1,5 @@
 <script setup>
 import {defineProps} from 'vue';
-import NumberInputPopup from "../NumberInputPopup.vue";
 
 const props = defineProps({
   canvasLines: Array,
@@ -38,10 +37,6 @@ function setCanvasRef(canvas, index) {
 <template>
   <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv" style="position: absolute">
     <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddLineCanvas"></canvas>
-
-
-    <NumberInputPopup :popupVisible="line.popup" :header="line.header" :description="line.description"
-                      :value-name="line.value" @callback="line.callback"/>
   </div>
 
 </template>

@@ -1,12 +1,18 @@
 import CanvasPoint from "./ModelComponents/CanvasPoint.js";
 import CanvasLine from "./ModelComponents/CanvasLine.js";
+import Popup from "./ModelComponents/Popup.js";
 
 
 class Model {
     canvasPoints = [];
     canvasLines = [];
+    popup = null;
 
     currentCommand = null;
+
+    constructor() {
+        this.popup = new Popup();
+    }
 
     addPoint(x, y, color) {
         this.canvasPoints.push(new CanvasPoint(x, y, color));
@@ -19,8 +25,8 @@ class Model {
         }
     }
 
-    addLine(points, color, popup, header, description, value, callback) {
-        this.canvasLines.push(new CanvasLine(points, color, popup, header, description, value, callback));
+    addLine(points, color) {
+        this.canvasLines.push(new CanvasLine(points, color));
     }
 
     removeLine(points, color) {
@@ -28,6 +34,14 @@ class Model {
         if (index !== -1) {
             this.canvasLines.splice(index, 1);
         }
+    }
+
+    addPopup(header, description, value, callback) {
+        this.popup.show(header, description, value, callback);
+    }
+
+    removePopup() {
+        this.popup.clear();
     }
 
     do(command) {

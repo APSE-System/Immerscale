@@ -8,6 +8,7 @@ import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
+import NumberInputPopup from "./NumberInputPopup.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -218,6 +219,9 @@ function canvasBack(event){
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
+
+
+    <NumberInputPopup :popup="model.popup" @callback="model.popup.callback"/>
   </div>
 </template>
 

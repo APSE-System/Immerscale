@@ -27,13 +27,17 @@ class AddLineCommand extends Command {
     execute() {
         super.execute();
 
-        this._model.addLine(this._points,"00ff00", this._popup, this._header, this._description, this._value, this._callback);
+        this._model.addLine(this._points,"00ff00");
+        if(this._popup)
+            this._model.addPopup(this._header, this._description, this._value, this._callback);
     }
 
     unExecute() {
         super.unExecute();
 
         this._model.removeLine(this._points, "00ff00");
+        if(this._popup)
+            this._model.removePopup();
     }
 
 
