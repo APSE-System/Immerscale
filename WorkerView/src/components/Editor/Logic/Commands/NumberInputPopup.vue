@@ -1,5 +1,5 @@
 <script setup>
-import {watch, ref, defineProps} from "vue";
+import { defineProps} from "vue";
 import InputNumber from 'primevue/inputnumber';
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
@@ -14,8 +14,8 @@ const props = defineProps({
 </script>
 
 <template>
+  <!-- Displayes the popup with the texts specified. -->
   <div class="card flex justify-content-center">
-
     <Dialog v-model:visible="popup.visible" modal :header="popup.header" :closable="false" :style="{ width: '25rem' }">
       <span class="p-text-secondary block mb-3">{{ popup.description }}</span>
       <div class="flex align-items-center gap-3 mb-3">

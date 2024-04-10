@@ -1,6 +1,7 @@
 <script setup>
 import {defineProps} from 'vue';
 
+// The properties of this component consist of a list of points that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
   canvasPoints: Array,
   width: Number,
@@ -8,16 +9,18 @@ const props = defineProps({
 });
 
 
+// This function draws the given point on the given canvas.
 function drawPoint(canvas, point) {
   const ctx = canvas.getContext('2d');
-  // Assuming CanvasPoint has x, y properties
-  // set ctx color from hex
+  // setting the color of the point
   ctx.fillStyle = "#" + point.color;
   ctx.beginPath();
-  ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI); // Draw a circle to represent the point
+  // Drawing a circle at the coordinates of the point.
+  ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
   ctx.fill();
 }
 
+// This function checks if the canvas even exists before handing the according point to the drawing function.
 function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
@@ -29,6 +32,7 @@ function setCanvasRef(canvas, index) {
 
 
 <template>
+  <!-- This loop goes over all the points that exist and draws them on a canvas each. -->
   <div v-for="(point, index) in canvasPoints" :key="index" class="AddPointCanvasWrapperDiv" style="position: absolute">
     <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddPointCanvas"></canvas>
   </div>

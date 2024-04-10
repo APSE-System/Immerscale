@@ -1,4 +1,3 @@
-import model from "../Model/Model.js";
 import Command from "../Command.js";
 
 // This command can be used for drawing a line in the model canvas.
@@ -59,21 +58,6 @@ class AddLineCommand extends Command {
         return this._points[index];
     }
 
-    hasPopup() {
-        return this._popup;
-    }
-
-    getHeader() {
-        return this._header;
-    }
-
-    getDescription() {
-        return this._description;
-    }
-
-    getValueName() {
-        return this._value;
-    }
 }
 
 export default AddLineCommand;

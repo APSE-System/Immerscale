@@ -1,4 +1,5 @@
 
+// This class acts as a datastructure to store the information needed by the vue component to display a popup.
 class Popup {
     visible;
 
@@ -18,6 +19,7 @@ class Popup {
         this.callback = callback;
     }
 
+    // Sets visible to true to display the popup.
     show(header = "", description = "", value = "", callback = ()=>{}) {
         this.visible = true;
 
@@ -26,10 +28,9 @@ class Popup {
         this.value = value;
 
         this.callback = callback;
-
-        console.log("visible now")
     }
 
+    // Sets visible to false again to hide the popup.
     clear(){
         this.visible = false;
 
