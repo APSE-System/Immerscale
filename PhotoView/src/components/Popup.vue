@@ -86,7 +86,7 @@ function loadImage() {
   canvas.height = video.videoHeight;
 
   let para = '-width: ' + video.videoWidth + ' -height: ' + video.videoHeight;
-  showToast(para);
+  console.log(para);
 
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 
@@ -165,7 +165,6 @@ function loadImage() {
   }
 } 
 
-
 /* here are the 'absenden' and 'verwerfen' buttons */
 .modal-footer {
   min-width: 0;
@@ -190,7 +189,7 @@ function loadImage() {
   border-radius: 5px;
   padding: 16px;
   position: fixed;
-  z-index: 1000000000000000000000;
+  z-index: 1;
   left: 50%;
   top: 30px;
   transform: translateX(-50%);
