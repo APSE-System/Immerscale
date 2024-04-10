@@ -20,6 +20,7 @@ const toolTree = ref([
   {
     icon:"pi pi-pencil",
     label: 'Measuring Tools',
+    disabled: true,
     items: []
   }
 ])
@@ -47,6 +48,11 @@ function fillToolTree() {
   }
 }
 
+//use this function to enable a tool in the tree
+function enableTool(index) {
+  toolTree.value[index].disabled = false
+}
+
 onMounted(() => {
   fillToolTree()
 })
@@ -59,6 +65,7 @@ onMounted(() => {
     <div class="card flex justify-content-center">
         <PanelMenu :model="toolTree" class="w-full md:w-20rem" />
     </div>
+    <!--<button @click="enableTool(1)">Enable Measurement Tools</button>-->
 </template>
 
 <style scoped>
