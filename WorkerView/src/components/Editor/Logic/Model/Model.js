@@ -1,6 +1,5 @@
 import CanvasPoint from "./ModelComponents/CanvasPoint.js";
 import CanvasLine from "./ModelComponents/CanvasLine.js";
-import defaultCommand from "../Commands/DefaultCommand.js";
 import DefaultCommand from "../Commands/DefaultCommand.js";
 
 
@@ -11,7 +10,7 @@ class Model {
     currentCommand = null;
 
     constructor() {
-        this.currentCommand = new defaultCommand(null, this);
+        this.currentCommand = new DefaultCommand(null, this);
     }
 
     addPoint(x, y, color) {
