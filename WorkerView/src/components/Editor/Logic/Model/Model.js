@@ -1,5 +1,7 @@
 import CanvasPoint from "./ModelComponents/CanvasPoint.js";
 import CanvasLine from "./ModelComponents/CanvasLine.js";
+import defaultCommand from "../Commands/DefaultCommand.js";
+import DefaultCommand from "../Commands/DefaultCommand.js";
 
 
 class Model {
@@ -7,6 +9,10 @@ class Model {
     canvasLines = [];
 
     currentCommand = null;
+
+    constructor() {
+        this.currentCommand = new defaultCommand(null, this);
+    }
 
     addPoint(x, y, color) {
         this.canvasPoints.push(new CanvasPoint(x, y, color));
@@ -31,34 +37,36 @@ class Model {
     }
 
     do(command) {
-        if(this.currentCommand === null)
-            this.currentCommand = command;
-        else{
-            this.currentCommand.setNext(command);
-            command.setPrevious(this.currentCommand);
-            this.currentCommand = command;
-        }
+        this.currentCommand.setNext(command);
+        command.setPrevious(this.currentCommand);
+        this.currentCommand = command;
 
         command.execute();
     }
 
     undo() {
-        if(this.currentCommand !== null) {
-            var undoneCommand = this.currentCommand;
-            this.currentCommand.unExecute();
-            this.currentCommand = this.currentCommand.getPrevious();
-            return undoneCommand;
+        if (this.currentCommand instanceof DefaultCommand) {
+            return;
         }
+
+        var undoneCommand = this.currentCommand;
+        this.currentCommand.unExecute();
+        this.currentCommand = this.currentCommand.getPrevious();
+        return undoneCommand;
     }
 
-    redo(){
-        if(this.currentCommand === null || this.currentCommand.getNext() === null)
+    redo() {
+        if (this.currentCommand === null || this.currentCommand.getNext() === null)
             return
 
         this.do(this.currentCommand.getNext())
     }
 
-    export(){}
-    import(){}
+    export() {
+    }
+
+    import() {
+    }
 }
+
 export default Model;
