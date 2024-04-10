@@ -69,7 +69,7 @@ class Model {
     // Undoes the last command
     undo() {
         // This ensures that the Default command is always present and wont be undone, so the command history is always kept.
-        if (this.currentCommand instanceof DefaultCommand) {
+        if (this.currentCommand instanceof DefaultCommand)
             return;
 
         // The last command is undone and the previous command is set as the current command.
@@ -84,9 +84,9 @@ class Model {
     redo(){
         // If the current command also has a "next" command, it is executed.
         if(this.currentCommand === null || this.currentCommand.getNext() === null)
-            return
+            return;
 
-        this.do(this.currentCommand.getNext())
+        this.do(this.currentCommand.getNext());
     }
 
     // These functions could later be used to export or import the model into XML
