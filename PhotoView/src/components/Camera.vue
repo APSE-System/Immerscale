@@ -3,147 +3,98 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
+// original code from: https://codelabs.developers.google.com/codelabs/tensorflowjs-object-detection#6
+
 //references
-const canvas = ref(null);
 const video = ref(null);
-const ctx = ref(null); //context
-let image;
-
-// based on the ideal width and height a different camera is used
-const constraints = ref({
-  audio: false,
-  video: {
-  //  width: { ideal: 4096 }, // TODO fix this
-  //  height: { ideal: 4096 },
-   facingMode: "environment"
-  },
-});
-
-let HEIGHT;
-let WIDTH;
 
 // The onMounted lifecycle hook is used to run an async function when the component is mounted.
-// Inside this function, it checks if both the video and canvas elements are available.
-// If they are, it gets the 2D rendering context of the canvas element.
-onMounted(async () => {
-  if (video.value && canvas.value) {
-    ctx.value = canvas.value.getContext("2d");
+onMounted(() => {
+  const video = document.getElementById("webcam");
 
-    // get the webcam information
-    // If successful, it calls the SetStream function passing in the stream.
-    await navigator.mediaDevices
-      .getUserMedia(constraints.value)
-      .then((stream) => {
+  // Check if webcam access is supported.
+  function getUserMediaSupported() {
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  }
 
-        // Returns a sequence of MediaStreamTrack objects
-        // representing the video tracks in the stream
-        let settings = stream.getVideoTracks()[0].getSettings();
+  // If webcam supported enableCam
+  if (getUserMediaSupported()) {
+    enableCam();
+  } else {
+    console.warn("getUserMedia() is not supported by your browser");
+  }
 
-        // set the size of the camera resolution
-        WIDTH = settings.width;
-        HEIGHT = settings.height;
+  // Enable the live webcam view and start classification.
+  function enableCam() {
+    // 1: getUsermedia parameters to force video but not audio.
+    let constraints = {
+      // video: true,
+      audio: false,
+      video: {
+           width: { ideal: 10000 }, // TODO fix this
+           height: { ideal: 10000 },
+           facingMode: "environment"
+          },
+    };
 
-        // initialise the live-view parameters
-        let canvas = document.getElementById("canvas");
+    // Activate the webcam stream.
+    navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch((error) => {
+      console.log("first constraint did not work")
 
-        if (window.innerHeight > window.innerWidth) {
-          //landscape
-          canvas.width = HEIGHT;
-          canvas.height = WIDTH;
-        } else {
-          //  portrait
-          canvas.width = WIDTH;
-          canvas.height = HEIGHT;
-        }
-        
-        setStream(stream);
+      // 2: try again with different constraint
+      let constraints = {
+        // video: true,
+        audio: false,
+          video: {
+           facingMode: {ideal: "environment"},
+        },
+      };
+
+      navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+      video.srcObject = stream;
       })
-      .catch((e) => {
-        console.error(e);
-      });
+    })
   }
 });
-
-// sets stream parameter as the source object for the video element,
-// plays the video, and calls the Draw function using requestAnimationFrame.
-function setStream(stream) {
-  video.value.srcObject = stream;
-  video.value.play();
-  requestAnimationFrame(draw);
-}
-
-// The Draw function continuously draws frames from the video onto the canvas using its 2D rendering context.
-// It then calls itself recursively using requestAnimationFrame to create an animation effect.
-function draw() {
-  if (canvas == null) return;
-  ctx.value.drawImage(
-    video.value,
-    0,
-    0,
-    canvas.value.width,
-    canvas.value.height
-  );
-  requestAnimationFrame(draw);
-}
-
-//this function will open the popup which displays the taken Picture
-function openModal() {
-  const modal = document.getElementById("modal");
-  const overlay = document.getElementById("overlay");
-  if (modal == null) return;
-
-  //the active tag transforms the scale from 0->1 (see style.css)
-  modal.classList.add("active");
-  overlay.classList.add("active");
-
-  //the current picture of the camera is displayed in the body of the popup
-  let canvas = document.getElementById("canvas");
-  image = canvas.toDataURL("image/jpeg");
-  let myImage = document.getElementById("my-image");
-  myImage.src = image;
-}
-
-// check orientation
-let portrait = window.matchMedia("(orientation: portrait)");
-
-// initial orientation check now done in onMounted
-// window.addEventListener("load", updateView);
-
-// on orientation change, change the canvas width and height
-portrait.addEventListener("change", updateView);
-
-function updateView(e) {
-  let canvas = document.getElementById("canvas");
-
-  if (e.matches) {
-    // portrait
-    canvas.width = HEIGHT;
-    canvas.height = WIDTH;
-  } else {
-    // landscape
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
-  }
-}
 </script>
 
 <template>
   <!-- the main contianer contains the camera view-->
   <div class="main-container">
-    <div>
-      <video
-        class="video"
-        id="video"
-        ref="video"
-        autoplay
-        playsinlie
-        webkit-playsinline
-        muted
-        hidden
-      ></video>
-      <!-- the canvas with and height are dynamically adjusted -->
-      <!-- the size of width and heigt determine the dimension of the picture taken -->
-      <canvas id="canvas" ref="canvas" class="video-mask"></canvas>
+    <div class="video-mask">
+      <video id="webcam" ref="webcam" autoplay muted></video>
     </div>
   </div>
 </template>
+
+<style scoped>
+  /* this displays the live display */
+video {
+  margin: 0 auto;
+  padding: 5px;
+  min-width: 1px;
+  max-height: 65vh;
+  min-height: 1px;
+  width: auto;
+  overflow: hidden;
+}
+
+/* this is mainly just to have rounded corners for the live-display */
+.video-mask {
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+/* main container contains the live-camera feed and the 'bild erstellen' button */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  overflow: hidden;
+  justify-content: center;
+}
+</style>
