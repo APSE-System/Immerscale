@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onBeforeMount, onMounted, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
@@ -31,7 +31,7 @@ let imgWidth = ref(0)
 let imgHeight = ref(0)
 
 //initialize tools
-onMounted(()=>{
+onBeforeMount(()=>{
 
   // create tool
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
