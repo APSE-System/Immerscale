@@ -31,8 +31,8 @@ onMounted(() => {
       // video: true,
       audio: false,
       video: {
-          //  width: { ideal: 10000 }, // TODO fix this
-          //  height: { ideal: 10000 },
+           width: { ideal: 10000 }, // TODO fix this
+           height: { ideal: 10000 },
            facingMode: "environment"
           },
     };

@@ -85,7 +85,8 @@ function loadImage() {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
 
-  console.log('video: -width: ' + video.videoWidth + ' -height: ' + video.videoHeight)
+  let para = '-width: ' + video.videoWidth + ' -height: ' + video.videoHeight;
+  showToast(para);
 
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 
@@ -189,7 +190,7 @@ function loadImage() {
   border-radius: 5px;
   padding: 16px;
   position: fixed;
-  z-index: 1;
+  z-index: 1000000000000000000000;
   left: 50%;
   top: 30px;
   transform: translateX(-50%);
