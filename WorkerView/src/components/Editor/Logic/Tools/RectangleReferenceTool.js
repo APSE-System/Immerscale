@@ -5,7 +5,7 @@ import ReferenceTool from "../ReferenceTool.js";
 import AddLineCommand from "../Commands/AddLineCommand.js";
 
 class RectangleReferenceTool extends ReferenceTool {
-    _first = [];
+    _first = null;
     _pointCount = 0;
 
     _firstLength = -1;
@@ -22,16 +22,26 @@ class RectangleReferenceTool extends ReferenceTool {
 
     // It is likely that this will be split up in different methods to handle the according events...
     onClick(x, y) {
+        console.log(this._first)
+        let firstLine = null;
+        let secondLine = null;
+        if(this._first != null){
+            firstLine = this._first.getNext();
+            if(firstLine != null){
+                secondLine = firstLine.getNext();
+            }
+        }
+
         if (this._pointCount == 0) {
             this._model.do(new AddPointCommand(this, this._model, x, y));
         } else if (this._pointCount == 1) {
             //this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
-            this._model.do(new AddLineCommand(this, this._model, this._first.getX(), this._first.getY(), x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
+            this._model.do(new AddLineCommand(this, this._model, [[this._first.getX(), this._first.getY()], [x, y]], true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
         } else if (this._pointCount == 2) {
             //this._model.do(new AddPointCommand(this, this._model, x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
-            this._model.do(new AddLineCommand(this, this._model, this._first.getNext().getX2(), this._first.getNext().getY2(), x, y, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
+            this._model.do(new AddLineCommand(this, this._model, [[firstLine.getPoint(1)[0], firstLine.getPoint(1)[1]], [x, y]], true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
         } else if (this._pointCount == 3) {
-            this._model.do(new AddLineCommand(this, this._model, this._first.getNext().getNext().getX2(), this._first.getNext().getNext().getY2(), x, y));
+            this._model.do(new AddLineCommand(this, this._model, [[secondLine.getPoint(1)[0], secondLine.getPoint(1)[1]], [x, y], [this._first.getX(), this._first.getY()]]));
         }
     }
 
@@ -42,6 +52,7 @@ class RectangleReferenceTool extends ReferenceTool {
         } else if (this._pointCount < 3) {
             this._pointCount++;
         } else {
+            console.log("update execute")
             this.setReference()
             this._finished = true;
             this._pointCount++;
@@ -62,12 +73,13 @@ class RectangleReferenceTool extends ReferenceTool {
 
     setReference() {
         var src = [];
+        var secondLine = this._first.getNext().getNext();
+        var thirdLine = secondLine.getNext();
 
         src.push([this._first.getX(), this._first.getY()]);
-        var secondLine = this._first.getNext().getNext();
-        src.push([secondLine.getX1(), secondLine.getY1()]);
-        src.push([secondLine.getX2(), secondLine.getY2()]);
-        src.push([secondLine.getNext().getX2(), secondLine.getNext().getY2()]);
+        src.push([secondLine.getPoint(0)[0], secondLine.getPoint(0)[1]]);
+        src.push([secondLine.getPoint(1)[0], secondLine.getPoint(1)[1]]);
+        src.push([thirdLine.getPoint(1)[0], thirdLine.getPoint(1)[1]]);
 
         var dst = [[0, 0], [0, this._firstLength], [this._secondLenght, this._firstLength], [this._secondLenght, 0]];
 

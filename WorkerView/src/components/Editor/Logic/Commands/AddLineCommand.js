@@ -3,11 +3,7 @@ import Command from "../Command.js";
 
 class AddLineCommand extends Command {
 
-    _x1;
-    _y1;
-
-    _x2;
-    _y2;
+    _points;
 
     _popup;
     _header;
@@ -16,12 +12,9 @@ class AddLineCommand extends Command {
 
     _callback;
 
-    constructor(creator, model, x1, y1, x2, y2, popup=false, header = "", description = "", value = "", callback) {
+    constructor(creator, model, points, popup= false, header = "", description = "", value = "", callback) {
         super(creator, model);
-        this._x1 = x1;
-        this._y1 = y1;
-        this._x2 = x2;
-        this._y2 = y2;
+        this._points = points;
         this._popup = popup;
         this._header = header;
         this._description = description;
@@ -34,32 +27,19 @@ class AddLineCommand extends Command {
     execute() {
         super.execute();
 
-        this._model.addLine(this._x1, this._y1, this._x2, this._y2,"00ff00", this._popup, this._header, this._description, this._value, this._callback);
+        this._model.addLine(this._points,"00ff00", this._popup, this._header, this._description, this._value, this._callback);
     }
 
     unExecute() {
         super.unExecute();
 
-        this._model.removeLine(this._x, this._y, "00ff00");
+        this._model.removeLine(this._points, "00ff00");
     }
 
 
-    getX1() {
-        return this._x1;
+    getPoint(index) {
+        return this._points[index];
     }
-
-    getY1() {
-        return this._y1;
-    }
-
-    getX2() {
-        return this._x2;
-    }
-
-    getY2() {
-        return this._y2;
-    }
-
 
     hasPopup() {
         return this._popup;

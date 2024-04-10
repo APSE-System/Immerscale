@@ -19,12 +19,12 @@ class Model {
         }
     }
 
-    addLine(startX, startY, endX, endY, color, popup, header, description, value, callback) {
-        this.canvasLines.push(new CanvasLine(new CanvasPoint(startX, startY), new CanvasPoint(endX, endY), color, popup, header, description, value, callback));
+    addLine(points, color, popup, header, description, value, callback) {
+        this.canvasLines.push(new CanvasLine(points, color, popup, header, description, value, callback));
     }
 
-    removeLine(startX, startY, endX, endY, color) {
-        let index = this.canvasLines.findIndex(line => line.startPoint.x === startX && line.startPoint.y === startY && line.endPoint.x === endX && line.endPoint.y === endY && line.color === color);
+    removeLine(points, color) {
+        let index = this.canvasLines.findIndex(line => line.points === points && line.color === color);
         if (index !== -1) {
             this.canvasLines.splice(index, 1);
         }

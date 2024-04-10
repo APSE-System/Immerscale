@@ -1,7 +1,6 @@
 
 class CanvasLine {
-    startPoint;
-    endPoint;
+    points;
     color;
 
     popup;
@@ -11,9 +10,8 @@ class CanvasLine {
 
     callback;
 
-    constructor(startPoint, endPoint, color, popup, header, description, value, callback) {
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
+    constructor(points, color, popup, header, description, value, callback) {
+        this.points = points;
         this.color = color;
 
         this.popup = popup;

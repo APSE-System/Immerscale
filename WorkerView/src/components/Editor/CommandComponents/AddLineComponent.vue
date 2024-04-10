@@ -13,14 +13,14 @@ function drawLine(canvas, line) {
   const ctx = canvas.getContext('2d');
   // Assuming CanvasPoint has x, y properties
   // set ctx color from hex
-
-  console.log(line)
-
   ctx.lineWidth = 5;
   ctx.strokeStyle = "#" + line.color;
   ctx.beginPath();
-  ctx.moveTo(line.startPoint.x, line.startPoint.y);
-  ctx.lineTo(line.endPoint.x, line.endPoint.y);
+  ctx.moveTo(line.points[0][0], line.points[0][1]);
+
+  for(let i = 1; i < line.points.length; i++) {
+    ctx.lineTo(line.points[i][0], line.points[i][1]);
+  }
 
   ctx.stroke(); // Render the path
 }
