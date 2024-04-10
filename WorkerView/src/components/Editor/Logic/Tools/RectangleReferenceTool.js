@@ -17,7 +17,7 @@ class RectangleReferenceTool extends ReferenceTool {
     callback;
 
     constructor(model) {
-        super(model, "Rectangle Reference", "pi-icon");
+        super(model, "Rectangle Reference", "pi pi-stop");
     }
 
 

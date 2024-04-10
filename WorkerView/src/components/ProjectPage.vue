@@ -33,7 +33,7 @@ const router = useRouter();
     <TabBar>
       <template #back>
         <Button @click="router.push('/')" label="← Projects" id="back-button" />
-        <h2 class="headline">Project {{ projectName }}</h2>
+        <h3 class="headline">{{ projectName }}</h3>
       </template>
       <template #main>
         <TabButtons/>
@@ -88,4 +88,14 @@ const router = useRouter();
   #back-button:hover {
     color: rgb(35, 115, 210);
   }
+
+.headline {
+  margin-left: 1rem;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 650;
+  color: black;
+}
 </style>
