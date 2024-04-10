@@ -56,20 +56,6 @@ onMounted(() => {
 
     
 <template>
-    <!--<div class="card ">
-        <Accordion :activeIndex="0">
-            <AccordionTab header="Reference Tools">
-                <p class="m-0" v-for="element in tools.filter(tool => tool instanceof ReferenceTool)">
-                  <button @click="element.callback"> {{element._name}}</button>
-                </p>
-            </AccordionTab>
-            <AccordionTab header="Measuring Tools">
-              <p class="m-0" v-for="element in tools.filter(tool => tool instanceof MeasurementTool)">
-                <button @click="element.callback"> {{element._name}}</button>
-              </p>
-            </AccordionTab>
-        </Accordion>
-    </div>-->
     <div class="card flex justify-content-center">
         <PanelMenu :model="toolTree" class="w-full md:w-20rem" />
     </div>
