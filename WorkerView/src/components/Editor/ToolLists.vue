@@ -13,17 +13,21 @@ const props = defineProps({
 
 const toolTree = ref([
   {
+    key: '0',
     icon:"pi pi-sliders-h",
     label: 'Reference Tools',
     items: []
   },
   {
+    key: '1',
     icon:"pi pi-pencil",
     label: 'Measuring Tools',
     disabled: true,
     items: []
   }
 ])
+
+const expandedKeys = ref({})
 
 
 //push tools into the tree structure with for loop
@@ -53,6 +57,23 @@ function enableTool(index) {
   toolTree.value[index].disabled = false
 }
 
+//use this function to collapse a tool in the sidebar tree
+function collapseTool(key) {
+  expandedKeys.value = {[key]: false};
+}
+
+//use this function to expand a tool in the sidebar tree
+function expandTool(key) {
+  expandedKeys.value = {[key]: true};
+}
+
+//call this function to enable and automatically expand the measurement tools while collapsing the reference tools
+function referenceSelected() {
+  enableTool(1);
+  collapseTool(0);
+  expandTool(1);
+}
+
 onMounted(() => {
   fillToolTree()
 })
@@ -63,9 +84,9 @@ onMounted(() => {
     
 <template>
     <div class="card flex justify-content-center">
-        <PanelMenu :model="toolTree" class="w-full md:w-20rem" />
+        <PanelMenu :model="toolTree" v-model:expandedKeys="expandedKeys" class="w-full md:w-20rem" />
     </div>
-    <!--<button @click="enableTool(1)">Enable Measurement Tools</button>-->
+    <!--<button @click="referenceSelected()">Enable Measurement Tools</button>-->
 </template>
 
 <style scoped>
