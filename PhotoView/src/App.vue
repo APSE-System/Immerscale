@@ -3,7 +3,7 @@
     import Popup from './components/Popup.vue';
     import { onMounted } from 'vue';
 
-
+  //  #region get auth
     onMounted(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
@@ -12,7 +12,7 @@
 
   fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + token, {credentials: "include"})
   .then((response) => {
-    console.log(response)
+    // console.log(response)
     if (response.ok) {
       // Handle success response
       console.log("Success");
@@ -25,6 +25,7 @@
     console.error("Error:", error);
   });
 });
+// #endregion
 
 </script>
 
