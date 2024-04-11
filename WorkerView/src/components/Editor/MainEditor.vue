@@ -9,6 +9,7 @@ import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
+import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js"
 
 const router = useRouter();
 const route = useRoute();
