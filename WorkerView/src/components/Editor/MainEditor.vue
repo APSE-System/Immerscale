@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted,onBeforeMount, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
@@ -7,6 +7,7 @@ import Model from "./Logic/Model/Model.js";
 import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
+import LineLengthMeasurementTool from "./Logic/Tools/LineLengthMeasurementTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
 
@@ -33,11 +34,15 @@ let imgWidth = ref(0)
 let imgHeight = ref(0)
 
 //initialize tools
-onMounted(()=>{
+onBeforeMount(()=>{
   // Create the rools and add them tot the list. THe callback is necessary so a tool can be selected correctly.
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
+
+  let lineLengthMeasurementTool = new LineLengthMeasurementTool(model.value)
+  lineLengthMeasurementTool.callback = controller.addTool(lineLengthMeasurementTool)
+  toolsList.value.push(lineLengthMeasurementTool)
 })
 
 // fetch to get the images of the project
