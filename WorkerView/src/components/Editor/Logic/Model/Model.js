@@ -1,6 +1,7 @@
 import CanvasPoint from "./ModelComponents/CanvasPoint.js";
 import CanvasLine from "./ModelComponents/CanvasLine.js";
 import Popup from "./ModelComponents/Popup.js";
+import CanvasArea from "./ModelComponents/CanvasArea.js";
 
 
 class Model {
@@ -8,6 +9,8 @@ class Model {
     canvasPoints = [];
     // Lines that should be drawn on the image
     canvasLines = [];
+    // Areas that should be drawn on the image
+    canvasAreas = [];
     // Popup which can be used for receiving user input values.
     popup = null;
 
@@ -41,6 +44,19 @@ class Model {
         let index = this.canvasLines.findIndex(line => line.points === points && line.color === color);
         if (index !== -1) {
             this.canvasLines.splice(index, 1);
+        }
+    }
+
+    // adds an area to the list
+    addArea(points, color) {
+        this.canvasAreas.push(new CanvasArea(points, color));
+    }
+
+    // removes the area ...
+    removeArea(points, color) {
+        let index = this.canvasAreas.findIndex(area => area.points === points && area.color === color);
+        if (index !== -1) {
+            this.canvasAreas.splice(index, 1);
         }
     }
 

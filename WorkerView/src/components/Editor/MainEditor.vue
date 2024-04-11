@@ -9,6 +9,7 @@ import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./Logic/Commands/NumberInputPopup.vue";
+import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js";
 
 const router = useRouter();
 const route = useRoute();
@@ -38,6 +39,11 @@ onMounted(()=>{
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
+
+  // create the polygoneMeasurement Tool
+  let polygoneMeasurementTool = new PolygoneMeasurementTool(model.value)
+  polygoneMeasurementTool.callback = controller.addTool(polygoneMeasurementTool)
+  toolsList.value.push(polygoneMeasurementTool)
 })
 
 // fetch to get the images of the project
