@@ -38,6 +38,8 @@ class AddLineCommand extends Command {
     // Also, it is checked if a popup should be displayed. If so, the values are handed over to the model, which will then open the popup.
     execute() {
         super.execute();
+        // If there is a popup opened, it should be closed. Normally this shouldn't be the case anyways but with the undo/redo functionality there are scenarios where it could happen.
+        this._model.removePopup();
 
         this._model.addLine(this._points,"00ff00");
         if(this._popup)
