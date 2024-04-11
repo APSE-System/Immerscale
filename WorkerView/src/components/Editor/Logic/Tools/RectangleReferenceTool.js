@@ -111,6 +111,29 @@ class RectangleReferenceTool extends ReferenceTool {
 
         // The source and the destination points are used to calculate the transformation matrix and finally setting it.
         LordImmerScaler.changeMatrix(MathUtils.calculatePerspectiveMatrix(src, dst));
+
+
+        var table_lower_left = [290, 3519, 1]
+        var table_lower_right = [2756, 3464, 1]
+        var table_upper_right = [2068, 593, 1]
+        var table_upper_left = [997, 675, 1]
+
+        var table_points = [table_lower_left, table_lower_right, table_upper_right, table_upper_left]
+
+        var transformed_points = []
+        for(let i = 0; i < table_points.length; i++){
+            transformed_points.push(LordImmerScaler.transformToRealWorld(table_points[i][0], table_points[i][1]))
+        }
+
+        var width = MathUtils.getDistance(transformed_points[0], transformed_points[1])
+        var height = MathUtils.getDistance(transformed_points[1], transformed_points[2])
+
+        console.log("Width: " + width)
+        console.log("Height: " + height)
+
+
+
+
     }
 
     // For deselecting this tool, all the already exeuted commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)
