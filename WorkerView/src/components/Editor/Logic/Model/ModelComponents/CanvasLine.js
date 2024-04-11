@@ -1,12 +1,11 @@
 
+// This class acts as a datastructure to store the information needed by the vue component to display a line.
 class CanvasLine {
-    startPoint;
-    endPoint;
+    points;
     color;
 
-    constructor(startPoint, endPoint, color) {
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
+    constructor(points, color) {
+        this.points = points;
         this.color = color;
     }
 }

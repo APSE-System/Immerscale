@@ -8,6 +8,8 @@ import Model from "./Logic/Model/Model.js";
 import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
+import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
+import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -23,6 +25,7 @@ const speed = 0.1;
 var dragging = false;
 var start = {x: 0, y: 0};
 
+// References to the measuring model, controller and tool list
 let model = ref(new Model())
 let controller = new Controller(model.value)
 let toolsList = ref([])
@@ -37,8 +40,6 @@ onBeforeMount(()=>{
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
-
-
 })
 
 // fetch to get the images of the project
@@ -181,12 +182,11 @@ function canvasClicked(event) {
   const x = (x_canv / rect.width) * img.width;
   const y = (y_canv / rect.height) * img.height;
 
-  console.log("x: " + img.width + " y: " + img.height)
-  console.log("x: " + x + " y: " + y)
-
+  // The controller will redirect the click to the according tool.
   controller.onClick(x,y);
 }
 
+// This function handles the undo and redo keyboard events and delegates them to the controller.
 function canvasBack(event){
   if (event.ctrlKey && (event.key === 'z' || event.keyCode === 'Z')) {
     controller.undo()
@@ -226,10 +226,16 @@ function canvasBack(event){
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
         <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)"  :width="imgWidth" :height="imgHeight"></canvas>
+        <!-- Component which displayes all the points in the model -->
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
+        <!-- Component which displayes all the lines in the model -->
+        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight"></AddLineComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
+
+    <!-- This component can open a popup to retreive user input -->
+    <NumberInputPopup :popup="model.popup" @callback="model.popup.callback"/>
   </div>
 </template>
 
@@ -276,7 +282,7 @@ function canvasBack(event){
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   z-index: 42069;
 }
 

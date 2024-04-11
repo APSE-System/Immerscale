@@ -9,11 +9,11 @@ import Dialog from "primevue/dialog";
 let image;
 const visible = ref(false);
 
-//! this function will not necessary in the future
+//! this function will be necessary in the future
 function downloadPicture() {
   var link = document.createElement("a");
   link.download = "immerscale-picture";
-  //ink.href = canvas.value.toDataURL(); //
+
   image = document.getElementById("my-image");
   link.href = image.src;
   link.click();
@@ -78,20 +78,28 @@ async function sendPicture() {
     setTimeout(function() {toast.className = toast.className.replace("show", ""); }, 3000);
 }
 
-// TODO clean up this function
 // this loads the image into the Popup
 function loadImage() {
-  let canvas = document.getElementById("canvas");
-  image = new Image();
+  let video = document.getElementById('webcam')
+  let canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  let para = '-width: ' + video.videoWidth + ' -height: ' + video.videoHeight;
+  console.log(para);
+
+  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  let image = new Image();
   image.src = canvas.toDataURL("image/jpeg");
 
   // the on load is needed
   image.onload = function() {
-    image = canvas.toDataURL("image/jpeg");
     let myImage = document.getElementById("my-image");
-    myImage.src = image;
+    myImage.src = image.src;
+    }
   }
-}
+
 </script>
 
 <template>
@@ -156,7 +164,6 @@ function loadImage() {
     max-height: 50vh;
   }
 } 
-
 
 /* here are the 'absenden' and 'verwerfen' buttons */
 .modal-footer {
