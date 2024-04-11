@@ -26,7 +26,7 @@ const toolTree = ref([
   }
 ])
 
-const expandedKeys = ref({})
+const expandedKeys = ref({[0]:true, [1]:false})
 
 //push tools into the tree structure with for loop
 function fillToolTree() {
@@ -55,6 +55,11 @@ function enableTool(index) {
   toolTree.value[index].disabled = false
 }
 
+//use this function to disable a tool in the tree
+function disableTool(index) {
+  toolTree.value[index].disabled = true
+}
+
 //use this function to collapse a tool in the sidebar tree
 function collapseTool(key) {
   expandedKeys.value = {[key]: false};
@@ -72,11 +77,18 @@ function referenceSelected() {
   expandTool(1);
 }
 
+//call this function to enable and automatically expand the reference tools while collapsing the measuring tools
+function referenceUnselected() {
+  collapseTool(1);
+  disableTool(1);
+  expandTool(0);
+}
+
 document.addEventListener("referenceSet", function (e) {
-  console.log("Event Listener hier")
-  console.log(e)
   if(e.detail)
     referenceSelected();
+  else
+    referenceUnselected();
 });
 
 onMounted(() => {
