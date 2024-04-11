@@ -3,7 +3,7 @@ import {defineProps} from 'vue';
 
 // The properties of this component consist of a list of areas that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
-  canvasArea: Array,
+  canvasAreas: Array,
   width: Number,
   height: Number
 });
@@ -11,6 +11,7 @@ const props = defineProps({
 
 // This function draws the given area on the given canvas.
 function drawArea(canvas, area) {
+  console.log('draws area ...')
   const ctx = canvas.getContext('2d');
   // Setting line width
   ctx.lineWidth = 5;
@@ -43,7 +44,7 @@ function drawArea(canvas, area) {
 function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
-  drawArea(canvas, props.canvasArea[index]);
+  drawArea(canvas, props.canvasAreas[index]);
 }
 
 
@@ -52,7 +53,7 @@ function setCanvasRef(canvas, index) {
 
 <template>
   <!-- This loop goes over all the lines that exist and draws them on a canvas each. -->
-  <div v-for="(area, index) in canvasArea" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
+  <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
     <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddAreaCanvas"></canvas>
   </div>
 

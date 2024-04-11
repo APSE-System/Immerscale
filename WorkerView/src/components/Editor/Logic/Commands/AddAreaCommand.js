@@ -26,6 +26,7 @@ class AddOutlineCommand extends Command {
     // For unexecuting, the line is removed from the model again, and the popup (if present) too.
     unExecute() {
         super.unExecute();
+
         this._model.removeArea(this._points, "ff0000");
     }
 

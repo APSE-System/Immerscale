@@ -3,7 +3,7 @@ import AddPointCommand from "../Commands/AddPointCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
 import AddLineCommand from "../Commands/AddLineCommand.js";
 import MeasurementTool from "../MeasurementTool.js";
-import AddOutlineCommand from "../Commands/AddOutlineCommand.js";
+import AddAreaCommand from "../Commands/AddAreaCommand.js"
 
 // This tools enables selecting a rectangular reference measure.
 class PolygoneMeasurementTool extends MeasurementTool {
@@ -60,7 +60,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
         }    
         else {
             // TODO make this right
-            this._model.do(new AddLineCommand(this, this._model, this._points));
+            this._model.do(new AddAreaCommand(this, this._model, this._points));
         }        
     }
 
