@@ -8,7 +8,7 @@ import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
-import NumberInputPopup from "./Logic/Commands/NumberInputPopup.vue";
+import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
 
 const router = useRouter();
 const route = useRoute();

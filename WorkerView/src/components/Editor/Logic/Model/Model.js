@@ -1,5 +1,6 @@
 import CanvasPoint from "./ModelComponents/CanvasPoint.js";
 import CanvasLine from "./ModelComponents/CanvasLine.js";
+import DefaultCommand from "../Commands/DefaultCommand.js";
 import Popup from "./ModelComponents/Popup.js";
 
 
@@ -15,6 +16,7 @@ class Model {
     currentCommand = null;
 
     constructor() {
+        this.currentCommand = new DefaultCommand(null, this);
         this.popup = new Popup();
     }
 
@@ -56,41 +58,43 @@ class Model {
 
     // Executes the given command
     do(command) {
-        if(this.currentCommand === null)
-            // If there was no command yet, the new command is simply set to the current command.
-            this.currentCommand = command;
-        else{
-            // If there already were commands executed, the new command is set as the next command of the previous command, to keep the comand history.
-            this.currentCommand.setNext(command);
-            command.setPrevious(this.currentCommand);
-            this.currentCommand = command;
-        }
+        // The new command is set as the next command of the previous command, to keep the comand history.
+        this.currentCommand.setNext(command);
+        command.setPrevious(this.currentCommand);
+        this.currentCommand = command;
 
         command.execute();
     }
 
     // Undoes the last command
     undo() {
-        if(this.currentCommand !== null) {
-            // If there was a command, it is undone and the previous command is set as the current command.
-            var undoneCommand = this.currentCommand;
-            this.currentCommand.unExecute();
-            this.currentCommand = this.currentCommand.getPrevious();
-            return undoneCommand;
-        }
+        // This ensures that the Default command is always present and wont be undone, so the command history is always kept.
+        if (this.currentCommand instanceof DefaultCommand)
+            return;
+
+        // The last command is undone and the previous command is set as the current command.
+        var undoneCommand = this.currentCommand;
+        this.currentCommand.unExecute();
+        this.currentCommand = this.currentCommand.getPrevious();
+        return undoneCommand;
     }
+
 
     // Redoes the chronological "next" command
     redo(){
         // If the current command also has a "next" command, it is executed.
         if(this.currentCommand === null || this.currentCommand.getNext() === null)
-            return
+            return;
 
-        this.do(this.currentCommand.getNext())
+        this.do(this.currentCommand.getNext());
     }
 
     // These functions could later be used to export or import the model into XML
-    export(){}
-    import(){}
+    export() {
+    }
+
+    import() {
+    }
 }
+
 export default Model;
