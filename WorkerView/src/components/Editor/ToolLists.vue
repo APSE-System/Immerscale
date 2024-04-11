@@ -74,6 +74,7 @@ function referenceSelected() {
 
 document.addEventListener("referenceSet", function (e) {
   console.log("Event Listener hier")
+  console.log(e)
   if(e.detail)
     referenceSelected();
 });
