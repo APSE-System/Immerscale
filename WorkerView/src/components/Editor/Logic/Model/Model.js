@@ -50,7 +50,6 @@ class Model {
     }
 
     // adds an area to the list
-    // TODO this does not work at the moment (only works if push into canvasLines???)
     addArea(points, color) {
         this.canvasAreas.push(new CanvasArea(points, color));
     }
