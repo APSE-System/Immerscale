@@ -7,9 +7,17 @@ class LordImmerScaler {
     // Transformation matrix that can be used to transform image coordinates to real world coordinates.
     static _matrix = null;
 
+    // Boolean value which specifies whether a reference has been set or not.
+    static _referenceSet = false;
+
+    static _referenceEvent = new CustomEvent("referenceSet", { detail: this._referenceSet });
+
+
     // This funciton sets the matrix to the given one.
     static changeMatrix(m) {
         this._matrix = m;
+        this._referenceSet = this._matrix != null;
+        document.dispatchEvent(this._referenceEvent);
     }
 
     // This function transfrom the given image coordinates in real world coordinates.

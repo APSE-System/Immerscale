@@ -1,11 +1,10 @@
 <script setup>
-import Accordion from 'primevue/accordion';
-import AccordionTab from 'primevue/accordiontab';
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import { defineProps } from 'vue';
 import ReferenceTool from "./Logic/ReferenceTool.js";
 import MeasurementTool from "./Logic/MeasurementTool.js"
 import PanelMenu from 'primevue/panelmenu';
+import LordImmerScaler from "./Logic/LordImmerScaler.js";
 
 const props = defineProps({
   tools: Array
@@ -27,8 +26,7 @@ const toolTree = ref([
   }
 ])
 
-const expandedKeys = ref({0:false, 1:true})
-
+const expandedKeys = ref({})
 
 //push tools into the tree structure with for loop
 function fillToolTree() {
@@ -74,6 +72,12 @@ function referenceSelected() {
   expandTool(1);
 }
 
+document.addEventListener("referenceSet", function (e) {
+  console.log("Event Listener hier")
+  if(e.detail)
+    referenceSelected();
+});
+
 onMounted(() => {
   fillToolTree()
 })
@@ -86,7 +90,6 @@ onMounted(() => {
     <div class="card flex justify-content-center">
         <PanelMenu :model="toolTree" v-model:expandedKeys="expandedKeys" class="w-full md:w-20rem" />
     </div>
-    <button @click="referenceSelected()">Enable Measurement Tools</button>
 </template>
 
 <style scoped>
