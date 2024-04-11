@@ -201,15 +201,6 @@ function canvasBack(event){
 
 <template>
   <div class="editor">
-    <!-- <div class="flex justify-content-left left-bar">
-      <Button
-          @click="router.push('/project/' + route.params.id + '/images')"
-          label="← Images"
-          id="back-button"
-      />
-      <ToolLists :tools="toolsList" class="toolList"/>
-    </div> -->
-
     <TabBar :projectName="projectName">
       <template #back>
         <Button

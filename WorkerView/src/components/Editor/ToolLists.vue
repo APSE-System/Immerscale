@@ -27,7 +27,7 @@ const toolTree = ref([
   }
 ])
 
-const expandedKeys = ref({})
+const expandedKeys = ref({0:false, 1:true})
 
 
 //push tools into the tree structure with for loop
@@ -86,7 +86,7 @@ onMounted(() => {
     <div class="card flex justify-content-center">
         <PanelMenu :model="toolTree" v-model:expandedKeys="expandedKeys" class="w-full md:w-20rem" />
     </div>
-    <!--<button @click="referenceSelected()">Enable Measurement Tools</button>-->
+    <button @click="referenceSelected()">Enable Measurement Tools</button>
 </template>
 
 <style scoped>
