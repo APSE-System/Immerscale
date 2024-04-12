@@ -81,10 +81,19 @@ class LineLengthMeasurementTool extends MeasurementTool {
 
     measureLength() {
         let point_1 = LordImmerScaler.transformToRealWorld(this._firstX, this._firstY);
-        console.log(point_1[0,1]);
+        console.log(point_1);
         let point_2 = LordImmerScaler.transformToRealWorld(this._secondX, this._secondY);
-        console.log(point_2[0,1]);
-        return MathUtils.getDistance([point_1[0], point_1[1]],[point_2[0], point_2[1]]);
+        console.log(point_2);
+        return MathUtils.getDistance([[point_1[0], point_1[1]],[point_2[0], point_2[1]]]);
+    }
+
+    drawLabel(){
+        if(this._finished){
+            let point_1 = [this._firstX, this._firstY]
+            let point_2 = [this._secondX, this._secondY];
+            let length = MathUtils.getDistance([[point_1[0], point_1[1]],[point_2[0], point_2[1]]]);
+            this._model.addPopup("Line Length", "The length of the line is: ", length, ()=>{})
+        }
     }
 
 }
