@@ -35,7 +35,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
             this._model.do(new AddPointCommand(this, this._model, x, y));
         }
         else {
-            this._model.do(new AddAreaCommand(this, this._model, this._points, this.calculateArea()));
+            this._model.do(new AddAreaCommand(this, this._model, this._points.slice(0), this.calculateArea()));
         }        
     }
 
@@ -50,7 +50,6 @@ class PolygoneMeasurementTool extends MeasurementTool {
             this._pointCount++;
     }
 
-    // TODO make unexecute right
     // This function is called during the unexecution of the commands created by this tool.
     updateUnExecute(point) {
         if (this._pointCount >= 1) {

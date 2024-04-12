@@ -16,7 +16,6 @@ function drawArea(canvas, area) {
   // Setting line color
   ctx.strokeStyle = "#" + area.color;
 
-  // TODO the fill color is hard coded for now change this later
   var rgbColor = hexToRgb("#" + area.color)
   // Set fill color to red
   ctx.fillStyle = 'rgba('+ rgbColor.r +', '+ rgbColor.g +', '+ rgbColor.b +', 0.1)';
