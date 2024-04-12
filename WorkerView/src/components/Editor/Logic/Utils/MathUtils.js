@@ -67,3 +67,7 @@ export function applyMatrixToPoints(matrix, ...points){
 export function getDistance(point1, point2){
     return math.norm(math.subtract(point1, point2))
 }
+
+export function getMidpoint(point1, point2){
+    return math.divide(math.add(point1, point2), 2)
+}

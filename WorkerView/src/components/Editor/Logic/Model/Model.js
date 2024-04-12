@@ -1,5 +1,6 @@
 import CanvasPoint from "./ModelComponents/CanvasPoint.js";
 import CanvasLine from "./ModelComponents/CanvasLine.js";
+import CanvasLabel from "./ModelComponents/CanvasLabel.js";
 import DefaultCommand from "../Commands/DefaultCommand.js";
 import Popup from "./ModelComponents/Popup.js";
 
@@ -9,6 +10,8 @@ class Model {
     canvasPoints = [];
     // Lines that should be drawn on the image
     canvasLines = [];
+    // Labels that should be drawn on the image
+    canvasLabels = [];
     // Popup which can be used for receiving user input values.
     popup = null;
 
@@ -43,6 +46,19 @@ class Model {
         let index = this.canvasLines.findIndex(line => line.points === points && line.color === color);
         if (index !== -1) {
             this.canvasLines.splice(index, 1);
+        }
+    }
+
+    // Adds a given label to the list i.e. onto the image.
+    addLabel(point, value) {
+        this.canvasLabels.push(new CanvasLabel(point, value));
+    }
+
+    // Removes the given label from the image
+    removeLabel(point, value) {
+        let index = this.canvasLabels.findIndex(label => label.point === point && label.value === value);
+        if (index !== -1) {
+            this.canvasLabels.splice(index, 1);
         }
     }
 

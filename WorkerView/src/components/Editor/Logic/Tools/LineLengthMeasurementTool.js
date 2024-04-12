@@ -3,6 +3,7 @@ import AddPointCommand from "../Commands/AddPointCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
 import MeasurementTool from "../MeasurementTool.js";
 import AddLineCommand from "../Commands/AddLineCommand.js";
+import AddLabelCommand from "../Commands/AddLabelCommand.js";
 
 // This tools enables measuring the length of a line between two points.
 class LineLengthMeasurementTool extends MeasurementTool {
@@ -40,14 +41,19 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._secondY = y;
             this._model.do(new AddPointCommand(this, this._model, this._secondX, this._secondY));
             // Draw the line between the two points
-            this._model.do(new AddLineCommand(this, this._model, [[this._first.getX(), this._first.getY()], [this._secondX, this._secondY]], false));
+            this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], false));
             // Set the tool to finished
-            let result = this.measureLength();
-            console.log(result);
-            this._finished = true;
+            let value = this.measureLength();
+            //console.log(result);
+            this.drawLabel(value);
             // Reset the point count and the first point to null for the next use of the tool
             this._first = null;
+            this._firstX = 0;
+            this._firstY = 0;
+            this._secondX = 0;
+            this._secondY = 0;
             this._pointCount = 0;
+            this._finished = true;
         }
     }
 
@@ -81,21 +87,21 @@ class LineLengthMeasurementTool extends MeasurementTool {
 
     measureLength() {
         let point_1 = LordImmerScaler.transformToRealWorld(this._firstX, this._firstY);
-        console.log(point_1);
+        //console.log(point_1);
         let point_2 = LordImmerScaler.transformToRealWorld(this._secondX, this._secondY);
-        console.log(point_2);
-        return MathUtils.getDistance([[point_1[0], point_1[1]],[point_2[0], point_2[1]]]);
+        //console.log(point_2);
+        return MathUtils.getDistance([point_1[0], point_1[1]],[point_2[0], point_2[1]]);
     }
 
-    drawLabel(){
+    drawLabel(value){
         if(this._finished){
             let point_1 = [this._firstX, this._firstY]
             let point_2 = [this._secondX, this._secondY];
-            let length = MathUtils.getDistance([[point_1[0], point_1[1]],[point_2[0], point_2[1]]]);
-            this._model.addPopup("Line Length", "The length of the line is: ", length, ()=>{})
+            let center = MathUtils.getMidpoint([point_1[0], point_1[1]],[point_2[0], point_2[1]]);
+            console.log(value);
+            this._model.do(new AddLabelCommand(this, this._model, center[0], center[1], value));
         }
     }
-
 }
 
 export default LineLengthMeasurementTool;

@@ -1,12 +1,14 @@
 <script setup>
-import {onMounted,onBeforeMount, ref} from "vue";
+import {onBeforeMount, onMounted, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
+import TabBar from "../TabBar.vue";
 import Model from "./Logic/Model/Model.js";
 import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
+import AddLabelComponent from "./CommandComponents/AddLabelComponent.vue";
 import LineLengthMeasurementTool from "./Logic/Tools/LineLengthMeasurementTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
@@ -181,12 +183,19 @@ function canvasClicked(event) {
   var img = new Image();
   img.src = image.value;
 
+  // this is a check for a bug where the image width and height are 0 for some reason
+  // discard the click if this is the case and log it
+  if (img.width == 0 || img.height == 0) {
+    console.log("Image width or height = 0, value discarded")
+  }
+  else {
   // By taking the ratio between the relative coordinates and the canvas, we can map them to the image size.
   const x = (x_canv / rect.width) * img.width;
   const y = (y_canv / rect.height) * img.height;
 
   // The controller will redirect the click to the according tool.
   controller.onClick(x,y);
+  }
 }
 
 // This function handles the undo and redo keyboard events and delegates them to the controller.
@@ -204,15 +213,18 @@ function canvasBack(event){
 
 <template>
   <div class="editor">
-    <div class="flex justify-content-left left-bar">
-      <Button
-          @click="router.push('/project/' + route.params.id + '/images')"
-          label="← Images"
-          id="back-button"
-      />
-      <ToolLists :tools="toolsList" class="toolList"/>
-    </div>
-
+    <TabBar :projectName="projectName">
+      <template #back>
+        <Button
+            @click="router.push('/project/' + route.params.id + '/images')"
+            label="← Images"
+            id="back-button"
+            />
+      </template>
+      <template #main>
+        <ToolLists :tools="toolsList" class="toolList"/>
+      </template>
+    </TabBar>
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
@@ -221,6 +233,8 @@ function canvasBack(event){
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
         <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight"></AddLineComponent>
+        <!-- Component which displayes all the labels in the model -->
+        <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
@@ -235,11 +249,11 @@ function canvasBack(event){
   display: flex;
 }
 
-.left-bar {
+/* .left-bar {
   position: absolute;
   left: 2%;
   width: 15%;
-}
+} */
 
 
 #zoom-outer {
@@ -277,7 +291,7 @@ function canvasBack(event){
   z-index: 42069;
 }
 
-#back-button {
+/* #back-button {
   position: absolute;
   top: 5px;
 }
@@ -285,5 +299,34 @@ function canvasBack(event){
 .toolList{
   position: absolute;
   top: 100px;
+} */
+
+.p-button{
+    color: black;
+    background-color: transparent;
 }
+@media (prefers-color-scheme: dark) {
+    .p-button{
+      color: white;
+    }
+  }
+
+.p-button:hover{
+    color: rgb(35, 115, 210);
+}
+
+#back-button {
+    top: 5px;
+    z-index: 2;
+    background-color: transparent;
+    color: black;
+  }
+  @media (prefers-color-scheme: dark) {
+    #back-button{
+      color: white;
+    }
+  }
+  #back-button:hover {
+    color: rgb(35, 115, 210);
+  }
 </style>
