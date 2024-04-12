@@ -45,8 +45,7 @@ function drawArea(canvas, area) {
   measureShape(ctx, area);
 }
 
-// TODO change the index
-// This checks if the canvas even exists before giving the according line to the drawing function.
+// This checks if the canvas even exists before giving the according area to the drawing function.
 function setCanvasRef(canvas, index) {
   console.log('index ' + index)
   if (canvas === null)

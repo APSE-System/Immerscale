@@ -1,7 +1,6 @@
 import * as MathUtils from "../Utils/MathUtils.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
-import AddLineCommand from "../Commands/AddLineCommand.js";
 import MeasurementTool from "../MeasurementTool.js";
 import AddAreaCommand from "../Commands/AddAreaCommand.js"
 

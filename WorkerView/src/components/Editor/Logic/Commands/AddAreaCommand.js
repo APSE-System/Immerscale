@@ -1,8 +1,8 @@
 import Command from "../Command.js";
 
-// This command can be used for drawing a line in the model canvas.
+// This command can be used for drawing an area in the model canvas.
 // Additionally, a popup can be opened, which could be used for asking the user for the length of the drawn line.
-class AddOutlineCommand extends Command {
+class AddAreaCommand extends Command {
 
     // Two dimentional array of points [[x1,y1],[x2,y2]...], which form a multi-point-line in the specified order.
     _points;
@@ -15,8 +15,6 @@ class AddOutlineCommand extends Command {
 
 
     // This is the execute method of this command.
-    // For executing this command, simply a line with the according points is added to the model.
-    // Also, it is checked if a popup should be displayed. If so, the values are handed over to the model, which will then open the popup.
     execute() {
         super.execute();
 
@@ -30,10 +28,10 @@ class AddOutlineCommand extends Command {
         this._model.removeArea(this._points, "ff0000");
     }
 
-    // This method can be used to access a specific point of this line.
+    // This method can be used to access a specific point of this area
     getPoint(index) {
         return this._points[index];
     }
 }
 
-export default AddOutlineCommand;
+export default AddAreaCommand;
