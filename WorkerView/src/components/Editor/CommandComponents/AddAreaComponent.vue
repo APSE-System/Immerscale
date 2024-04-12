@@ -68,11 +68,11 @@ function measureShape(ctx, area) {
   result *= 0.5;
   result = Math.abs(Math.round( (result)*100)/100    );
   console.log('the result is: ' + result);
-  displayMeasure(result, ctx, area);
+  displayMeasure(area.size, ctx, area);
       
   }
       
-  // this can be done with the math utils?
+  // Calculation of the determinant
   function det(p1, p2) {
     return (p1[0] * p2[1]) - (p2[0] * p1[1]);
   }    

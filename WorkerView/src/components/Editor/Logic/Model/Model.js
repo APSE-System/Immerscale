@@ -50,13 +50,13 @@ class Model {
     }
 
     // adds an area to the list
-    addArea(points, color) {
-        this.canvasAreas.push(new CanvasArea(points, color));
+    addArea(points, color, size) {
+        this.canvasAreas.push(new CanvasArea(points, color, size));
     }
 
     // removes the area ...
-    removeArea(points, color) {
-        let index = this.canvasAreas.findIndex(area => area.points === points && area.color === color);
+    removeArea(points, color, size) {
+        let index = this.canvasAreas.findIndex(area => area.points === points && area.color === color && area.size === size);
         if (index !== -1) {
             this.canvasAreas.splice(index, 1);
         }

@@ -3,10 +3,12 @@
 class CanvasArea {
     points;
     color;
+    size;
 
-    constructor(points, color) {
+    constructor(points, color, size) {
         this.points = points;
         this.color = color;
+        this.size = size;
     }
 }
 export default CanvasArea;

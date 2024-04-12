@@ -35,7 +35,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
             this._model.do(new AddPointCommand(this, this._model, x, y));
         }
         else {
-            this._model.do(new AddAreaCommand(this, this._model, this._points));
+            this._model.do(new AddAreaCommand(this, this._model, this._points, this.calculateArea()));
         }        
     }
 
@@ -61,9 +61,14 @@ class PolygoneMeasurementTool extends MeasurementTool {
         }
     }
 
-    // TODO 
-    // This function calculates the transformation matrix based on the user input and sets it in the Lord.
-    // setReference() {
+    // Calculates the area based on the currently selected points
+    calculateArea(){
+        let realWorldPoints = [];
+        for (var i = 0; i < this._points.length; i++){
+            realWorldPoints.push(LordImmerScaler.transformToRealWorld(this._points[i][0], this._points[i][1]));
+        }
+        return MathUtils.getPolygonArea(realWorldPoints);
+    }
 
     // For deselecting this tool, all the already exeuted commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)
     deselect() {
