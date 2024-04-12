@@ -36,6 +36,11 @@ class AddAreaCommand extends Command {
     getPoint(index) {
         return this._points[index];
     }
+    // This method can be used to access all points of this area
+    getPoints() {
+        return this._points.slice(0);
+    }
+
 }
 
 export default AddAreaCommand;

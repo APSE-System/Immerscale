@@ -27,7 +27,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
 
 
     onClick(x, y) {
-        this._points.push([x,y]);
+        //this._points.push([x,y]);
 
         // Checking how many points were already specified by the user and adding new commands accordingly.
         if (this._pointCount == 0) {
@@ -35,7 +35,10 @@ class PolygoneMeasurementTool extends MeasurementTool {
             this._model.do(new AddPointCommand(this, this._model, x, y));
         }
         else {
-            this._model.do(new AddAreaCommand(this, this._model, this._points.slice(0), this.calculateArea()));
+            var pointsCopy = this._points.slice(0);
+            pointsCopy.push([x,y]);
+            console.log(pointsCopy);
+            this._model.do(new AddAreaCommand(this, this._model, pointsCopy, this.calculateArea(pointsCopy)));
         }        
     }
 
@@ -45,26 +48,33 @@ class PolygoneMeasurementTool extends MeasurementTool {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._first = command;
             this._pointCount++;
-        } else //if (this._pointCount < 3) {
+            this._points = []
+            this._points.push([command.getX(), command.getY()]);
+        } else {
             // As long as not all the points are specified, the counter is simply incremented.
             this._pointCount++;
+            this._points= command.getPoints();
+        }
+        console.log(command);
+        console.log(this._points);
     }
 
     // This function is called during the unexecution of the commands created by this tool.
-    updateUnExecute(point) {
+    updateUnExecute(command) {
         if (this._pointCount >= 1) {
             // If not all points have been set, the counter is simply decremented.
             this._pointCount--;
+            this._points.pop();
         } else {
             this._first = null;
         }
     }
 
     // Calculates the area based on the currently selected points
-    calculateArea(){
+    calculateArea(points){
         let realWorldPoints = [];
-        for (var i = 0; i < this._points.length; i++){
-            realWorldPoints.push(LordImmerScaler.transformToRealWorld(this._points[i][0], this._points[i][1]));
+        for (var i = 0; i < points.length; i++){
+            realWorldPoints.push(LordImmerScaler.transformToRealWorld(points[i][0], points[i][1]));
         }
         return MathUtils.getPolygonArea(realWorldPoints);
     }
