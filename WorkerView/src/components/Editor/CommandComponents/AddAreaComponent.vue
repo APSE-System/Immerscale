@@ -17,8 +17,9 @@ function drawArea(canvas, area) {
   ctx.strokeStyle = "#" + area.color;
 
   // TODO the fill color is hard coded for now change this later
+  var rgbColor = hexToRgb("#" + area.color)
   // Set fill color to red
-  ctx.fillStyle = 'rgba(255, 0, 0, 0.1)';
+  ctx.fillStyle = 'rgba('+ rgbColor.r +', '+ rgbColor.g +', '+ rgbColor.b +', 0.1)';
   // Begin drawing the polygon
   ctx.beginPath();
   ctx.moveTo(area.points[0][0], area.points[0][1]);
@@ -41,8 +42,18 @@ function drawArea(canvas, area) {
   // draws the outline
   ctx.stroke();   
   
-  // measure shape
-  measureShape(ctx, area);
+  // display the size
+  displaySize(area.size, ctx, area);
+}
+
+// Transforms a hex color into a rgb color
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
 }
 
 // This checks if the canvas even exists before giving the according area to the drawing function.
@@ -53,31 +64,8 @@ function setCanvasRef(canvas, index) {
   drawArea(canvas, props.canvasAreas[index]); // changed to 0
 }
 
-// Formel von: https://mathe-vital.de/LinAlg1/18-4.html
-function measureShape(ctx, area) {
-  if(area.points.length <= 0) return;
-      
-  let result = 0;
-      
-  for(let i = 0; i < area.points.length - 1; i++) {
-    result += det(area.points[i], area.points[i+1])
-  }
-      
-  result += det(area.points[area.points.length - 1], area.points[0])
-      
-  result *= 0.5;
-  result = Math.abs(Math.round( (result)*100)/100    );
-  console.log('the result is: ' + result);
-  displayMeasure(area.size, ctx, area);
-      
-  }
-      
-  // Calculation of the determinant
-  function det(p1, p2) {
-    return (p1[0] * p2[1]) - (p2[0] * p1[1]);
-  }    
 
-  function displayMeasure(value, ctx, area) {
+  function displaySize(value, ctx, area) {
     if(value === 0) return;
       
     // Display the number in the center of the polygon
@@ -85,13 +73,13 @@ function measureShape(ctx, area) {
     const centerY = area.points.reduce((sum, point) => sum + point[1], 0) / area.points.length;
       
     ctx.fillStyle = 'white';
-    ctx.font = '20px Arial';
+    ctx.font = '100px Arial';
       
     // Center the text horizontally and vertically
     const textWidth = ctx.measureText(value).width;
       
     // TODO
-    value += "px²"
+    value += " cm²"
 
     ctx.fillText(value, centerX - textWidth / 2, centerY + 10);
   }
