@@ -178,12 +178,19 @@ function canvasClicked(event) {
   var img = new Image();
   img.src = image.value;
 
+  // this is a check for a bug where the image width and height are 0 for some reason
+  // discard the click if this is the case and log it
+  if (img.width == 0 || img.height == 0) {
+    console.log("Image width or height = 0, value discarded")
+  }
+  else {
   // By taking the ratio between the relative coordinates and the canvas, we can map them to the image size.
   const x = (x_canv / rect.width) * img.width;
   const y = (y_canv / rect.height) * img.height;
 
   // The controller will redirect the click to the according tool.
   controller.onClick(x,y);
+  }
 }
 
 // This function handles the undo and redo keyboard events and delegates them to the controller.
