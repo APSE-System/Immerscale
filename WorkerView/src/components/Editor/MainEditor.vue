@@ -10,6 +10,8 @@ import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
+import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js"
+import AddAreaComponent from "./CommandComponents/AddAreaComponent.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -40,6 +42,11 @@ onBeforeMount(()=>{
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
+
+  // create the polygoneMeasurement Tool
+  let polygoneMeasurementTool = new PolygoneMeasurementTool(model.value)
+  polygoneMeasurementTool.callback = controller.addTool(polygoneMeasurementTool)
+  toolsList.value.push(polygoneMeasurementTool)
 })
 
 // fetch to get the images of the project
@@ -228,6 +235,7 @@ function canvasBack(event){
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
         <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight"></AddLineComponent>
+        <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight"></AddAreaComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>

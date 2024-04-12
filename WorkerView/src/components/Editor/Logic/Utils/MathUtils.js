@@ -67,3 +67,27 @@ export function applyMatrixToPoints(matrix, ...points){
 export function getDistance(point1, point2){
     return math.norm(math.subtract(point1, point2))
 }
+
+// Equation found on: https://mathe-vital.de/LinAlg1/18-4.html
+export function getPolygonArea(points) {
+    if(points.length <= 0) return;
+
+    let result = 0;
+
+    for(let i = 0; i < points.length - 1; i++) {
+        result += getDeterminant(points[i], points[i+1])
+    }
+
+    result += getDeterminant(points[points.length - 1], points[0])
+
+    result *= 0.5;
+    result = math.abs(math.round( (result)*100)/100    );
+
+    return result;
+
+}
+
+// Calculation of the determinant
+function getDeterminant(p1, p2) {
+    return (p1[0] * p2[1]) - (p2[0] * p1[1]);
+}
