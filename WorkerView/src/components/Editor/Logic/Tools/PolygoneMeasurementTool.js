@@ -37,7 +37,6 @@ class PolygoneMeasurementTool extends MeasurementTool {
         else {
             var pointsCopy = this._points.slice(0);
             pointsCopy.push([x,y]);
-            console.log(pointsCopy);
             this._model.do(new AddAreaCommand(this, this._model, pointsCopy, this.calculateArea(pointsCopy)));
         }        
     }
@@ -55,8 +54,6 @@ class PolygoneMeasurementTool extends MeasurementTool {
             this._pointCount++;
             this._points= command.getPoints();
         }
-        console.log(command);
-        console.log(this._points);
     }
 
     // This function is called during the unexecution of the commands created by this tool.
