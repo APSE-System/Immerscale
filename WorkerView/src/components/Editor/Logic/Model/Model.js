@@ -67,7 +67,6 @@ class Model {
 
     // Adds a given label to the list i.e. onto the image.
     addLabel(point, length) {
-        console.log(length);
         this.canvasLabels.push(new CanvasLabel(point[0], point[1], length));
     }
 

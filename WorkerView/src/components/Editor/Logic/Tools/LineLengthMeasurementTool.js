@@ -34,7 +34,6 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._firstX = x;
             this._firstY = y;
             this._model.do(new AddPointCommand(this, this._model, this._firstX, this._firstY));
-            console.log("Point 1 added");
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
             this._secondX = x;
@@ -42,13 +41,10 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._model.do(new AddPointCommand(this, this._model, this._secondX, this._secondY));
             // Draw the line between the two points
             this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], false));
-            // Set the tool to finished
-            //let value = this.measureLength();
-            //console.log(result);
-            //this.drawLabel(value);
-            // Reset the point count and the first point to null for the next use of the tool
+            // Calculate the middle point of the line and add a label with the length of the line.
             let middlePoint = MathUtils.getMidpoint([this._firstX, this._firstY], [this._secondX, this._secondY]);
             this._model.do(new AddLabelCommand(this, this._model, [middlePoint[0], middlePoint[1]], this.measureLength()));
+            // The tool is finished after the second point is set, all points are reset.
             this._first = null;
             this._firstX = 0;
             this._firstY = 0;
@@ -90,7 +86,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
     measureLength() {
         let point_1 = LordImmerScaler.transformToRealWorld(this._firstX, this._firstY);
         let point_2 = LordImmerScaler.transformToRealWorld(this._secondX, this._secondY);
-        return MathUtils.getDistance([point_1[0], point_1[1]],[point_2[0], point_2[1]]);
+        return MathUtils.getDistance([point_1[0], point_1[1]],[point_2[0], point_2[1]]).toFixed(2);
     }
 }
 

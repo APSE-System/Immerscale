@@ -17,7 +17,6 @@ class AddLabelCommand extends Command {
     // This is the execute method of this command.
     execute() {
         super.execute();
-        console.log(this._length);
         this._model.addLabel(this._point, this._length);
     }
 
