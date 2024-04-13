@@ -43,10 +43,12 @@ class LineLengthMeasurementTool extends MeasurementTool {
             // Draw the line between the two points
             this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], false));
             // Set the tool to finished
-            let value = this.measureLength();
+            //let value = this.measureLength();
             //console.log(result);
-            this.drawLabel(value);
+            //this.drawLabel(value);
             // Reset the point count and the first point to null for the next use of the tool
+            let middlePoint = MathUtils.getMidpoint([this._firstX, this._firstY], [this._secondX, this._secondY]);
+            this._model.do(new AddLabelCommand(this, this._model, [middlePoint[0], middlePoint[1]], this.measureLength()));
             this._first = null;
             this._firstX = 0;
             this._firstY = 0;
@@ -87,20 +89,8 @@ class LineLengthMeasurementTool extends MeasurementTool {
 
     measureLength() {
         let point_1 = LordImmerScaler.transformToRealWorld(this._firstX, this._firstY);
-        //console.log(point_1);
         let point_2 = LordImmerScaler.transformToRealWorld(this._secondX, this._secondY);
-        //console.log(point_2);
         return MathUtils.getDistance([point_1[0], point_1[1]],[point_2[0], point_2[1]]);
-    }
-
-    drawLabel(value){
-        if(this._finished){
-            let point_1 = [this._firstX, this._firstY]
-            let point_2 = [this._secondX, this._secondY];
-            let center = MathUtils.getMidpoint([point_1[0], point_1[1]],[point_2[0], point_2[1]]);
-            console.log(value);
-            this._model.do(new AddLabelCommand(this, this._model, center[0], center[1], value));
-        }
     }
 }
 

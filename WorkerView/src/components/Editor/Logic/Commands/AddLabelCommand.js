@@ -6,25 +6,25 @@ class AddLabelCommand extends Command {
     _point;
 
     // the text that is displayed in the label
-    _value;
+    _length;
 
-    constructor(creator, model, point, value) {
+    constructor(creator, model, point, length) {
         super(creator, model);
         this._point = point;
-        this._value = value;
+        this._length = length;
     }
 
     // This is the execute method of this command.
     execute() {
         super.execute();
-        console.log(this._value);
-        this._model.addLabel(this._point, this._value);
+        console.log(this._length);
+        this._model.addLabel(this._point, this._length);
     }
 
     // For unexecuting, the label is removed from the model again.
     unExecute() {
         super.unExecute();
-        this._model.removeLabel(this._point, this._value);
+        this._model.removeLabel(this._point, this._length);
     }
 
 }

@@ -6,12 +6,12 @@ class CanvasLabel {
     y;
 
     // the text that is displayed in the label
-    value;
+    length;
 
-    constructor(x, y, value) {
+    constructor(x, y, length) {
         this.x = x;
         this.y = y;
-        this.value = value;
+        this.length = length;
     }
 }
 
