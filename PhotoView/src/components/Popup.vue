@@ -34,7 +34,7 @@ async function sendPicture() {
   image = document.getElementById("my-image");
 
   const backendUrl =
-    "http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo";
+    "https://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo";
 
   // // get the base64 part of the image and remove the prefix "data:image/jpeg;base64," with split
   // the try catch is there just in the case some 'funny' things happen
