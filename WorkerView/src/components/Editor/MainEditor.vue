@@ -8,6 +8,8 @@ import Model from "./Logic/Model/Model.js";
 import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
+import AddLabelComponent from "./CommandComponents/AddLabelComponent.vue";
+import LineLengthMeasurementTool from "./Logic/Tools/LineLengthMeasurementTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
 import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js"
@@ -37,8 +39,7 @@ let imgHeight = ref(0)
 
 //initialize tools
 onBeforeMount(()=>{
-
-  // create tool
+  // Create the rools and add them tot the list. THe callback is necessary so a tool can be selected correctly.
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
@@ -47,6 +48,10 @@ onBeforeMount(()=>{
   let polygoneMeasurementTool = new PolygoneMeasurementTool(model.value)
   polygoneMeasurementTool.callback = controller.addTool(polygoneMeasurementTool)
   toolsList.value.push(polygoneMeasurementTool)
+
+  let lineLengthMeasurementTool = new LineLengthMeasurementTool(model.value)
+  lineLengthMeasurementTool.callback = controller.addTool(lineLengthMeasurementTool)
+  toolsList.value.push(lineLengthMeasurementTool)
 })
 
 // fetch to get the images of the project
@@ -236,6 +241,8 @@ function canvasBack(event){
         <!-- Component which displayes all the lines in the model -->
         <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight"></AddLineComponent>
         <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight"></AddAreaComponent>
+        <!-- Component which displayes all the labels in the model -->
+        <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>

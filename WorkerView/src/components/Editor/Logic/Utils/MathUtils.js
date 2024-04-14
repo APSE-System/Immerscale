@@ -91,3 +91,7 @@ export function getPolygonArea(points) {
 function getDeterminant(p1, p2) {
     return (p1[0] * p2[1]) - (p2[0] * p1[1]);
 }
+
+export function getMidpoint(point1, point2){
+    return math.divide(math.add(point1, point2), 2)
+}
