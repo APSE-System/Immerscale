@@ -16,7 +16,7 @@ onMounted(() => {
 
   console.log("get request: " + token)
 
-  fetch("https://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + token, {credentials: "include"})
+  fetch( import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + token, {credentials: "include"})
       .then((response) => {
         console.log(response)
         if (response.ok) {
