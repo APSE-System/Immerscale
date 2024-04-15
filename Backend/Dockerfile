@@ -1,8 +1,11 @@
 #use maven
 FROM maven:3.8.7-eclipse-temurin-19 AS builder
-ADD . /src
 WORKDIR /src
-RUN mvn -f pom.xml clean package
+ADD ./pom.xml /src
+RUN mvn dependency:go-offline
+ADD . /src
+RUN mvn clean package
+
 
 FROM openjdk:19-slim
 COPY --from=builder /src/target/*.jar /app/app.jar
