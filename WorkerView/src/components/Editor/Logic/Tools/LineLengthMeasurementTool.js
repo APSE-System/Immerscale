@@ -39,7 +39,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._secondX = x;
             this._secondY = y;
             // Draw the line between the two points
-            this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], false, null, null, null, null, true));
+            this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], true, false));
             // Calculate the middle point of the line and add a label with the length of the line.
             let middlePoint = MathUtils.getMidpoint([this._firstX, this._firstY], [this._secondX, this._secondY]);
             this._model.do(new AddLabelCommand(this, this._model, [middlePoint[0], middlePoint[1]], this.measureLength()));

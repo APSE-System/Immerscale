@@ -20,9 +20,9 @@ function drawLabel(canvas, label) {
 
 // This checks if the canvas even exists before giving the according area to the drawing function.
 function setCanvasRef(canvas, index) {
-  console.log('index ' + index + ' ' + props.canvasLabels[index].length)
   if (canvas === null)
     return
+  console.log('index ' + index + ' ' + props.canvasLabels[index])
   drawLabel(canvas, props.canvasLabels[index]); // changed to 0
 }
 
