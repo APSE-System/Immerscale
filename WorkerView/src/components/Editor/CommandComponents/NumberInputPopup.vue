@@ -1,5 +1,5 @@
 <script setup>
-import {defineProps} from "vue";
+import {defineProps, onUpdated} from "vue";
 import InputNumber from 'primevue/inputnumber';
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
@@ -19,7 +19,20 @@ function saveButtonClicked(value) {
   }
 }
 
+function focusOnInput() {
+  setTimeout(() => {
+    const input = document.getElementById('name')
+    if(input == null) return;
 
+    // the actual input from InputNumber is inside a span, therefore we access the children of input
+    input.children[0].focus();
+  }, 200)
+}
+
+onUpdated(() => {
+  // focuses on the input after delay (to avoid errors)
+  focusOnInput();
+})
 </script>
 
 <template>
