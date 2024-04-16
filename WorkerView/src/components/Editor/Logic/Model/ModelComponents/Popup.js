@@ -10,7 +10,7 @@ class Popup {
 
     callback;
 
-    constructor(visible = false, header = "", description = "", value = "", callback = ()=>{}, prevValue=42) {
+    constructor(visible = false, header = "", description = "", value = "", callback = ()=>{}, prevValue=-1) {
         this.visible = visible;
 
         this.header = header;
@@ -22,7 +22,7 @@ class Popup {
     }
 
     // Sets visible to true to display the popup.
-    show(header = "", description = "", value = "", callback = ()=>{}, prevValue=420) {
+    show(header = "", description = "", value = "", callback = ()=>{}, prevValue=-1) {
         this.visible = true;
 
         this.header = header;
