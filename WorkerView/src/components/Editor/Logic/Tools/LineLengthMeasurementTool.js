@@ -38,12 +38,8 @@ class LineLengthMeasurementTool extends MeasurementTool {
             // The second step draws a line from the first point to the newly selected point.
             this._secondX = x;
             this._secondY = y;
-            this._model.do(new AddPointCommand(this, this._model, this._secondX, this._secondY));
-            // Draw the line between the two points
-            this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], false));
-            // Calculate the middle point of the line and add a label with the length of the line.
-            let middlePoint = MathUtils.getMidpoint([this._firstX, this._firstY], [this._secondX, this._secondY]);
-            this._model.do(new AddLabelCommand(this, this._model, [middlePoint[0], middlePoint[1]], this.measureLength()));
+            // Draw the line between the two points, add the second point and a label with the length of the line.
+            this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], true, true, this.measureLength(), false));
             // The tool is finished after the second point is set, all points are reset.
             this._first = null;
             this._firstX = 0;
