@@ -45,7 +45,7 @@ function displayLength(value, ctx, label) {
 <template>
     <!-- This loop goes over all the labels that exist and draws them on a canvas each. -->
     <div v-for="(label, index) in canvasLabels" :key="index" class="AddLabelCanvasWrapperDiv" style="position: absolute">
-        <canvas v-if="index === canvasLabels.length - 1" :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddLabelCanvas"></canvas>
+      <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddLabelCanvas"></canvas>
   </div>
 
 </template>
