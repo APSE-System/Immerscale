@@ -33,13 +33,20 @@ function saveButtonClicked(value) {
                      :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
-        <Button type="button" label="Save" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
+        <Button class="in-box" type="button" label="Save" severity="primary" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
       </div>
     </Dialog>
   </div>
 </template>
 
 <style scoped>
-
+  @media (prefers-color-scheme: dark) {
+    .in-box{
+      color: black;
+    }
+    .in-box:hover{
+      color: rgb(35, 115, 210);
+    }
+  }
 </style>
 

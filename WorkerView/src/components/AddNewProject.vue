@@ -37,8 +37,8 @@ function addProject(projectName) {
                 <InputText id="name" class="flex-auto" autocomplete="off" v-model="newName"/>
             </div>
             <div class="flex justify-content-end gap-2">
-                <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Save" @click="visible = false; addProject(newName); "></Button>
+                <Button class="in-box" type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
+                <Button class="in-box" type="button" label="Save" @click="visible = false; addProject(newName); "></Button>
             </div>
         </Dialog>
     </div>
@@ -66,7 +66,11 @@ function addProject(projectName) {
     justify-content: space-between;
     gap: 5px;
 }
-
+@media (prefers-color-scheme: dark) {
+    .in-box{
+      color: black;
+    }
+}
 
 .addBtn:hover{
     transform: scale(1.1);
