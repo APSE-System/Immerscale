@@ -6,26 +6,29 @@ class Popup {
     header;
     description;
     value;
+    prevValue;
 
     callback;
 
-    constructor(visible = false, header = "", description = "", value = "", callback = ()=>{}) {
+    constructor(visible = false, header = "", description = "", value = "", callback = ()=>{}, prevValue=42) {
         this.visible = visible;
 
         this.header = header;
         this.description = description;
         this.value = value;
+        this.prevValue = prevValue;
 
         this.callback = callback;
     }
 
     // Sets visible to true to display the popup.
-    show(header = "", description = "", value = "", callback = ()=>{}) {
+    show(header = "", description = "", value = "", callback = ()=>{}, prevValue=420) {
         this.visible = true;
 
         this.header = header;
         this.description = description;
         this.value = value;
+        this.prevValue = prevValue;
 
         this.callback = callback;
     }
@@ -37,6 +40,7 @@ class Popup {
         this.header = "";
         this.description = "";
         this.value = "";
+        this.prevValue = "";
 
         this.callback = ()=>{};
     }
