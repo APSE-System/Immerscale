@@ -21,13 +21,14 @@ class AddLineCommand extends Command {
     _callback;
 
     // Constructor for initialising the attributes. As not every line has a popup, all the popup refering attributes are assgined a default value.
-    constructor(creator, model, points, popup= false, header = "", description = "", value = "", callback) {
+    constructor(creator, model, points, popup= false, header = "", description = "", value = "", callback, drawPoints = false) {
         super(creator, model);
         this._points = points;
         this._popup = popup;
         this._header = header;
         this._description = description;
         this._value = value;
+        this._drawPoints = drawPoints;
 
         this._callback = callback;
     }
@@ -42,6 +43,8 @@ class AddLineCommand extends Command {
         this._model.removePopup();
 
         this._model.addLine(this._points,"00ff00");
+        if(this._drawPoints)
+            this._model.addPoint(this._points[1][0], this._points[1][1], "00ff00")
         if(this._popup)
             this._model.addPopup(this._header, this._description, this._value, this._callback);
     }
@@ -51,6 +54,8 @@ class AddLineCommand extends Command {
         super.unExecute();
 
         this._model.removeLine(this._points, "00ff00");
+        if(this._drawPoints)
+            this._model.removePoint(this._points[1][0], this._points[1][1], "00ff00")
         if(this._popup)
             this._model.removePopup();
     }

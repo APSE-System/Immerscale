@@ -71,11 +71,13 @@ class Model {
     }
 
     // Removes the given label from the image
+    // TODO: Fix this to not throw an undefined reference Error
     removeLabel(point, value) {
-        let index = this.canvasLabels.findIndex(label => label.point === point && label.value === value);
-        if (index !== -1) {
-            this.canvasLabels.splice(index, 1);
-        }
+        //let index = this.canvasLabels.findIndex(label => label.point === point, label.value === value);
+        //console.log("removing label at: " + index)
+        //if (index !== -1) {
+        //    this.canvasLabels.splice(index, 1);
+        //}
     }
 
     // Opens the popup showing the given values

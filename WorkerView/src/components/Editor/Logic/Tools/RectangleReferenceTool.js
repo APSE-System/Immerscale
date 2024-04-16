@@ -47,16 +47,16 @@ class RectangleReferenceTool extends ReferenceTool {
             // The second step draws a line from the first point to the newly selected point.
             // Also, a popup is opened so the user can specify the size of this side.
             // The value of the side is returned via the callback.
-            this._model.do(new AddLineCommand(this, this._model, [[this._first.getX(), this._first.getY()], [x, y]], true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
+            this._model.do(new AddLineCommand(this, this._model, [[this._first.getX(), this._first.getY()], [x, y]], true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}, true));
         } else if (this._pointCount == 2) {
             // The third step draws a line from the second point to the newly selected point.
             // Also, a popup is opened so the user can specify the size of this side.
             // The value of the side is returned via the callback.
-            this._model.do(new AddLineCommand(this, this._model, [[firstLine.getPoint(1)[0], firstLine.getPoint(1)[1]], [x, y]], true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}));
+            this._model.do(new AddLineCommand(this, this._model, [[firstLine.getPoint(1)[0], firstLine.getPoint(1)[1]], [x, y]], true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}, true));
         } else if (this._pointCount == 3) {
             // The last step adds a line from the last point over the newly selected point to the first point.
             // Therefore, this step completes the selected rectangel.
-            this._model.do(new AddLineCommand(this, this._model, [[secondLine.getPoint(1)[0], secondLine.getPoint(1)[1]], [x, y], [this._first.getX(), this._first.getY()]]));
+            this._model.do(new AddLineCommand(this, this._model, [[secondLine.getPoint(1)[0], secondLine.getPoint(1)[1]], [x, y], [this._first.getX(), this._first.getY()]], false, null, null, null, null, true));
         }
     }
 
