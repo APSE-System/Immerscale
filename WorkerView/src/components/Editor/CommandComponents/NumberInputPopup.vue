@@ -26,6 +26,14 @@ function focusOnInput() {
 
     // the actual input from InputNumber is inside a span, therefore we access the children of input
     input.children[0].focus();
+
+    // add Event Listener to save on Enter
+    input.children[0].addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const button = document.getElementById('button')
+        button.click();
+    }
+});
   }, 200)
 }
 
@@ -46,7 +54,7 @@ onUpdated(() => {
                      :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
-        <Button type="button" label="Save" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
+        <Button id="button" type="button" label="Save" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
       </div>
     </Dialog>
   </div>
