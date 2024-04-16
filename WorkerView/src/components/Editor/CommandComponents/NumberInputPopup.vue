@@ -1,5 +1,5 @@
 <script setup>
-import {defineProps} from "vue";
+import {defineProps, onUpdated} from "vue";
 import InputNumber from 'primevue/inputnumber';
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
@@ -19,7 +19,28 @@ function saveButtonClicked(value) {
   }
 }
 
+function focusOnInput() {
+  setTimeout(() => {
+    const input = document.getElementById('name')
+    if(input == null) return;
 
+    // the actual input from InputNumber is inside a span, therefore we access the children of input
+    input.children[0].focus();
+
+    // add Event Listener to save on Enter
+    input.children[0].addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const button = document.getElementById('button')
+        button.click();
+    }
+});
+  }, 200)
+}
+
+onUpdated(() => {
+  // focuses on the input after delay (to avoid errors)
+  focusOnInput();
+})
 </script>
 
 <template>
@@ -33,7 +54,7 @@ function saveButtonClicked(value) {
                      :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
-        <Button type="button" label="Save" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
+        <Button id="button" type="button" label="Save" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
       </div>
     </Dialog>
   </div>
