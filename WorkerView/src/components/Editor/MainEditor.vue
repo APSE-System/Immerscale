@@ -181,14 +181,22 @@ onMounted(() => {
 
 // When the canvas is clicked, the coordinates of the click have to be calculated. 
 // As we are dealing with a zoom here, we must map the screen coordinates to the image coordinates again.
-function canvasClicked(event) {
+function canvasClicked(event, img) {
   // These coordinates are relative to the canvas size.
   const rect = event.target.getBoundingClientRect()
   const x_canv = event.clientX - rect.left
   const y_canv = event.clientY - rect.top
+  
+  // This seems to stay the same, whether bugged or not
+  console.log(image)
 
   var img = new Image();
   img.src = image.value;
+
+  console.log(image.width)
+  console.log(image.height)
+  //console.log(img)
+
 
   // this is a check for a bug where the image width and height are 0 for some reason
   // discard the click if this is the case and log it
