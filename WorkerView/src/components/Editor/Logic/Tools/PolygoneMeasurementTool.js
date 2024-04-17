@@ -47,8 +47,21 @@ class PolygoneMeasurementTool extends MeasurementTool {
         }
     }
 
+    // will mark the current polygone as complete and go to the next area
+    onRightClick() {
+        // reset values
+        this._first = null;
+        this._pointCount = 0;    
+        this._points = [];
+        this._finished = false;
+    
+        console.log('Right Click');
+    }
+
     // This function is called during the execution of the commands created by this tool.
     updateExecute(command) {
+    console.log("---------------")
+    console.log(this._pointCount)
         if (this._pointCount == 0) {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._first = command;
@@ -58,7 +71,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
         } else {
             // As long as not all the points are specified, the counter is simply incremented.
             this._pointCount++;
-            this._points= command.getPoints();
+            this._points= command.getPoints(); // TODO getPoints is not a funtion (if you redo points (for multiple polygons))
         }
     }
 

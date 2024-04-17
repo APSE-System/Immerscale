@@ -34,6 +34,11 @@ class Controller{
             this._currentTool.onClick(x, y)
     }
 
+    onRightClick() {
+        if(this._currentTool !== null)
+            this._currentTool.onRightClick();
+    }
+
     undo(){
         this._model.undo()
     }

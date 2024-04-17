@@ -59,7 +59,7 @@ function hexToRgb(hex) {
 function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
-  drawArea(canvas, props.canvasAreas[index]); // changed to 0
+  drawArea(canvas, props.canvasAreas[index]); 
 }
 
 
@@ -91,9 +91,20 @@ function setCanvasRef(canvas, index) {
   </div> -->
 
   <!-- Only draw the canvas for the last canvasArea (so the color within does not overlap) -->
-  <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
+  <!-- <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
     <canvas v-if="index === canvasAreas.length - 1" :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddAreaCanvas"></canvas>
-  </div>
+  </div> -->
+
+  <!-- Only draw the canvas for the last canvasArea (so the color within does not overlap) -->
+  <!-- And for canvasAreas which have a following CanvasArea with the size of 0 (so multiple polygons can be displayed) -->
+  <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
+  <canvas v-if="index === canvasAreas.length - 1 || (index < canvasAreas.length - 1 && canvasAreas[index + 1].size === 0)" 
+          :ref="el => {setCanvasRef(el, index)} " 
+          :width=width 
+          :height=height 
+          class="AddAreaCanvas">
+  </canvas>
+</div>
 </template>
 
 

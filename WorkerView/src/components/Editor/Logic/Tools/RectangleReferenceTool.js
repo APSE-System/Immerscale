@@ -60,6 +60,11 @@ class RectangleReferenceTool extends ReferenceTool {
         }
     }
 
+    // can be used in the future for more features
+    onRightClick() {
+        console.log('Right Click');
+    }
+
     // This function is called during the execution of the commands created by this tool.
     updateExecute(command) {
         if (this._pointCount == 0) {
