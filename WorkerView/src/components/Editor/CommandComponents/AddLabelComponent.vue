@@ -20,9 +20,9 @@ function drawLabel(canvas, label) {
 
 // This checks if the canvas even exists before giving the according area to the drawing function.
 function setCanvasRef(canvas, index) {
-  console.log('index ' + index + ' ' + props.canvasLabels[index].length)
   if (canvas === null)
     return
+  console.log('index ' + index + ' ' + props.canvasLabels[index])
   drawLabel(canvas, props.canvasLabels[index]); // changed to 0
 }
 
@@ -45,7 +45,7 @@ function displayLength(value, ctx, label) {
 <template>
     <!-- This loop goes over all the labels that exist and draws them on a canvas each. -->
     <div v-for="(label, index) in canvasLabels" :key="index" class="AddLabelCanvasWrapperDiv" style="position: absolute">
-        <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddLabelCanvas"></canvas>
+      <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddLabelCanvas"></canvas>
   </div>
 
 </template>

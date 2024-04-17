@@ -34,11 +34,17 @@ class PolygoneMeasurementTool extends MeasurementTool {
             // The first command is simply adding a point to the user selected coordinates.
             this._model.do(new AddPointCommand(this, this._model, x, y));
         }
+        else if (this._pointCount == 1) {
+            var pointsCopy = this._points.slice(0);
+            pointsCopy.push([x,y]);
+            this._model.do(new AddAreaCommand(this, this._model, pointsCopy, this.calculateArea(pointsCopy)));
+        }   
         else {
             var pointsCopy = this._points.slice(0);
             pointsCopy.push([x,y]);
             this._model.do(new AddAreaCommand(this, this._model, pointsCopy, this.calculateArea(pointsCopy)));
-        }        
+            this._finished = true;
+        }
     }
 
     // This function is called during the execution of the commands created by this tool.
@@ -58,8 +64,12 @@ class PolygoneMeasurementTool extends MeasurementTool {
 
     // This function is called during the unexecution of the commands created by this tool.
     updateUnExecute(command) {
-        if (this._pointCount >= 1) {
+        if (this._pointCount > 3) {
             // If not all points have been set, the counter is simply decremented.
+            this._pointCount--;
+            this._points.pop();
+        } else if(this._pointCount > 0) {
+            this._finished = false;
             this._pointCount--;
             this._points.pop();
         } else {
@@ -80,9 +90,15 @@ class PolygoneMeasurementTool extends MeasurementTool {
     deselect() {
         super.deselect();
         if (this._finished) return;
-        while (this._model.undo() != this._first) {
-            // Undoes all the commands done by this tool if it is not yet finished
+      
+        // Undoes all the commands done by this tool if it is not yet finished
+        while(this._pointCount > 0) {
+            this._model.undo();
         }
+        
+        // while (this._model.undo() != this._first) {
+        //     this._model.undo();
+        // }
     }
 }
 

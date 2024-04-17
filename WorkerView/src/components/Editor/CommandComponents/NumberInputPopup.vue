@@ -5,6 +5,7 @@ import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 
 const emit = defineEmits(['callback']);
+let numberValue = null;
 
 const props = defineProps({
   popup: Object
@@ -54,13 +55,20 @@ onUpdated(() => {
                      :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
-        <Button id="button" type="button" label="Save" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
+        <Button class="in-box" id="button" type="button" label="Save" severity="primary" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
       </div>
     </Dialog>
   </div>
 </template>
 
 <style scoped>
-
+  @media (prefers-color-scheme: dark) {
+    .in-box{
+      color: black;
+    }
+    .in-box:hover{
+      color: rgb(35, 115, 210);
+    }
+  }
 </style>
 

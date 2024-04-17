@@ -1,4 +1,5 @@
 import Command from "../Command.js";
+import * as MathUtils from "../Utils/MathUtils.js";
 
 
 // This command can be used for drawing a line in the model canvas.
@@ -25,9 +26,12 @@ class AddLineCommand extends Command {
     _prevValue;
 
     // Constructor for initialising the attributes. As not every line has a popup, all the popup refering attributes are assgined a default value.
-    constructor(creator, model, points, popup= false, header = "", description = "", value = "", callback, prevValue=-1) {
+    constructor(creator, model, points, drawPoints = false, drawLabel = false, length = "", popup= false, header = "", description = "", value = "", callback, prevValue=-1) {
         super(creator, model);
         this._points = points;
+        this._drawPoints = drawPoints;
+        this._drawLabel = drawLabel;
+        this._length = length;
         this._popup = popup;
         this._header = header;
         this._description = description;
@@ -47,6 +51,13 @@ class AddLineCommand extends Command {
         this._model.removePopup();
 
         this._model.addLine(this._points,"00ff00");
+
+        if(this._drawPoints)
+            this._model.addPoint(this._points[1][0], this._points[1][1], "00ff00")
+        if(this._drawLabel){
+            let middlePoint = MathUtils.getMidpoint(this._points[0], this._points[1]);
+            this._model.addLabel(middlePoint, this._length);
+        }
         if(this._popup)
             this._model.addPopup(this._header, this._description, this._value, this._callback, this._prevValue);
     }
@@ -56,6 +67,12 @@ class AddLineCommand extends Command {
         super.unExecute();
 
         this._model.removeLine(this._points, "00ff00");
+        if(this._drawPoints)
+            this._model.removePoint(this._points[1][0], this._points[1][1], "00ff00")
+        if(this._drawLabel){
+            let middlePoint = MathUtils.getMidpoint(this._points[0], this._points[1]);
+            this._model.removeLabel(middlePoint, this._length);
+        }
         if(this._popup)
             this._model.removePopup();
     }
