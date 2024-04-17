@@ -60,6 +60,11 @@ class RectangleReferenceTool extends ReferenceTool {
         }
     }
 
+    // TODO implement multiple polygons
+    onRightClick() {
+        console.log('Right Click');
+    }
+
     // This function is called during the execution of the commands created by this tool.
     updateExecute(command) {
         if (this._pointCount == 0) {
