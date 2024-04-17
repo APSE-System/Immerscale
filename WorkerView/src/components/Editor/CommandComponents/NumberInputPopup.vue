@@ -5,6 +5,7 @@ import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 
 const emit = defineEmits(['callback']);
+let numberValue = null;
 
 const props = defineProps({
   popup: Object

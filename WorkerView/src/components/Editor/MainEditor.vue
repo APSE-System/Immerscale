@@ -220,7 +220,7 @@ function canvasBack(event){
 
 <template>
   <div class="editor">
-    <TabBar :projectName="projectName">
+    <TabBar>
       <template #back>
         <Button
             @click="router.push('/project/' + route.params.id + '/images')"
