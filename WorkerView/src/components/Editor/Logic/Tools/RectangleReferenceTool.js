@@ -60,7 +60,7 @@ class RectangleReferenceTool extends ReferenceTool {
         }
     }
 
-    // TODO implement multiple polygons
+    // can be used in the future for more features
     onRightClick() {
         console.log('Right Click');
     }
