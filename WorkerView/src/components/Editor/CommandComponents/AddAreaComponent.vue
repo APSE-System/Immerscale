@@ -115,4 +115,9 @@ function setCanvasRef(canvas, index) {
   right: 0;
 }
 
+canvas {
+  /* filter: blur(100); */
+  image-rendering: crisp-edges;
+}
+
 </style>
