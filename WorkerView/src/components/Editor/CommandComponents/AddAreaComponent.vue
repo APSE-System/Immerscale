@@ -71,8 +71,9 @@ function setCanvasRef(canvas, index) {
     const centerY = area.points.reduce((sum, point) => sum + point[1], 0) / area.points.length;
       
     ctx.fillStyle = 'white';
-    ctx.font = '100px Arial';
+    ctx.font = '80px Arial';
 
+    // add suffix
     value += " cm²"
       
     // Center the text horizontally and vertically

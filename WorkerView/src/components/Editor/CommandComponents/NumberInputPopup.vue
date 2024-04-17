@@ -51,7 +51,7 @@ onUpdated(() => {
       <span class="p-text-secondary block mb-3">{{ popup.description }}</span>
       <div class="flex align-items-center gap-3 mb-3">
         <label for="name" class="font-semibold w-6rem">{{ popup.value }}</label>
-        <InputNumber :placeholder="popup.prevValue != -1 ? popup.prevValue : '' " id="name" class="flex-auto" autocomplete="off" locale="de-DE" mode="decimal" :minFractionDigits="2"
+        <InputNumber :placeholder="popup.prevValue != -1 ? popup.prevValue.toString() : '' " id="name" class="flex-auto" autocomplete="off" locale="de-DE" mode="decimal" :minFractionDigits="2"
                      :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
