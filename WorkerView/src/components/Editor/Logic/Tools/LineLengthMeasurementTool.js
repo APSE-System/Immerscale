@@ -34,6 +34,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._firstX = x;
             this._firstY = y;
             this._model.do(new AddPointCommand(this, this._model, this._firstX, this._firstY));
+            this._finished = false;
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
             this._secondX = x;
@@ -74,9 +75,15 @@ class LineLengthMeasurementTool extends MeasurementTool {
     deselect() {
         super.deselect();
         if (this._finished) return;
-        while (this._model.undo() != this._first) {
-            // Undoes all the commands done by this tool if it is not yet finished
+
+        // if only one point is made remove the point (check the point count so it won't remove other commands)
+        if (this._pointCount > 0) {
+            this._model.undo();
         }
+
+        // while (this._model.undo() != this._first) {
+        //     // Undoes all the commands done by this tool if it is not yet finished
+        // }
     }
 
     measureLength() {

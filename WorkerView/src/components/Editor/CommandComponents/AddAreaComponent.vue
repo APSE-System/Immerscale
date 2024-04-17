@@ -57,7 +57,6 @@ function hexToRgb(hex) {
 
 // This checks if the canvas even exists before giving the according area to the drawing function.
 function setCanvasRef(canvas, index) {
-  console.log('index ' + index)
   if (canvas === null)
     return
   drawArea(canvas, props.canvasAreas[index]); // changed to 0
@@ -113,6 +112,11 @@ function setCanvasRef(canvas, index) {
   height: auto;
   left: 0;
   right: 0;
+}
+
+canvas {
+  /* filter: blur(100); */
+  image-rendering: crisp-edges;
 }
 
 </style>

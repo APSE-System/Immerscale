@@ -117,9 +117,16 @@ class RectangleReferenceTool extends ReferenceTool {
     deselect() {
         super.deselect();
         if (this._finished) return;
-        while (this._model.undo() != this._first) {
-            // Undoes all the commands done by this tool if it is not yet finished
+
+        // Undoes all the commands done by this tool if it is not yet finished
+        while(this._pointCount > 0) {
+            this._model.undo();
         }
+
+        // while (tmp != this._first || tmp == null) {
+        //     tmp = this._model.undo();
+        //     console.log(tmp)
+        // }
     }
 
 
