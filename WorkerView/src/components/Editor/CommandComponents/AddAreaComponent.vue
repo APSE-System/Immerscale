@@ -72,13 +72,12 @@ function setCanvasRef(canvas, index) {
       
     ctx.fillStyle = 'white';
     ctx.font = '100px Arial';
+
+    value += " cm²"
       
     // Center the text horizontally and vertically
     const textWidth = ctx.measureText(value).width;
       
-    // TODO
-    value += " cm²"
-
     ctx.fillText(value, centerX - textWidth / 2, centerY + 10);
   }
 </script>
