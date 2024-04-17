@@ -181,7 +181,7 @@ onMounted(() => {
 
 // When the canvas is clicked, the coordinates of the click have to be calculated. 
 // As we are dealing with a zoom here, we must map the screen coordinates to the image coordinates again.
-function canvasClicked(event, img) {
+function canvasClicked(event) {
   // These coordinates are relative to the canvas size.
   const rect = event.target.getBoundingClientRect()
   const x_canv = event.clientX - rect.left
@@ -192,18 +192,7 @@ function canvasClicked(event, img) {
 
   var img = new Image();
   img.src = image.value;
-
-  console.log(image.width)
-  console.log(image.height)
-  //console.log(img)
-
-
-  // this is a check for a bug where the image width and height are 0 for some reason
-  // discard the click if this is the case and log it
-  if (img.width == 0 || img.height == 0) {
-    console.log("Image width or height = 0, value discarded")
-  }
-  else {
+  img.onload = function() {
   // By taking the ratio between the relative coordinates and the canvas, we can map them to the image size.
   const x = (x_canv / rect.width) * img.width;
   const y = (y_canv / rect.height) * img.height;
@@ -345,9 +334,4 @@ function canvasBack(event){
   #back-button:hover {
     color: rgb(35, 115, 210);
   }
-  
-  canvas {
-  /* filter: blur(100); */
-  image-rendering: crisp-edges;
-}
 </style>
