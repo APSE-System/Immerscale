@@ -23,7 +23,7 @@ function saveButtonClicked(value) {
 function focusOnInput() {
   setTimeout(() => {
     const input = document.getElementById('name')
-    if(input == null) return;
+    if(input == null || input.children[0] == null) return;
 
     // the actual input from InputNumber is inside a span, therefore we access the children of input
     input.children[0].focus();

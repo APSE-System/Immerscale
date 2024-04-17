@@ -63,8 +63,6 @@ class PolygoneMeasurementTool extends MeasurementTool {
 
     // This function is called during the execution of the commands created by this tool.
     updateExecute(command) {
-    console.log("---------------")
-    console.log(this._pointCount)
         if (command instanceof AddPointCommand) {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._first = command;
