@@ -338,4 +338,8 @@ function canvasBack(event){
   #back-button:hover {
     color: rgb(35, 115, 210);
   }
+
+  canvas {
+    image-rendering: crisp-edges;
+  }
 </style>
