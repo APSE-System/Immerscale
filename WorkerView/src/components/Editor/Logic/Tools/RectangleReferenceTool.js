@@ -66,9 +66,15 @@ class RectangleReferenceTool extends ReferenceTool {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._first = command;
             this._pointCount++;
-        } else if (this._pointCount < 3) {
+        } else if (this._pointCount == 1) {
+            this._pointCount++;
+            // this updates the popup value of the command, so it can be displayed as a suggestion if you redo the command
+            command.updatePopup(this._firstLength);
+        } else if (this._pointCount == 2) {
             // As long as not all the points are specified, the counter is simply incremented.
             this._pointCount++;
+            // this updates the popup value of the command, so it can be displayed as a suggestion if you redo the command
+            command.updatePopup(this._secondLenght);
         } else {
             // If all the four points are specified, the reference is set and the tool is finished.
             this.setReference()
