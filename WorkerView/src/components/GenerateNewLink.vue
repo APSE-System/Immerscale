@@ -6,9 +6,11 @@ import InputText from "primevue/inputtext";
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-
 const emit = defineEmits(['fetchLinks'])
 const visible = ref(false);
+
+// Variable to store the name of the new link
+let newName = ""
 
 //preliminary function to add a new link
 function generateLink(linkName) {

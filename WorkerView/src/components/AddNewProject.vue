@@ -8,6 +8,9 @@ import 'primeicons/primeicons.css'
 const emit = defineEmits(['fetchProjects'])
 const visible = ref(false);
 
+// Variable to store the new project name
+let newName = ""
+
 //preliminary function to add a new project
 function addProject(projectName) {
   fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/project?name=' + projectName +'&mail=testmail@mymail.org', {credentials: "include", method: "POST"}) 
