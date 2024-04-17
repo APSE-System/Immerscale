@@ -72,7 +72,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
         } else {
             // As long as not all the points are specified, the counter is simply incremented.
             this._pointCount++;
-            this._points= command.getPoints(); // TODO getPoints is not a funtion (if you redo points (for multiple polygons))
+            this._points= command.getPoints();
         }
     }
 

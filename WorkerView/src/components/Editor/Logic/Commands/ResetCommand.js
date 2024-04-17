@@ -1,7 +1,7 @@
 import Command from "../Command.js";
 
 
-// The purpose of this command is to serve as a reset command for the polygoneMeasurementTool
+// not used
 class ResetCommand extends Command{
 
     constructor(creator, model) {
