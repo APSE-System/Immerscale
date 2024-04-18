@@ -32,18 +32,17 @@ onMounted(async () => {
   if(!checkCookie('WorkerCookie') ) {
     password = await prompt("Insert Password")
 
-
-
     fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/worker?credential=" + password, {credentials: "include"})
     .then((response) => {
-      if (response.ok) {
+      if (response.ok)
         fetchProjects()
-      }
     })
     .catch((error) => {
       console.error("Error:", error);
     })
   }
+  else
+    fetchProjects()
 })
 
 
