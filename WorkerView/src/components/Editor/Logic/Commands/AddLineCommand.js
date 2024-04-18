@@ -1,6 +1,7 @@
 import Command from "../Command.js";
 import * as MathUtils from "../Utils/MathUtils.js";
 
+
 // This command can be used for drawing a line in the model canvas.
 // Additionally, a popup can be opened, which could be used for asking the user for the length of the drawn line.
 class AddLineCommand extends Command {
@@ -21,8 +22,11 @@ class AddLineCommand extends Command {
     // Could be used to return the inserted value.
     _callback;
 
+    // stores the preValue of the popup 
+    _prevValue;
+
     // Constructor for initialising the attributes. As not every line has a popup, all the popup refering attributes are assgined a default value.
-    constructor(creator, model, points, drawPoints = false, drawLabel = false, length = "", popup= false, header = "", description = "", value = "", callback) {
+    constructor(creator, model, points, drawPoints = false, drawLabel = false, length = "", popup= false, header = "", description = "", value = "", callback, prevValue=-1) {
         super(creator, model);
         this._points = points;
         this._drawPoints = drawPoints;
@@ -32,6 +36,7 @@ class AddLineCommand extends Command {
         this._header = header;
         this._description = description;
         this._value = value;
+        this._prevValue = prevValue;
 
         this._callback = callback;
     }
@@ -54,7 +59,7 @@ class AddLineCommand extends Command {
             this._model.addLabel(middlePoint, this._length);
         }
         if(this._popup)
-            this._model.addPopup(this._header, this._description, this._value, this._callback);
+            this._model.addPopup(this._header, this._description, this._value, this._callback, this._prevValue);
     }
 
     // For unexecuting, the line is removed from the model again, and the popup (if present) too.
@@ -75,6 +80,11 @@ class AddLineCommand extends Command {
     // This method can be used to access a specific point of this line.
     getPoint(index) {
         return this._points[index];
+    }
+
+    // update popup 
+    updatePopup(value) {
+        this._prevValue = value;
     }
 
 }

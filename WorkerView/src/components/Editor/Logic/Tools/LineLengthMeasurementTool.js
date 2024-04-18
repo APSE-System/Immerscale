@@ -52,6 +52,11 @@ class LineLengthMeasurementTool extends MeasurementTool {
         }
     }
 
+    // can be used in the future for more features
+    onRightClick() {
+        console.log('Right Click');
+    }
+
     updateExecute(command) {
         if (this._pointCount == 0) {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.

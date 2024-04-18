@@ -81,8 +81,8 @@ class Model {
     }
 
     // Opens the popup showing the given values
-    addPopup(header, description, value, callback) {
-        this.popup.show(header, description, value, callback);
+    addPopup(header, description, value, callback, prevValue) {
+        this.popup.show(header, description, value, callback, prevValue);
     }
 
     // Closes and clears the popup

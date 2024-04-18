@@ -100,9 +100,6 @@ function drawImage() {
   };
 }
 
-// original code from: https://blog.stackfindover.com/zoom-image-point-with-mouse-wheel
-// mixed with: https://stackoverflow.com/questions/60190965/zoom-scale-at-mouse-position
-
 // transforms the image
 function setTransform() {
   zoom_inner.style.transform =
@@ -188,7 +185,7 @@ function canvasClicked(event) {
   const y_canv = event.clientY - rect.top
   
   // This seems to stay the same, whether bugged or not
-  console.log(image)
+  // console.log(image)
 
   var img = new Image();
   img.src = image.value;
@@ -200,6 +197,13 @@ function canvasClicked(event) {
   // The controller will redirect the click to the according tool.
   controller.onClick(x,y);
   }
+}
+
+// listens on Right Click
+function canvasRightClicked(event) {
+  // to prevent the opening of the context menu
+  event.preventDefault();
+  controller.onRightClick();
 }
 
 // This function handles the undo and redo keyboard events and delegates them to the controller.
@@ -232,7 +236,7 @@ function canvasBack(event){
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
-        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)"  :width="imgWidth" :height="imgHeight"></canvas>
+        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" :width="imgWidth" :height="imgHeight"></canvas>
         <!-- Component which displayes all the points in the model -->
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
@@ -333,5 +337,9 @@ function canvasBack(event){
   }
   #back-button:hover {
     color: rgb(35, 115, 210);
+  }
+
+  canvas {
+    image-rendering: crisp-edges;
   }
 </style>

@@ -59,7 +59,7 @@ function hexToRgb(hex) {
 function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
-  drawArea(canvas, props.canvasAreas[index]); // changed to 0
+  drawArea(canvas, props.canvasAreas[index]); 
 }
 
 
@@ -71,14 +71,14 @@ function setCanvasRef(canvas, index) {
     const centerY = area.points.reduce((sum, point) => sum + point[1], 0) / area.points.length;
       
     ctx.fillStyle = 'white';
-    ctx.font = '100px Arial';
+    ctx.font = '80px Arial';
+
+    // add suffix
+    value += " cm²"
       
     // Center the text horizontally and vertically
     const textWidth = ctx.measureText(value).width;
       
-    // TODO
-    value += " cm²"
-
     ctx.fillText(value, centerX - textWidth / 2, centerY + 10);
   }
 </script>
@@ -91,9 +91,20 @@ function setCanvasRef(canvas, index) {
   </div> -->
 
   <!-- Only draw the canvas for the last canvasArea (so the color within does not overlap) -->
-  <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
+  <!-- <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
     <canvas v-if="index === canvasAreas.length - 1" :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddAreaCanvas"></canvas>
-  </div>
+  </div> -->
+
+  <!-- Only draw the canvas for the last canvasArea (so the color within does not overlap) -->
+  <!-- And for canvasAreas which have a following CanvasArea with the size of 0 (so multiple polygons can be displayed) -->
+  <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
+  <canvas v-if="index === canvasAreas.length - 1 || (index < canvasAreas.length - 1 && canvasAreas[index + 1].size === 0)" 
+          :ref="el => {setCanvasRef(el, index)} " 
+          :width=width 
+          :height=height 
+          class="AddAreaCanvas">
+  </canvas>
+</div>
 </template>
 
 
