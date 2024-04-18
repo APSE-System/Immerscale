@@ -105,37 +105,35 @@ function loadImage() {
 <template>
   <div id="toast"></div>
 
-  <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem' }">
+  <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem', maxHeight: '80vh', overflowY: 'auto' }">
   <div class="modal-body">
     <img id="my-image" src="" alt="" />
   </div>
   <div class="modal-footer">
-    <Button class="button" @click="visible = false; sendPicture()" label="Absenden"></Button>
-    <Button
-      class="button"
-      @click="visible = false"
-      data-model-close
-      label="Verwerfen"
-    ></Button>
+    <span id="send-and-safe">
+      <Button class="button" @click="visible = false; sendPicture()" label="Absenden"></Button>
+      <Button label="&" severity="secondary" @click="downloadPicture"></Button>
+    </span>
+    <Button class="button" @click="visible = false" data-model-close label="Verwerfen"></Button>
   </div>
-  </Dialog>
+</Dialog>
 
-  <Button @click="visible = true; loadImage();" label="Bild erstellen"></Button>
+  <Button class="my-button" @click="visible = true; loadImage();" label="Bild erstellen"></Button>
 </template>
 
 <style scoped>
-.p-button {
+.my-button {
   color: black;
   background-color: transparent;
 }
 
 @media (prefers-color-scheme: dark) {
-  .p-button {
+  .my-button {
     color: white;
   }
 }
 
-.p-button:hover {
+.my-button:hover {
   color: rgb(35, 115, 210);
 }
 
@@ -201,5 +199,11 @@ function loadImage() {
 #toast.show {
   visibility: visible;
   opacity: 1;
+} 
+
+#send-and-safe {
+  display: flex;
+  justify-content: space-between;
 }
+
 </style>
