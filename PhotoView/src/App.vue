@@ -30,9 +30,16 @@
 </script>
 
 <template>
-<h2>PhotoView</h2>
+<h2 class="header">PhotoView</h2>
   <div>
     <Camera/>
     <Popup/>
   </div>
 </template>
+
+<style scoped>
+.header {
+  padding: 0;
+  margin: 0;
+}
+</style>

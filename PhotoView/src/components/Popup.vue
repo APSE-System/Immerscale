@@ -3,7 +3,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import Button from "primevue/button";
+import ButtonGroup from "primevue/buttongroup"
 import Dialog from "primevue/dialog";
+import 'primeicons/primeicons.css'
 
 //references
 let image;
@@ -100,42 +102,74 @@ function loadImage() {
     }
   }
 
+  // will open the gallery and inset the picture into the popu
+function openGallery() {
+  // create an input object
+  let input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/png, image/jpeg';
+
+  // event handler for when a file is selected
+  input.onchange = function(e) {
+  let file = e.target.files[0];
+  let reader = new FileReader();
+
+  // event handler for when the file is read
+  reader.onload = function(event) {
+    let image = new Image();
+    image.src = event.target.result;
+
+    // image is loaded
+    image.onload = function() {
+      let myImage = document.getElementById("my-image");
+      myImage.src = image.src;
+    }
+  }
+
+  reader.readAsDataURL(file);
+
+  }
+// simulate a click on the input element to open the file dialog
+input.click();
+}
+
 </script>
 
 <template>
   <div id="toast"></div>
 
-  <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem' }">
+  <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem', maxHeight: '80vh', overflowY: 'auto' }">
   <div class="modal-body">
     <img id="my-image" src="" alt="" />
   </div>
   <div class="modal-footer">
-    <Button class="button" @click="visible = false; sendPicture()" label="Absenden"></Button>
-    <Button
-      class="button"
-      @click="visible = false"
-      data-model-close
-      label="Verwerfen"
-    ></Button>
+    <ButtonGroup id="send-and-safe">  
+      <Button class="button" @click="visible = false; sendPicture()" label="Absenden"></Button>
+      <Button icon="pi pi-download" severity="secondary" @click="downloadPicture"></Button>
+    </ButtonGroup>
+    <Button class="button" @click="visible = false" data-model-close label="Verwerfen"></Button>
   </div>
-  </Dialog>
+</Dialog>
 
-  <Button @click="visible = true; loadImage();" label="Bild erstellen"></Button>
+  <ButtonGroup>
+    <Button class="my-button" @click="visible = true; loadImage();" label="Bild erstellen"></Button>
+    <Button class="my-button" icon="pi pi-images" @click="visible = true; openGallery()"></Button>
+  </ButtonGroup>
 </template>
 
 <style scoped>
-.p-button {
+.my-button {
   color: black;
   background-color: transparent;
 }
 
 @media (prefers-color-scheme: dark) {
-  .p-button {
+  .my-button {
     color: white;
   }
 }
 
-.p-button:hover {
+.my-button:hover {
   color: rgb(35, 115, 210);
 }
 
@@ -161,7 +195,7 @@ function loadImage() {
 @media (orientation: landscape) {
   #my-image {
     max-width: auto; 
-    max-height: 50vh;
+    max-height: 30vh;
   }
 } 
 
@@ -201,5 +235,18 @@ function loadImage() {
 #toast.show {
   visibility: visible;
   opacity: 1;
+} 
+
+#send-and-safe {
+  display: flex;
+  justify-content: space-between;
 }
+
+@media screen and (max-width: 600px) {
+  .button {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
 </style>
