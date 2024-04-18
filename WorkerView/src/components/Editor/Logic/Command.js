@@ -11,11 +11,13 @@ class Command{
 
 
     execute(){
-        this._creator.updateExecute(this);
+        if(this._creator != null)
+            this._creator.updateExecute(this);
     }
 
     unExecute(){
-        this._creator.updateUnExecute(this);
+        if(this._creator != null)
+            this._creator.updateUnExecute(this);
     }
 
     setNext(next){

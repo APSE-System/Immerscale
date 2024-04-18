@@ -1,12 +1,19 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onBeforeMount, onMounted, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
+import TabBar from "../TabBar.vue";
 import Model from "./Logic/Model/Model.js";
 import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
 import RectangleReferenceTool from "./Logic/Tools/RectangleReferenceTool.js";
+import AddLabelComponent from "./CommandComponents/AddLabelComponent.vue";
+import LineLengthMeasurementTool from "./Logic/Tools/LineLengthMeasurementTool.js";
+import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
+import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
+import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js"
+import AddAreaComponent from "./CommandComponents/AddAreaComponent.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -22,6 +29,7 @@ const speed = 0.1;
 var dragging = false;
 var start = {x: 0, y: 0};
 
+// References to the measuring model, controller and tool list
 let model = ref(new Model())
 let controller = new Controller(model.value)
 let toolsList = ref([])
@@ -30,14 +38,20 @@ let imgWidth = ref(0)
 let imgHeight = ref(0)
 
 //initialize tools
-onMounted(()=>{
-
-  // create tool
+onBeforeMount(()=>{
+  // Create the rools and add them tot the list. THe callback is necessary so a tool can be selected correctly.
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
 
+  // create the polygoneMeasurement Tool
+  let polygoneMeasurementTool = new PolygoneMeasurementTool(model.value)
+  polygoneMeasurementTool.callback = controller.addTool(polygoneMeasurementTool)
+  toolsList.value.push(polygoneMeasurementTool)
 
+  let lineLengthMeasurementTool = new LineLengthMeasurementTool(model.value)
+  lineLengthMeasurementTool.callback = controller.addTool(lineLengthMeasurementTool)
+  toolsList.value.push(lineLengthMeasurementTool)
 })
 
 // fetch to get the images of the project
@@ -85,9 +99,6 @@ function drawImage() {
 
   };
 }
-
-// original code from: https://blog.stackfindover.com/zoom-image-point-with-mouse-wheel
-// mixed with: https://stackoverflow.com/questions/60190965/zoom-scale-at-mouse-position
 
 // transforms the image
 function setTransform() {
@@ -172,20 +183,30 @@ function canvasClicked(event) {
   const rect = event.target.getBoundingClientRect()
   const x_canv = event.clientX - rect.left
   const y_canv = event.clientY - rect.top
+  
+  // This seems to stay the same, whether bugged or not
+  // console.log(image)
 
   var img = new Image();
   img.src = image.value;
-
+  img.onload = function() {
   // By taking the ratio between the relative coordinates and the canvas, we can map them to the image size.
   const x = (x_canv / rect.width) * img.width;
   const y = (y_canv / rect.height) * img.height;
 
-  console.log("x: " + img.width + " y: " + img.height)
-  console.log("x: " + x + " y: " + y)
-
+  // The controller will redirect the click to the according tool.
   controller.onClick(x,y);
+  }
 }
 
+// listens on Right Click
+function canvasRightClicked(event) {
+  // to prevent the opening of the context menu
+  event.preventDefault();
+  controller.onRightClick();
+}
+
+// This function handles the undo and redo keyboard events and delegates them to the controller.
 function canvasBack(event){
   if (event.ctrlKey && (event.key === 'z' || event.keyCode === 'Z')) {
     controller.undo()
@@ -200,23 +221,35 @@ function canvasBack(event){
 
 <template>
   <div class="editor">
-    <div class="flex justify-content-left left-bar">
-      <Button
-          @click="router.push('/project/' + route.params.id + '/images')"
-          label="← Images"
-          id="back-button"
-      />
-      <ToolLists :tools="toolsList" class="toolList"/>
-    </div>
-
+    <TabBar>
+      <template #back>
+        <Button
+            @click="router.push('/project/' + route.params.id + '/images')"
+            label="← Images"
+            id="back-button"
+            />
+      </template>
+      <template #main>
+        <ToolLists :tools="toolsList" class="toolList"/>
+      </template>
+    </TabBar>
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
-        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)"  :width="imgWidth" :height="imgHeight"></canvas>
+        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" :width="imgWidth" :height="imgHeight"></canvas>
+        <!-- Component which displayes all the points in the model -->
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
+        <!-- Component which displayes all the lines in the model -->
+        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight"></AddLineComponent>
+        <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight"></AddAreaComponent>
+        <!-- Component which displayes all the labels in the model -->
+        <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
+
+    <!-- This component can open a popup to retreive user input -->
+    <NumberInputPopup :popup="model.popup" @callback="model.popup.callback"/>
   </div>
 </template>
 
@@ -225,11 +258,11 @@ function canvasBack(event){
   display: flex;
 }
 
-.left-bar {
+/* .left-bar {
   position: absolute;
   left: 2%;
   width: 15%;
-}
+} */
 
 
 #zoom-outer {
@@ -263,11 +296,11 @@ function canvasBack(event){
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   z-index: 42069;
 }
 
-#back-button {
+/* #back-button {
   position: absolute;
   top: 5px;
 }
@@ -275,5 +308,38 @@ function canvasBack(event){
 .toolList{
   position: absolute;
   top: 100px;
+} */
+
+.p-button{
+    color: black;
+    background-color: transparent;
 }
+@media (prefers-color-scheme: dark) {
+    .p-button{
+      color: white;
+    }
+  }
+
+.p-button:hover{
+    color: rgb(35, 115, 210);
+}
+
+#back-button {
+    top: 5px;
+    z-index: 2;
+    background-color: transparent;
+    color: black;
+  }
+  @media (prefers-color-scheme: dark) {
+    #back-button{
+      color: white;
+    }
+  }
+  #back-button:hover {
+    color: rgb(35, 115, 210);
+  }
+
+  canvas {
+    image-rendering: crisp-edges;
+  }
 </style>
