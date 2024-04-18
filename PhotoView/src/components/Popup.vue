@@ -3,7 +3,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import Button from "primevue/button";
+import ButtonGroup from "primevue/buttongroup"
 import Dialog from "primevue/dialog";
+import 'primeicons/primeicons.css'
 
 //references
 let image;
@@ -110,10 +112,10 @@ function loadImage() {
     <img id="my-image" src="" alt="" />
   </div>
   <div class="modal-footer">
-    <span id="send-and-safe">
+    <ButtonGroup id="send-and-safe">  
       <Button class="button" @click="visible = false; sendPicture()" label="Absenden"></Button>
-      <Button label="&" severity="secondary" @click="downloadPicture"></Button>
-    </span>
+      <Button icon="pi pi-download" severity="secondary" @click="downloadPicture"></Button>
+    </ButtonGroup>
     <Button class="button" @click="visible = false" data-model-close label="Verwerfen"></Button>
   </div>
 </Dialog>
@@ -204,6 +206,13 @@ function loadImage() {
 #send-and-safe {
   display: flex;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+  .button {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
 }
 
 </style>
