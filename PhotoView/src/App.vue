@@ -4,36 +4,32 @@ import Popup from './components/Popup.vue';
 import {onMounted, ref} from 'vue';
 
 
-let xrot = ref(0);
-let yrot = ref(0);
-let zrot = ref(0);
+  //  #region get auth
+   onMounted(() => {
 
-
-onMounted(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
 
 
   console.log("get request: " + token)
 
-  fetch( import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + token, {credentials: "include"})
-      .then((response) => {
-        console.log(response)
-        if (response.ok) {
-          // Handle success response
-          console.log("Success");
-        } else {
-          // Handle error response
-          console.log("Unauthorized");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
 
-  window.addEventListener("deviceorientation", handleOrientation, true);
-
+  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + token, {credentials: "include"})
+  .then((response) => {
+    // console.log(response)
+    if (response.ok) {
+      // Handle success response
+      console.log("Success");
+    } else {
+      // Handle error response
+      console.log("Unauthorized");
+    }
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
 });
+// #endregion
 
 function handleOrientation(event) {
   xrot.value = event.beta;
@@ -44,12 +40,17 @@ function handleOrientation(event) {
 </script>
 
 <template>
-  <h2>PhotoView</h2>
-  <h4>{{xrot}}</h4>
-  <h4>{{yrot}}</h4>
-  <h4>{{zrot}}</h4>
+
+<h2 class="header">PhotoView</h2>
   <div>
     <Camera/>
     <Popup/>
   </div>
 </template>
+
+<style scoped>
+.header {
+  padding: 0;
+  margin: 0;
+}
+</style>
