@@ -102,6 +102,37 @@ function loadImage() {
     }
   }
 
+  // will open the gallery and inset the picture into the popu
+function openGallery() {
+  // create an input object
+  let input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/png, image/jpeg';
+
+  // event handler for when a file is selected
+  input.onchange = function(e) {
+  let file = e.target.files[0];
+  let reader = new FileReader();
+
+  // event handler for when the file is read
+  reader.onload = function(event) {
+    let image = new Image();
+    image.src = event.target.result;
+
+    // image is loaded
+    image.onload = function() {
+      let myImage = document.getElementById("my-image");
+      myImage.src = image.src;
+    }
+  }
+
+  reader.readAsDataURL(file);
+
+  }
+// simulate a click on the input element to open the file dialog
+input.click();
+}
+
 </script>
 
 <template>
@@ -120,7 +151,10 @@ function loadImage() {
   </div>
 </Dialog>
 
-  <Button class="my-button" @click="visible = true; loadImage();" label="Bild erstellen"></Button>
+  <ButtonGroup>
+    <Button class="my-button" @click="visible = true; loadImage();" label="Bild erstellen"></Button>
+    <Button icon="pi pi-images" @click="visible = true; openGallery()"></Button>
+  </ButtonGroup>
 </template>
 
 <style scoped>
