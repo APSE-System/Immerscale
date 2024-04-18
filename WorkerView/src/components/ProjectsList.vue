@@ -7,11 +7,10 @@ import { onMounted, ref } from 'vue'
 const projects = ref([
 ]);
 
+
 // Fetches all the projects from the backend and adds them to the project list.
 function fetchProjects() {
   
-
-
   projects.value = []
     fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projects', {
       credentials: "include"
@@ -28,9 +27,41 @@ function fetchProjects() {
       })
     }
 
-onMounted(() => {
-  fetchProjects()
+onMounted(async () => {
+  let password 
+  if(!checkCookie('WorkerCookie') ) {
+    password = await prompt("Insert Password")
+
+
+
+    fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/worker?credential=" + password, {credentials: "include"})
+    .then((response) => {
+      if (response.ok) {
+        fetchProjects()
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    })
+  }
 })
+
+
+function checkCookie(cookieName) {
+  // Get all cookies from document.cookie
+  const cookies = document.cookie.split(';');
+
+  // Iterate through cookies to find the one with the specified name
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    // Check if the cookie starts with the specified name
+    if (cookie.startsWith(cookieName + '=')) {
+      return true; // Cookie exists
+    }
+  }
+
+  return false; // Cookie does not exist
+}
 
 </script>
 
