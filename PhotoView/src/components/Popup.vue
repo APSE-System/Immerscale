@@ -161,7 +161,7 @@ function loadImage() {
 @media (orientation: landscape) {
   #my-image {
     max-width: auto; 
-    max-height: 50vh;
+    max-height: 30vh;
   }
 } 
 
