@@ -153,7 +153,7 @@ input.click();
 
   <ButtonGroup>
     <Button class="my-button" @click="visible = true; loadImage();" label="Bild erstellen"></Button>
-    <Button icon="pi pi-images" @click="visible = true; openGallery()"></Button>
+    <Button class="my-button" icon="pi pi-images" @click="visible = true; openGallery()"></Button>
   </ButtonGroup>
 </template>
 
