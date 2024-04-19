@@ -130,13 +130,13 @@ onMounted(() => {
 </template> 
 
 <style scoped>
-.tool-1{
+/* .tool-1{
   animation: lightenDarken 2s infinite ease-in-out;
-}
+} */
 
-.tool-line{
+/* .tool-line{
   animation: lightenDarken 2s infinite ease-in-out;
-}
+} */
 
 @keyframes lightenDarken {
         0% {

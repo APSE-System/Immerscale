@@ -6,6 +6,7 @@ class Tool {
   _icon;
 
   _tooltip;
+  // this represents a css class with the prefix tool-
   _class;
 
 
