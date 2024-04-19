@@ -24,7 +24,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
 
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
-        super(model, "Line Length", "pi pi-arrows-h");
+        super(model, "Line Length", "pi pi-arrows-h", "description", "line");
     }
 
     onClick(x, y) {

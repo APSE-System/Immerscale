@@ -22,7 +22,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
 
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
-        super(model, "Measure Polygone", "pi pi-box");
+        super(model, "Measure Polygone", "pi pi-box", "description", "polygone");
     }
 
 

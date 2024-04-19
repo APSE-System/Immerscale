@@ -5,11 +5,16 @@ class Tool {
   _name;
   _icon;
 
+  _tooltip;
+  _class;
 
-  constructor(model, name, icon) {
+
+  constructor(model, name, icon, tooltip="", c="") {
     this._model = model;
     this._name = name;
     this._icon = icon;
+    this._tooltip = tooltip;
+    this._class = c;
   }
 
   select(){
