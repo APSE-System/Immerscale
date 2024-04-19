@@ -95,6 +95,16 @@ onMounted(() => {
   fillToolTree()
 })
 
+// // Finde den Eintrag "Reference Tools" im toolTree-Array
+// const referenceTool = toolTree.value.find(item => item.label === 'Reference Tools');
+
+
+// // Wende das spezielle CSS-Styling auf den Eintrag an
+// referenceTool.style = {
+//   backgroundColor: 'lightblue',
+// };
+
+
 </script>
 
 
