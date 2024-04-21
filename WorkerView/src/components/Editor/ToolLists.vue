@@ -5,6 +5,14 @@ import ReferenceTool from "./Logic/ReferenceTool.js";
 import MeasurementTool from "./Logic/MeasurementTool.js"
 import PanelMenu from 'primevue/panelmenu';
 import LordImmerScaler from "./Logic/LordImmerScaler.js";
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
+
+const show = (msg) => {
+  if(msg == null || msg === "") return;
+  toast.add({ severity: 'info', summary: 'Info', detail: msg, life: 3000 });
+};
 
 const props = defineProps({
   tools: Array
@@ -16,8 +24,7 @@ const toolTree = ref([
     icon:"pi pi-sliders-h",
     label: 'Reference Tools',
     items: [],
-    tooltip: "this is not a tool",
-    class: 1
+    class: 1,
   },
   {
     key: '1',
@@ -41,7 +48,8 @@ function fillToolTree() {
         command: props.tools[i].callback,
         icon: props.tools[i]._icon,
         tooltip: props.tools[i]._tooltip,
-        class: props.tools[i]._class
+        class: props.tools[i]._class,
+        toast: props.tools[i]._toast
 
       })
     } else if (props.tools[i] instanceof MeasurementTool) {
@@ -51,7 +59,8 @@ function fillToolTree() {
         command: props.tools[i].callback,
         icon: props.tools[i]._icon,
         tooltip: props.tools[i]._tooltip,
-        class: props.tools[i]._class
+        class: props.tools[i]._class,
+        toast: props.tools[i]._toast
       })
     }
   }
@@ -118,7 +127,7 @@ onMounted(() => {
   <div class="card flex justify-content-center">
     <PanelMenu :model="toolTree" v-model:expandedKeys="expandedKeys" class="w-full md:w-20rem">
       <template #item="{ item }">
-        <a class="flex align-items-center px-3 py-1 cursor-pointer text-color">
+        <a @click="show(item.toast)" class="flex align-items-center px-3 py-1 cursor-pointer text-color">
           <span :class="[item.icon, 'text-primary']" />
           <span v-tooltip="item.tooltip" :class="[`tool-${item.class}`, { 'font-semibold': item.items }]">{{ item.label }}</span>
           <!-- TODO make pi-angle-left if it is folded in -->
