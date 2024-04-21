@@ -118,7 +118,7 @@ onMounted(() => {
   <div class="card flex justify-content-center">
     <PanelMenu :model="toolTree" v-model:expandedKeys="expandedKeys" class="w-full md:w-20rem">
       <template #item="{ item }">
-        <a v-ripple class="flex align-items-center px-3 py-1 cursor-pointer text-color">
+        <a class="flex align-items-center px-3 py-1 cursor-pointer text-color">
           <span :class="[item.icon, 'text-primary']" />
           <span v-tooltip="item.tooltip" :class="[`tool-${item.class}`, { 'font-semibold': item.items }]">{{ item.label }}</span>
           <!-- TODO make pi-angle-left if it is folded in -->
