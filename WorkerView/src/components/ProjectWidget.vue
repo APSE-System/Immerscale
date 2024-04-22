@@ -44,7 +44,7 @@ onMounted(() => {
   <div class="ProjectItem" @click="clickedProject">
     <!-- Icon on the left side TODO: make it possible to load an image here if no files are loaded in the project-->
     <div v-if="images.length>0">
-      <img :src="images[0]" alt="Image 1">
+      <img :src="images[images.length-1]" alt="Image 1">
     </div>
     <div v-if="images.length==0">
       <div class="pi pi-images" style="color: darkgray" ></div>

@@ -1,13 +1,7 @@
-<template>
-  <div v-for="(point, index) in canvasPoints" :key="index" class="AddPointCanvasWrapperDiv" style="position: absolute">
-    <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddPointCanvas"></canvas>
-  </div>
-</template>
-
 <script setup>
-import { defineProps } from 'vue';
-import {ref} from "vue";
+import {defineProps} from 'vue';
 
+// The properties of this component consist of a list of points that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
   canvasPoints: Array,
   width: Number,
@@ -15,25 +9,36 @@ const props = defineProps({
 });
 
 
+// This function draws the given point on the given canvas.
 function drawPoint(canvas, point) {
   const ctx = canvas.getContext('2d');
-  // Assuming CanvasPoint has x, y properties
-  // set ctx color from hex
-  console.log(point.color)
+  // setting the color of the point
   ctx.fillStyle = "#" + point.color;
   ctx.beginPath();
-  ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI); // Draw a circle to represent the point
+  // Drawing a circle at the coordinates of the point.
+  ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
   ctx.fill();
 }
 
-function setCanvasRef(canvas, index){
-  if(canvas === null)
+// This function checks if the canvas even exists before handing the according point to the drawing function.
+function setCanvasRef(canvas, index) {
+  if (canvas === null)
     return
   drawPoint(canvas, props.canvasPoints[index]);
 }
 
 
 </script>
+
+
+<template>
+  <!-- This loop goes over all the points that exist and draws them on a canvas each. -->
+  <div v-for="(point, index) in canvasPoints" :key="index" class="AddPointCanvasWrapperDiv" style="position: absolute">
+    <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddPointCanvas"></canvas>
+  </div>
+
+</template>
+
 
 
 <style scoped>
@@ -46,11 +51,16 @@ function setCanvasRef(canvas, index){
   height: 100%;
 }
 
-.AddPointCanvas{
-width: 100%;
-  height: 100%;
+.AddPointCanvas {
+  width: 100%;
+  height: auto;
   left: 0;
   right: 0;
+}
+
+canvas {
+  /* filter: blur(100); */
+  image-rendering: crisp-edges;
 }
 
 
