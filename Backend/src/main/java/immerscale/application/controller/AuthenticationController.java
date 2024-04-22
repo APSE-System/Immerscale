@@ -61,18 +61,23 @@ public class AuthenticationController {
     @GetMapping("/cookie/worker")
     public ResponseEntity<String> verifyWorker(@RequestParam(value = "credential") String credential, HttpServletResponse response){
 
-         if(true){
-            Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");
-            cookie.setPath("/");
-            cookie.setAttribute("SameSite", "None");
+        // TODO: MOVE TO CONFIG FILE
+        if(!credential.equals("immerscale1337"))
+            return new ResponseEntity<String>("Unauthorized",HttpStatus.UNAUTHORIZED);
 
-            cookie.setSecure(true);
 
-            response.addCookie(cookie);
-            return ResponseEntity.ok("Success");
-        }
 
-        return new ResponseEntity<String>("Unauthorized",HttpStatus.UNAUTHORIZED);
+        Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");
+        cookie.setPath("/");
+        cookie.setAttribute("SameSite", "None");
+
+        cookie.setSecure(true);
+
+        response.addCookie(cookie);
+        return ResponseEntity.ok("Success");
+
+
+
 
     }
 }

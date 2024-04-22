@@ -4,10 +4,10 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: aaaaa
-      MYSQL_DATABASE: benis
-      MYSQL_USER: benisuser
-      MYSQL_PASSWORD: benispassword
+      MYSQL_ROOT_PASSWORD: immerscale1337
+      MYSQL_DATABASE: db
+      MYSQL_USER: lordimmerscaler
+      MYSQL_PASSWORD: immerscale1337
     ports:
       - "3306:3306"
     healthcheck:
