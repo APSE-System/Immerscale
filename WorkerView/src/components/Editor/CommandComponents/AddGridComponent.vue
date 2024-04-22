@@ -19,7 +19,7 @@ function drawPoint(canvas, point) {
   ctx.fillStyle = "#" + point.color;
   ctx.beginPath();
   // Drawing a circle at the coordinates of the point.
-  ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+  ctx.arc(point.x, point.y, 20, 0, 2 * Math.PI);
   ctx.fill();
 }
 

@@ -69,41 +69,40 @@ export function getDistance(point1, point2){
 }
 
 
-export function rotatePoints3DimX(points, angle){
-    let rotation_matrix = math.matrix([
-        [1, 0, 0],
-        [0, math.cos(angle), -math.sin(angle)],
-        [0, math.sin(angle), math.cos(angle)]
+export function rotatePoints3Dim3Axes(points, angleX, angleY, angleZ){
+    let rotX = math.matrix([
+        [1, 0, 0, 0],
+        [0, math.cos(angleX), -math.sin(angleX), 0],
+        [0, math.sin(angleX), math.cos(angleX), 0],
+        [0, 0, 0, 1]
     ])
-    return applyMatrixToPoints(rotation_matrix, points)
-}
 
-export function rotatePoints3DimY(points, angle){
-    let rotation_matrix = math.matrix([
-        [math.cos(angle), 0, math.sin(angle)],
-        [0, 1, 0],
-        [-math.sin(angle), 0, math.cos(angle)]
+    let rotY = math.matrix([
+        [math.cos(angleY), 0, math.sin(angleY), 0],
+        [0, 1, 0, 0],
+        [-math.sin(angleY), 0, math.cos(angleY), 0],
+        [0, 0, 0, 1]
     ])
-    return applyMatrixToPoints(rotation_matrix, points)
-}
+    let rotZ = math.matrix([
+        [math.cos(angleZ), -math.sin(angleZ), 0, 0],
+        [math.sin(angleZ), math.cos(angleZ), 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
+    ])
 
-export function rotatePoints3DimZ(points, angle){
-    let rotation_matrix = math.matrix([
-        [math.cos(angle), -math.sin(angle), 0],
-        [math.sin(angle), math.cos(angle), 0],
-        [0, 0, 1]
-    ])
+    let rotation_matrix = math.multiply(math.multiply(rotX, rotY), rotZ);
+
     return applyMatrixToPoints(rotation_matrix, points)
 }
 
 // Method to project a 3D point to a 2D point (perspective projection)
 export function projectPointTo2D(points) {
     let scale = 1
-    let fov = 90
+    let fov = 30
     let far = 1000
     let near = 0.1
 
-    console.log("malteeeee" + points)
+    console.log("Input of project2point:" + points)
 
     let projection_matrix = math.matrix([
         [scale, 0, 0, 0],
@@ -113,6 +112,16 @@ export function projectPointTo2D(points) {
 
     return applyMatrixToPoints(projection_matrix, points)
 }
+
+export function  scalePoint2D(point, scale){
+    let scale_matrix = math.matrix([
+        [scale, 0],
+        [0, scale]
+    ])
+
+    return applyMatrixToPoints(scale_matrix, point)
+}
+
 // Equation found on: https://mathe-vital.de/LinAlg1/18-4.html
 export function getPolygonArea(points) {
     if(points.length <= 0) return;
@@ -143,4 +152,35 @@ export function getMidpoint(point1, point2){
 
 export function degreeToRadians(angle){
     return angle*Math.PI/180;
+}
+
+export function radiansToDegree(angle){
+    return angle*180/Math.PI;
+}
+
+export function viewMatrix(point) {
+    // Convert arrays to math.js vector format
+   let eye = math.matrix([0, 0, -10]);
+    let target = math.matrix([0, 0, 0]);
+    let up = math.matrix([0, 1, 0]);
+
+    // Compute forward, right, and true up vectors
+    let f = math.subtract(target, eye);
+    f = math.divide(f, math.norm(f));  // Normalize forward vector
+
+    let r = math.cross(up, f);
+    r = math.divide(r, math.norm(r));  // Normalize right vector
+
+    let u = math.cross(f, r);
+    u = math.divide(u, math.norm(u));  // Normalize true up vector
+
+    // Create view matrix using vectors and dot products for translation components
+    let view =math.matrix( [
+        [r.get([0]), r.get([1]), r.get([2]), -math.dot(r, eye)],
+        [u.get([0]), u.get([1]), u.get([2]), -math.dot(u, eye)],
+        [-f.get([0]), -f.get([1]), -f.get([2]), math.dot(f, eye)],
+        [0, 0, 0, 1]
+    ]);
+
+    return applyMatrixToPoints(view, point)
 }

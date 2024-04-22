@@ -48,10 +48,18 @@ class Controller{
     }
 
     W() {
-        this._currentTool.rotateZBackward()
+        this._currentTool.rotateXBackward()
     }
 
     Wnt() {
+        this._currentTool.rotateXForward()
+    }
+
+    A() {
+        this._currentTool.rotateZBackward()
+    }
+
+    Ant() {
         this._currentTool.rotateZForward()
     }
 
