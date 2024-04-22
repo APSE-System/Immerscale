@@ -184,3 +184,4 @@ export function viewMatrix(point) {
 
     return applyMatrixToPoints(view, point)
 }
+

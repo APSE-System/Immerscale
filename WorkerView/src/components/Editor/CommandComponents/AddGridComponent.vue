@@ -16,10 +16,10 @@ function drawPoint(canvas, point) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // setting the color of the point
-  ctx.fillStyle = "#" + point.color;
+  ctx.fillStyle = "#" + "FF0000"
   ctx.beginPath();
   // Drawing a circle at the coordinates of the point.
-  ctx.arc(point.x, point.y, 20, 0, 2 * Math.PI);
+  ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
   ctx.fill();
 }
 
