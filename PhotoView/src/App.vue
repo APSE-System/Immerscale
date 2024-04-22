@@ -1,14 +1,18 @@
 <script setup>
-    import Camera from './components/Camera.vue';
-    import Popup from './components/Popup.vue';
-    import { onMounted } from 'vue';
+import Camera from './components/Camera.vue';
+import Popup from './components/Popup.vue';
+import {onMounted, ref} from 'vue';
+
 
   //  #region get auth
-    onMounted(() => {
+   onMounted(() => {
+
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
 
+
   console.log("get request: " + token)
+
 
   fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/enduser?token_id=" + token, {credentials: "include"})
   .then((response) => {
@@ -27,12 +31,26 @@
 });
 // #endregion
 
+function handleOrientation(event) {
+  xrot.value = event.beta;
+  yrot.value = event.gamma;
+  zrot.value = event.alpha;
+}
+
 </script>
 
 <template>
-<h2>PhotoView</h2>
+
+<h2 class="header">PhotoView</h2>
   <div>
     <Camera/>
     <Popup/>
   </div>
 </template>
+
+<style scoped>
+.header {
+  padding: 0;
+  margin: 0;
+}
+</style>

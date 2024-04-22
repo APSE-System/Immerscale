@@ -1,10 +1,11 @@
 <script setup>
-import {defineProps} from "vue";
+import {defineProps, onUpdated} from "vue";
 import InputNumber from 'primevue/inputnumber';
 import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 
 const emit = defineEmits(['callback']);
+let numberValue = null;
 
 const props = defineProps({
   popup: Object
@@ -19,7 +20,28 @@ function saveButtonClicked(value) {
   }
 }
 
+function focusOnInput() {
+  setTimeout(() => {
+    const input = document.getElementById('name')
+    if(input == null || input.children[0] == null) return;
 
+    // the actual input from InputNumber is inside a span, therefore we access the children of input
+    input.children[0].focus();
+
+    // add Event Listener to save on Enter
+    input.children[0].addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        const button = document.getElementById('button')
+        button.click();
+    }
+});
+  }, 200)
+}
+
+onUpdated(() => {
+  // focuses on the input after delay (to avoid errors)
+  focusOnInput();
+})
 </script>
 
 <template>
@@ -29,17 +51,24 @@ function saveButtonClicked(value) {
       <span class="p-text-secondary block mb-3">{{ popup.description }}</span>
       <div class="flex align-items-center gap-3 mb-3">
         <label for="name" class="font-semibold w-6rem">{{ popup.value }}</label>
-        <InputNumber id="name" class="flex-auto" autocomplete="off" locale="de-DE" mode="decimal" :minFractionDigits="2"
+        <InputNumber :placeholder="popup.prevValue != -1 ? popup.prevValue.toString() : '' " id="name" class="flex-auto" autocomplete="off" locale="de-DE" mode="decimal" :minFractionDigits="2"
                      :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
-        <Button type="button" label="Save" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
+        <Button class="in-box" id="button" type="button" label="Save" severity="primary" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
       </div>
     </Dialog>
   </div>
 </template>
 
 <style scoped>
-
+  @media (prefers-color-scheme: dark) {
+    .in-box{
+      color: black;
+    }
+    .in-box:hover{
+      color: rgb(35, 115, 210);
+    }
+  }
 </style>
 

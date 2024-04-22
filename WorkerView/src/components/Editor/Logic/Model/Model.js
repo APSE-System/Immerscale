@@ -71,16 +71,18 @@ class Model {
     }
 
     // Removes the given label from the image
-    removeLabel(point, value) {
-        let index = this.canvasLabels.findIndex(label => label.point === point && label.value === value);
+    // TODO: Fix this to not throw an undefined reference Error
+    removeLabel(point, length) {
+        let index = this.canvasLabels.findIndex(label => label.x === point[0] && label.y === point[1] && label.length === length);
+        console.log("removing label at: " + index)
         if (index !== -1) {
             this.canvasLabels.splice(index, 1);
         }
     }
 
     // Opens the popup showing the given values
-    addPopup(header, description, value, callback) {
-        this.popup.show(header, description, value, callback);
+    addPopup(header, description, value, callback, prevValue) {
+        this.popup.show(header, description, value, callback, prevValue);
     }
 
     // Closes and clears the popup
