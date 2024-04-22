@@ -63,6 +63,16 @@ class GridReferenceTool extends ReferenceTool{
         this._model.do(new AddGridCommand(this, this._model,degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot)));
     }
 
+    rotateYBackward() {
+        this._yRot -= 2;
+        this._model.do(new AddGridCommand(this, this._model,degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot)));
+    }
+
+    rotateYForward() {
+        this._yRot += 2;
+        this._model.do(new AddGridCommand(this, this._model,degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot)));
+    }
+
 }
 
 export default GridReferenceTool;

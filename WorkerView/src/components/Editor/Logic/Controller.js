@@ -63,6 +63,14 @@ class Controller{
         this._currentTool.rotateZForward()
     }
 
+    J() {
+        this._currentTool.rotateYBackward()
+    }
+
+    Jnt() {
+        this._currentTool.rotateYForward()
+    }
+
 }
 
 export default Controller;

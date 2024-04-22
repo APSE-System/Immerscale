@@ -235,6 +235,13 @@ function canvasBack(event){
     controller.Ant()
   }
 
+  else if (event.key === 'j' || event.keyCode === 'J') {
+    controller.J()
+  }
+  else if(event.key === 'l' || event.keyCode === 'L'){
+    controller.Jnt()
+  }
+
 }
 
 </script>
