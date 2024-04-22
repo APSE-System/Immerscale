@@ -11,7 +11,10 @@ const props = defineProps({
 
 // This function draws the given point on the given canvas.
 function drawPoint(canvas, point) {
+
   const ctx = canvas.getContext('2d');
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   // setting the color of the point
   ctx.fillStyle = "#" + point.color;
   ctx.beginPath();

@@ -47,6 +47,14 @@ class Controller{
         this._model.redo()
     }
 
+    W() {
+        this._currentTool.rotateZBackward()
+    }
+
+    Wnt() {
+        this._currentTool.rotateZForward()
+    }
+
 }
 
 export default Controller;

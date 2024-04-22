@@ -1,10 +1,12 @@
 import ReferenceTool from "../ReferenceTool.js";
 import command from "../Command.js";
 import AddGridCommand from "../Commands/AddGridCommand.js";
+import {degreeToRadians} from "../Utils/MathUtils.js";
 
 class GridReferenceTool extends ReferenceTool{
 
 
+    _zRot = 0;
 
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
@@ -28,7 +30,7 @@ class GridReferenceTool extends ReferenceTool{
     select() {
         super.select();
 
-        this._model.do(new AddGridCommand(this, this._model));
+        this._model.do(new AddGridCommand(this, this._model, 0));
 
 
     }
@@ -37,9 +39,16 @@ class GridReferenceTool extends ReferenceTool{
     deselect() {
         super.deselect();
         if (this._finished) return;
+    }
 
+    rotateZBackward() {
+        this._zRot -= 2;
+        this._model.do(new AddGridCommand(this, this._model,degreeToRadians(this._zRot)));
+    }
 
-
+    rotateZForward() {
+        this._zRot += 2;
+        this._model.do(new AddGridCommand(this, this._model,degreeToRadians(this._zRot)));
     }
 
 }

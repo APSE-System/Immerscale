@@ -41,6 +41,8 @@ class Command{
     setNext(next) {
         this._next = next;
     }
+
+
 }
 
 export default Command;

@@ -75,7 +75,7 @@ export function rotatePoints3DimX(points, angle){
         [0, math.cos(angle), -math.sin(angle)],
         [0, math.sin(angle), math.cos(angle)]
     ])
-    return applyMatrixToPoints(rotation_matrix, ...points)
+    return applyMatrixToPoints(rotation_matrix, points)
 }
 
 export function rotatePoints3DimY(points, angle){
@@ -84,7 +84,7 @@ export function rotatePoints3DimY(points, angle){
         [0, 1, 0],
         [-math.sin(angle), 0, math.cos(angle)]
     ])
-    return applyMatrixToPoints(rotation_matrix, ...points)
+    return applyMatrixToPoints(rotation_matrix, points)
 }
 
 export function rotatePoints3DimZ(points, angle){
@@ -93,22 +93,25 @@ export function rotatePoints3DimZ(points, angle){
         [math.sin(angle), math.cos(angle), 0],
         [0, 0, 1]
     ])
-    return applyMatrixToPoints(rotation_matrix, ...points)
+    return applyMatrixToPoints(rotation_matrix, points)
 }
 
 // Method to project a 3D point to a 2D point (perspective projection)
-export function projectPointTo2D(points, focal_length) {
+export function projectPointTo2D(points) {
     let scale = 1
     let fov = 90
     let far = 1000
     let near = 0.1
+
+    console.log("malteeeee" + points)
+
     let projection_matrix = math.matrix([
         [scale, 0, 0, 0],
         [0, scale, 0, 0],
         [0, 0, -far/(far-near), -1],
         [0, 0, (-far*near)/(far-near), 0]])
 
-    return applyMatrixToPoints(projection_matrix, ...points)
+    return applyMatrixToPoints(projection_matrix, points)
 }
 // Equation found on: https://mathe-vital.de/LinAlg1/18-4.html
 export function getPolygonArea(points) {
@@ -136,4 +139,8 @@ function getDeterminant(p1, p2) {
 
 export function getMidpoint(point1, point2){
     return math.divide(math.add(point1, point2), 2)
+}
+
+export function degreeToRadians(angle){
+    return angle*Math.PI/180;
 }

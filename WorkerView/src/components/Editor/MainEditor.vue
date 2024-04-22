@@ -221,6 +221,13 @@ function canvasBack(event){
     controller.redo()
   }
 
+  else if (event.key === 'w' || event.keyCode === 'W') {
+    controller.W()
+  }
+  else if(event.key === 's' || event.keyCode === 'S'){
+    controller.Wnt()
+  }
+
 }
 
 </script>
@@ -250,7 +257,7 @@ function canvasBack(event){
         <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight"></AddAreaComponent>
         <!-- Component which displayes all the labels in the model -->
         <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
-        <AddGridComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasGrid="model.canvasGrid.points" :width="imgWidth" :height="imgHeight"></AddGridComponent>
+        <AddGridComponent v-if="imgWidth > 0 && imgHeight > 0 && model.canvasGrid != null" :canvasGrid="model.canvasGrid.points" :width="imgWidth" :height="imgHeight"></AddGridComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
