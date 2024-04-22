@@ -44,11 +44,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
-  caddy:
-    image: caddy:2-alpine
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./certs:/etc/caddy/certs
-    ports:
-      - "80:80"
-      - "443:443"
+  #caddy:
+  #  image: caddy:2-alpine
+  #  volumes:
+  #    - ./Caddyfile:/etc/caddy/Caddyfile
+  #    - ./certs:/etc/caddy/certs
+  #  ports:
+  #    - "80:80"
+  #    - "443:443"
