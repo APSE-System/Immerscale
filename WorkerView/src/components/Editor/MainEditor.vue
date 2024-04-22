@@ -14,6 +14,7 @@ import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
 import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js"
 import AddAreaComponent from "./CommandComponents/AddAreaComponent.vue";
+import GridReferenceTool from "./Logic/Tools/GridReferenceTool.js";
 
 const router = useRouter();
 const route = useRoute();
@@ -39,10 +40,14 @@ let imgHeight = ref(0)
 
 //initialize tools
 onBeforeMount(()=>{
-  // Create the rools and add them tot the list. THe callback is necessary so a tool can be selected correctly.
+  // Create the tools and add them tot the list. THe callback is necessary so a tool can be selected correctly.
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
+
+  let gridReferenceTool = new GridReferenceTool(model.value)
+  gridReferenceTool.callback = controller.addTool(gridReferenceTool)
+  toolsList.value.push(gridReferenceTool)
 
   // create the polygoneMeasurement Tool
   let polygoneMeasurementTool = new PolygoneMeasurementTool(model.value)
