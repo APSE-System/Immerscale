@@ -1,6 +1,7 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { ref } from "vue";
+import Button from "primevue/button";
 
 const route = useRoute();
 
@@ -41,13 +42,13 @@ const updateContent = () => {
 
 <template>
   <div>
-    <h2>Info</h2>
-    <div v-if="showText">
+    <h2 class="header">Info</h2>
+    <div class="text-container" v-if="showText">
       <p>{{ currentText }}</p>
     </div>
-    <div>
-      <button @click="prevSentence" v-show="currentIndex > 0">Zurück</button>
-      <button @click="nextSentence" v-show="currentIndex < sentences.length - 1"> Weiter </button>
+    <div class="button-container">
+      <Button @click="prevSentence" v-show="currentIndex > 0" class="my-button left">Zurück</Button>
+      <Button @click="nextSentence" v-show="currentIndex < sentences.length - 1" class="my-button right"> Weiter </Button>
     </div>
     <!-- display the link only when you have read the infos -->
     <router-link v-if="currentIndex === sentences.length - 1" :to="{ path: '/', query: { token: route.query.token } }">
@@ -57,5 +58,44 @@ const updateContent = () => {
 </template>
 
 <style scoped>
+.my-button {
+  color: black;
+  background-color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  .my-button {
+    color: white;
+  }
+}
+
+.my-button:hover {
+  color: rgb(35, 115, 210);
+}
+
+.text-container{
+    height: 40vh;
+    border: 3px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px ;
+}
+
+.button-container{
+    height: 45px;
+    margin-bottom: 10px ;    
+}
+
+.right{
+    float: right;
+}
+
+.left{
+    float: left;
+}
+
+.header{
+    padding: 0;
+    margin: 0;
+}
 
 </style>

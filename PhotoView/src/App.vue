@@ -40,15 +40,11 @@ function handleOrientation(event) {
 
 <template>
 
-<h2 class="header">PhotoView</h2>
   <main>
     <RouterView />
   </main>
 </template>
 
 <style scoped>
-.header {
-  padding: 0;
-  margin: 0;
-}
+
 </style>
