@@ -22,7 +22,8 @@ class PolygoneMeasurementTool extends MeasurementTool {
 
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
-        super(model, "Measure Polygone", "pi pi-box");
+        // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
+        super(model, "Measure Polygone", "pi pi-box", "description", "polygone", "toast from polygone");
     }
 
 

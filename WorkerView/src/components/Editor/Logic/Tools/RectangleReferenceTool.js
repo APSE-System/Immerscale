@@ -24,7 +24,8 @@ class RectangleReferenceTool extends ReferenceTool {
 
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
-        super(model, "Rectangle Reference", "pi pi-stop");
+        // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
+        super(model, "Rectangle Reference", "pi pi-stop", "description", "rectangle", "toast from rectangle");
     }
 
 

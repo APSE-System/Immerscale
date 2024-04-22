@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted } from 'vue';
+import Toast from 'primevue/toast';
 
 
 
@@ -28,6 +29,7 @@ onMounted( () => {
   <main>
     <RouterView />
   </main>
+  <Toast/>
 </template>
 
 <style scoped>

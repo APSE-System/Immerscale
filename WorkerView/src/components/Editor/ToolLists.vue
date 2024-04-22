@@ -5,6 +5,14 @@ import ReferenceTool from "./Logic/ReferenceTool.js";
 import MeasurementTool from "./Logic/MeasurementTool.js"
 import PanelMenu from 'primevue/panelmenu';
 import LordImmerScaler from "./Logic/LordImmerScaler.js";
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
+
+const show = (msg) => {
+  if(msg == null || msg === "") return;
+  toast.add({ severity: 'info', summary: 'Info', detail: msg, life: 3000 });
+};
 
 const props = defineProps({
   tools: Array
@@ -15,7 +23,8 @@ const toolTree = ref([
     key: '0',
     icon:"pi pi-sliders-h",
     label: 'Reference Tools',
-    items: []
+    items: [],
+    class: 1,
   },
   {
     key: '1',
@@ -37,14 +46,21 @@ function fillToolTree() {
       toolTree.value[0].items.push({
         label: props.tools[i]._name,
         command: props.tools[i].callback,
-        icon: props.tools[i]._icon
+        icon: props.tools[i]._icon,
+        tooltip: props.tools[i]._tooltip,
+        class: props.tools[i]._class,
+        toast: props.tools[i]._toast
+
       })
     } else if (props.tools[i] instanceof MeasurementTool) {
       console.log("MeasurementTool added to tree")
       toolTree.value[1].items.push({
         label: props.tools[i]._name,
         command: props.tools[i].callback,
-        icon: props.tools[i]._icon
+        icon: props.tools[i]._icon,
+        tooltip: props.tools[i]._tooltip,
+        class: props.tools[i]._class,
+        toast: props.tools[i]._toast
       })
     }
   }
@@ -95,18 +111,53 @@ onMounted(() => {
   fillToolTree()
 })
 
+
+
 </script>
 
 
     
-<template>
+<!-- <template>
     <div class="card flex justify-content-center">
         <PanelMenu :model="toolTree" v-model:expandedKeys="expandedKeys" class="w-full md:w-20rem" />
     </div>
-</template>
+</template> -->
+
+<template>
+  <div class="card flex justify-content-center">
+    <PanelMenu :model="toolTree" v-model:expandedKeys="expandedKeys" class="w-full md:w-20rem">
+      <template #item="{ item }">
+        <a @click="show(item.toast)" class="flex align-items-center px-3 py-1 cursor-pointer text-color">
+          <span :class="[item.icon, 'text-primary']" />
+          <span v-tooltip="item.tooltip" :class="[`tool-${item.class}`, { 'font-semibold': item.items }]">{{ item.label }}</span>
+          <!-- TODO make pi-angle-left if it is folded in -->
+          <span v-if="item.items" class="pi pi-angle-down text-primary ml-auto" />
+        </a>
+      </template>
+    </PanelMenu>
+  </div>
+</template> 
 
 <style scoped>
+/* .tool-1{
+  animation: lightenDarken 2s infinite ease-in-out;
+} */
 
+/* .tool-line{
+  animation: lightenDarken 2s infinite ease-in-out;
+} */
+
+@keyframes lightenDarken {
+        0% {
+            color: black;
+        }
+        50% {
+            color: red;
+        }
+        100% {
+            color: black;
+        }
+    }
 
 
 </style>

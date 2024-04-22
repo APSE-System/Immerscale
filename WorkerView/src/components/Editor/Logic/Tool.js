@@ -5,11 +5,19 @@ class Tool {
   _name;
   _icon;
 
+  _tooltip;
+  // this represents a css class with the prefix tool-
+  _class;
 
-  constructor(model, name, icon) {
+  _toast;
+
+  constructor(model, name, icon, tooltip="", c="", toast="") {
     this._model = model;
     this._name = name;
     this._icon = icon;
+    this._tooltip = tooltip;
+    this._class = c;
+    this._toast = toast;
   }
 
   select(){
