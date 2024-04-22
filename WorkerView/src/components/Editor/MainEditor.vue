@@ -266,7 +266,7 @@ function canvasBack(event){
 
 
 #zoom-outer {
-  width: 40%;
+  width: 70%;
   height: auto;
   background: #3a3838;
   overflow: hidden;

@@ -1,4 +1,5 @@
 <script setup>
+import Toast from 'primevue/toast';
 
 </script>
 
@@ -7,6 +8,7 @@
   <main>
     <RouterView />
   </main>
+  <Toast/>
 </template>
 
 <style scoped>
