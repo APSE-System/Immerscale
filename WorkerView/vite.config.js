@@ -9,6 +9,6 @@ export default defineConfig({
       interval: 100, // Check files every 100ms
     },
   },
-  
+
   plugins: [vue()],
 })
