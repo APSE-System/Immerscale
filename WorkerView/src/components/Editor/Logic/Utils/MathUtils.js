@@ -68,6 +68,48 @@ export function getDistance(point1, point2){
     return math.norm(math.subtract(point1, point2))
 }
 
+
+export function rotatePoints3DimX(points, angle){
+    let rotation_matrix = math.matrix([
+        [1, 0, 0],
+        [0, math.cos(angle), -math.sin(angle)],
+        [0, math.sin(angle), math.cos(angle)]
+    ])
+    return applyMatrixToPoints(rotation_matrix, ...points)
+}
+
+export function rotatePoints3DimY(points, angle){
+    let rotation_matrix = math.matrix([
+        [math.cos(angle), 0, math.sin(angle)],
+        [0, 1, 0],
+        [-math.sin(angle), 0, math.cos(angle)]
+    ])
+    return applyMatrixToPoints(rotation_matrix, ...points)
+}
+
+export function rotatePoints3DimZ(points, angle){
+    let rotation_matrix = math.matrix([
+        [math.cos(angle), -math.sin(angle), 0],
+        [math.sin(angle), math.cos(angle), 0],
+        [0, 0, 1]
+    ])
+    return applyMatrixToPoints(rotation_matrix, ...points)
+}
+
+// Method to project a 3D point to a 2D point (perspective projection)
+export function projectPointTo2D(points, focal_length) {
+    let scale = 1
+    let fov = 90
+    let far = 1000
+    let near = 0.1
+    let projection_matrix = math.matrix([
+        [scale, 0, 0, 0],
+        [0, scale, 0, 0],
+        [0, 0, -far/(far-near), -1],
+        [0, 0, (-far*near)/(far-near), 0]])
+
+    return applyMatrixToPoints(projection_matrix, ...points)
+}
 // Equation found on: https://mathe-vital.de/LinAlg1/18-4.html
 export function getPolygonArea(points) {
     if(points.length <= 0) return;
