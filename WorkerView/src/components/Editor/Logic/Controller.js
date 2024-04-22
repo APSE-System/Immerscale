@@ -71,6 +71,19 @@ class Controller{
         this._currentTool.rotateYForward()
     }
 
+    up(){
+        this._currentTool.moveUp()
+    }
+    left(){
+        this._currentTool.moveLeft()
+    }
+    right(){
+        this._currentTool.moveRight()
+    }
+    down(){
+        this._currentTool.moveDown()
+    }
+
 }
 
 export default Controller;

@@ -16,13 +16,19 @@ class AddGridCommand extends Command{
     _xRot = 0
     _yRot = 0;
     _zRot = 0;
-    constructor(creator, model, xRot, yRot, zRot){
+
+    _xPos = 0
+    _yPos = 0
+    constructor(creator, model, xRot, yRot, zRot, xPos, yPos){
         super(creator, model);
 
 
         this._xRot = xRot;
         this._yRot = yRot;
         this._zRot = zRot;
+
+        this._xPos = xPos;
+        this._yPos = yPos;
 
 
        this._points = [
@@ -130,8 +136,8 @@ class AddGridCommand extends Command{
 
        //benis offset
         console.log("OFFSET")
-        let xOffset = 800
-        let yOffset = 800
+        let xOffset = 800 + xPos
+        let yOffset = 800 + yPos
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i]
             this._points[i] = new CanvasPoint( point.x + xOffset, point.y + yOffset, point.color);
