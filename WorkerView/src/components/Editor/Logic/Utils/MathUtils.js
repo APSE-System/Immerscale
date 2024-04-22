@@ -69,3 +69,30 @@ export function applyMatrixToPoints(matrix, ...points){
 export function getDistance(point1, point2){
     return math.norm(math.subtract(point1, point2))
 }
+
+export function rotatePoints3DimX(points, angle){
+    let rotation_matrix = math.matrix([
+        [1, 0, 0],
+        [0, math.cos(angle), -math.sin(angle)],
+        [0, math.sin(angle), math.cos(angle)]
+    ])
+    return applyMatrixToPoints(rotation_matrix, ...points)
+}
+
+export function rotatePoints3DimY(points, angle){
+    let rotation_matrix = math.matrix([
+        [math.cos(angle), 0, math.sin(angle)],
+        [0, 1, 0],
+        [-math.sin(angle), 0, math.cos(angle)]
+    ])
+    return applyMatrixToPoints(rotation_matrix, ...points)
+}
+
+export function rotatePoints3DimZ(points, angle){
+    let rotation_matrix = math.matrix([
+        [math.cos(angle), -math.sin(angle), 0],
+        [math.sin(angle), math.cos(angle), 0],
+        [0, 0, 1]
+    ])
+    return applyMatrixToPoints(rotation_matrix, ...points)
+}
