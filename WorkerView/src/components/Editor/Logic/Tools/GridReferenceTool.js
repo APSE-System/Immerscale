@@ -1,5 +1,6 @@
 import ReferenceTool from "../ReferenceTool.js";
 import command from "../Command.js";
+import AddGridCommand from "../Commands/AddGridCommand.js";
 
 class GridReferenceTool extends ReferenceTool{
 
@@ -26,6 +27,10 @@ class GridReferenceTool extends ReferenceTool{
 
     select() {
         super.select();
+
+        this._model.do(new AddGridCommand(this, this._model));
+
+
     }
 
     // For deselecting this tool, all the already executed commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)

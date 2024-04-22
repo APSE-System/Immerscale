@@ -13,6 +13,8 @@ class Model {
     canvasLines = [];
     // Areas that should be drawn on the image
     canvasAreas = [];
+    // Grid used by the grid reference tool
+    canvasGrid = null;
     // Labels that should be drawn on the image
     canvasLabels = [];
     // Popup which can be used for receiving user input values.
@@ -88,6 +90,10 @@ class Model {
     // Closes and clears the popup
     removePopup() {
         this.popup.clear();
+    }
+
+    addGrid(grid){
+        this.canvasGrid = grid;
     }
 
     // Executes the given command

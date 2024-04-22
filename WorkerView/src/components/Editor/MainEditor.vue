@@ -15,6 +15,7 @@ import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
 import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js"
 import AddAreaComponent from "./CommandComponents/AddAreaComponent.vue";
 import GridReferenceTool from "./Logic/Tools/GridReferenceTool.js";
+import AddGridComponent from "./CommandComponents/AddGridComponent.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -249,6 +250,7 @@ function canvasBack(event){
         <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight"></AddAreaComponent>
         <!-- Component which displayes all the labels in the model -->
         <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
+        <AddGridComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasGrid="model.canvasGrid.points" :width="imgWidth" :height="imgHeight"></AddGridComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
