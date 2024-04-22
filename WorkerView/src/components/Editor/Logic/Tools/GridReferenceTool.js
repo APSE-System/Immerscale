@@ -11,6 +11,10 @@ class GridReferenceTool extends ReferenceTool{
         super(model, "Grid Reference", "pi pi-table", "description", "grid", "toast from grid");
     }
 
+    onClick(x, y) {
+        
+    }
+
 
     updateExecute(command) {
         super.updateExecute(command);
