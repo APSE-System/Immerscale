@@ -121,6 +121,14 @@ class GridReferenceTool extends ReferenceTool{
         if (this._finished) return;
     }
 
+
+
+    setOffset(x, y){
+        this._xPos = x;
+        this._yPos = y;
+        this.apply()
+    }
+
     rotateXBackward() {
         this._xRot -= 2;
         this.apply()

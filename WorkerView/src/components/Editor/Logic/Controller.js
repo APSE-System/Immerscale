@@ -1,5 +1,6 @@
 import RectangleReferenceTool from "./Tools/RectangleReferenceTool.js";
 import ReferenceTool from "./ReferenceTool.js";
+import GridReferenceTool from "./Tools/GridReferenceTool.js";
 
 class Controller{
 
@@ -82,6 +83,12 @@ class Controller{
     }
     down(){
         this._currentTool.moveDown()
+    }
+
+    dragTo(x, y){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setOffset(x,y);
+        }
     }
 
 }

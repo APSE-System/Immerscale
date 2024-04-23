@@ -111,8 +111,10 @@ class AddGridCommand extends Command{
     }
 
     offsetGrid(){
-        let xOffset = (this._model.width/2) + this._xPos
-        let yOffset = (this._model.height/2) + this._yPos
+        //let xOffset = (this._model.width/2) + this._xPos
+        let xOffset =  + this._xPos
+        //let yOffset = (this._model.height/2) + this._yPos
+        let yOffset =  this._yPos
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i]
             this._points[i] = new CanvasPoint( point.x + xOffset, point.y + yOffset, point.color);

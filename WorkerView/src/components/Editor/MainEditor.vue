@@ -29,6 +29,8 @@ let scale = 1;
 const speed = 0.1;
 // if true you can move around in the canvas
 var dragging = false;
+// this drag value is not for the zooming but is for the drag info which is sent to the controller
+var dragInCanvas = false;
 var start = {x: 0, y: 0};
 
 // References to the measuring model, controller and tool list
@@ -191,7 +193,7 @@ function canvasClicked(event) {
   const rect = event.target.getBoundingClientRect()
   const x_canv = event.clientX - rect.left
   const y_canv = event.clientY - rect.top
-  
+
   // This seems to stay the same, whether bugged or not
   // console.log(image)
 
@@ -206,6 +208,7 @@ function canvasClicked(event) {
   controller.onClick(x,y);
   }
 }
+
 
 // listens on Right Click
 function canvasRightClicked(event) {
@@ -260,6 +263,41 @@ function canvasBack(event){
 
 }
 
+
+function dragStart(event){
+  dragInCanvas = true;
+  console.log("switch on")
+}
+
+function dragStop(event){
+  dragInCanvas = false;
+}
+
+function drag(event){
+  if(dragInCanvas){
+    console.log("dragging")
+    // These coordinates are relative to the canvas size.
+    const rect = event.target.getBoundingClientRect()
+    const x_canv = event.clientX - rect.left
+    const y_canv = event.clientY - rect.top
+
+    // This seems to stay the same, whether bugged or not
+    // console.log(image)
+
+    var img = new Image();
+    img.src = image.value;
+    img.onload = function() {
+      // By taking the ratio between the relative coordinates and the canvas, we can map them to the image size.
+      const x = (x_canv / rect.width) * img.width;
+      const y = (y_canv / rect.height) * img.height;
+
+      // The controller will redirect the click to the according tool.
+      controller.dragTo(x,y);
+    }
+  }
+}
+
+
 </script>
 
 <template>
@@ -279,7 +317,7 @@ function canvasBack(event){
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
-        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" :width="imgWidth" :height="imgHeight"></canvas>
+        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @mousedown="dragStart($event)" @mouseup="dragStop($event)" @mousemove="drag($event)" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" :width="imgWidth" :height="imgHeight"></canvas>
         <!-- Component which displayes all the points in the model -->
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
