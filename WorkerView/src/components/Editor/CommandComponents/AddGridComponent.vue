@@ -5,39 +5,76 @@ import {defineProps} from 'vue';
 // The properties of this component consist of a list of points that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
   canvasGrid: Array,
-  gridWidht: Number,
+  gridWidth: Number,
   gridHeight: Number,
   width: Number,
   height: Number
 });
 
 // This function draws the given point on the given canvas.
-function drawPoint(canvas, point, index) {
+function drawVerticalLines(canvas, point, index) {
 
   const ctx = canvas.getContext('2d');
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // setting the color of the point
-  ctx.fillStyle = "#" + "FF0000"
+  ctx.strokeStyle = "#" + point.color
+
+  ctx.lineWidth = 5;
   ctx.beginPath();
   ctx.moveTo(point.x, point.y);
-  ctx.lineTo(props.canvasGrid[index+10*11-81].x, props.canvasGrid[index+10*11-81].y);
+  ctx.lineTo(props.canvasGrid[index + props.gridWidth * (props.gridWidth + 1) - (props.gridWidth - 1) * (props.gridWidth - 1)].x, props.canvasGrid[index + props.gridWidth * (props.gridWidth + 1) - (props.gridWidth - 1) * (props.gridWidth - 1)].y);
 
   ctx.stroke()
+}
 
+function drawHorizontalLines(canvas, point, index) {
 
-  // Drawing a circle at the coordinates of the point.
-  //ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
-  //ctx.fill();
+  const ctx = canvas.getContext('2d');
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // setting the color of the point
+  ctx.strokeStyle = "#" + point.color
+
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.moveTo(point.x, point.y);
+  if (index === 0) {
+    ctx.lineTo(props.canvasGrid[index + props.gridWidth].x, props.canvasGrid[index + props.gridWidth].y);
+  } else if(index === props.canvasGrid.length - 1) {
+    ctx.lineTo(props.canvasGrid[props.canvasGrid.length+ - props.gridWidth].x, props.canvasGrid[props.canvasGrid.length - props.gridWidth].y);
+  }
+  else
+  {
+    ctx.lineTo(props.canvasGrid[index - 1].x, props.canvasGrid[index - 1].y);
+  }
+
+  ctx.stroke()
 }
 
 // This function checks if the canvas even exists before handing the according point to the drawing function.
-function setCanvasRef(canvas, index) {
+function setCanvasRefVert(canvas, index) {
   if (canvas === null)
     return
 
-  if(index < 10){
-    drawPoint(canvas, props.canvasGrid[index], index);
+  if (index < props.gridWidth + 1) {
+    drawVerticalLines(canvas, props.canvasGrid[index], index);
+  }
+}
+
+
+// This function checks if the canvas even exists before handing the according point to the drawing function.
+function setCanvasRefHor(canvas, index) {
+  if (canvas === null)
+    return
+
+  if (index === 0) {
+    drawHorizontalLines(canvas, props.canvasGrid[index], index);
+  }else if (index=== props.canvasGrid.length - 1) {
+    drawHorizontalLines(canvas, props.canvasGrid[index], index);
+  } else if (index <= props.canvasGrid.length - props.gridWidth && (index - props.gridWidth) % 2 === 0) {
+    drawHorizontalLines(canvas, props.canvasGrid[index], index);
   }
 }
 
@@ -46,33 +83,34 @@ function setCanvasRef(canvas, index) {
 <template>
   <!-- This loop goes over all the points that exist and draws them on a canvas each. -->
   <div v-for="(point, index) in canvasGrid" :key="index" class="AddGridCanvasWrapperDiv" style="position: absolute">
-    <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddGridCanvas"></canvas>
+    <canvas :ref="el => {setCanvasRefVert(el, index)} " :width=width :height=height class="AddGridCanvas"></canvas>
+  </div><div v-for="(point, index) in canvasGrid" :key="index" class="AddGridCanvasWrapperDiv" style="position: absolute">
+    <canvas :ref="el => {setCanvasRefHor(el, index)} " :width=width :height=height class="AddGridCanvas"></canvas>
   </div>
 
 </template>
 
 
-
 <style scoped>
 
-  .AddGridCanvasWrapperDiv {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-  }
+.AddGridCanvasWrapperDiv {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
 
-  .AddGridCanvas {
-    width: 100%;
-    height: auto;
-    left: 0;
-    right: 0;
-  }
+.AddGridCanvas {
+  width: 100%;
+  height: auto;
+  left: 0;
+  right: 0;
+}
 
-  canvas {
-    /* filter: blur(100); */
-    image-rendering: crisp-edges;
-  }
+canvas {
+  /* filter: blur(100); */
+  image-rendering: crisp-edges;
+}
 
 </style>

@@ -51,7 +51,7 @@ class AddGridCommand extends Command{
     }
 
     generateGridPoints(){
-        for(var y = this._gridHeight/2; y >= -this._gridHeight/2; y--){
+        for(var y = -this._gridHeight/2; y <= this._gridHeight/2; y++){
             for(var x = -this._gridWidth/2; x <= this._gridWidth/2; x++){
                 if(y === this._gridHeight/2 || y === -this._gridHeight/2){
                     this._points.push(new CanvasPoint(x, y, "FF0000"))
