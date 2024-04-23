@@ -85,6 +85,12 @@ class Controller{
         }
     }
 
+    setInput(){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setGrid();
+        }
+    }
+
 }
 
 export default Controller;

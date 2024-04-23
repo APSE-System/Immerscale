@@ -29,7 +29,9 @@ function zRotChanged() {
   props.controller.setZRotation(zRot.value);
 }
 
-
+function setInput(){
+  props.controller.setInput();
+}
 
 </script>
 
@@ -57,8 +59,10 @@ function zRotChanged() {
       <Button icon="pi pi-plus" @click="zRot++; zRotChanged();" :disabled="zRot >= rotMax" />
       <Button icon="pi pi-minus" @click="zRot--; zRotChanged();" :disabled="zRot <= rotMin" />
     </div>
-  </div>
 
+    <Button label="Ebene Setzen" @click="setInput" severity="primary" />
+
+  </div>
 </template>
 
 <style scoped>

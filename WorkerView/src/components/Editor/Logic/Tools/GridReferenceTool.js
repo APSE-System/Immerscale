@@ -16,6 +16,15 @@ class GridReferenceTool extends ReferenceTool{
     _xPos = 0;
     _yPos = 0;
 
+
+    _pointCount = 0;
+    _gridSet = false;
+    _firstPoint = [];
+    _secondPoint = [];
+    _firstLength = -1;
+
+    _lastGridCommand = null;
+
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
@@ -23,19 +32,13 @@ class GridReferenceTool extends ReferenceTool{
 
     }
 
-    _pointCount = 0;
-    _firstPoint = [];
-    _secondPoint = [];
-    _firstLength = -1;
-
-    _lastGridCommand = null;
 
     onClick(x, y) {
+        if(!this._gridSet) return;
 
-
-        if(this._pointCount == 0){
+        if(this._pointCount === 0){
             this._model.do(new AddPointCommand(this, this._model, x, y));
-        }else if(this._pointCount == 1){
+        }else if(this._pointCount === 1){
             this._secondPoint = [x,y];
             this._model.do(new AddLineCommand(this, this._model, [[this._firstPoint[0], this._firstPoint[1]], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>
             {
@@ -125,13 +128,6 @@ class GridReferenceTool extends ReferenceTool{
         super.deselect();
         if (this._finished) return;
     }
-
-    setOffset(x, y){
-        this._xPos = x;
-        this._yPos = y;
-        this.apply()
-    }
-
     apply(){
         if(this._pointCount === 0){
             this._lastGridCommand = new AddGridCommand(this, this._model,degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos)
@@ -158,21 +154,35 @@ class GridReferenceTool extends ReferenceTool{
         this.apply()
     }
 
+    setOffset(x, y){
+        if(this._gridSet) return;
+        this._xPos = x;
+        this._yPos = y;
+        this.apply()
+    }
+
+
     setXRotation(angle){
+        if(this._gridSet) return;
         this._xRot = angle;
         this.apply()
     }
 
     setYRotation(angle){
+        if(this._gridSet) return;
         this._yRot = angle;
         this.apply()
     }
 
     setZRotation(angle){
+        if(this._gridSet) return;
         this._zRot = angle;
         this.apply()
     }
 
+    setGrid(){
+        this._gridSet = true;
+    }
 
 }
 
