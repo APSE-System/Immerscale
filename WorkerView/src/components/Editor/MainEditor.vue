@@ -12,7 +12,7 @@ import AddLabelComponent from "./CommandComponents/AddLabelComponent.vue";
 import LineLengthMeasurementTool from "./Logic/Tools/LineLengthMeasurementTool.js";
 import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
-import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js"
+import PolygonMeasurementTool from "./Logic/Tools/PolygonMeasurementTool.js"
 import AddAreaComponent from "./CommandComponents/AddAreaComponent.vue";
 
 const router = useRouter();
@@ -44,10 +44,10 @@ onBeforeMount(()=>{
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
 
-  // create the polygoneMeasurement Tool
-  let polygoneMeasurementTool = new PolygoneMeasurementTool(model.value)
-  polygoneMeasurementTool.callback = controller.addTool(polygoneMeasurementTool)
-  toolsList.value.push(polygoneMeasurementTool)
+  // create the polygonMeasurement Tool
+  let polygonMeasurementTool = new PolygonMeasurementTool(model.value)
+  polygonMeasurementTool.callback = controller.addTool(polygonMeasurementTool)
+  toolsList.value.push(polygonMeasurementTool)
 
   let lineLengthMeasurementTool = new LineLengthMeasurementTool(model.value)
   lineLengthMeasurementTool.callback = controller.addTool(lineLengthMeasurementTool)
