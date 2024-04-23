@@ -9,9 +9,13 @@ const props = defineProps({
   currentMousePosition: Array,
 });
 
+let currentPreviewCanvas;
 
 // This function draws the given line on the given canvas.
 function drawLine(canvas, line) {
+
+  clearPreviewCanvas();
+
   const ctx = canvas.getContext('2d');
   // Setting line width
   ctx.lineWidth = 5;
@@ -32,8 +36,12 @@ function drawLine(canvas, line) {
 
 // This function draws the preview line on the given canvas
 function drawLinePreview(canvas, line) {
+  
+  if(props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) return;
+  
+  currentPreviewCanvas = canvas;
+  
   const ctx = canvas.getContext('2d');
-
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -44,12 +52,22 @@ function drawLinePreview(canvas, line) {
   ctx.strokeStyle = "#999";
 
   ctx.beginPath();
-  ctx.moveTo(line.points[0][0], line.points[0][1]);
+  ctx.moveTo(line.points[line.points.length-1][0], line.points[line.points.length-1][1]);
 
   ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1]);
 
   // Render the path for preview
   ctx.stroke();
+}
+
+function clearPreviewCanvas() {
+  if(currentPreviewCanvas == null) return;
+
+  const ctxPreview = currentPreviewCanvas.getContext('2d');
+
+  // Clear the Preview canvas
+  ctxPreview.clearRect(0, 0, currentPreviewCanvas.width, currentPreviewCanvas.height);
+
 }
 
 function setPreviewCanvasRef(canvas, index) {
@@ -73,12 +91,12 @@ function setCanvasRef(canvas, index) {
   <!-- This loop goes over all the lines that exist and draws them on a canvas each. -->
   <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv" style="position: absolute">
     <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddLineCanvas"></canvas>
-    <canvas :ref="el => {setPreviewCanvasRef(el, index)}" :width=width :height=height class="AddLineCanvas preview"></canvas>  
+    <canvas v-if="index === canvasLines.length - 1" :ref="el => {setPreviewCanvasRef(el, index)}" :width=width :height=height class="AddLineCanvas preview" style="position: absolute; top:0; left:0;"></canvas>
   </div>
   
 </template>
 
-<!-- <canvas ref="previewCanvas" width="200" height="200" style="position: absolute; top:0; left:0;"></canvas> -->
+
 
 <style scoped>
 
@@ -102,7 +120,4 @@ canvas {
   image-rendering: crisp-edges;
 }
 
-.preview{
-  border: 4px solid red;
-}
 </style>

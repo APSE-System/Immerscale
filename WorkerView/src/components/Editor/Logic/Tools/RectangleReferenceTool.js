@@ -67,6 +67,8 @@ class RectangleReferenceTool extends ReferenceTool {
     }
 
     onMouseMove(x, y) {
+        if(this._finished) return;
+        
         this._model.updateCurrentMousePosition(x, y);
     }
 
@@ -89,6 +91,7 @@ class RectangleReferenceTool extends ReferenceTool {
             // If all the four points are specified, the reference is set and the tool is finished.
             this.setReference()
             this._finished = true;
+            this._model.updateCurrentMousePosition(0, 0);
             this._pointCount++;
         }
     }

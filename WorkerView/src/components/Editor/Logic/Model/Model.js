@@ -19,7 +19,7 @@ class Model {
     popup = null;
 
     // current mouse position
-    currentMousePosition;
+    currentMousePosition = [0, 0];
 
     // Pointer to the current (last executed) command.
     currentCommand = null;
