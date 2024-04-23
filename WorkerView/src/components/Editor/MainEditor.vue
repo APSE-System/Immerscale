@@ -16,6 +16,7 @@ import PolygoneMeasurementTool from "./Logic/Tools/PolygoneMeasurementTool.js"
 import AddAreaComponent from "./CommandComponents/AddAreaComponent.vue";
 import GridReferenceTool from "./Logic/Tools/GridReferenceTool.js";
 import AddGridComponent from "./CommandComponents/AddGridComponent.vue";
+import GridUserInput from "./CommandComponents/GridUserInput.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -226,27 +227,6 @@ function canvasBack(event){
     controller.redo()
   }
 
-  else if (event.key === 'w' || event.keyCode === 'W') {
-    controller.W()
-  }
-  else if(event.key === 's' || event.keyCode === 'S'){
-    controller.Wnt()
-  }
-
-  else if (event.key === 'a' || event.keyCode === 'A') {
-    controller.A()
-  }
-  else if(event.key === 'd' || event.keyCode === 'd'){
-    controller.Ant()
-  }
-
-  else if (event.key === 'j' || event.keyCode === 'J') {
-    controller.J()
-  }
-  else if(event.key === 'l' || event.keyCode === 'L'){
-    controller.Jnt()
-  }
-
   else if (event.key === 'f' || event.keyCode === 'F') {
     controller.left()
   }
@@ -329,6 +309,8 @@ function drag(event){
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
+
+    <GridUserInput :controller="controller"/>
 
     <!-- This component can open a popup to retreive user input -->
     <NumberInputPopup :popup="model.popup" @callback="model.popup.callback"/>

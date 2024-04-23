@@ -48,30 +48,6 @@ class Controller{
         this._model.redo()
     }
 
-    W() {
-        this._currentTool.rotateXBackward()
-    }
-
-    Wnt() {
-        this._currentTool.rotateXForward()
-    }
-
-    A() {
-        this._currentTool.rotateZBackward()
-    }
-
-    Ant() {
-        this._currentTool.rotateZForward()
-    }
-
-    J() {
-        this._currentTool.rotateYBackward()
-    }
-
-    Jnt() {
-        this._currentTool.rotateYForward()
-    }
-
     up(){
         this._currentTool.moveUp()
     }
@@ -88,6 +64,24 @@ class Controller{
     dragTo(x, y){
         if(this._currentTool instanceof GridReferenceTool){
             this._currentTool.setOffset(x,y);
+        }
+    }
+
+    setXRotation(angle){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setXRotation(angle);
+        }
+    }
+
+    setYRotation(angle){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setYRotation(angle);
+        }
+    }
+
+    setZRotation(angle){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setZRotation(angle);
         }
     }
 

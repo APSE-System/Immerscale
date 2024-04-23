@@ -13,13 +13,14 @@ class GridReferenceTool extends ReferenceTool{
     _yRot = 0;
     _zRot = 0;
 
-    _xPos = 0
-    _yPos = 0
+    _xPos = 0;
+    _yPos = 0;
 
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
         super(model, "Grid Reference", "pi pi-table", "description", "grid", "toast from grid");
+
     }
 
     _pointCount = 0;
@@ -71,6 +72,10 @@ class GridReferenceTool extends ReferenceTool{
 
     select() {
         super.select();
+
+        this._xPos = this._model.width/2;
+        this._yPos = this._model.height/2;
+
         this.apply()
     }
 
@@ -121,41 +126,9 @@ class GridReferenceTool extends ReferenceTool{
         if (this._finished) return;
     }
 
-
-
     setOffset(x, y){
         this._xPos = x;
         this._yPos = y;
-        this.apply()
-    }
-
-    rotateXBackward() {
-        this._xRot -= 2;
-        this.apply()
-    }
-
-    rotateXForward() {
-        this._xRot += 2;
-        this.apply()
-    }
-
-    rotateZBackward() {
-        this._zRot -= 2;
-        this.apply()
-    }
-
-    rotateZForward() {
-        this._zRot += 2;
-        this.apply()
-    }
-
-    rotateYBackward() {
-        this._yRot -= 2;
-        this.apply()
-    }
-
-    rotateYForward() {
-        this._yRot += 2;
         this.apply()
     }
 
@@ -185,7 +158,20 @@ class GridReferenceTool extends ReferenceTool{
         this.apply()
     }
 
+    setXRotation(angle){
+        this._xRot = angle;
+        this.apply()
+    }
 
+    setYRotation(angle){
+        this._yRot = angle;
+        this.apply()
+    }
+
+    setZRotation(angle){
+        this._zRot = angle;
+        this.apply()
+    }
 
 
 }
