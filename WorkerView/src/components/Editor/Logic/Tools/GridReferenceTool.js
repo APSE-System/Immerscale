@@ -1,7 +1,7 @@
 import ReferenceTool from "../ReferenceTool.js";
 import command from "../Command.js";
 import AddGridCommand from "../Commands/AddGridCommand.js";
-import {calculatePerspectiveMatrix, degreeToRadians, getDistance} from "../Utils/MathUtils.js";
+import {addScaleToMatrix3D, calculatePerspectiveMatrix, degreeToRadians, getDistance} from "../Utils/MathUtils.js";
 import AddLineCommand from "../Commands/AddLineCommand.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
@@ -67,9 +67,9 @@ class GridReferenceTool extends ReferenceTool{
         var src = [];
 
         var point1 = this._lastGridCommand._points[0]
-        var point2 = this._lastGridCommand._points[1]
-        var point3 = this._lastGridCommand._points[2]
-        var point4 = this._lastGridCommand._points[3]
+        var point2 = this._lastGridCommand._points[10]
+        var point3 = this._lastGridCommand._points[39]
+        var point4 = this._lastGridCommand._points[29]
 
         src.push([point1.x, point1.y]);
         src.push([point2.x, point2.y]);
@@ -78,12 +78,12 @@ class GridReferenceTool extends ReferenceTool{
 
         // Generating the "destination" array which is the coordinates of the reference in the real world which match to the source points.
         // These coordinates can be calculated based on the edge lengths specified by the user.
-        var dst = [[0, 0], [0, 100], [100, 100], [100, 0]];
+        var dst = [[0, 100], [100, 100], [100, 0], [0, 0]];
 
         // Entzerrt aber ohne skalierung:
         var entzerrt_ohne_scale = calculatePerspectiveMatrix(src, dst)
 
-        LordImmerScaler.changeMatrix(entzerrt_ohne_scale);
+        LordImmerScaler.changeMatrix(entzerrt_ohne_scale, 1);
 
 
         var Point1_entzerrt_os = LordImmerScaler.transformToRealWorld(this._firstPoint[0], this._firstPoint[1]);
@@ -93,13 +93,8 @@ class GridReferenceTool extends ReferenceTool{
 
         var scaleFactor = this._firstLength / distanceFalse
 
-        entzerrt_ohne_scale._data[0][0] *= scaleFactor;
-        entzerrt_ohne_scale._data[1][1] *= scaleFactor;
-
-
-
         // The source and the destination points are used to calculate the transformation matrix and finally setting it.
-        LordImmerScaler.changeMatrix(entzerrt_ohne_scale);
+        LordImmerScaler.changeMatrix(entzerrt_ohne_scale, scaleFactor);
     }
 
 

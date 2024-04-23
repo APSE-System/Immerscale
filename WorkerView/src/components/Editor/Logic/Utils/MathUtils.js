@@ -102,8 +102,6 @@ export function projectPointTo2D(points) {
     let far = 1000
     let near = 0.1
 
-    console.log("Input of project2point:" + points)
-
     let projection_matrix = math.matrix([
         [scale, 0, 0, 0],
         [0, scale, 0, 0],
@@ -113,7 +111,7 @@ export function projectPointTo2D(points) {
     return applyMatrixToPoints(projection_matrix, points)
 }
 
-export function  scalePoint2D(point, scale){
+export function  scalePoint2D(point, scale) {
     let scale_matrix = math.matrix([
         [scale, 0],
         [0, scale]

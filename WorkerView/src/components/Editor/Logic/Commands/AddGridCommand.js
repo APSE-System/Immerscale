@@ -12,7 +12,7 @@ import {
 
 class AddGridCommand extends Command{
 
-    _points;
+    _points = [];
     _xRot = 0
     _yRot = 0;
     _zRot = 0;
@@ -31,28 +31,36 @@ class AddGridCommand extends Command{
         this._yPos = yPos;
 
 
-       this._points = [
-            new CanvasPoint(-1, 1, "00FFFF"),
-            new CanvasPoint(1, 1, "00FFFF"),
-            new CanvasPoint(1, -1, "00FFFF"),
-            new CanvasPoint(-1, -1, "00FFFF")
-        ]
+        let gridWidth = 10;
+        let gridHeight = 10;
+
+
+
+        for(var y = gridHeight/2; y >= -gridHeight/2; y--){
+            for(var x = -gridWidth/2; x <= gridWidth/2; x++){
+                if(y == gridHeight/2 || y == -gridHeight/2){
+                    this._points.push(new CanvasPoint(x, y, "00FFFF"))
+                }else if(x == gridWidth/2 || x == -gridWidth/2){
+                    this._points.push(new CanvasPoint(x, y, "00FFFF"))
+                }
+            }
+        }
 
         // iterate through points and rotate
 
-        console.log(this._xRot + " ," + radiansToDegree(this._xRot) + "° " + "------------------------------")
+        //console.log(this._xRot + " ," + radiansToDegree(this._xRot) + "° " + "------------------------------")
         // rotata
 
         let points_rotated = []
-        console.log("Rotating 4 Points:")
+        //constole.log("Rotating 4 Points:")
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i];
-            console.log("point to rotate:" + point.x + ', ' + point.y);
+            //constole.log("point to rotate:" + point.x + ', ' + point.y);
 
             let result = rotatePoints3Dim3Axes( [point.x, point.y, 0, 1], xRot, yRot, zRot);
             let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
 
-            console.log("result" + JSON.stringify(result_formatted))
+            //constole.log("result" + JSON.stringify(result_formatted))
 
             points_rotated.push(result_formatted)
 
@@ -75,29 +83,29 @@ class AddGridCommand extends Command{
 
 
 */
-        console.log("View projection")
+        //constole.log("View projection")
         for(let i = 0; i < this._points.length; i++){
             let point = points_rotated[i]
 
             let result = viewMatrix( point);
             let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
 
-            console.log("result" + JSON.stringify(result_formatted))
+            //constole.log("result" + JSON.stringify(result_formatted))
 
             points_rotated[i] = result_formatted
 
         }
-        console.log("After VIEWMATRIX")
-        console.log(points_rotated)
+        //constole.log("After VIEWMATRIX")
+        //constole.log(points_rotated)
         // projection erection
 
-        console.log("PROJECTION OF POINTS")
+        //constole.log("PROJECTION OF POINTS")
         for(let i = 0; i < this._points.length; i++){
             let point = points_rotated[i]
 
 
             let result = projectPointTo2D(point )
-            console.log(result);
+            //constole.log(result);
 
             let brightness = ( result[0]._data[2]/ result[0]._data[3])-8
 
@@ -114,19 +122,19 @@ class AddGridCommand extends Command{
 
 
 
-            console.log(brightness + ", brightness");
+            //constole.log(brightness + ", brightness");
 
 
             this._points[i] = new CanvasPoint( result[0]._data[0]/ result[0]._data[3],  result[0]._data[1]/result[0]._data[3], "" +brightness + brightness + brightness);
         }
 
-        console.log("AFTER PROJECTION OF POINTS")
-        console.log(this._points)
+        //constole.log("AFTER PROJECTION OF POINTS")
+        //constole.log(this._points)
 
         // scaleus to biggus
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i];
-            let result = scalePoint2D([point.x, point.y], 200)
+            let result = scalePoint2D([point.x, point.y], 100)
 
 
 
@@ -135,16 +143,16 @@ class AddGridCommand extends Command{
         }
 
        //benis offset
-        console.log("OFFSET")
+        //constole.log("OFFSET")
         let xOffset = 800 + xPos
-        let yOffset = 800 + yPos
+        let yOffset = 3000 + yPos
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i]
             this._points[i] = new CanvasPoint( point.x + xOffset, point.y + yOffset, point.color);
         }
 
-        console.log("AFTER MOVING BACK")
-        console.log(this._points)
+        //constole.log("AFTER MOVING BACK")
+        //constole.log(this._points)
     }
 
     execute (){

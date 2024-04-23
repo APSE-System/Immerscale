@@ -10,10 +10,13 @@ class LordImmerScaler {
     // Boolean value which specifies whether a reference has been set or not.
     static _referenceSet = false;
 
+    static _scale = 1;
+
 
     // This funciton sets the matrix to the given one.
-    static changeMatrix(m) {
+    static changeMatrix(m, scale) {
         this._matrix = m;
+        this._scale = scale;
         this._referenceSet = this._matrix != null;
         document.dispatchEvent(new CustomEvent("referenceSet", { detail: this._referenceSet }));
     }
@@ -24,7 +27,9 @@ class LordImmerScaler {
         // Applying the matrix to the point
         const transformedPoint = applyMatrixToPoints(this._matrix, [x, y, 1])
         // As the result is in homogeneous coordinates, they have to be transformed back into cartesian before they are returned:
-        return [transformedPoint[0].get([0])/transformedPoint[0].get([2]), transformedPoint[0].get([1])/transformedPoint[0].get([2])];
+        var xRes = transformedPoint[0].get([0])/transformedPoint[0].get([2]);
+        var yRes = transformedPoint[0].get([1])/transformedPoint[0].get([2])
+        return [xRes * this._scale, yRes* this._scale];
     }
 
 }

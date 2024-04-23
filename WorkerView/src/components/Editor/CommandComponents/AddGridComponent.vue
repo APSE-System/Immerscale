@@ -10,7 +10,7 @@ const props = defineProps({
 });
 
 // This function draws the given point on the given canvas.
-function drawPoint(canvas, point) {
+function drawPoint(canvas, point, index) {
 
   const ctx = canvas.getContext('2d');
 
@@ -18,16 +18,25 @@ function drawPoint(canvas, point) {
   // setting the color of the point
   ctx.fillStyle = "#" + "FF0000"
   ctx.beginPath();
+  ctx.moveTo(point.x, point.y);
+  ctx.lineTo(props.canvasGrid[index+10*11-81].x, props.canvasGrid[index+10*11-81].y);
+
+  ctx.stroke()
+
+
   // Drawing a circle at the coordinates of the point.
-  ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
-  ctx.fill();
+  //ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
+  //ctx.fill();
 }
 
 // This function checks if the canvas even exists before handing the according point to the drawing function.
 function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
-  drawPoint(canvas, props.canvasGrid[index]);
+
+  if(index < 11){
+    drawPoint(canvas, props.canvasGrid[index], index);
+  }
 }
 
 </script>
