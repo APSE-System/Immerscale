@@ -1,12 +1,12 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
-import Index from '../components/Index.vue'
-import Info from '../components/Info.vue'
+import LandingPage from '../components/LandingPage.vue'
+import InfoPage from '../components/InfoPage.vue'
 
 // Define the routes for the application here
 const routes = [
-  { path: '/', component: Index },
-  { path: '/info', component: Info},
+  { path: '/', component: LandingPage },
+  { path: '/info', component: InfoPage},
 ]
 
 // This makes the URL work "normal" so you can just type in an URL and you are routed

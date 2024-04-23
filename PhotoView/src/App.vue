@@ -1,5 +1,4 @@
 <script setup>
-import Index from './components/Index.vue';
 import {onMounted, ref} from 'vue';
 
 
