@@ -22,5 +22,5 @@ onMounted(() => {
 </script>
 
 <template>
-
+  <!-- this site only redirects you to the appropriate page (main or info) -->
 </template>

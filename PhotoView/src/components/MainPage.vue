@@ -2,7 +2,6 @@
 import Camera from "./Camera.vue"
 import Popup from "./Popup.vue"
 
-
 </script>
 
 <template>
