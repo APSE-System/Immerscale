@@ -4,6 +4,7 @@ import {useRouter, useRoute} from "vue-router";
 import Button from "primevue/button";
 import ToolLists from "./ToolLists.vue";
 import TabBar from "../TabBar.vue";
+import TutorialSidebar from "./TutorialSidebar.vue";
 import Model from "./Logic/Model/Model.js";
 import Controller from "./Logic/Controller.js";
 import AddPointComponent from "./CommandComponents/AddPointComponent.vue";
@@ -247,6 +248,9 @@ function canvasBack(event){
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
+
+    <TutorialSidebar>
+    </TutorialSidebar>
 
     <!-- This component can open a popup to retreive user input -->
     <NumberInputPopup :popup="model.popup" @callback="model.popup.callback"/>
