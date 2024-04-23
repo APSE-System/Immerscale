@@ -23,6 +23,11 @@ class Model {
     // Pointer to the current (last executed) command.
     currentCommand = null;
 
+    // Width of the displayed image
+    width = -1;
+    // Height of the displayed image
+    height = -1;
+
     constructor() {
         this.currentCommand = new DefaultCommand(null, this);
         this.popup = new Popup();
@@ -127,6 +132,11 @@ class Model {
             return;
 
         this.do(this.currentCommand.getNext());
+    }
+
+    setImageSize(width, height) {
+        this.width = width;
+        this.height = height;
     }
 
     // These functions could later be used to export or import the model into XML

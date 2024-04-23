@@ -5,6 +5,8 @@ import {defineProps} from 'vue';
 // The properties of this component consist of a list of points that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
   canvasGrid: Array,
+  gridWidht: Number,
+  gridHeight: Number,
   width: Number,
   height: Number
 });
@@ -34,7 +36,7 @@ function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
 
-  if(index < 11){
+  if(index < props.width){
     drawPoint(canvas, props.canvasGrid[index], index);
   }
 }

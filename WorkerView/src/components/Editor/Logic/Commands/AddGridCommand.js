@@ -19,6 +19,10 @@ class AddGridCommand extends Command{
 
     _xPos = 0
     _yPos = 0
+    
+    _gridWidth = 0;
+    _gridHeight = 0;
+    
     constructor(creator, model, xRot, yRot, zRot, xPos, yPos){
         super(creator, model);
 
@@ -31,70 +35,18 @@ class AddGridCommand extends Command{
         this._yPos = yPos;
 
 
-        let gridWidth = 10;
-        let gridHeight = 10;
+        this._gridWidth = 10;
+        this._gridHeight = 10;
+
+
+        this.generateGridPoints()
+
+        let points_rotated = this.rotateGridPoints()
+
+        this.positionCamera(points_rotated)
 
 
 
-        for(var y = gridHeight/2; y >= -gridHeight/2; y--){
-            for(var x = -gridWidth/2; x <= gridWidth/2; x++){
-                if(y == gridHeight/2 || y == -gridHeight/2){
-                    this._points.push(new CanvasPoint(x, y, "00FFFF"))
-                }else if(x == gridWidth/2 || x == -gridWidth/2){
-                    this._points.push(new CanvasPoint(x, y, "00FFFF"))
-                }
-            }
-        }
-
-        // iterate through points and rotate
-
-        //console.log(this._xRot + " ," + radiansToDegree(this._xRot) + "° " + "------------------------------")
-        // rotata
-
-        let points_rotated = []
-        //constole.log("Rotating 4 Points:")
-        for(let i = 0; i < this._points.length; i++){
-            let point = this._points[i];
-            //constole.log("point to rotate:" + point.x + ', ' + point.y);
-
-            let result = rotatePoints3Dim3Axes( [point.x, point.y, 0, 1], xRot, yRot, zRot);
-            let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
-
-            //constole.log("result" + JSON.stringify(result_formatted))
-
-            points_rotated.push(result_formatted)
-
-        }
-
-
-
-    /*    let xDiff = Math.abs(points_rotated[0][0]- points_rotated[1][0])/2 + points_rotated[0][1];
-
-        console.log("Before moving")
-        console.log(points_rotated)
-
-        console.log("XDiff:" + xDiff)
-
-
-        // move centero
-        for(let i = 0; i < this._points.length; i++){
-            points_rotated[i][0]  = points_rotated[i][0] -  xDiff
-        }
-
-
-*/
-        //constole.log("View projection")
-        for(let i = 0; i < this._points.length; i++){
-            let point = points_rotated[i]
-
-            let result = viewMatrix( point);
-            let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
-
-            //constole.log("result" + JSON.stringify(result_formatted))
-
-            points_rotated[i] = result_formatted
-
-        }
         //constole.log("After VIEWMATRIX")
         //constole.log(points_rotated)
         // projection erection
@@ -134,7 +86,7 @@ class AddGridCommand extends Command{
         // scaleus to biggus
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i];
-            let result = scalePoint2D([point.x, point.y], 100)
+            let result = scalePoint2D([point.x, point.y], 200)
 
 
 
@@ -144,8 +96,8 @@ class AddGridCommand extends Command{
 
        //benis offset
         //constole.log("OFFSET")
-        let xOffset = 800 + xPos
-        let yOffset = 3000 + yPos
+        let xOffset = (this._model.width/2) + xPos
+        let yOffset = (this._model.height/2) + yPos
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i]
             this._points[i] = new CanvasPoint( point.x + xOffset, point.y + yOffset, point.color);
@@ -155,9 +107,58 @@ class AddGridCommand extends Command{
         //constole.log(this._points)
     }
 
+
+    generateGridPoints(){
+        for(var y = this._gridHeight/2; y >= -this._gridHeight/2; y--){
+            for(var x = -this._gridWidth/2; x <= this._gridWidth/2; x++){
+                if(y == this._gridHeight/2 || y == -this._gridHeight/2){
+                    this._points.push(new CanvasPoint(x, y, "00FFFF"))
+                }else if(x == this._gridWidth/2 || x == -this._gridWidth/2){
+                    this._points.push(new CanvasPoint(x, y, "00FFFF"))
+                }
+            }
+        }
+    }
+
+
+    rotateGridPoints(){
+        let points_rotated = []
+        //constole.log("Rotating 4 Points:")
+        for(let i = 0; i < this._points.length; i++){
+            let point = this._points[i];
+            //constole.log("point to rotate:" + point.x + ', ' + point.y);
+
+            let result = rotatePoints3Dim3Axes( [point.x, point.y, 0, 1], xRot, yRot, zRot);
+            let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
+
+            //constole.log("result" + JSON.stringify(result_formatted))
+
+            points_rotated.push(result_formatted)
+
+        }
+
+        return points_rotated;
+    }
+
+    positionCamera(points_rotated){
+        //constole.log("View projection")
+        for(let i = 0; i < this._points.length; i++){
+            let point = points_rotated[i]
+
+            let result = viewMatrix( point);
+            let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
+
+            //constole.log("result" + JSON.stringify(result_formatted))
+
+            points_rotated[i] = result_formatted
+
+        }
+    }
+
+
     execute (){
 
-        this._model.addGrid(new CanvasGrid(this._points))
+        this._model.addGrid(new CanvasGrid(this._points, this._gridWidth, this._gridHeight));
     }
 
     unExecute(){

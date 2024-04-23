@@ -103,6 +103,8 @@ function drawImage() {
 
     ctx.drawImage(img, 0, 0);
 
+    model.value.setImageSize(img.width, img.height);
+
   };
 }
 
@@ -285,7 +287,7 @@ function canvasBack(event){
         <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight"></AddAreaComponent>
         <!-- Component which displayes all the labels in the model -->
         <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
-        <AddGridComponent v-if="imgWidth > 0 && imgHeight > 0 && model.canvasGrid != null" :canvasGrid="model.canvasGrid.points" :width="imgWidth" :height="imgHeight"></AddGridComponent>
+        <AddGridComponent v-if="imgWidth > 0 && imgHeight > 0 && model.canvasGrid != null" :canvasGrid="model.canvasGrid.points" :gridWidth="model.canvasGrid.width" :gridHeight="model.canvasGrid.height" :width="imgWidth" :height="imgHeight"></AddGridComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
