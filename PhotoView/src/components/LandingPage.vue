@@ -11,14 +11,16 @@ const router = useRouter();
 let redirected = localStorage.getItem('redirected') === 'true';
 
 onMounted(() => {
-    if(redirected) return;
+    if(redirected) {
+      router.push({ path: '/main', query: {token: route.query.token} });
+      return;
+    }
 
     localStorage.setItem('redirected', 'true');
-    router.push({ path: '/info', query: {token: route.query.token} });})
+    router.push({ path: '/info', query: {token: route.query.token} });
+})
 </script>
 
 <template>
-    <!-- only render Camera, when redirected is true, so the camera nofification does not show up when you are sent to the info page -->
-  <Camera v-if="redirected"/>
-  <Popup/>
+
 </template>

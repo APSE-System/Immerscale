@@ -51,7 +51,7 @@ const updateContent = () => {
       <Button @click="nextSentence" v-show="currentIndex < sentences.length - 1" class="my-button right"> Weiter </Button>
     </div>
     <!-- display the link only when you have read the infos -->
-    <router-link v-if="currentIndex === sentences.length - 1" :to="{ path: '/', query: { token: route.query.token } }">
+    <router-link v-if="currentIndex === sentences.length - 1" :to="{ path: '/main', query: { token: route.query.token } }">
       Weiter zur PhotoView
     </router-link>
   </div>
