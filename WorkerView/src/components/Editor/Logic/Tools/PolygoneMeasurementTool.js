@@ -23,7 +23,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
-        super(model, "Measure Polygon", "pi pi-box", "Measure the area of a Polygon", "polygone", "Measure the area of an object by selecting the outer points of a polygon.");
+        super(model, "Measure Polygon", "pi pi-box", "Measure the area of a Polygon", "polygon", "Measure the area of an object by selecting the outer points of a polygon.");
     }
 
 
