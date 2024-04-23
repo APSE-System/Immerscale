@@ -5,7 +5,7 @@ import MeasurementTool from "../MeasurementTool.js";
 import AddAreaCommand from "../Commands/AddAreaCommand.js"
 
 // This tools enables selecting a rectangular reference measure.
-class PolygoneMeasurementTool extends MeasurementTool {
+class PolygonMeasurementTool extends MeasurementTool {
     // The first command executed by this tool.
     _first = null;
     // The amout of points that the user has already selected in the image.
@@ -48,7 +48,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
         }
     }
 
-    // will mark the current polygone as complete and go to the next area
+    // will mark the current polygon as complete and go to the next area
     onRightClick() {    
         console.log('Right Click');
         this.reset();
@@ -120,4 +120,4 @@ class PolygoneMeasurementTool extends MeasurementTool {
     }
 }
 
-export default PolygoneMeasurementTool;
+export default PolygonMeasurementTool;
