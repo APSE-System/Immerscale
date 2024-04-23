@@ -1,7 +1,7 @@
 import ReferenceTool from "../ReferenceTool.js";
 import command from "../Command.js";
 import AddGridCommand from "../Commands/AddGridCommand.js";
-import {addScaleToMatrix3D, calculatePerspectiveMatrix, degreeToRadians, getDistance} from "../Utils/MathUtils.js";
+import { calculatePerspectiveMatrix, degreeToRadians, getDistance} from "../Utils/MathUtils.js";
 import AddLineCommand from "../Commands/AddLineCommand.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
