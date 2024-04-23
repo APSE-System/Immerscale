@@ -66,10 +66,12 @@ class GridReferenceTool extends ReferenceTool{
         // Generating the "Source" array which is the coordinates of all the specified points.
         var src = [];
 
-        var point1 = this._lastGridCommand._points[0]
-        var point2 = this._lastGridCommand._points[10]
-        var point3 = this._lastGridCommand._points[39]
-        var point4 = this._lastGridCommand._points[29]
+        var refPoints = this._lastGridCommand.getReferencePoints()
+
+        var point1 = refPoints[0]
+        var point2 = refPoints[1]
+        var point3 = refPoints[2]
+        var point4 = refPoints[3]
 
         src.push([point1.x, point1.y]);
         src.push([point2.x, point2.y]);

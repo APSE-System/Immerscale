@@ -128,6 +128,18 @@ class AddGridCommand extends Command{
 
     }
 
+
+    getReferencePoints(){
+        let refPoints =[]
+
+        refPoints.push(this._points[0])
+        refPoints.push(this._points[this._gridWidth-1])
+        refPoints.push(this._points[this._points.length-1])
+        refPoints.push(this._points[this._points.length-this._gridWidth])
+
+        return  refPoints;
+    }
+
 }
 
 export default AddGridCommand;
