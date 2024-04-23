@@ -36,7 +36,7 @@ function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
 
-  if(index < props.width){
+  if(index < 10){
     drawPoint(canvas, props.canvasGrid[index], index);
   }
 }

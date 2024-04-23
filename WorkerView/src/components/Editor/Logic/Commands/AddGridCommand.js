@@ -26,7 +26,6 @@ class AddGridCommand extends Command{
     constructor(creator, model, xRot, yRot, zRot, xPos, yPos){
         super(creator, model);
 
-
         this._xRot = xRot;
         this._yRot = yRot;
         this._zRot = zRot;
@@ -34,18 +33,63 @@ class AddGridCommand extends Command{
         this._xPos = xPos;
         this._yPos = yPos;
 
-
         this._gridWidth = 10;
         this._gridHeight = 10;
 
-
         this.generateGridPoints()
-
         let points_rotated = this.rotateGridPoints()
-
         this.positionCamera(points_rotated)
+        this.projectGridPoints(points_rotated)
+        this.scaleGridPoints()
+        this.offsetPoints()
+
+    }
+
+    generateGridPoints(){
+        for(var y = this._gridHeight/2; y >= -this._gridHeight/2; y--){
+            for(var x = -this._gridWidth/2; x <= this._gridWidth/2; x++){
+                if(y === this._gridHeight/2 || y === -this._gridHeight/2){
+                    this._points.push(new CanvasPoint(x, y, "FF0000"))
+                }else if(x === this._gridWidth/2 || x === -this._gridWidth/2){
+                    this._points.push(new CanvasPoint(x, y, "FF0000"))
+                }
+            }
+        }
+    }
+
+    rotateGridPoints(){
+        let points_rotated = []
+
+        for(let i = 0; i < this._points.length; i++){
+            let point = this._points[i];
+
+            let result = rotatePoints3Dim3Axes( [point.x, point.y, 0, 1], this._xRot, this._yRot, this._zRot);
+            let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
 
 
+            points_rotated.push(result_formatted)
+
+        }
+
+        return points_rotated;
+    }
+
+    positionCamera(points_rotated){
+        //constole.log("View projection")
+        for(let i = 0; i < this._points.length; i++){
+            let point = points_rotated[i]
+
+            let result = viewMatrix( point);
+            let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
+
+            //constole.log("result" + JSON.stringify(result_formatted))
+
+            points_rotated[i] = result_formatted
+
+        }
+    }
+
+    projectGridPoints(points_rotated){
 
         //constole.log("After VIEWMATRIX")
         //constole.log(points_rotated)
@@ -79,7 +123,9 @@ class AddGridCommand extends Command{
 
             this._points[i] = new CanvasPoint( result[0]._data[0]/ result[0]._data[3],  result[0]._data[1]/result[0]._data[3], "" +brightness + brightness + brightness);
         }
+    }
 
+    scaleGridPoints(){
         //constole.log("AFTER PROJECTION OF POINTS")
         //constole.log(this._points)
 
@@ -93,65 +139,16 @@ class AddGridCommand extends Command{
             this._points[i]  = new CanvasPoint(result[0]._data[0], result[0]._data[1], point.color)
 
         }
+    }
 
-       //benis offset
+    offsetPoints(){
+        //benis offset
         //constole.log("OFFSET")
-        let xOffset = (this._model.width/2) + xPos
-        let yOffset = (this._model.height/2) + yPos
+        let xOffset = (this._model.width/2) + this._xPos
+        let yOffset = (this._model.height/2) + this._yPos
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i]
             this._points[i] = new CanvasPoint( point.x + xOffset, point.y + yOffset, point.color);
-        }
-
-        //constole.log("AFTER MOVING BACK")
-        //constole.log(this._points)
-    }
-
-
-    generateGridPoints(){
-        for(var y = this._gridHeight/2; y >= -this._gridHeight/2; y--){
-            for(var x = -this._gridWidth/2; x <= this._gridWidth/2; x++){
-                if(y == this._gridHeight/2 || y == -this._gridHeight/2){
-                    this._points.push(new CanvasPoint(x, y, "00FFFF"))
-                }else if(x == this._gridWidth/2 || x == -this._gridWidth/2){
-                    this._points.push(new CanvasPoint(x, y, "00FFFF"))
-                }
-            }
-        }
-    }
-
-
-    rotateGridPoints(){
-        let points_rotated = []
-        //constole.log("Rotating 4 Points:")
-        for(let i = 0; i < this._points.length; i++){
-            let point = this._points[i];
-            //constole.log("point to rotate:" + point.x + ', ' + point.y);
-
-            let result = rotatePoints3Dim3Axes( [point.x, point.y, 0, 1], xRot, yRot, zRot);
-            let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
-
-            //constole.log("result" + JSON.stringify(result_formatted))
-
-            points_rotated.push(result_formatted)
-
-        }
-
-        return points_rotated;
-    }
-
-    positionCamera(points_rotated){
-        //constole.log("View projection")
-        for(let i = 0; i < this._points.length; i++){
-            let point = points_rotated[i]
-
-            let result = viewMatrix( point);
-            let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
-
-            //constole.log("result" + JSON.stringify(result_formatted))
-
-            points_rotated[i] = result_formatted
-
         }
     }
 
