@@ -125,7 +125,7 @@ class AddGridCommand extends Command{
     }
 
     unExecute(){
-
+        this._model.addGrid(null)
     }
 
 

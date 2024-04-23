@@ -36,22 +36,37 @@ class GridReferenceTool extends ReferenceTool{
             this._model.do(new AddPointCommand(this, this._model, x, y));
         }else if(this._pointCount == 1){
             this._secondPoint = [x,y];
-            this._model.do(new AddLineCommand(this, this._model, [[this._firstPoint[0], this._firstPoint[1]], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length; this.setReference();}));
+            this._model.do(new AddLineCommand(this, this._model, [[this._firstPoint[0], this._firstPoint[1]], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>
+            {
+                this._firstLength = length;
+                this.setReference();
+                this._lastGridCommand.unExecute();
+            }));
         }
 
     }
 
 
     updateExecute(command) {
-        if (this._pointCount == 0) {
+        if (this._pointCount === 0) {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._firstPoint = [command._x, command._y];
             this._pointCount++;
+        }else if(this._pointCount == 1) {
+            this._pointCount++;
+            this._lastGridCommand.unExecute();
+            this._finished = true;
         }
     }
 
     updateUnExecute(command) {
-        super.updateUnExecute(command);
+        if(command instanceof AddGridCommand) return;
+        if(this._pointCount == 2) {
+            this._pointCount--;
+            this._finished = false;
+        } else if (this._pointCount == 1){
+            this._pointCount--;
+        }
     }
 
     select() {
@@ -137,10 +152,10 @@ class GridReferenceTool extends ReferenceTool{
     }
 
     apply(){
-
-        this._lastGridCommand = new AddGridCommand(this, this._model,degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos)
-
-        this._model.do(this._lastGridCommand);
+        if(this._pointCount === 0){
+            this._lastGridCommand = new AddGridCommand(this, this._model,degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos)
+            this._model.do(this._lastGridCommand);
+        }
     }
 
     moveDown(){
