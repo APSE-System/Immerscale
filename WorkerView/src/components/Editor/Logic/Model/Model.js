@@ -21,6 +21,9 @@ class Model {
     // current mouse position
     currentMousePosition = [0, 0];
 
+    // this is the first point set from a tool (this is needed for the line preview)
+    firstPoint;
+
     // Pointer to the current (last executed) command.
     currentCommand = null;
 
@@ -130,6 +133,14 @@ class Model {
         this.currentMousePosition = [x, y];
     }
 
+    setFirstPoint(x, y) {
+        this.firstPoint = [x, y];
+        console.log(this.firstPoint)
+    }
+
+    resetFirstPoint() {
+        this.firstPoint = null;
+    }
 
     // These functions could later be used to export or import the model into XML
     export() {

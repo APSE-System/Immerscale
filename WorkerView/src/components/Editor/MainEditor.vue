@@ -264,7 +264,7 @@ function canvasBack(event){
         <!-- Component which displayes all the points in the model -->
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
-        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :currentMousePosition="model.currentMousePosition" :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight"></AddLineComponent>
+        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :currentMousePosition="model.currentMousePosition" :canvasLines="model.canvasLines" :firstPoint="model.firstPoint" :width="imgWidth" :height="imgHeight"></AddLineComponent>
         <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight"></AddAreaComponent>
         <!-- Component which displayes all the labels in the model -->
         <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>

@@ -44,6 +44,7 @@ class RectangleReferenceTool extends ReferenceTool {
         if (this._pointCount == 0) {
             // The first command is simply adding a point to the user selected coordinates.
             this._model.do(new AddPointCommand(this, this._model, x, y));
+            this._model.setFirstPoint(x, y);
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
             // Also, a popup is opened so the user can specify the size of this side.
@@ -80,11 +81,13 @@ class RectangleReferenceTool extends ReferenceTool {
             this._pointCount++;
         } else if (this._pointCount == 1) {
             this._pointCount++;
+            this._model.resetFirstPoint();
             // this updates the popup value of the command, so it can be displayed as a suggestion if you redo the command
             command.updatePopup(this._firstLength);
         } else if (this._pointCount == 2) {
             // As long as not all the points are specified, the counter is simply incremented.
             this._pointCount++;
+            this._model.resetFirstPoint();
             // this updates the popup value of the command, so it can be displayed as a suggestion if you redo the command
             command.updatePopup(this._secondLenght);
         } else {
@@ -92,6 +95,7 @@ class RectangleReferenceTool extends ReferenceTool {
             this.setReference()
             this._finished = true;
             this._model.updateCurrentMousePosition(0, 0);
+            this._model.resetFirstPoint();
             this._pointCount++;
         }
     }

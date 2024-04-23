@@ -7,6 +7,7 @@ const props = defineProps({
   width: Number,
   height: Number,
   currentMousePosition: Array,
+  firstPoint: Array,
 });
 
 let currentPreviewCanvas;
@@ -37,9 +38,13 @@ function drawLine(canvas, line) {
 // This function draws the preview line on the given canvas
 function drawLinePreview(canvas, line) {
   
-  if(props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) return;
-  
   currentPreviewCanvas = canvas;
+  
+  if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) 
+   || (line == null) && props.firstPoint == null) {
+    clearPreviewCanvas();
+    return;
+  }
   
   const ctx = canvas.getContext('2d');
   // Clear the canvas
@@ -52,7 +57,16 @@ function drawLinePreview(canvas, line) {
   ctx.strokeStyle = "#999";
 
   ctx.beginPath();
-  ctx.moveTo(line.points[line.points.length-1][0], line.points[line.points.length-1][1]);
+  // if((props.firstPoint[0] > 0 && props.firstPoint[1] > 0 )) {
+  //   console.log(props.firstPoint[1] + ' ' + props.firstPoint[0])
+  //   ctx.moveTo(props.firstPoint[0], props.firstPoint[1]);
+  // }
+  if(props.firstPoint != null) {
+    ctx.moveTo(props.firstPoint[0], props.firstPoint[1]);
+  }
+  else {
+    ctx.moveTo(line.points[line.points.length-1][0], line.points[line.points.length-1][1]);
+  }
 
   ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1]);
 
@@ -63,6 +77,7 @@ function drawLinePreview(canvas, line) {
 function clearPreviewCanvas() {
   if(currentPreviewCanvas == null) return;
 
+  console.log('cleaning');
   const ctxPreview = currentPreviewCanvas.getContext('2d');
 
   // Clear the Preview canvas
@@ -70,10 +85,10 @@ function clearPreviewCanvas() {
 
 }
 
-function setPreviewCanvasRef(canvas, index) {
-  if (canvas === null) return;
+function setPreviewCanvasRef(canvas) {
+  if (canvas === null || props.canvasLines == null) return;
 
-  drawLinePreview(canvas, props.canvasLines[index]); // Draw preview line based on current mouse position
+  drawLinePreview(canvas, props.canvasLines[props.canvasLines.length-1]); // Draw preview line based on current mouse position
 }
 
 // This checks if the canvas even exists before giving the according line to the drawing function.
@@ -91,8 +106,8 @@ function setCanvasRef(canvas, index) {
   <!-- This loop goes over all the lines that exist and draws them on a canvas each. -->
   <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv" style="position: absolute">
     <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddLineCanvas"></canvas>
-    <canvas v-if="index === canvasLines.length - 1" :ref="el => {setPreviewCanvasRef(el, index)}" :width=width :height=height class="AddLineCanvas preview" style="position: absolute; top:0; left:0;"></canvas>
   </div>
+  <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddLineCanvas preview" style="position: absolute; top:0; left:0;"></canvas>
   
 </template>
 
