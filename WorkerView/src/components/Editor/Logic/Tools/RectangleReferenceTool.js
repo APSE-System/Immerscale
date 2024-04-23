@@ -66,6 +66,10 @@ class RectangleReferenceTool extends ReferenceTool {
         console.log('Right Click');
     }
 
+    onMouseMove(x, y) {
+        this._model.updateCurrentMousePosition(x, y);
+    }
+
     // This function is called during the execution of the commands created by this tool.
     updateExecute(command) {
         if (this._pointCount == 0) {

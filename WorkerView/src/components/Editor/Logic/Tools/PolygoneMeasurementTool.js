@@ -54,6 +54,11 @@ class PolygoneMeasurementTool extends MeasurementTool {
         this.reset();
     }
 
+    onMouseMove(x, y) {
+        console.log('hello from polygon');
+    }
+
+
     // reset values
     reset() {
         this._first = null;

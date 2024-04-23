@@ -18,6 +18,9 @@ class Model {
     // Popup which can be used for receiving user input values.
     popup = null;
 
+    // current mouse position
+    currentMousePosition;
+
     // Pointer to the current (last executed) command.
     currentCommand = null;
 
@@ -122,6 +125,11 @@ class Model {
 
         this.do(this.currentCommand.getNext());
     }
+
+    updateCurrentMousePosition(x, y) {
+        this.currentMousePosition = [x, y];
+    }
+
 
     // These functions could later be used to export or import the model into XML
     export() {

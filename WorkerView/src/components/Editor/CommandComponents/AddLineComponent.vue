@@ -1,11 +1,12 @@
 <script setup>
-import {defineProps} from 'vue';
+import {defineProps, onMounted} from 'vue';
 
 // The properties of this component consist of a list of lines that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
   canvasLines: Array,
   width: Number,
-  height: Number
+  height: Number,
+  currentMousePosition: Array,
 });
 
 
@@ -29,10 +30,38 @@ function drawLine(canvas, line) {
   ctx.stroke();
 }
 
+// This function draws the preview line on the given canvas
+function drawLinePreview(canvas, line) {
+  const ctx = canvas.getContext('2d');
+
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Setting line width for preview
+  ctx.lineWidth = 5;
+
+  // Setting line color for preview
+  ctx.strokeStyle = "#999";
+
+  ctx.beginPath();
+  ctx.moveTo(line.points[0][0], line.points[0][1]);
+
+  ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1]);
+
+  // Render the path for preview
+  ctx.stroke();
+}
+
+function setPreviewCanvasRef(canvas, index) {
+  if (canvas === null) return;
+
+  drawLinePreview(canvas, props.canvasLines[index]); // Draw preview line based on current mouse position
+}
+
 // This checks if the canvas even exists before giving the according line to the drawing function.
 function setCanvasRef(canvas, index) {
-  if (canvas === null)
-    return
+  if (canvas === null) return;
+
   drawLine(canvas, props.canvasLines[index]);
 }
 
@@ -48,6 +77,8 @@ function setCanvasRef(canvas, index) {
 
 </template>
 
+<!-- <canvas ref="previewCanvas" width="200" height="200" style="position: absolute; top:0; left:0;"></canvas> -->
+<!-- <canvas :ref="el => {setPreviewCanvasRef(el, index)}" :width=width :height=height class="AddLineCanvas preview"></canvas>   -->
 
 <style scoped>
 
@@ -71,5 +102,7 @@ canvas {
   image-rendering: crisp-edges;
 }
 
-
+.preview{
+  border: 4px solid red;
+}
 </style>
