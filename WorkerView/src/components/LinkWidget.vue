@@ -36,7 +36,7 @@ function copy() {
       </div>
     </template>
     <template #icons>
-        <ToggleButton class="p-panel-header-icon p-link mr-2" v-on:click="disabled = true" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="">
+        <ToggleButton class="p-panel-header-icon p-link mr-2" v-on:click="disabled = true" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="" v-tooltip="{ value: 'Copy to Clipboard', showDelay: 600, hideDelay: 200  }">
               <span class="pi pi-copy"></span>
         </ToggleButton>
         <!--<Button class="p-link" icon="pi pi-copy" @click="copy" rounded severity="secondary"/>-->
