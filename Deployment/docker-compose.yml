@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   db:
-    image: mysql:8.0
+    image: immerscale.azurecr.io/mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: immerscale1337
       MYSQL_DATABASE: db
@@ -16,29 +16,17 @@ services:
       retries: 10
 
   photoview:
-    build:
-      context: ../PhotoView
-      dockerfile: Dockerfile
-      target: build
-    volumes: 
-      - ../PhotoView/src:/app/src
+    image: immerscale.azurecr.io/docker-photoview:latest
     ports:
       - 8888:8080
     
   workerview:
-    build:
-      context: ../WorkerView
-      dockerfile: Dockerfile
-      target: build
-    volumes:
-      - ../WorkerView/src:/app/src
+    image: immerscale.azurecr.io/docker-workerview:latest
     ports:
       - 8889:8080
 
   backend:
-    build:
-      context: ../Backend
-      dockerfile: Dockerfile
+    image: immerscale.azurecr.io/docker-backend:latest
     ports:
       - 8080:8080
     depends_on:
@@ -46,9 +34,7 @@ services:
         condition: service_healthy
 
   reverseproxy:
-    build:
-      context: ../Proxy
-      dockerfile: Dockerfile
+    image: immerscale.azurecr.io/docker-reverseproxy:latest
     ports:
       - "80:80"
     depends_on:

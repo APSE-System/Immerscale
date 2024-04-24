@@ -1,4 +1,0 @@
-
-localhost {
-    reverse_proxy / http://workerview:8889
-}
