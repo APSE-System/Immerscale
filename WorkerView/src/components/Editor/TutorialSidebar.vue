@@ -46,8 +46,8 @@ document.addEventListener("measurementCompleted", function (e) {
   else{
     console.log("Measurement undone");
     // undo all updates
-    barPercent.value = 50;
-    steps = 2;
+    barPercent.value = 75;
+    steps = 3;
   }
 });
 </script>
