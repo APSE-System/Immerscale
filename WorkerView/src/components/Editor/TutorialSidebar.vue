@@ -2,8 +2,54 @@
 <script setup>
 // Somehow imports must be done in the script setup, not in the script tag
 import ProgressBar from 'primevue/progressbar';
+import {ref} from "vue";
 
-let value = 10
+let barPercent = ref(0)
+let steps = 0
+
+document.addEventListener("referenceToolSelected", function (e) {
+  console.log("Reference tool selected");
+  // update the progress bar, steps and tasks
+  barPercent.value = 25;
+  steps = 1;
+});
+
+document.addEventListener("referenceSet", function (e) {
+  if(e.detail){
+    console.log("Reference set");
+    // update the progress bar, steps and tasks
+    barPercent.value = 50;
+    steps = 2;
+  }
+  else{
+    console.log("Reference unset");
+    // undo all updates
+    barPercent.value = 0;
+    steps = 0;
+  }
+});
+
+document.addEventListener("measurementToolSelected", function (e) {
+  console.log("Measurement tool selected");
+  // update the progress bar, steps and tasks
+  barPercent.value = 75;
+  steps = 3;
+});
+
+document.addEventListener("measurementCompleted", function (e) {
+  if(e.detail){
+    console.log("Measurement completed");
+    // update the progress bar, steps and tasks
+    barPercent.value = 100;
+    steps = 4;
+  }
+  else{
+    console.log("Measurement undone");
+    // undo all updates
+    barPercent.value = 50;
+    steps = 2;
+  }
+});
 </script>
 
 <script>
@@ -181,7 +227,7 @@ let value = 10
 
             <li>
                 <!--Put progress bar here-->
-                <ProgressBar :value="value"></ProgressBar>
+                <ProgressBar :value="barPercent">{{ steps }}/4</ProgressBar>
             </li>
   
             <li v-for="(menuItem, index) in menuItems" :key="index" :id="'links_' + index">
