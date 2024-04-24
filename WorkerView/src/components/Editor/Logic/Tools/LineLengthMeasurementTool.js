@@ -34,7 +34,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
             // The first command is simply adding a point to the user selected coordinates.
             this._firstX = x;
             this._firstY = y;
-            this._model.setActiveLinePreview(true);
+            this._model.setPointPreview(true);
             this._model.do(new AddPointCommand(this, this._model, this._firstX, this._firstY));
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
@@ -67,12 +67,12 @@ class LineLengthMeasurementTool extends MeasurementTool {
         if (this._pointCount == 0 || this._pointCount == 2) {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._first = command;
-            this._model.setFirstPoint(this._firstX, this._firstY);
+            this._model.setPointPreview(true);
             this._pointCount = 1;
             this._finished = false;
         }
         else if(this._pointCount == 1) {
-            this._model.resetFirstPoint();
+            this._model.setPointPreview(false);
             this._finished = true;
             this._pointCount++;
         }
@@ -90,13 +90,13 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._pointCount--;
             this._finished = false;
             // this._model.updateCurrentMousePosition(0, 0)
-            this._model.setFirstPoint(this._firstX, this._firstY)
+            this._model.setPointPreview(true);
         }
     }
 
     deselect() {
         super.deselect();
-        this._model.setActiveLinePreview(false);
+        this._model.setLinePreview(false);
         if (this._finished) return;
 
         console.log('undo')

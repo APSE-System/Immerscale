@@ -51,19 +51,15 @@ function drawArea(canvas, area) {
 function drawAreaPreview(canvas, area) {
 
   if(!props.activeAreaPreview) return;
+    
+  if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) || (area == null) ){  
+    return;
+  }
   
-  // currentPreviewCanvas = canvas;
-
   const ctx = canvas.getContext('2d');
 
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  
-  if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) || (area == null) ){  
-    return;
-  }
-
 
   // Setting line width
   ctx.lineWidth = 5;
@@ -117,6 +113,12 @@ function setPreviewCanvasRef(canvas) {
 
 watch(() => props.activeAreaPreview, (newValue, oldValue) => {
   if (oldValue === true && newValue === false) {
+    clearPreview();
+  }
+});
+
+watch(() => props.currentMousePosition, (newValue, oldValue) => {
+  if (newValue[0] === 0) {
     clearPreview();
   }
 });

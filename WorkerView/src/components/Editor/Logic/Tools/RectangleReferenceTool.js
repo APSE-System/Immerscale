@@ -44,8 +44,6 @@ class RectangleReferenceTool extends ReferenceTool {
         if (this._pointCount == 0) {
             // The first command is simply adding a point to the user selected coordinates.
             this._model.do(new AddPointCommand(this, this._model, x, y));
-            this._model.setActiveLinePreview(true);
-            this._model.setFirstPoint(x, y);
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
             // Also, a popup is opened so the user can specify the size of this side.
@@ -76,6 +74,7 @@ class RectangleReferenceTool extends ReferenceTool {
 
     onMouseLeave() {
         this._model.updateCurrentMousePosition(0,0);
+        
     }
 
     // This function is called during the execution of the commands created by this tool.
@@ -84,15 +83,16 @@ class RectangleReferenceTool extends ReferenceTool {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._first = command;
             this._pointCount++;
+            this._model.setPointPreview(true)
         } else if (this._pointCount == 1) {
             this._pointCount++;
-            this._model.resetFirstPoint();
+            this._model.setPointPreview(true);
             // this updates the popup value of the command, so it can be displayed as a suggestion if you redo the command
             command.updatePopup(this._firstLength);
         } else if (this._pointCount == 2) {
             // As long as not all the points are specified, the counter is simply incremented.
             this._pointCount++;
-            this._model.resetFirstPoint();
+            this._model.setPointPreview(true);
             // this updates the popup value of the command, so it can be displayed as a suggestion if you redo the command
             command.updatePopup(this._secondLenght);
         } else {
@@ -100,7 +100,7 @@ class RectangleReferenceTool extends ReferenceTool {
             this.setReference()
             this._finished = true;
             this._model.updateCurrentMousePosition(0, 0);
-            this._model.resetFirstPoint();
+            this._model.setPointPreview(false);
             this._pointCount++;
         }
     }
@@ -111,16 +111,18 @@ class RectangleReferenceTool extends ReferenceTool {
             // If all four points were already set, the matrix is set to null again.
             this._pointCount--;
             LordImmerScaler.changeMatrix(null);
+            this._model.setPointPreview(true);
             this._finished = false;
         } else if (this._pointCount == 3) {
             // If not all points have been set, the counter is simply decremented.
             this._pointCount--;
+            this._model.setPointPreview(true);
         } else if (this._pointCount == 2) {
             this._pointCount--;
-            this._model.setFirstPoint(this._first.getX(), this._first.getY())
+            this._model.setPointPreview(true);
         } else {
             this._first = null;
-            this._model.resetFirstPoint();
+            this._model.setPointPreview(false);
             this._pointCount--;
         }
     }
@@ -149,10 +151,8 @@ class RectangleReferenceTool extends ReferenceTool {
     // For deselecting this tool, all the already exeuted commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)
     deselect() {
         super.deselect();
-        this._model.setActiveLinePreview(false);
+        this._model.setPointPreview(false);
         if (this._finished) return;
-
-        this._model.resetFirstPoint();
 
         // Undoes all the commands done by this tool if it is not yet finished
         while(this._pointCount > 0) {

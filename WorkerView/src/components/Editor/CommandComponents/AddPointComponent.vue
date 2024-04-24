@@ -26,12 +26,10 @@ function drawLinePreview(canvas, point) {
 
 if(!props.activePointPreview) return;
 
-if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) 
+if((props.currentMousePosition[0] === 0) 
  || (point == null) ) {
   return;
 }
-
-console.log('drawing point')
 
 const ctx = canvas.getContext('2d');
 // Clear the canvas
@@ -73,6 +71,12 @@ function setPreviewCanvasRef(canvas) {
 
 watch(() => props.activePointPreview, (newValue, oldValue) => {
   if (oldValue === true && newValue === false) {
+    clearPreview();
+  }
+});
+
+watch(() => props.currentMousePosition, (newValue, oldValue) => {
+  if (newValue[0] === 0) {
     clearPreview();
   }
 });

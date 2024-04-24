@@ -27,9 +27,6 @@ class Model {
     // current mouse position
     currentMousePosition = [0, 0];
 
-    // this is the first point set from a tool (this is needed for the line preview)
-    firstPoint;
-
     // Pointer to the current (last executed) command.
     currentCommand = null;
 
@@ -139,23 +136,15 @@ class Model {
         this.currentMousePosition = [x, y];
     }
 
-    setFirstPoint(x, y) {
-        this.firstPoint = [x, y];
-    }
-
-    resetFirstPoint() {
-        this.firstPoint = null;
-    }
-
-    setActivePointPreview(value) {
+    setPointPreview(value) {
         this.activePointPreview = value;
     }
 
-    setActiveLinePreview(value) {
+    setLinePreview(value) {
         this.activeLinePreview = value;
     }
 
-    setActiveAreaPreview(value) {
+    setAreaPreview(value) {
         this.activeAreaPreview = value;
     }
 

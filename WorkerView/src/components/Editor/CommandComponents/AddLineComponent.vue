@@ -7,7 +7,6 @@ const props = defineProps({
   width: Number,
   height: Number,
   currentMousePosition: Array,
-  firstPoint: Array,
   activeLinePreview: Boolean,
 });
 
@@ -42,7 +41,7 @@ function drawLinePreview(canvas, line) {
   currentPreviewCanvas = canvas;
   
   if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) 
-   || (line == null) && props.firstPoint == null) {
+   || (line == null)) {
     clearPreviewCanvas();
     return;
   }
@@ -59,12 +58,7 @@ function drawLinePreview(canvas, line) {
 
   ctx.beginPath();
 
-  if(props.firstPoint != null) {
-    ctx.moveTo(props.firstPoint[0], props.firstPoint[1]);
-  }
-  else {
-    ctx.moveTo(line.points[line.points.length-1][0], line.points[line.points.length-1][1]);
-  }
+  ctx.moveTo(line.points[0][0], line.points[0][1]);
 
   ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1]);
 
