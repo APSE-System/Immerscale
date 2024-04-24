@@ -75,7 +75,7 @@ function drawLinePreview(canvas, line) {
 function clearPreviewCanvas() {
   if(currentPreviewCanvas == null) return;
 
-  console.log('cleaning');
+  // console.log('cleaning');
   const ctxPreview = currentPreviewCanvas.getContext('2d');
 
   // Clear the Preview canvas
