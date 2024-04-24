@@ -6,10 +6,10 @@ RUN npm install
 COPY . .
 
 FROM builder as dev
-EXPOSE 5173
+EXPOSE 8889
 CMD ["npm", "run", "dev"]
 
 FROM builder as build
 RUN npm run build
-EXPOSE 8080
+EXPOSE 8889
 CMD ["http-server", "dist"]
