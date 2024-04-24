@@ -37,18 +37,10 @@ document.addEventListener("measurementToolSelected", function (e) {
 });
 
 document.addEventListener("measurementCompleted", function (e) {
-  if(e.detail){
-    console.log("Measurement completed");
-    // update the progress bar, steps and tasks
-    barPercent.value = 100;
-    steps = 4;
-  }
-  else{
-    console.log("Measurement undone");
-    // undo all updates
-    barPercent.value = 75;
-    steps = 3;
-  }
+  console.log("Measurement completed");
+  // update the progress bar, steps and tasks
+  barPercent.value = 100;
+  steps = 4;
 });
 </script>
 

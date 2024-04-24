@@ -43,6 +43,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
             // Draw the line between the two points, add the second point and a label with the length of the line.
             this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], true, true, this.measureLength(), false));
             // The tool is finished after the second point is set, all points are reset.
+            this.measurementCompleted();
             this._first = null;
             this._firstX = 0;
             this._firstY = 0;

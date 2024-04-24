@@ -44,6 +44,7 @@ class PolygonMeasurementTool extends MeasurementTool {
             var pointsCopy = this._points.slice(0);
             pointsCopy.push([x,y]);
             this._model.do(new AddAreaCommand(this, this._model, pointsCopy, this.calculateArea(pointsCopy)));
+            this.measurementCompleted();
             this._finished = true;
         }
     }
