@@ -52,6 +52,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
 
     onMouseMove(x, y) {
         if(this._pointCount != 1) {
+            // the mouse position is reset to clear the screen
             this._model.updateCurrentMousePosition(0, 0);
             return;
         } 
@@ -60,6 +61,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
     }
 
     onMouseLeave() {
+        // this will stop the preview
         this._model.updateCurrentMousePosition(0,0);
     }
 
@@ -85,21 +87,20 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._finished = false;
             this._pointCount--;
             this._model.updateCurrentMousePosition(0, 0)
+            this._model.setPointPreview(false);
         }
         else if (this._pointCount == 2) {
             this._pointCount--;
             this._finished = false;
-            // this._model.updateCurrentMousePosition(0, 0)
             this._model.setPointPreview(true);
         }
     }
 
     deselect() {
         super.deselect();
-        this._model.setLinePreview(false);
+        this._model.setPointPreview(false);
         if (this._finished) return;
 
-        console.log('undo')
         // if only one point is made remove the point (check the point count so it won't remove other commands)
         while (this._pointCount > 0) {
             this._model.undo();

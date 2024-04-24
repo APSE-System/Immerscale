@@ -2,6 +2,7 @@
 import {defineProps, watch} from 'vue';
 
 // The properties of this component consist of a list of areas that should be displayed, and the width and the length of the canvas.
+// current Mouse Position is for the preview and activeAreaPreview says whether the preview is rendered or not
 const props = defineProps({
   canvasAreas: Array,
   width: Number,
@@ -9,8 +10,6 @@ const props = defineProps({
   currentMousePosition: Array,
   activeAreaPreview: Boolean,
 });
-
-let currentPreviewCanvas;
 
 // This function draws the given area on the given canvas.
 function drawArea(canvas, area) {
@@ -52,7 +51,7 @@ function drawAreaPreview(canvas, area) {
 
   if(!props.activeAreaPreview) return;
     
-  if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) || (area == null) ){  
+  if((props.currentMousePosition[0] === 0) || (area == null) ){  
     return;
   }
   
@@ -69,7 +68,6 @@ function drawAreaPreview(canvas, area) {
 
   // Begin drawing the polygon
   ctx.beginPath();
-  
   ctx.moveTo(area.points[0][0], area.points[0][1]);
 
   // Iterate to the point list of the area and connect them one after each other.
@@ -77,6 +75,7 @@ function drawAreaPreview(canvas, area) {
     ctx.lineTo(area.points[i][0], area.points[i][1]);
   }
 
+  // connect to mouse
   ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1]);
 
   // draws the outline
@@ -107,16 +106,19 @@ function setPreviewCanvasRef(canvas) {
   if (canvas === null || props.canvasAreas == null) return;
 
   previewCanvas = canvas;
-
-  drawAreaPreview(canvas, props.canvasAreas[props.canvasAreas.length-1]); // Draw preview line based on current mouse position
+  
+  // Draw preview line based on current mouse position
+  drawAreaPreview(canvas, props.canvasAreas[props.canvasAreas.length-1]); 
 }
 
+// watch for deactivated preview
 watch(() => props.activeAreaPreview, (newValue, oldValue) => {
   if (oldValue === true && newValue === false) {
     clearPreview();
   }
 });
 
+// watch if mouse is 0
 watch(() => props.currentMousePosition, (newValue, oldValue) => {
   if (newValue[0] === 0) {
     clearPreview();
@@ -154,7 +156,7 @@ function clearPreview() {
 
 
 <template>
-
+  <!-- this is the preview canvas -->
   <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddAreaCanvas" style="position: absolute; top:0; left:0;"></canvas>
 
   <!-- Only draw the canvas for the last canvasArea (so the color within does not overlap) -->

@@ -1,11 +1,11 @@
 <script setup>
-import {defineProps, onMounted} from 'vue';
+import {defineProps} from 'vue';
 
 // The properties of this component consist of a list of lines that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
   canvasLines: Array,
   width: Number,
-  height: Number,
+  height: Number
 });
 
 // This function draws the given line on the given canvas.

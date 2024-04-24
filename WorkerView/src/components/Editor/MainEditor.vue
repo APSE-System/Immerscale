@@ -220,12 +220,10 @@ function canvasMouseMove(event) {
   const x = (x_canv / rect.width) * img.width;
   const y = (y_canv / rect.height) * img.height;
   
-  // TODO removed the img.on load maybe this will lead to 0s
   // The controller will redirect the click to the according tool.
   controller.onMouseMove(x, y);
 }
 
-// TODO
 function canvasMouseLeave(event) {
   controller.onMouseLeave();
 }

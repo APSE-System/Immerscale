@@ -18,10 +18,11 @@ class Model {
     // Popup which can be used for receiving user input values.
     popup = null;
 
+    // preview on/off
     activeAreaPreview = false;
-
     activePointPreview = false;
 
+    // optional: also draws to the first point in the preview
     drawFirstPoint = false;
 
     // current mouse position

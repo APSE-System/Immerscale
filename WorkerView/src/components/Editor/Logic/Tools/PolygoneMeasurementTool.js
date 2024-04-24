@@ -63,7 +63,6 @@ class PolygoneMeasurementTool extends MeasurementTool {
         this._model.updateCurrentMousePosition(0, 0);
     }
 
-
     // reset values
     reset() {
         this._first = null;

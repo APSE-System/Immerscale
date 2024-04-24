@@ -74,7 +74,6 @@ class RectangleReferenceTool extends ReferenceTool {
 
     onMouseLeave() {
         this._model.updateCurrentMousePosition(0,0);
-
     }
 
     // This function is called during the execution of the commands created by this tool.
@@ -163,11 +162,6 @@ class RectangleReferenceTool extends ReferenceTool {
         while(this._pointCount > 0) {
             this._model.undo();
         }
-
-        // while (tmp != this._first || tmp == null) {
-        //     tmp = this._model.undo();
-        //     console.log(tmp)
-        // }
     }
 
 
