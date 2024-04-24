@@ -6,7 +6,7 @@ RUN npm install
 COPY . .
 
 FROM builder as dev
-EXPOSE 8888
+EXPOSE 8080
 CMD ["npm", "run", "dev"]
 
 FROM builder as build
