@@ -35,8 +35,8 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._firstX = x;
             this._firstY = y;
             this._model.do(new AddPointCommand(this, this._model, this._firstX, this._firstY));
-            this._model.setFirstPoint(x, y);
             this._finished = false;
+            this._model.setFirstPoint(x, y);
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
             this._secondX = x;
@@ -60,7 +60,10 @@ class LineLengthMeasurementTool extends MeasurementTool {
     }
 
     onMouseMove(x, y) {
-        if(this._finished || this._pointCount < 1) return;
+        if(this._finished || this._pointCount != 1) {
+            this._model.updateCurrentMousePosition(0, 0);
+            return;
+        } 
         
         this._model.updateCurrentMousePosition(x, y);
     }
@@ -82,6 +85,8 @@ class LineLengthMeasurementTool extends MeasurementTool {
         else if (this._pointCount == 2) {
             this._pointCount--;
             this._finished = false;
+            this._model.resetFirstPoint();
+            this._model.updateCurrentMousePosition(0, 0);
         }
     }
 

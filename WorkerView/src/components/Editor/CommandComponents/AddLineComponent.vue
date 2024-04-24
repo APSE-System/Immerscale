@@ -15,8 +15,6 @@ let currentPreviewCanvas;
 // This function draws the given line on the given canvas.
 function drawLine(canvas, line) {
 
-  clearPreviewCanvas();
-
   const ctx = canvas.getContext('2d');
   // Setting line width
   ctx.lineWidth = 5;
@@ -42,7 +40,7 @@ function drawLinePreview(canvas, line) {
   
   if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) 
    || (line == null) && props.firstPoint == null) {
-    clearPreviewCanvas();
+    // clearPreviewCanvas();
     return;
   }
   
@@ -54,7 +52,7 @@ function drawLinePreview(canvas, line) {
   ctx.lineWidth = 5;
 
   // Setting line color for preview
-  ctx.strokeStyle = "#999";
+  ctx.strokeStyle = "#ff8800";
 
   ctx.beginPath();
   // if((props.firstPoint[0] > 0 && props.firstPoint[1] > 0 )) {
@@ -103,11 +101,11 @@ function setCanvasRef(canvas, index) {
 
 
 <template>
+  <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddLineCanvas preview" style="position: absolute; top:0; left:0;"></canvas>
   <!-- This loop goes over all the lines that exist and draws them on a canvas each. -->
   <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv" style="position: absolute">
     <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddLineCanvas"></canvas>
   </div>
-  <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddLineCanvas preview" style="position: absolute; top:0; left:0;"></canvas>
   
 </template>
 
