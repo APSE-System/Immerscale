@@ -8,6 +8,7 @@ const props = defineProps({
   height: Number,
   currentMousePosition: Array,
   activePointPreview: Boolean,
+  drawFirstPoint: Boolean,
 });
 
 
@@ -22,7 +23,9 @@ function drawPoint(canvas, point) {
   ctx.fill();
 }
 
-function drawLinePreview(canvas, point) {
+function drawLinePreview(canvas, points) {
+
+let point = points[props.canvasPoints.length-1];
 
 if(!props.activePointPreview) return;
 
@@ -49,6 +52,13 @@ ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1]);
 
 // Render the path for preview
 ctx.stroke();
+
+if(!props.drawFirstPoint) return;
+
+ctx.moveTo(points[0].x, points[0].y);
+ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1]);
+
+ctx.stroke();
 }
 
 
@@ -66,7 +76,7 @@ function setPreviewCanvasRef(canvas) {
 
   previewCanvas = canvas;
 
-  drawLinePreview(canvas, props.canvasPoints[props.canvasPoints.length-1]); // Draw preview line based on current mouse position
+  drawLinePreview(canvas, props.canvasPoints); // Draw preview line based on current mouse position
 }
 
 watch(() => props.activePointPreview, (newValue, oldValue) => {

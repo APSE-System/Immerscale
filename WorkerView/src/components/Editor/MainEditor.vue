@@ -262,9 +262,9 @@ function canvasBack(event){
       <div ref="zoom_inner" class="zoom" id="zoom">
         <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" @mousemove="canvasMouseMove($event)" @mouseleave="canvasMouseLeave($event)" :width="imgWidth" :height="imgHeight"></canvas>
         <!-- Component which displayes all the points in the model -->
-        <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activePointPreview="model.activePointPreview"></AddPointComponent>
+        <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activePointPreview="model.activePointPreview" :drawFirstPoint="model.drawFirstPoint"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
-        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activeLinePreview="model.activeLinePreview"></AddLineComponent>
+        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight" ></AddLineComponent>
         <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activeAreaPreview="model.activeAreaPreview"></AddAreaComponent>
         <!-- Component which displayes all the labels in the model -->
         <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>

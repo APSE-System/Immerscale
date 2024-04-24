@@ -18,11 +18,11 @@ class Model {
     // Popup which can be used for receiving user input values.
     popup = null;
 
-    activeLinePreview = false;
-
     activeAreaPreview = false;
 
     activePointPreview = false;
+
+    drawFirstPoint = false;
 
     // current mouse position
     currentMousePosition = [0, 0];
@@ -140,12 +140,12 @@ class Model {
         this.activePointPreview = value;
     }
 
-    setLinePreview(value) {
-        this.activeLinePreview = value;
-    }
-
     setAreaPreview(value) {
         this.activeAreaPreview = value;
+    }
+
+    setDrawFirstPoint(value) {
+        this.drawFirstPoint = value;
     }
 
     // These functions could later be used to export or import the model into XML
