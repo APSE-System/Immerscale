@@ -40,10 +40,10 @@ public class AuthenticationController {
                 Cookie cookie = new Cookie("EnduserCookie", AESEncrypter.getInstance().encrypt(token_id));
 
                 cookie.setPath("/");
-                cookie.setAttribute("SameSite", "None");
+                //cookie.setAttribute("SameSite", "None");
 
 
-                cookie.setSecure(true);
+                cookie.setSecure(false);
 
                 response.addCookie(cookie);
                 return ResponseEntity.ok("Success");
@@ -74,9 +74,9 @@ public class AuthenticationController {
 
         Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");
         cookie.setPath("/");
-        cookie.setAttribute("SameSite", "None");
+        //cookie.setAttribute("SameSite", "None");
 
-        cookie.setSecure(true);
+        cookie.setSecure(false);
 
         response.addCookie(cookie);
         return ResponseEntity.ok("Success");
