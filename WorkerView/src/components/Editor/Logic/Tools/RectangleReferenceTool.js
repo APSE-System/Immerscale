@@ -73,6 +73,10 @@ class RectangleReferenceTool extends ReferenceTool {
         this._model.updateCurrentMousePosition(x, y);
     }
 
+    onMouseLeave() {
+        this._model.updateCurrentMousePosition(0,0);
+    }
+
     // This function is called during the execution of the commands created by this tool.
     updateExecute(command) {
         if (this._pointCount == 0) {
@@ -107,11 +111,16 @@ class RectangleReferenceTool extends ReferenceTool {
             this._pointCount--;
             LordImmerScaler.changeMatrix(null);
             this._finished = false;
-        } else if (this._pointCount >= 1) {
+        } else if (this._pointCount == 3) {
             // If not all points have been set, the counter is simply decremented.
             this._pointCount--;
+        } else if (this._pointCount == 2) {
+            this._pointCount--;
+            this._model.setFirstPoint(this._first.getX(), this._first.getY())
         } else {
             this._first = null;
+            this._model.resetFirstPoint();
+            this._pointCount--;
         }
     }
 
@@ -140,6 +149,8 @@ class RectangleReferenceTool extends ReferenceTool {
     deselect() {
         super.deselect();
         if (this._finished) return;
+
+        this._model.resetFirstPoint();
 
         // Undoes all the commands done by this tool if it is not yet finished
         while(this._pointCount > 0) {

@@ -227,7 +227,7 @@ function canvasMouseMove(event) {
 
 // TODO
 function canvasMouseLeave(event) {
-  console.log(event);
+  controller.onMouseLeave();
 }
 
 // This function handles the undo and redo keyboard events and delegates them to the controller.

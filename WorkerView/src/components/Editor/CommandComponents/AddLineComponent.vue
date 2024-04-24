@@ -40,7 +40,7 @@ function drawLinePreview(canvas, line) {
   
   if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) 
    || (line == null) && props.firstPoint == null) {
-    // clearPreviewCanvas();
+    clearPreviewCanvas();
     return;
   }
   

@@ -58,6 +58,10 @@ class PolygoneMeasurementTool extends MeasurementTool {
         console.log('hello from polygon');
     }
 
+    onMouseLeave() {
+        console.log('left polygon');
+    }
+
 
     // reset values
     reset() {

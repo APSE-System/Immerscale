@@ -35,8 +35,6 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._firstX = x;
             this._firstY = y;
             this._model.do(new AddPointCommand(this, this._model, this._firstX, this._firstY));
-            this._finished = false;
-            this._model.setFirstPoint(x, y);
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
             this._secondX = x;
@@ -44,13 +42,10 @@ class LineLengthMeasurementTool extends MeasurementTool {
             // Draw the line between the two points, add the second point and a label with the length of the line.
             this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], true, true, this.measureLength(), false));
             // The tool is finished after the second point is set, all points are reset.
-            this._first = null;
-            this._firstX = 0;
-            this._firstY = 0;
-            this._secondX = 0;
-            this._secondY = 0;
-            this._pointCount = 0;
-            this._finished = true;
+            // this._firstX = 0;
+            // this._firstY = 0;
+            // this._secondX = 0;
+            // this._secondY = 0;
         }
     }
 
@@ -68,11 +63,23 @@ class LineLengthMeasurementTool extends MeasurementTool {
         this._model.updateCurrentMousePosition(x, y);
     }
 
+    onMouseLeave() {
+        console.log('left line');
+        this._model.updateCurrentMousePosition(0,0);
+    }
+
     updateExecute(command) {
         if (this._pointCount == 0) {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._first = command;
+            this._finished = false;
+            this._model.setFirstPoint(this._firstX, this._firstY);
             this._pointCount++;
+        }
+        else if(this._pointCount == 1) {
+            this._first = null;
+            this._finished = true;
+            this._pointCount = 0;
         }
     }
 
@@ -87,6 +94,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._finished = false;
             this._model.resetFirstPoint();
             this._model.updateCurrentMousePosition(0, 0);
+            this._model.setFirstPoint(this._first.getX(), this._first.getY())
         }
     }
 
