@@ -262,10 +262,10 @@ function canvasBack(event){
       <div ref="zoom_inner" class="zoom" id="zoom">
         <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" @mousemove="canvasMouseMove($event)" @mouseleave="canvasMouseLeave($event)" :width="imgWidth" :height="imgHeight"></canvas>
         <!-- Component which displayes all the points in the model -->
-        <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
+        <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activePointPreview="model.activePointPreview"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
-        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :currentMousePosition="model.currentMousePosition" :canvasLines="model.canvasLines" :firstPoint="model.firstPoint" :width="imgWidth" :height="imgHeight" :activeLinePreview="model.activeLinePreview"></AddLineComponent>
-        <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :currentMousePosition="model.currentMousePosition" :canvasAreas="model.canvasAreas" :firstPoint="model.firstPoint" :width="imgWidth" :height="imgHeight" :activeAreaPreview="model.activeAreaPreview"></AddAreaComponent>
+        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :firstPoint="model.firstPoint" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activeLinePreview="model.activeLinePreview"></AddLineComponent>
+        <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activeAreaPreview="model.activeAreaPreview"></AddAreaComponent>
         <!-- Component which displayes all the labels in the model -->
         <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
         <canvas ref="canvas" id="canvas" ></canvas>

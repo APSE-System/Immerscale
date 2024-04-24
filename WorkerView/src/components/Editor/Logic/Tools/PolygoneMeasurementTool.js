@@ -34,7 +34,6 @@ class PolygoneMeasurementTool extends MeasurementTool {
         if (this._pointCount == 0) {
             // The first command is simply adding a point to the user selected coordinates.
             this._model.do(new AddPointCommand(this, this._model, x, y));
-            this._model.setActiveAreaPreview(true);
             this._model.setFirstPoint(x, y);
         }
         else if (this._pointCount == 1) {
@@ -53,6 +52,8 @@ class PolygoneMeasurementTool extends MeasurementTool {
     // will mark the current polygone as complete and go to the next area
     onRightClick() {    
         this._model.resetFirstPoint();
+        this._model.setActivePointPreview(false);
+        this._model.setActiveAreaPreview(false);
         this.reset();
     }
 
@@ -81,10 +82,13 @@ class PolygoneMeasurementTool extends MeasurementTool {
             this._pointCount = 1;
             this._points = []
             this._points.push([command.getX(), command.getY()]);
+            this._model.setActivePointPreview(true);
+            this._model.setActiveAreaPreview(false);
         } else {
             // As long as not all the points are specified, the counter is simply incremented.
             this._pointCount++;
             this._points= command.getPoints();
+            this._model.setActiveAreaPreview(true);
         }
     }
 

@@ -83,12 +83,6 @@ function clearPreviewCanvas() {
 
 }
 
-function setPreviewCanvasRef(canvas) {
-  if (canvas === null || props.canvasLines == null) return;
-
-  drawLinePreview(canvas, props.canvasLines[props.canvasLines.length-1]); // Draw preview line based on current mouse position
-}
-
 // This checks if the canvas even exists before giving the according line to the drawing function.
 function setCanvasRef(canvas, index) {
   if (canvas === null) return;
@@ -96,6 +90,11 @@ function setCanvasRef(canvas, index) {
   drawLine(canvas, props.canvasLines[index]);
 }
 
+function setPreviewCanvasRef(canvas) {
+  if (canvas === null || props.canvasLines == null) return;
+
+  drawLinePreview(canvas, props.canvasLines[props.canvasLines.length-1]); // Draw preview line based on current mouse position
+}
 
 </script>
 

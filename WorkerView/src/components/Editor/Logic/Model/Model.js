@@ -22,6 +22,8 @@ class Model {
 
     activeAreaPreview = false;
 
+    activePointPreview = false;
+
     // current mouse position
     currentMousePosition = [0, 0];
 
@@ -143,6 +145,10 @@ class Model {
 
     resetFirstPoint() {
         this.firstPoint = null;
+    }
+
+    setActivePointPreview(value) {
+        this.activePointPreview = value;
     }
 
     setActiveLinePreview(value) {

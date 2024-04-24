@@ -1,5 +1,5 @@
 <script setup>
-import {defineProps} from 'vue';
+import {defineProps, watch} from 'vue';
 
 // The properties of this component consist of a list of areas that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
@@ -7,7 +7,6 @@ const props = defineProps({
   width: Number,
   height: Number,
   currentMousePosition: Array,
-  firstPoint: Array,
   activeAreaPreview: Boolean,
 });
 
@@ -61,9 +60,7 @@ function drawAreaPreview(canvas, area) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   
-  if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) 
-   || props.firstPoint == null){ 
-    // clearPreviewCanvas();
+  if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) || (area == null) ){  
     return;
   }
 
@@ -76,20 +73,6 @@ function drawAreaPreview(canvas, area) {
 
   // Begin drawing the polygon
   ctx.beginPath();
-  ctx.moveTo(props.firstPoint[0], props.firstPoint[1])
-  ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1])
-
-  ctx.stroke();
-
-  if(area == null) return;
-
-  // if(props.firstPoint != null) {
-  //   ctx.moveTo(props.firstPoint[0], props.firstPoint[1]);
-  // }
-  // else {
-  //   ctx.moveTo(line.points[line.points.length-1][0], line.points[line.points.length-1][1]);
-  // }
-
   
   ctx.moveTo(area.points[0][0], area.points[0][1]);
 
@@ -122,11 +105,30 @@ function setCanvasRef(canvas, index) {
   drawArea(canvas, props.canvasAreas[index]); 
 }
 
+let previewCanvas;
+
 function setPreviewCanvasRef(canvas) {
   if (canvas === null || props.canvasAreas == null) return;
 
+  previewCanvas = canvas;
+
   drawAreaPreview(canvas, props.canvasAreas[props.canvasAreas.length-1]); // Draw preview line based on current mouse position
 }
+
+watch(() => props.activeAreaPreview, (newValue, oldValue) => {
+  if (oldValue === true && newValue === false) {
+    clearPreview();
+  }
+});
+
+function clearPreview() {
+  if (previewCanvas == null) return;
+
+  const ctx = previewCanvas.getContext('2d');
+  // Clear the canvas
+  ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+}
+
 
   function displaySize(value, ctx, area) {
     if(value === 0) return;
