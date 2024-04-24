@@ -44,6 +44,7 @@ class RectangleReferenceTool extends ReferenceTool {
         if (this._pointCount == 0) {
             // The first command is simply adding a point to the user selected coordinates.
             this._model.do(new AddPointCommand(this, this._model, x, y));
+            this._model.setActiveLinePreview(true);
             this._model.setFirstPoint(x, y);
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
@@ -148,6 +149,7 @@ class RectangleReferenceTool extends ReferenceTool {
     // For deselecting this tool, all the already exeuted commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)
     deselect() {
         super.deselect();
+        this._model.setActiveLinePreview(false);
         if (this._finished) return;
 
         this._model.resetFirstPoint();

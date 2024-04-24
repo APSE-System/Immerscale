@@ -34,6 +34,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
             // The first command is simply adding a point to the user selected coordinates.
             this._firstX = x;
             this._firstY = y;
+            this._model.setActiveLinePreview(true);
             this._model.do(new AddPointCommand(this, this._model, this._firstX, this._firstY));
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
@@ -94,8 +95,8 @@ class LineLengthMeasurementTool extends MeasurementTool {
     }
 
     deselect() {
-        console.log('deselect')
         super.deselect();
+        this._model.setActiveLinePreview(false);
         if (this._finished) return;
 
         console.log('undo')
