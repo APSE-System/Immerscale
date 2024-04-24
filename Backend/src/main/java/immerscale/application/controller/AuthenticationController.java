@@ -19,7 +19,7 @@ import java.util.Optional;
 // The controller is used for authentication
 // Unauthorized Requests wont be filtered
 @RestController
-@RequestMapping( value = "/auth")
+@RequestMapping( value = "/api/auth")
 public class AuthenticationController {
 
 
@@ -31,6 +31,8 @@ public class AuthenticationController {
     public ResponseEntity<String> verifyEnduser(@RequestParam(value = "token_id") String token_id, HttpServletResponse response){
 
         Optional<AccessToken> accessToken = accessTokenRepository.findById(token_id);
+
+
 
         // Token if present in database -> issue cookie
         if(accessToken.isPresent()){
@@ -62,6 +64,9 @@ public class AuthenticationController {
     public ResponseEntity<String> verifyWorker(@RequestParam(value = "credential") String credential, HttpServletResponse response){
 
         // TODO: MOVE TO CONFIG FILE
+        System.out.println("Requesting Cookie for worker");
+        System.out.println("Access token: " + credential);
+
         if(!credential.equals("immerscale1337"))
             return new ResponseEntity<String>("Unauthorized",HttpStatus.UNAUTHORIZED);
 

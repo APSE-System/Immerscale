@@ -31,7 +31,7 @@ public class FilterConfiguration {
 
         FilterRegistrationBean<WorkerViewFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(workerViewFilter);
-        registrationBean.addUrlPatterns("/workerView/*");
+        registrationBean.addUrlPatterns("/api/workerView/*");
         registrationBean.setOrder(2);
 
         return registrationBean;
@@ -42,7 +42,7 @@ public class FilterConfiguration {
 
         FilterRegistrationBean<PhotoViewFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(photoViewFilter);
-        registrationBean.addUrlPatterns("/photoView/*");
+        registrationBean.addUrlPatterns("/api/photoView/*");
         registrationBean.setOrder(1);
 
         return registrationBean;
