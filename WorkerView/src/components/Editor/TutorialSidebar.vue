@@ -1,109 +1,12 @@
 <!-- This is adapted from https://akahon.github.io/vue-sidebar-menu-akahon/# -->
-<template>
-    <div
-      class="sidebar"
-      :class="isOpened ? 'open' : ''"
-      :style="cssVars"
-    >
-      <div
-        class="logo-details"
-        style="margin: 6px 14px 0 14px"
-      >
-        <img
-          v-if="menuLogo"
-          :src="menuLogo"
-          alt="menu-logo"
-          class="menu-logo icon"
-        >
-        <i
-          v-else
-          class="bx icon"
-          :class="menuIcon"
-        />
-        <div class="logo_name">
-          {{ menuTitle }}
-        </div>
-        <i
-          class="bx"
-          :class="isOpened ? 'bx-menu-alt-right' : 'bx-menu'"
-          id="btn"
-          @click="isOpened = !isOpened"
-        />
-      </div>
-  
-      <div
-        style="
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          flex-grow: 1;
-          max-height: calc(100% - 60px);
-        "
-      >
-        <div id="my-scroll" style="margin: 6px 14px 0 14px">
-          <ul class="nav-list" style="overflow: visible">
-            <!--<li
-              id="links_search"
-              v-if="isSearch"
-              @click="isOpened = true"
-            >
-              <i class="bx bx-search" />
-              <input
-                type="text"
-                :placeholder="searchPlaceholder"
-                @input="$emit('search-input-emit', $event.target.value)"
-              >
-              <span
-                data-target="links_search"
-                class="tooltip"
-              >{{
-                searchTooltip
-              }}</span>
-            </li>-->
-            <li>
-                <!--Put progress bar here-->
-            </li>
-  
-            <li
-              v-for="(menuItem, index) in menuItems"
-              :key="index"
-              :id="'links_' + index"
-            >
-              <router-link
-                v-if="isUsedVueRouter"
-                :to="menuItem.link"
-              >
-                <i
-                  class="bx"
-                  :class="menuItem.icon || 'bx-square-rounded'"
-                />
-                <span class="links_name">{{ menuItem.name }}</span>
-              </router-link>
-              <a
-                v-else
-                @click.stop.prevent="$emit('menuItemClcked', menuItem.link)"
-                :href="menuItem.link"
-              >
-                <i
-                  class="bx"
-                  :class="menuItem.icon || 'bx-square-rounded'"
-                />
-                <span class="links_name">{{ menuItem.name }}</span>
-              </a>
-              <span
-                :data-target="'links_' + index"
-                class="tooltip"
-              >{{
-                menuItem.tooltip || menuItem.name
-              }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </template>
-  
-  <script>
+<script setup>
+// Somehow imports must be done in the script setup, not in the script tag
+import ProgressBar from 'primevue/progressbar';
+
+let value = 10
+</script>
+
+<script>
     export default {
       name: 'SidebarMenuTutorial',
       props: {
@@ -116,23 +19,17 @@
           type: String,
           default: 'Tutorial',
         },
-        menuLogo: {
-          type: String,
-          default: '',
-        },
         menuIcon: {
           type: String,
           //this is weird, doesn't work with pi icons
           default: 'pi pi-home',
         },
-
         isPaddingRight: {
           type: Boolean,
           default: true,
         },
         menuOpenedPaddingRightBody: {
           type: String,
-          //default: '250px',
             default: '200px',
         },
         menuClosedPaddingRightBody: {
@@ -148,49 +45,31 @@
               link: '#',
               name: 'Dashboard',
               tooltip: 'Dashboard',
-              icon: 'bx-grid-alt',
+              icon: 'pi pi-link',
             },
             {
               link: '#',
               name: 'User',
               tooltip: 'User',
-              icon: 'bx-user',
+              icon: 'pi pi-link',
             },
             {
               link: '#',
               name: 'Messages',
               tooltip: 'Messages',
-              icon: 'bx-chat',
+              icon: 'pi pi-link',
             },
             {
               link: '#',
               name: 'Analytics',
               tooltip: 'Analytics',
-              icon: 'bx-pie-chart-alt-2',
+              icon: 'pi pi-link',
             },
             {
               link: '#',
               name: 'File Manager',
               tooltip: 'Files',
-              icon: 'bx-folder',
-            },
-            {
-              link: '#',
-              name: 'Order',
-              tooltip: 'Order',
-              icon: 'bx-cart-alt',
-            },
-            {
-              link: '#',
-              name: 'Saved',
-              tooltip: 'Saved',
-              icon: 'bx-heart',
-            },
-            {
-              link: '#',
-              name: 'Setting',
-              tooltip: 'Setting',
-              icon: 'bx-cog',
+              icon: 'pi pi-link',
             },
           ],
         },
@@ -240,19 +119,16 @@
       },
       mounted() {
         this.isOpened = this.isMenuOpen
-        //this.tooltipAttached()
       },
       computed: {
         cssVars() {
           return {
-            // '--padding-left-body': this.isOpened ? this.menuOpenedPaddingLeftBody : this.menuClosedPaddingLeftBody,
             '--bg-color': this.bgColor,
             '--secondary-color': this.secondaryColor,
             '--home-section-color': this.homeSectionColor,
             '--logo-title-color': this.logoTitleColor,
             '--icons-color': this.iconsColor,
             '--items-tooltip-color': this.itemsTooltipColor,
-            '--serach-input-text-color': this.searchInputTextColor,
             '--menu-items-hover-color': this.menuItemsHoverColor,
             '--menu-items-text-color': this.menuItemsTextColor,
             '--menu-footer-text-color': this.menuFooterTextColor,
@@ -267,33 +143,60 @@
               : this.menuClosedPaddingRightBody
         },
       },
-      /*methods: {
-        tooltipAttached() {
-          const tooltips = document.querySelectorAll('.tooltip')
-          tooltips.forEach(tooltip => {
-            document.body.appendChild(tooltip)
-          })
-          document.querySelectorAll('.tooltip').forEach(tooltip => {
-            const targetID = tooltip.dataset.target
-            const target = document.querySelector(`#${targetID}`)
-            if (!target) return
-            target.addEventListener('mouseenter', () => {
-              const targetPosition = target.getBoundingClientRect()
-              if (this.isOpened) return
-              tooltip.style.top = `${targetPosition.top + window.scrollY}px`
-              tooltip.style.left = `${
-                targetPosition.left + targetPosition.width + 20
-              }px`
-              tooltip.classList.add('active')
-            })
-            target.addEventListener('mouseleave', () => {
-              tooltip.classList.remove('active')
-            })
-          })
-        },
-      },*/
     }
-  </script>
+</script>
+
+<template>
+    <div
+      class="sidebar"
+      :class="isOpened ? 'open' : ''"
+      :style="cssVars"
+    >
+      <div class="logo-details" style="margin: 6px 14px 0 14px">
+
+        <i class="bx icon" :class="menuIcon"/>
+
+        <div class="logo_name">
+          {{ menuTitle }}
+        </div>
+        <i
+          class="bx"
+          :class="isOpened ? 'pi pi-times-circle' : 'pi pi-info-circle'"
+          id="btn"
+          @click="isOpened = !isOpened"
+        />
+      </div>
+  
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          flex-grow: 1;
+          max-height: calc(100% - 60px);
+        "
+      >
+        <div id="my-scroll" style="margin: 6px 14px 0 14px">
+          <ul class="nav-list" style="overflow: visible">
+
+            <li>
+                <!--Put progress bar here-->
+                <ProgressBar :value="value"></ProgressBar>
+            </li>
+  
+            <li v-for="(menuItem, index) in menuItems" :key="index" :id="'links_' + index">
+              <a>
+                <i class="bx" :class="menuItem.icon || 'bx-square-rounded'"/>
+                <span class="links_name">{{ menuItem.name }}</span>
+              </a>
+              <span :data-target="'links_' + index" class="tooltip">{{menuItem.tooltip || menuItem.name}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </template>
+
   
   <style>
   /* make this available in the parent component */
@@ -304,16 +207,12 @@
 
   <style scoped>
     /* Google Font Link */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
     @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css');
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
-    }
-    .name_job {
-      margin-bottom: 5px;
     }
     .menu-logo {
       width: 30px;
@@ -394,6 +293,8 @@
       margin: 8px 0;
       list-style: none;
     }
+
+
     .tooltip {
       position: absolute;
       /* top: -20px; */
@@ -417,6 +318,8 @@
       /* top: 50%; */
       transform: translateY(25%);
     }
+
+
     .sidebar.open li .tooltip {
       display: none;
     }
@@ -437,23 +340,7 @@
       padding: 0 20px 0 50px;
       width: 100%;
     }
-    .sidebar .bx-search {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      font-size: 22px;
-      background: var(--secondary-color);
-      color: var(--icons-color);
-    }
-    .sidebar.open .bx-search:hover {
-      background: var(--secondary-color);
-      color: var(--icons-color);
-    }
-    .sidebar .bx-search:hover {
-      background: var(--menu-items-hover-color);
-      color: var(--bg-color);
-    }
+    
     .sidebar li a {
       display: flex;
       height: 100%;
@@ -485,37 +372,7 @@
       transition: all 0.5s ease;
       color: var(--bg-color);
     }
-    .sidebar li router-link {
-      display: flex;
-      height: 100%;
-      width: 100%;
-      border-radius: 12px;
-      align-items: center;
-      text-decoration: none;
-      transition: all 0.4s ease;
-      background: var(--bg-color);
-    }
-    .sidebar li router-link:hover {
-      background: var(--menu-items-hover-color);
-    }
-    .sidebar li router-link .links_name {
-      color: var(--menu-items-text-color);
-      font-size: 15px;
-      font-weight: 400;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.4s;
-    }
-    .sidebar.open li router-link .links_name {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .sidebar li router-link:hover .links_name,
-    .sidebar li router-link:hover i {
-      transition: all 0.5s ease;
-      color: var(--bg-color);
-    }
+    
     .sidebar li i {
       height: 50px;
       line-height: 50px;
