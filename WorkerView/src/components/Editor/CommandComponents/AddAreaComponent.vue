@@ -54,27 +54,19 @@ function drawAreaPreview(canvas, area) {
   if(!props.activeAreaPreview) return;
   
   // currentPreviewCanvas = canvas;
-  
-  if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) 
-   || (area == null) ){ //|| props.firstPoint == null) { // && first point
-    // clearPreviewCanvas();
-    return;
-  }
 
-  console.log('drawing')
-
-  // if(props.firstPoint != null) {
-  //   ctx.moveTo(props.firstPoint[0], props.firstPoint[1]);
-  // }
-  // else {
-  //   ctx.moveTo(line.points[line.points.length-1][0], line.points[line.points.length-1][1]);
-  // }
-
-  
   const ctx = canvas.getContext('2d');
 
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  
+  if((props.currentMousePosition[0] === 0 && props.currentMousePosition[1] === 0) 
+   || props.firstPoint == null){ 
+    // clearPreviewCanvas();
+    return;
+  }
+
 
   // Setting line width
   ctx.lineWidth = 5;
@@ -84,6 +76,21 @@ function drawAreaPreview(canvas, area) {
 
   // Begin drawing the polygon
   ctx.beginPath();
+  ctx.moveTo(props.firstPoint[0], props.firstPoint[1])
+  ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1])
+
+  ctx.stroke();
+
+  if(area == null) return;
+
+  // if(props.firstPoint != null) {
+  //   ctx.moveTo(props.firstPoint[0], props.firstPoint[1]);
+  // }
+  // else {
+  //   ctx.moveTo(line.points[line.points.length-1][0], line.points[line.points.length-1][1]);
+  // }
+
+  
   ctx.moveTo(area.points[0][0], area.points[0][1]);
 
   // Iterate to the point list of the area and connect them one after each other.

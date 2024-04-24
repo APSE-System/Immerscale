@@ -139,7 +139,6 @@ class Model {
 
     setFirstPoint(x, y) {
         this.firstPoint = [x, y];
-        console.log('first point: ' + this.firstPoint[0] + ' ' + this.firstPoint[1])
     }
 
     resetFirstPoint() {

@@ -35,6 +35,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
             // The first command is simply adding a point to the user selected coordinates.
             this._model.do(new AddPointCommand(this, this._model, x, y));
             this._model.setActiveAreaPreview(true);
+            this._model.setFirstPoint(x, y);
         }
         else if (this._pointCount == 1) {
             var pointsCopy = this._points.slice(0);
@@ -51,7 +52,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
 
     // will mark the current polygone as complete and go to the next area
     onRightClick() {    
-        console.log('Right Click');
+        this._model.resetFirstPoint();
         this.reset();
     }
 
@@ -60,7 +61,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
     }
 
     onMouseLeave() {
-        console.log('left polygon');
+        this._model.updateCurrentMousePosition(0, 0);
     }
 
 
@@ -99,6 +100,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
             this._points.pop();
         } else {
             this._first = null;
+            this._model.resetFirstPoint();
         }
     }
 
