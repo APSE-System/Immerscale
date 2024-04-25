@@ -300,14 +300,14 @@ document.addEventListener("measurementCompleted", function (e) {
     }
     .sidebar .logo-details .icon {
       opacity: 0;
-      transition: all 0.5s ease;
+      transition: all 0.3s ease;
     }
     .sidebar .logo-details .logo_name {
       color: var(--logo-title-color);
       font-size: 20px;
       font-weight: 600;
       opacity: 0;
-      transition: all 0.5s ease;
+      transition: all 0.3s ease;
     }
     .sidebar.open .logo-details .icon,
     .sidebar.open .logo-details .logo_name {
@@ -324,8 +324,6 @@ document.addEventListener("measurementCompleted", function (e) {
       top: 50%;
       right: 0;
       transform: translateY(-50%);
-      font-size: 22px;
-      transition: all 0.4s ease;
       font-size: 23px;
       text-align: center;
       cursor: pointer;
