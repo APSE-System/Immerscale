@@ -17,11 +17,14 @@ public class WorkerViewFilter extends CookieFilter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
+        System.out.println("Filtering for worker cookie");
+
         // 1. Verification Step: Check if Worker Cookie is present
         Cookie workerCookie;
         try {
             workerCookie = getCookie(servletRequest, "WorkerCookie");
         } catch (NullPointerException e) {
+            System.out.println("No worker cookie found");
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
@@ -29,6 +32,7 @@ public class WorkerViewFilter extends CookieFilter {
 
         // TODO: 2. Verification Step: Check if Worker Cookie is valid currently every caller gets a valid cookie
         String worker_email = workerCookie.getValue();
+        System.out.println("Found worker cookie: " + worker_email);
 
         // If all verifications are passed, continue with the request
         servletRequest.setAttribute("worker_email", worker_email);

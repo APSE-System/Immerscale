@@ -22,7 +22,7 @@ function clickedProject() {
 var images = ref([])
 
 onMounted(() => {
-  fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/images?id=' + props.id, {credentials: "include"})
+  fetch( import.meta.env.VITE_BACKEND_IP + '/api/workerView/images?id=' + props.id, {credentials: "include"})
     .then((resp) => resp.json())
     .then((data) => {
       console.log(data)

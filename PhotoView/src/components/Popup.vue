@@ -39,7 +39,7 @@ async function sendPicture() {
   // console.log(imageAsBase64);
 
   // this is is actually sending the picture
-  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/photoView/photo", {
+  fetch(import.meta.env.VITE_BACKEND_IP + "/api/photoView/photo", {
 
     credentials: "include",
     method: "POST",

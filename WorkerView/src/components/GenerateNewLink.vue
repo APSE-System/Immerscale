@@ -14,7 +14,7 @@ let newName = ""
 
 //preliminary function to add a new link
 function generateLink(linkName) {
-  fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/token?name=' + linkName +'&project_id=' + route.params.id, {credentials: "include", method: "POST"}) 
+  fetch( import.meta.env.VITE_BACKEND_IP + '/api/workerView/token?name=' + linkName +'&project_id=' + route.params.id, {credentials: "include", method: "POST"})
     .then((data) => {
       console.log(data)
       // Update the links list so the new link is directly displayed

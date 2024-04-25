@@ -13,7 +13,7 @@ const links = ref([
 // Fetches all the projects from the backend and adds them to the project list.
 function fetchLinks() {
   links.value = []
-    fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/tokens?id=' + route.params.id, {credentials: "include"})
+    fetch(import.meta.env.VITE_BACKEND_IP + '/api/workerView/tokens?id=' + route.params.id, {credentials: "include"})
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data)

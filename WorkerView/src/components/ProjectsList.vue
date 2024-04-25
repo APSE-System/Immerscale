@@ -11,7 +11,7 @@ const projects = ref([
 // Fetches all the projects from the backend and adds them to the project list.
 function fetchProjects() {
   projects.value = []
-    fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projects', {
+    fetch(import.meta.env.VITE_BACKEND_IP + '/api/workerView/projects', {
       credentials: "include"
     })
       .then((resp) => resp.json())
@@ -31,7 +31,7 @@ onMounted(async () => {
   if(!checkCookie('WorkerCookie') ) {
     password = await prompt("Insert Password")
 
-    fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/worker?credential=" + password, {credentials: "include"})
+    fetch(import.meta.env.VITE_BACKEND_IP + "/api/auth/cookie/worker?credential=" + password, {credentials: "include"})
     .then((response) => {
       if (response.ok)
         fetchProjects()

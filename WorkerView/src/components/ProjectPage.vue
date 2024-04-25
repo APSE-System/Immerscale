@@ -9,7 +9,7 @@ const route = useRoute()
 const projectName = ref("")
 
 async function getName(){
-fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/projectName?id=' + route.params.id, {credentials: "include"})
+fetch( import.meta.env.VITE_BACKEND_IP + '/api/workerView/projectName?id=' + route.params.id, {credentials: "include"})
   .then(async (resp) => {
     projectName.value = await resp.text()}
   )

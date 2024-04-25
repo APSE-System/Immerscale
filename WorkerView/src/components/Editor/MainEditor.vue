@@ -61,9 +61,9 @@ onMounted(() => {
 
 
   fetch(
-      "http://" +
+
       import.meta.env.VITE_BACKEND_IP +
-      "/workerView/image?id=" +
+      "/api/workerView/image?id=" +
       route.params.id + "&index=" + route.params.index,
       {credentials: "include"}
   )
