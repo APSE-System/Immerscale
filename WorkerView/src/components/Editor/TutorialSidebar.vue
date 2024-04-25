@@ -283,6 +283,12 @@ document.addEventListener("measurementCompleted", function (e) {
       z-index: 99;
       transition: all 0.5s ease;
     }
+    @media (prefers-color-scheme: dark) {
+      .sidebar {
+        background-color: #23282e;
+      }
+    }
+
     .sidebar.open {
       width: 250px;
     }
@@ -307,6 +313,12 @@ document.addEventListener("measurementCompleted", function (e) {
     .sidebar.open .logo-details .logo_name {
       opacity: 1;
     }
+    @media (prefers-color-scheme: dark) {
+      .sidebar.open .logo-details .icon,
+      .sidebar.open .logo-details .logo_name {
+        color: rgba(255, 255, 255, 0.65);
+      }
+    }
     .sidebar .logo-details #btn {
       position: absolute;
       top: 50%;
@@ -330,6 +342,13 @@ document.addEventListener("measurementCompleted", function (e) {
       text-align: center;
       line-height: 60px;
     }
+
+    @media (prefers-color-scheme: dark) {
+      .sidebar i {
+        color: rgba(255, 255, 255, 0.65);
+      }
+    }
+
     .sidebar .nav-list {
       margin-top: 20px;
       /* margin-bottom: 60px; */
