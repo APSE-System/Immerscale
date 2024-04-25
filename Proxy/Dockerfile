@@ -1,4 +1,4 @@
 FROM nginx:latest
 COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./myserver.crt /etc/nginx/myserver.crt
-COPY ./myserver.key /etc/nginx/myserver.key
+COPY ./letsencert.pem /etc/nginx/letsencert.pem
+COPY ./letsenkey.pem /etc/nginx/letsenkey.pem
