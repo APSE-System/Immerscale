@@ -14,7 +14,7 @@ class LordImmerScaler {
 
 
     // This funciton sets the matrix to the given one.
-    static changeMatrix(m, scale) {
+    static changeMatrix(m, scale = 1) {
         this._matrix = m;
         this._scale = scale;
         this._referenceSet = this._matrix != null;
