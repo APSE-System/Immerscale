@@ -50,9 +50,8 @@ document.addEventListener("measurementCompleted", function (e) {
   collapsed = [true, true, true, true, false]
 });
 
-// Juicy Icon that turns green
-// Redo works with tutorial
-// Don't show headers on the side when collapsed
+// Juicy Icon that turns green, might not be possible due to size constraints
+// Redo works with Reference Set, but not with Measurement Completed since the same event that is used for undo also gets called when a measurement is completed
 </script>
 
 <script>
@@ -87,7 +86,7 @@ document.addEventListener("measurementCompleted", function (e) {
         },
   
         //! Menu items
-        menuItems: {
+        /*menuItems: {
           type: Array,
           default: () => [
             {
@@ -103,7 +102,7 @@ document.addEventListener("measurementCompleted", function (e) {
               icon: 'pi pi-link',
             },
           ],
-        },
+        },*/
   
         //! Styles
         bgColor: {
@@ -222,21 +221,23 @@ document.addEventListener("measurementCompleted", function (e) {
               </a>
               <span :data-target="'links_' + index" class="tooltip">{{menuItem.tooltip || menuItem.name}}</span>
             </li>-->
-            <Panel header="Selecting a Reference Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[0]>
-              <p>Click on any of the reference tools in the toolbar to start setting a reference.</p>
-            </Panel>
-            <Panel header="Using the Reference Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[1]>
-              <p>Select the all the reference points on the image to set a reference for further measurements.</p>
-            </Panel>
-            <Panel header="Selecting a Measurement Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[2]>
-              <p>Select any of the measurement tools in the toolbar to start measuring within the image.</p>
-            </Panel>
-            <Panel header="Using the Measurement Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[3]>
-              <p>Click points on the image to start measuring distances or areas.</p>
-            </Panel>
-            <Panel header="Tutorial Completed!" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[4]>
-              <p>You have successfully completed the tutorial. If you measured an area you can right click to start a new measurement.</p>
-            </Panel>
+            <div v-if="isOpened">
+              <Panel header="Selecting a Reference Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[0] >
+                <p>Click on any of the reference tools in the toolbar to start setting a reference.</p>
+              </Panel>
+              <Panel header="Using the Reference Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[1]>
+                <p>Select the all the reference points on the image to set a reference for further measurements.</p>
+              </Panel>
+              <Panel header="Selecting a Measurement Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[2]>
+                <p>Select any of the measurement tools in the toolbar to start measuring within the image.</p>
+              </Panel>
+              <Panel header="Using the Measurement Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[3]>
+                <p>Click points on the image to start measuring distances or areas.</p>
+              </Panel>
+              <Panel header="Tutorial Completed!" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[4]>
+                <p>You have successfully completed the tutorial. If you measured an area you can right click to start a new measurement.</p>
+              </Panel>
+            </div>
           </ul>
         </div>
       </div>
@@ -245,7 +246,7 @@ document.addEventListener("measurementCompleted", function (e) {
 
   
   <style>
-  /* make this available in the parent component */
+  /* makes this available in the parent component and allows for Juicy animations*/
     body {
       transition: all 0.5s ease;
     }
@@ -253,6 +254,7 @@ document.addEventListener("measurementCompleted", function (e) {
 
   <style scoped>
     /* Google Font Link */
+    /* Remove this and make the page work with primeIcons instead of boxicons */
     @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css');
     * {
       margin: 0;
