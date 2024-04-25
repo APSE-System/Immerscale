@@ -20,7 +20,7 @@ const props = defineProps({
 let photoIP = ref("")
 
 function copy() {
-    navigator.clipboard.writeText(photoIP.value +"/?token=" + props.url)
+    navigator.clipboard.writeText(photoIP.value +"/photoview?token=" + props.url)
     toast.add({severity:'success', summary:'Copied', detail:'Link copied to clipboard', life: 3000});
 }
 
@@ -38,7 +38,7 @@ onMounted(()=>{
 
     <template #header>
       <div class="HeaderClass">
-        <span><b>{{ name }}</b>{{ ": " + photoIP + "/?token=" + url }}</span>
+        <span><b>{{ name }}</b>{{ ": " + photoIP + "/photoview?token=" + url }}</span>
       </div>
     </template>
     <template #icons>
@@ -53,7 +53,7 @@ onMounted(()=>{
         <!-- Values taken from properties -->
         <div class="ItemInfos">
           <p>{{"Name: " + name }}</p>
-          <p>{{"Link: " + photoIP + "/?token=" + url }}</p>
+          <p>{{"Link: " + photoIP + "/photoview?token=" + url }}</p>
           <!--Dates are given in YYYY-MM-DD, hence why the substring stuff here-->
           <p v-if="creation">{{"Created at: " + creation.substring(8,10)+"."+creation.substring(5,7)+"."+creation.substring(0,4) +" at "+ creation.substring(11,16)}}</p>
           <p v-if="expiration">{{"Expires at: " +expiration.substring(8,10)+"."+expiration.substring(5,7)+"."+expiration.substring(0,4) +" at "+ expiration.substring(11,16)}}</p>
