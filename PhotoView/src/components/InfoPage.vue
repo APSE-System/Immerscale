@@ -2,62 +2,52 @@
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 import Button from "primevue/button";
+import Stepper from 'primevue/stepper';
+import StepperPanel from 'primevue/stepperpanel';
 
 const route = useRoute();
 
 const sentences = [
   "Bevor Sie ein Bild an den Handwerker schicken, nehmen Sie sich bitte noch kurz Zeit und lesen Sie sich die Infos durch.",
-  // "Um tolle Fotos zu erstellen, hier sind noch ein paar Hinweise:",
-  "Erstellen Sie das Bild parallel zur Messenebene.",
-  "Es ist wichtig, ein Referenzmaß zu haben, um das Bild auszumessen. Dafür gibt es zwei Möglichkeiten:",
-  "Möglichkeit 1: Verwenden Sie einen Meterstab.",
-  "Der Meterstab sollte gut sichtbar und mittig platziert werden, sodass der Abstand abgelesen werden kann.",
-  "Möglichkeit 2: Alternativ kann ein DIN A4 Blatt vollständig mittig auf dem zu vermessenden Objekt platziert werden.",
-  "Achten Sie darauf, dass das Handy gerade gehalten wird.",
-  "Vielen Dank, dass Sie sich die Zeit genommen haben und aufmerksam die Hinweise gelesen haben. Jetzt können Sie loslegen.",
+  "Erstellen Sie das Bild parallel zur Messenebene. Es ist wichtig, ein Referenzmaß zu haben, um das Bild auszumessen. Dafür gibt es zwei Möglichkeiten:",
+  "Möglichkeit 1: Verwenden Sie einen Meterstab. Der Meterstab sollte gut sichtbar und mittig platziert werden, sodass der Abstand abgelesen werden kann.",
+  "Möglichkeit 2: Alternativ kann ein DIN A4 Blatt vollständig mittig auf dem zu vermessenden Objekt platziert werden. Achten Sie darauf, dass das Handy gerade gehalten wird.",
+  "Vielen Dank, dass Sie sich die Zeit genommen haben und aufmerksam die Hinweise gelesen haben. Jetzt können Sie loslegen."
 ];
 
 let currentIndex = ref(0);
-let showText = true;
-let currentText = ref(sentences[currentIndex.value]);
 
-const nextSentence = () => {
-  if (currentIndex.value < sentences.length - 1) {
-    currentIndex.value++;
-    updateContent();
-  }
-};
-
-const prevSentence = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value--;
-    updateContent();
-  }
-};
-
-const updateContent = () => {
-  currentText.value = sentences[currentIndex.value];
-};
 </script>
 
 <template>
-  <div>
     <h2 class="header">Info</h2>
-    <div class="text-container" v-if="showText">
-      <p>{{ currentText }}</p>
+
+    <div class="card flex justify-content-center main">
+      <Stepper orientation="vertical" linear :activeIndex="currentIndex">
+        <StepperPanel v-for="(sentence, index) in sentences" :key="index" :header="'Schritt ' + (index + 1)">
+          <template #content="{ nextCallback, prevCallback }">
+            <div class="flex flex-column h-12rem text-container">
+              <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">{{ sentence }}</div>
+            </div>
+            <div class="flex pt-4 justify-content-between button-container">
+              <Button v-if="index > 0" label="Zurück" severity="secondary" icon="pi pi-arrow-left" class="my-button left" @click="prevCallback" />
+              <Button v-if="index < sentences.length - 1" label="Weiter" icon="pi pi-arrow-right" class="my-button right" iconPos="right" @click="nextCallback" />
+              <router-link v-if="index === sentences.length - 1" :to="{ path: '/main', query: { token: route.query.token } }" class="right"> Weiter zur PhotoView </router-link>
+            </div>
+          </template>
+        </StepperPanel>
+      </Stepper>
     </div>
-    <div class="button-container">
-      <Button @click="prevSentence" v-show="currentIndex > 0" class="my-button left">Zurück</Button>
-      <Button @click="nextSentence" v-show="currentIndex < sentences.length - 1" class="my-button right"> Weiter </Button>
-    </div>
-    <!-- display the link only when you have read the infos -->
-    <router-link v-if="currentIndex === sentences.length - 1" :to="{ path: '/main', query: { token: route.query.token } }">
-      Weiter zur PhotoView
-    </router-link>
-  </div>
 </template>
 
+<!-- TODO make the orientation change based on screen -->
+<!-- TODO fix the css in darkmode -->
+
 <style scoped>
+.p-stepper {
+  flex-basis: 50rem;
+}
+
 .my-button {
   color: black;
   background-color: transparent;
@@ -74,8 +64,8 @@ const updateContent = () => {
 }
 
 .text-container{
-    height: 40vh;
-    border: 3px solid black;
+    /* height: 40vh; */
+    /* border: 3px solid black; */
     border-radius: 5px;
     margin-bottom: 10px ;
 }
@@ -87,6 +77,7 @@ const updateContent = () => {
 
 .right{
     float: right;
+    margin-right: 20px;
 }
 
 .left{
