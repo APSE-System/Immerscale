@@ -310,7 +310,7 @@ function drag(event){
       </div>
     </div>
 
-    <GridUserInput :controller="controller"/>
+    <GridUserInput v-if="toolsList[1]._selected" :controller="controller"/>
 
     <!-- This component can open a popup to retreive user input -->
     <NumberInputPopup :popup="model.popup" @callback="model.popup.callback"/>

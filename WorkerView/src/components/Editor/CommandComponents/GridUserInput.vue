@@ -1,7 +1,7 @@
 <script setup>
 import Knob from 'primevue/knob';
 import Button from 'primevue/button';
-import { defineProps, ref} from "vue";
+import { onMounted, reactive, watch, defineProps, ref} from "vue";
 
 let xRot = ref(0)
 let yRot = ref(0)
@@ -38,7 +38,7 @@ function setInput(){
 
 
 <template>
-  <div class="controls">
+  <div class="controls" >
     <h2>X-Rotation:</h2>
     <Knob v-model="xRot" v-on:change="xRotChanged" :size="150" :min="rotMin" :max="rotMax" />
     <div class="flex gap-2">
