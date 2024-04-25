@@ -206,6 +206,28 @@ function canvasRightClicked(event) {
   controller.onRightClick();
 }
 
+// listens for mouse movement
+function canvasMouseMove(event) {
+
+  // These coordinates are relative to the canvas size.
+  const rect = event.target.getBoundingClientRect()
+  const x_canv = event.clientX - rect.left
+  const y_canv = event.clientY - rect.top
+  
+  var img = new Image();
+  img.src = image.value;
+  // By taking the ratio between the relative coordinates and the canvas, we can map them to the image size.
+  const x = (x_canv / rect.width) * img.width;
+  const y = (y_canv / rect.height) * img.height;
+  
+  // The controller will redirect the click to the according tool.
+  controller.onMouseMove(x, y);
+}
+
+function canvasMouseLeave(event) {
+  controller.onMouseLeave();
+}
+
 // This function handles the undo and redo keyboard events and delegates them to the controller.
 function canvasBack(event){
   if (event.ctrlKey && (event.key === 'z' || event.keyCode === 'Z')) {
@@ -236,12 +258,12 @@ function canvasBack(event){
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
-        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" :width="imgWidth" :height="imgHeight"></canvas>
+        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" @mousemove="canvasMouseMove($event)" @mouseleave="canvasMouseLeave($event)" :width="imgWidth" :height="imgHeight"></canvas>
         <!-- Component which displayes all the points in the model -->
-        <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight"></AddPointComponent>
+        <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activePointPreview="model.activePointPreview" :drawFirstPoint="model.drawFirstPoint"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
-        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight"></AddLineComponent>
-        <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight"></AddAreaComponent>
+        <AddLineComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLines="model.canvasLines" :width="imgWidth" :height="imgHeight" ></AddLineComponent>
+        <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activeAreaPreview="model.activeAreaPreview"></AddAreaComponent>
         <!-- Component which displayes all the labels in the model -->
         <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
         <canvas ref="canvas" id="canvas" ></canvas>

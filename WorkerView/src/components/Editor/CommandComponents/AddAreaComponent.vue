@@ -1,11 +1,14 @@
 <script setup>
-import {defineProps} from 'vue';
+import {defineProps, watch} from 'vue';
 
 // The properties of this component consist of a list of areas that should be displayed, and the width and the length of the canvas.
+// current Mouse Position is for the preview and activeAreaPreview says whether the preview is rendered or not
 const props = defineProps({
   canvasAreas: Array,
   width: Number,
-  height: Number
+  height: Number,
+  currentMousePosition: Array,
+  activeAreaPreview: Boolean,
 });
 
 // This function draws the given area on the given canvas.
@@ -28,7 +31,6 @@ function drawArea(canvas, area) {
     ctx.lineTo(area.points[i][0], area.points[i][1]);
   }
 
-  // TODO change this later
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -43,6 +45,42 @@ function drawArea(canvas, area) {
   
   // display the size
   displaySize(area.size, ctx, area);
+}
+
+function drawAreaPreview(canvas, area) {
+
+  if(!props.activeAreaPreview) return;
+    
+  if((props.currentMousePosition[0] === 0) || (area == null) ){  
+    return;
+  }
+  
+  const ctx = canvas.getContext('2d');
+
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Setting line width
+  ctx.lineWidth = 5;
+
+  // Setting line color for preview
+  ctx.strokeStyle = "#ff8800";
+
+  // Begin drawing the polygon
+  ctx.beginPath();
+  ctx.moveTo(area.points[0][0], area.points[0][1]);
+
+  // Iterate to the point list of the area and connect them one after each other.
+  for(let i = 1; i < area.points.length; i++) {
+    ctx.lineTo(area.points[i][0], area.points[i][1]);
+  }
+
+  // connect to mouse
+  ctx.lineTo(props.currentMousePosition[0], props.currentMousePosition[1]);
+
+  // draws the outline
+  ctx.stroke();   
+
 }
 
 // Transforms a hex color into a rgb color
@@ -60,6 +98,39 @@ function setCanvasRef(canvas, index) {
   if (canvas === null)
     return
   drawArea(canvas, props.canvasAreas[index]); 
+}
+
+let previewCanvas;
+
+function setPreviewCanvasRef(canvas) {
+  if (canvas === null || props.canvasAreas == null) return;
+
+  previewCanvas = canvas;
+  
+  // Draw preview line based on current mouse position
+  drawAreaPreview(canvas, props.canvasAreas[props.canvasAreas.length-1]); 
+}
+
+// watch for deactivated preview
+watch(() => props.activeAreaPreview, (newValue, oldValue) => {
+  if (oldValue === true && newValue === false) {
+    clearPreview();
+  }
+});
+
+// watch if mouse is 0
+watch(() => props.currentMousePosition, (newValue, oldValue) => {
+  if (newValue[0] === 0) {
+    clearPreview();
+  }
+});
+
+function clearPreview() {
+  if (previewCanvas == null) return;
+
+  const ctx = previewCanvas.getContext('2d');
+  // Clear the canvas
+  ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
 }
 
 
@@ -85,15 +156,8 @@ function setCanvasRef(canvas, index) {
 
 
 <template>
-  <!-- This loop goes over all the lines that exist and draws them on a canvas each. -->
-  <!-- <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
-    <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddAreaCanvas"></canvas>
-  </div> -->
-
-  <!-- Only draw the canvas for the last canvasArea (so the color within does not overlap) -->
-  <!-- <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
-    <canvas v-if="index === canvasAreas.length - 1" :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddAreaCanvas"></canvas>
-  </div> -->
+  <!-- this is the preview canvas -->
+  <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddAreaCanvas" style="position: absolute; top:0; left:0;"></canvas>
 
   <!-- Only draw the canvas for the last canvasArea (so the color within does not overlap) -->
   <!-- And for canvasAreas which have a following CanvasArea with the size of 0 (so multiple polygons can be displayed) -->

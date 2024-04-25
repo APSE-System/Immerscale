@@ -50,8 +50,17 @@ class PolygoneMeasurementTool extends MeasurementTool {
 
     // will mark the current polygone as complete and go to the next area
     onRightClick() {    
-        console.log('Right Click');
+        this._model.setPointPreview(false);
+        this._model.setAreaPreview(false);
         this.reset();
+    }
+
+    onMouseMove(x, y) {
+        this._model.updateCurrentMousePosition(x, y);
+    }
+
+    onMouseLeave() {
+        this._model.updateCurrentMousePosition(0, 0);
     }
 
     // reset values
@@ -70,24 +79,34 @@ class PolygoneMeasurementTool extends MeasurementTool {
             this._pointCount = 1;
             this._points = []
             this._points.push([command.getX(), command.getY()]);
+            this._model.setPointPreview(true);
+            this._model.setAreaPreview(false);
         } else {
             // As long as not all the points are specified, the counter is simply incremented.
             this._pointCount++;
             this._points= command.getPoints();
+            this._model.setAreaPreview(true);
         }
     }
 
     // This function is called during the unexecution of the commands created by this tool.
     updateUnExecute(command) {
-        if (this._pointCount > 3) {
+        if (this._pointCount >= 3) {
             // If not all points have been set, the counter is simply decremented.
             this._pointCount--;
             this._points.pop();
-        } else if(this._pointCount > 0) {
+            this._model.setAreaPreview(true);
+            this._model.setPointPreview(true);
+        } else if(this._pointCount == 2) {
+            this._pointCount--;
+            this._model.setAreaPreview(false);
+            // this._model.setPointPreview(true);
+        } else if(this._pointCount == 1) {
             this._finished = false;
+            this._model.setAreaPreview(false);
+            this._model.setPointPreview(false);
             this._pointCount--;
             this._points.pop();
-        } else {
             this._first = null;
         }
     }
@@ -104,6 +123,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
     // For deselecting this tool, all the already exeuted commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)
     deselect() {
         super.deselect();
+        this._model.setAreaPreview(false);
         if (this._finished) {
             this.reset();
             return;

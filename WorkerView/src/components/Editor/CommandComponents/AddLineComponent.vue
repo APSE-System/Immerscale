@@ -8,9 +8,9 @@ const props = defineProps({
   height: Number
 });
 
-
 // This function draws the given line on the given canvas.
 function drawLine(canvas, line) {
+
   const ctx = canvas.getContext('2d');
   // Setting line width
   ctx.lineWidth = 5;
@@ -31,11 +31,10 @@ function drawLine(canvas, line) {
 
 // This checks if the canvas even exists before giving the according line to the drawing function.
 function setCanvasRef(canvas, index) {
-  if (canvas === null)
-    return
+  if (canvas === null) return;
+
   drawLine(canvas, props.canvasLines[index]);
 }
-
 
 </script>
 
@@ -45,8 +44,9 @@ function setCanvasRef(canvas, index) {
   <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv" style="position: absolute">
     <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddLineCanvas"></canvas>
   </div>
-
+  
 </template>
+
 
 
 <style scoped>
@@ -70,6 +70,5 @@ canvas {
   /* filter: blur(100); */
   image-rendering: crisp-edges;
 }
-
 
 </style>
