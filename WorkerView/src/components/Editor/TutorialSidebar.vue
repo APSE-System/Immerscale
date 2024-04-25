@@ -255,12 +255,12 @@ document.addEventListener("measurementCompleted", function (e) {
   <style scoped>
     /* Google Font Link */
     /* Remove this and make the page work with primeIcons instead of boxicons */
-    @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css');
+    /* @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'); */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      /* font-family: 'Poppins', sans-serif; */
     }
     .menu-logo {
       width: 30px;
