@@ -37,6 +37,7 @@ services:
     image: immerscale.azurecr.io/docker-reverseproxy:latest
     ports:
       - "80:80"
+      - "443:433"
     depends_on:
       db:
         condition: service_healthy
