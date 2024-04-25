@@ -4,6 +4,19 @@ import { ref } from "vue";
 import Button from "primevue/button";
 import Stepper from 'primevue/stepper';
 import StepperPanel from 'primevue/stepperpanel';
+import { usePrimeVue } from 'primevue/config'
+// import 'primevue/resources/themes/md-dark-indigo/theme.css';
+
+
+const PrimeVue = usePrimeVue();
+
+const selectDarkTheme = () => {
+  
+  PrimeVue.changeTheme('aura-light-blue', 'aura-dark-blue', 'theme-link', () => {});
+}
+
+//   import 'primevue/resources/themes/md-dark-indigo/theme.css';
+// import 'primevue/resources/themes/aura-light-blue/theme.css';
 
 const route = useRoute();
 
@@ -38,6 +51,7 @@ let currentIndex = ref(0);
         </StepperPanel>
       </Stepper>
     </div>
+    <Button label="test" @click="selectDarkTheme"></Button>
 </template>
 
 <!-- TODO make the orientation change based on screen -->
@@ -69,6 +83,13 @@ let currentIndex = ref(0);
     border-radius: 5px;
     margin-bottom: 10px ;
 }
+
+/* 
+@media (prefers-color-scheme: light) {
+    .text-container{
+        color: black;
+    }
+}  */
 
 .button-container{
     height: 45px;
