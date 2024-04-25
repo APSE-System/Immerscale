@@ -18,7 +18,7 @@ const props = defineProps({
 })
 
 function copy() {
-    navigator.clipboard.writeText("https://localhost:8888/?token=" + props.url)
+    navigator.clipboard.writeText(import.meta.env.VITE_BACKEND_IP+"/?token=" + props.url)
     toast.add({severity:'success', summary:'Copied', detail:'Link copied to clipboard', life: 3000});
 }
 
@@ -32,7 +32,7 @@ function copy() {
 
     <template #header>
       <div class="HeaderClass">
-        <span><b>{{ name }}</b>{{": https://localhost:8888/?token=" + url }}</span>
+        <span><b>{{ name }}</b>{{ ": " + import.meta.env.VITE_BACKEND_IP + "/?token=" + url }}</span>
       </div>
     </template>
     <template #icons>
@@ -47,7 +47,7 @@ function copy() {
         <!-- Values taken from properties -->
         <div class="ItemInfos">
           <p>{{"Name: " + name }}</p>
-          <p>{{"Link: https://localhost:8888/?token=" + url }}</p>
+          <p>{{"Link: "+import.meta.env.VITE_BACKEND_IP+"/?token=" + url }}</p>
           <!--Dates are given in YYYY-MM-DD, hence why the substring stuff here-->
           <p v-if="creation">{{"Created at: " + creation.substring(8,10)+"."+creation.substring(5,7)+"."+creation.substring(0,4) +" at "+ creation.substring(11,16)}}</p>
           <p v-if="expiration">{{"Expires at: " +expiration.substring(8,10)+"."+expiration.substring(5,7)+"."+expiration.substring(0,4) +" at "+ expiration.substring(11,16)}}</p>
