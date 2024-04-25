@@ -135,27 +135,20 @@ class GridReferenceTool extends ReferenceTool{
         }
     }
 
-    moveDown(){
-        this._yPos += 5;
-        this.apply()
-    }
-    moveUp(){
-        this._yPos -= 5;
-        this.apply()
-    }
-
-    moveRight(){
-        this._xPos += 5;
-        this.apply()
-    }
-
-    moveLeft(){
-        this._xPos -= 5;
-        this.apply()
-    }
-
     setOffset(x, y){
         if(this._gridSet) return;
+
+        var point1 = this._lastGridCommand._points[0]
+        var point2 = this._lastGridCommand._points[this._lastGridCommand._gridWidth]
+        var radius = 10;
+        var width = point2.x - point1.x;
+        var center = [point1.x + (width/2), point1.y + (width/2)];
+
+
+        if(){
+
+        }
+        
         this._xPos = x;
         this._yPos = y;
         this.apply()

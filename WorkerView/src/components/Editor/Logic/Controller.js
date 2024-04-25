@@ -48,18 +48,6 @@ class Controller{
         this._model.redo()
     }
 
-    up(){
-        this._currentTool.moveUp()
-    }
-    left(){
-        this._currentTool.moveLeft()
-    }
-    right(){
-        this._currentTool.moveRight()
-    }
-    down(){
-        this._currentTool.moveDown()
-    }
 
     dragTo(x, y){
         if(this._currentTool instanceof GridReferenceTool){
