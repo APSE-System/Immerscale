@@ -2,16 +2,19 @@
 <script setup>
 // Somehow imports must be done in the script setup, not in the script tag
 import ProgressBar from 'primevue/progressbar';
+import Panel from 'primevue/panel';
 import {ref} from "vue";
 
 let barPercent = ref(0)
 let steps = 0
+let collapsed = [false, true, true, true, true]
 
 document.addEventListener("referenceToolSelected", function (e) {
   console.log("Reference tool selected");
   // update the progress bar, steps and tasks
   barPercent.value = 25;
   steps = 1;
+  collapsed = [true, false, true, true, true]
 });
 
 document.addEventListener("referenceSet", function (e) {
@@ -20,12 +23,14 @@ document.addEventListener("referenceSet", function (e) {
     // update the progress bar, steps and tasks
     barPercent.value = 50;
     steps = 2;
+    collapsed = [true, true, false, true, true]
   }
   else{
     console.log("Reference unset");
     // undo all updates
     barPercent.value = 0;
     steps = 0;
+    collapsed = [false, true, true, true, true]
   }
 });
 
@@ -34,6 +39,7 @@ document.addEventListener("measurementToolSelected", function (e) {
   // update the progress bar, steps and tasks
   barPercent.value = 75;
   steps = 3;
+  collapsed = [true, true, true, false, true]
 });
 
 document.addEventListener("measurementCompleted", function (e) {
@@ -41,7 +47,12 @@ document.addEventListener("measurementCompleted", function (e) {
   // update the progress bar, steps and tasks
   barPercent.value = 100;
   steps = 4;
+  collapsed = [true, true, true, true, false]
 });
+
+// Juicy Icon that turns green
+// Redo works with tutorial
+// Don't show headers on the side when collapsed
 </script>
 
 <script>
@@ -89,24 +100,6 @@ document.addEventListener("measurementCompleted", function (e) {
               link: '#',
               name: 'User',
               tooltip: 'User',
-              icon: 'pi pi-link',
-            },
-            {
-              link: '#',
-              name: 'Messages',
-              tooltip: 'Messages',
-              icon: 'pi pi-link',
-            },
-            {
-              link: '#',
-              name: 'Analytics',
-              tooltip: 'Analytics',
-              icon: 'pi pi-link',
-            },
-            {
-              link: '#',
-              name: 'File Manager',
-              tooltip: 'Files',
               icon: 'pi pi-link',
             },
           ],
@@ -222,13 +215,28 @@ document.addEventListener("measurementCompleted", function (e) {
                 <ProgressBar :value="barPercent">{{ steps }}/4</ProgressBar>
             </li>
   
-            <li v-for="(menuItem, index) in menuItems" :key="index" :id="'links_' + index">
+          <!--<li v-for="(menuItem, index) in menuItems" :key="index" :id="'links_' + index">
               <a>
                 <i class="bx" :class="menuItem.icon || 'bx-square-rounded'"/>
                 <span class="links_name">{{ menuItem.name }}</span>
               </a>
               <span :data-target="'links_' + index" class="tooltip">{{menuItem.tooltip || menuItem.name}}</span>
-            </li>
+            </li>-->
+            <Panel header="Selecting a Reference Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[0]>
+              <p>Click on any of the reference tools in the toolbar to start setting a reference.</p>
+            </Panel>
+            <Panel header="Using the Reference Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[1]>
+              <p>Select the all the reference points on the image to set a reference for further measurements.</p>
+            </Panel>
+            <Panel header="Selecting a Measurement Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[2]>
+              <p>Select any of the measurement tools in the toolbar to start measuring within the image.</p>
+            </Panel>
+            <Panel header="Using the Measurement Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[3]>
+              <p>Click points on the image to start measuring distances or areas.</p>
+            </Panel>
+            <Panel header="Tutorial Completed!" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[4]>
+              <p>You have successfully completed the tutorial. If you measured an area you can right click to start a new measurement.</p>
+            </Panel>
           </ul>
         </div>
       </div>
