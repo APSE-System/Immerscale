@@ -10,6 +10,7 @@ import 'primeicons/primeicons.css'
 //references
 let image;
 const visible = ref(false);
+const isImageLoaded = ref(true);
 
 //! this function will be necessary in the future
 function downloadPicture() {
@@ -85,6 +86,12 @@ async function sendPicture() {
 // this loads the image into the Popup
 function loadImage() {
   let video = document.getElementById('webcam')
+
+  if(video == null) {
+    isImageLoaded.value = false;
+    return;
+  } 
+
   let canvas = document.createElement('canvas');
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
@@ -101,6 +108,7 @@ function loadImage() {
   image.onload = function() {
     let myImage = document.getElementById("my-image");
     myImage.src = image.src;
+    isImageLoaded.value = true;
     }
   }
 
@@ -125,6 +133,7 @@ function openGallery() {
     image.onload = function() {
       let myImage = document.getElementById("my-image");
       myImage.src = image.src;
+      isImageLoaded.value = true;
     }
   }
 
@@ -143,6 +152,7 @@ input.click();
   <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem', maxHeight: '80vh', overflowY: 'auto' }">
   <div class="modal-body">
     <img id="my-image" src="" alt="" />
+    <p v-if="!isImageLoaded"> Kein Bild </p>
   </div>
   <div class="modal-footer">
     <ButtonGroup id="send-and-safe">  
