@@ -73,8 +73,9 @@ onMounted(() => {
   <div class="main-container">
     <div class="video-mask">
       <video v-if="isVideoVisible" id="webcam" ref="webcam" autoplay muted></video>
-      <p v-if="!isVideoVisible">Keine Kamera</p>
     </div>
+    <i v-if="!isVideoVisible" class="pi pi-eye-slash my-icon" style="font-size: 10rem;" ></i>
+    <p v-if="!isVideoVisible">Keine Kamera</p>
   </div>
 </template>
 
