@@ -5,7 +5,7 @@ import MeasurementTool from "../MeasurementTool.js";
 import AddAreaCommand from "../Commands/AddAreaCommand.js"
 
 // This tools enables selecting a rectangular reference measure.
-class PolygoneMeasurementTool extends MeasurementTool {
+class PolygonMeasurementTool extends MeasurementTool {
     // The first command executed by this tool.
     _first = null;
     // The amout of points that the user has already selected in the image.
@@ -23,7 +23,7 @@ class PolygoneMeasurementTool extends MeasurementTool {
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
-        super(model, "Measure Polygone", "pi pi-box", "description", "polygone", "toast from polygone");
+        super(model, "Measure Polygon", "pi pi-box", "Measure the area of a Polygon", "polygon", "Measure the area of an object by selecting the outer points of a polygon.");
     }
 
 
@@ -44,11 +44,12 @@ class PolygoneMeasurementTool extends MeasurementTool {
             var pointsCopy = this._points.slice(0);
             pointsCopy.push([x,y]);
             this._model.do(new AddAreaCommand(this, this._model, pointsCopy, this.calculateArea(pointsCopy)));
+            this.measurementCompleted();
             this._finished = true;
         }
     }
 
-    // will mark the current polygone as complete and go to the next area
+    // will mark the current polygon as complete and go to the next area
     onRightClick() {    
         this._model.setPointPreview(false);
         this._model.setAreaPreview(false);
@@ -140,4 +141,4 @@ class PolygoneMeasurementTool extends MeasurementTool {
     }
 }
 
-export default PolygoneMeasurementTool;
+export default PolygonMeasurementTool;

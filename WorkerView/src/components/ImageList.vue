@@ -46,7 +46,7 @@ function clickedImage(index) {
     <div class="grid-box" v-if="images.length > 0">
       <!-- Iterating through the image list and displaying them. -->
       <div v-for="(image, index) in images" :key="index">
-        <div class="square">
+        <div class="square" v-tooltip="{ value: 'Open Image in Editor', showDelay: 600, hideDelay: 200  }">
           <img
             @click="clickedImage(index)"
             :src="image"

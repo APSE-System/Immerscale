@@ -25,7 +25,7 @@ class RectangleReferenceTool extends ReferenceTool {
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
-        super(model, "Rectangle Reference", "pi pi-stop", "description", "rectangle", "toast from rectangle");
+        super(model, "Rectangle Reference", "pi pi-stop", "Set reference based on a known rectangle in the image", "rectangle", "Select all 4 corners of a rectangle with known side length, e.g. a piece of DIN A4 paper");
     }
 
 
