@@ -98,4 +98,10 @@ const router = useRouter();
   font-weight: 650;
   color: black;
 }
+
+@media (prefers-color-scheme: dark) {
+  .headline{
+    color: rgba(102, 94, 94, 0.87);
+  }
+}
 </style>

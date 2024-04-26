@@ -25,9 +25,7 @@ function generateLink(linkName) {
     })
     
 }
-
 </script>
-
 
 <template>
     <div class="card flex justify-content-center">
@@ -41,8 +39,8 @@ function generateLink(linkName) {
                 <InputText id="name" class="flex-auto" autocomplete="off" v-model="newName"/>
             </div>
             <div class="flex justify-content-end gap-2">
-                <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Save" @click="visible = false; generateLink(newName); "></Button>
+                <Button class="in-box" type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
+                <Button class="in-box" type="button" label="Save" @click="visible = false; generateLink(newName); "></Button>
             </div>
         </Dialog>
     </div>
@@ -77,5 +75,13 @@ function generateLink(linkName) {
 .addBtn{
     border-radius:28px!important;
     border: 1px solid #697dff;
+}
+@media (prefers-color-scheme: dark) {
+    .in-box{
+      color: black;
+    }
+    .in-box:hover{
+      color: rgb(35, 115, 210);
+    }
 }
 </style>

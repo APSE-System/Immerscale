@@ -255,12 +255,12 @@ document.addEventListener("measurementCompleted", function (e) {
   <style scoped>
     /* Google Font Link */
     /* Remove this and make the page work with primeIcons instead of boxicons */
-    @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css');
+    /* @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'); */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      /* font-family: 'Poppins', sans-serif; */
     }
     .menu-logo {
       width: 30px;
@@ -283,6 +283,12 @@ document.addEventListener("measurementCompleted", function (e) {
       z-index: 99;
       transition: all 0.5s ease;
     }
+    @media (prefers-color-scheme: dark) {
+      .sidebar {
+        background-color: #23282e;
+      }
+    }
+
     .sidebar.open {
       width: 250px;
     }
@@ -294,26 +300,30 @@ document.addEventListener("measurementCompleted", function (e) {
     }
     .sidebar .logo-details .icon {
       opacity: 0;
-      transition: all 0.5s ease;
+      transition: all 0.3s ease;
     }
     .sidebar .logo-details .logo_name {
       color: var(--logo-title-color);
       font-size: 20px;
       font-weight: 600;
       opacity: 0;
-      transition: all 0.5s ease;
+      transition: all 0.3s ease;
     }
     .sidebar.open .logo-details .icon,
     .sidebar.open .logo-details .logo_name {
       opacity: 1;
+    }
+    @media (prefers-color-scheme: dark) {
+      .sidebar.open .logo-details .icon,
+      .sidebar.open .logo-details .logo_name {
+        color: rgba(255, 255, 255, 0.65);
+      }
     }
     .sidebar .logo-details #btn {
       position: absolute;
       top: 50%;
       right: 0;
       transform: translateY(-50%);
-      font-size: 22px;
-      transition: all 0.4s ease;
       font-size: 23px;
       text-align: center;
       cursor: pointer;
@@ -330,6 +340,13 @@ document.addEventListener("measurementCompleted", function (e) {
       text-align: center;
       line-height: 60px;
     }
+
+    @media (prefers-color-scheme: dark) {
+      .sidebar i {
+        color: rgba(255, 255, 255, 0.65);
+      }
+    }
+
     .sidebar .nav-list {
       margin-top: 20px;
       /* margin-bottom: 60px; */

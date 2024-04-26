@@ -62,6 +62,8 @@ onMounted(() => {
 </script>
 
 <template>
+  <h2 class="header">PhotoView</h2>
+
   <!-- the main contianer contains the camera view-->
   <div class="main-container">
     <div class="video-mask">
@@ -97,4 +99,10 @@ video {
   overflow: hidden;
   justify-content: center;
 }
+
+.header {
+  padding: 0;
+  margin: 0;
+}
+
 </style>
