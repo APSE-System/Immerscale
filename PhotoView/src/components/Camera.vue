@@ -7,6 +7,7 @@ import { ref, onMounted } from "vue";
 
 //references
 const video = ref(null);
+const isVideoVisible = ref(true);
 
 // The onMounted lifecycle hook is used to run an async function when the component is mounted.
 onMounted(() => {
@@ -56,6 +57,10 @@ onMounted(() => {
       navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
       video.srcObject = stream;
       })
+      .catch((error) => {
+        console.log('no camera')
+        isVideoVisible.value = false;
+      })
     })
   }
 });
@@ -67,7 +72,8 @@ onMounted(() => {
   <!-- the main contianer contains the camera view-->
   <div class="main-container">
     <div class="video-mask">
-      <video id="webcam" ref="webcam" autoplay muted></video>
+      <video v-if="isVideoVisible" id="webcam" ref="webcam" autoplay muted></video>
+      <p v-if="!isVideoVisible">Keine Kamera</p>
     </div>
   </div>
 </template>
