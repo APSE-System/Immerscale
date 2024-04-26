@@ -143,11 +143,6 @@ class GridReferenceTool extends ReferenceTool{
         var radius = 10;
         var width = point2.x - point1.x;
         var center = [point1.x + (width/2), point1.y + (width/2)];
-
-
-        if(){
-
-        }
         
         this._xPos = x;
         this._yPos = y;
