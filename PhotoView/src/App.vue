@@ -1,6 +1,4 @@
 <script setup>
-import Camera from './components/Camera.vue';
-import Popup from './components/Popup.vue';
 import {onMounted, ref} from 'vue';
 
 
@@ -41,16 +39,11 @@ function handleOrientation(event) {
 
 <template>
 
-<h2 class="header">PhotoView</h2>
-  <div>
-    <Camera/>
-    <Popup/>
-  </div>
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
-.header {
-  padding: 0;
-  margin: 0;
-}
+
 </style>

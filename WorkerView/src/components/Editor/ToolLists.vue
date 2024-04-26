@@ -1,10 +1,9 @@
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {onMounted, ref} from "vue";
 import { defineProps } from 'vue';
 import ReferenceTool from "./Logic/ReferenceTool.js";
 import MeasurementTool from "./Logic/MeasurementTool.js"
 import PanelMenu from 'primevue/panelmenu';
-import LordImmerScaler from "./Logic/LordImmerScaler.js";
 import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
