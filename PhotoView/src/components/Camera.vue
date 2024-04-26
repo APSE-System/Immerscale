@@ -2,12 +2,14 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useToast } from 'primevue/usetoast';
 
 // original code from: https://codelabs.developers.google.com/codelabs/tensorflowjs-object-detection#6
 
 //references
 const video = ref(null);
 const isVideoVisible = ref(true);
+const toast = useToast();
 
 // The onMounted lifecycle hook is used to run an async function when the component is mounted.
 onMounted(() => {
@@ -64,6 +66,22 @@ onMounted(() => {
     })
   }
 });
+
+onMounted(() => {
+  // check if the website is opened with mobile or desktop
+  if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    console.log('The website is opened with a "phone"');
+  } else {
+    console.log('The website is opened with a computer');
+
+    // add delay of 3 seconds
+    setTimeout(() => {
+      toast.add({ severity: 'warning', summary: 'Warnung', 
+      detail:'Willkommen auf unserer mobilen optimierten Seite! Bitte beachten Sie, dass die Benutzererfahrung auf einem Desktop-Computer möglicherweise nicht optimal ist. Wir empfehlen die Nutzung eines mobilen Geräts für das bestmögliche Surferlebnis', 
+      life: 10000 });
+    }, 3000);
+  }
+})
 </script>
 
 <template>
