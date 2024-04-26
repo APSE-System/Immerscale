@@ -29,7 +29,7 @@ services:
     build:
       context: ../WorkerView
       dockerfile: Dockerfile
-      target: build
+      target: dev
     volumes:
       - ../WorkerView/src:/app/src
     ports:
