@@ -9,6 +9,7 @@ const routes = [
   { path: '/', component: LandingPage },
   { path: '/info', component: InfoPage},
   { path: '/main', component: MainPage},
+  { path: '/:pathMatch(.*)*', component: MainPage}
 ]
 
 // This makes the URL work "normal" so you can just type in an URL and you are routed
