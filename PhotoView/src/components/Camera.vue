@@ -107,6 +107,12 @@ video {
   overflow: hidden;
 }
 
+@media (orientation: landscape) {
+  video {
+    max-height: 90vh;
+  }
+}
+
 /* this is mainly just to have rounded corners for the live-display */
 .video-mask {
   border-radius: 100px;

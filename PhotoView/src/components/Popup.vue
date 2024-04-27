@@ -273,4 +273,11 @@ input.click();
   }
 }
 
+@media screen and (max-height: 600px) {
+  .my-button {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
 </style>
