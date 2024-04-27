@@ -40,7 +40,7 @@ async function sendPicture() {
   // console.log(imageAsBase64);
 
   // display a toast before receiving the response
-  showStickyToast('Sende Bild...');
+  showStickyToast(' Sende Bild...');
 
   // this is is actually sending the picture
   fetch(import.meta.env.VITE_BACKEND_IP + "/api/photoView/photo", {
@@ -86,15 +86,39 @@ async function sendPicture() {
     setTimeout(function() {toast.className = toast.className.replace("show", ""); }, 3000);
 }
 
-// this toast won't go away
+// this toast won't go away and displays a spinner at the beginning
 function showStickyToast(msg) {
-    const toast = document.getElementById('toast');
-    toast.className = "show";
-    toast.innerText = msg;
+  const toast = document.getElementById('toast');
+  toast.className = "show";
+  toast.innerHTML = `<span class="spinner"></span> ${msg}`;
+  toast.style.backgroundColor = "#333";
 
-    toast.style.backgroundColor = "#333";
+  // create the style for the spinner
+  // for some reason this needs to be done in javascript
+  const spinner = document.querySelector('.spinner');
+  spinner.style.display = "inline-block";
+  spinner.style.border = "2px solid #f3f3f3";
+  spinner.style.borderTop = "2px solid #3498db";
+  spinner.style.borderRadius = "50%";
+  spinner.style.width = "20px";
+  spinner.style.height = "20px";
+  spinner.style.animation = "spin 2s linear infinite";
+
+  // Move the spinner 2px down
+  spinner.style.position = "relative";
+  spinner.style.top = "2px";
+
+  // define the spinner animation
+  const styleElement = document.createElement("style");
+  styleElement.textContent = `
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  `;
+
+  document.head.appendChild(styleElement);
 }
-
 // this loads the image into the Popup
 function loadImage() {
   let video = document.getElementById('webcam')
