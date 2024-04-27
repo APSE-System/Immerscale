@@ -39,6 +39,9 @@ async function sendPicture() {
   // for debuging
   // console.log(imageAsBase64);
 
+  // display a toast before receiving the response
+  showStickyToast('Sending...');
+
   // this is is actually sending the picture
   fetch(import.meta.env.VITE_BACKEND_IP + "/api/photoView/photo", {
 
@@ -81,6 +84,15 @@ async function sendPicture() {
     }
 
     setTimeout(function() {toast.className = toast.className.replace("show", ""); }, 3000);
+}
+
+// this toast won't go away
+function showStickyToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.className = "show";
+    toast.innerText = msg;
+
+    toast.style.backgroundColor = "#333";
 }
 
 // this loads the image into the Popup
