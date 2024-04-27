@@ -2,7 +2,6 @@
 import Panel from 'primevue/panel';
 import ToggleButton from 'primevue/togglebutton';
 import Button from 'primevue/button';
-import Toast from 'primevue/toast';
 import {useToast} from 'primevue/usetoast';
 import {onMounted, ref } from 'vue';
 
@@ -32,7 +31,6 @@ onMounted(()=>{
 
 
 <template>
-  <Toast/>
     <!-- Panel with a header that can be toggled-->
   <Panel :header=url toggleable :collapsed=true>
 
