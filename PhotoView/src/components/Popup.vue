@@ -40,7 +40,7 @@ async function sendPicture() {
   // console.log(imageAsBase64);
 
   // display a toast before receiving the response
-  showStickyToast('Sending...');
+  showStickyToast('Sende Bild...');
 
   // this is is actually sending the picture
   fetch(import.meta.env.VITE_BACKEND_IP + "/api/photoView/photo", {
@@ -55,14 +55,14 @@ async function sendPicture() {
     .then((response) => {
       if (response.ok) {
         // Handle success response
-        showToast("Success");
+        showToast("Erfolgreich gesendet");
       } else {
         // Handle error response
-        showToast("Unauthorized")
+        showToast("Unautorisiert")
       }
     })
     .catch((error) => {
-      showToast("Error");
+      showToast("Fehler");
       console.error("Error:", error);
     })
   }
@@ -73,10 +73,10 @@ async function sendPicture() {
     toast.className = "show";
     toast.innerText = msg;
 
-    if(msg === "Success") {
+    if(msg === "Erfolgreich gesendet") {
       toast.style.backgroundColor = "green";
     }
-    else if(msg === "Unauthorized" || msg === "Error") {
+    else if(msg === "Unautorisiert" || msg === "Fehler") {
       toast.style.backgroundColor = "red";
     }
     else {
