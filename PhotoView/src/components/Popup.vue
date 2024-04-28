@@ -6,11 +6,14 @@ import Button from "primevue/button";
 import ButtonGroup from "primevue/buttongroup"
 import Dialog from "primevue/dialog";
 import 'primeicons/primeicons.css'
+import { useRouter, useRoute } from "vue-router";
 
 //references
 let image;
 const visible = ref(false);
 const isImageLoaded = ref(true);
+const router = useRouter();
+const route = useRoute();
 
 //! this function will be necessary in the future
 function downloadPicture() {
@@ -180,9 +183,14 @@ function openGallery() {
 input.click();
 }
 
+function goToInfo() {
+  router.push({ path: '/info', query: {token: route.query.token} });
+}
+
 </script>
 
 <template>
+  <Button class="info-button" icon="pi pi-info-circle" @click="goToInfo"></Button>
   <div id="toast"></div>
 
   <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem', maxHeight: '80vh', overflowY: 'auto' }">
@@ -304,4 +312,19 @@ input.click();
   }
 }
 
+.info-button {
+  color: black;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .info-button {
+    color: white;
+  }
+}
 </style>
