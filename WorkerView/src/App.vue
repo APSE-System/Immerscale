@@ -8,7 +8,7 @@ import Toast from 'primevue/toast';
   <main>
     <RouterView />
   </main>
-  <Toast/>
+  <Toast position="bottom-right"/>
 </template>
 
 <style scoped>

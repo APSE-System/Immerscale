@@ -19,7 +19,7 @@ services:
     build:
       context: ../PhotoView
       dockerfile: Dockerfile
-      target: dev
+      target: build
     volumes: 
       - ../PhotoView/src:/app/src
     ports:
@@ -41,6 +41,17 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy
+
+  reverseproxy:
+    build:
+      context: ../Proxy
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
     depends_on:
       db:
         condition: service_healthy
