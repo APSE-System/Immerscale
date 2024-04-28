@@ -80,6 +80,9 @@ class GridReferenceTool extends ReferenceTool{
         this._yPos = this._model.height/2;
 
         this.apply()
+
+        // Open the controll sidebar
+        document.dispatchEvent(new CustomEvent("GridToolSelected"));
     }
 
 
@@ -126,6 +129,10 @@ class GridReferenceTool extends ReferenceTool{
     // For deselecting this tool, all the already executed commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)
     deselect() {
         super.deselect();
+
+        // Close the controll sidebar
+        document.dispatchEvent(new CustomEvent("GridToolUnselected"));
+
         if (this._finished) return;
     }
     apply(){

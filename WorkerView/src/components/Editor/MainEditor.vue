@@ -333,7 +333,7 @@ function drag(event){
       </div>
     </div>
 
-    <GridUserInput v-if="toolsList[1]._selected" :controller="controller"/>
+    <GridUserInput :controller="controller"/>
     <TutorialSidebar></TutorialSidebar>
 
     <!-- This component can open a popup to retreive user input -->
@@ -358,7 +358,7 @@ function drag(event){
   height: auto;
   background: #3a3838;
   overflow: hidden;
-  margin: auto;
+  margin-bottom: auto;
 }
 
 #zoom {
