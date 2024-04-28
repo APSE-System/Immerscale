@@ -58,13 +58,6 @@ class Controller{
         this._model.redo()
     }
 
-
-    dragTo(x, y){
-        if(this._currentTool instanceof GridReferenceTool){
-            this._currentTool.setOffset(x,y);
-        }
-    }
-
     setXRotation(angle){
         if(this._currentTool instanceof GridReferenceTool){
             this._currentTool.setXRotation(angle);

@@ -43,6 +43,10 @@ class Tool {
     return this._selected;
   }
 
+  onMouseLeave(){}
+
+  onMouseMove(x,y){}
+
 }
 
 export default Tool;

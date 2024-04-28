@@ -142,18 +142,18 @@ class GridReferenceTool extends ReferenceTool{
         }
     }
 
-    setOffset(x, y){
+    onMouseMove(x, y){
         if(this._gridSet) return;
 
-        var point1 = this._lastGridCommand._points[0]
-        var point2 = this._lastGridCommand._points[this._lastGridCommand._gridWidth]
-        var radius = 10;
-        var width = point2.x - point1.x;
-        var center = [point1.x + (width/2), point1.y + (width/2)];
-        
-        this._xPos = x;
-        this._yPos = y;
-        this.apply()
+        var radius = 20;
+
+        var distance = Math.sqrt(Math.pow(x - this._xPos, 2) + Math.pow(y - this._yPos, 2));
+
+        if (distance <= radius) {
+            this._xPos = x;
+            this._yPos = y;
+            this.apply()
+        }
     }
 
 

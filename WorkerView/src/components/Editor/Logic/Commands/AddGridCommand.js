@@ -22,6 +22,8 @@ class AddGridCommand extends Command{
     
     _gridWidth = 0;
     _gridHeight = 0;
+
+    _scaleFactor = 1;
     
     constructor(creator, model, xRot, yRot, zRot, xPos, yPos){
         super(creator, model);
@@ -33,8 +35,10 @@ class AddGridCommand extends Command{
         this._xPos = xPos;
         this._yPos = yPos;
 
-        this._gridWidth = 10;
-        this._gridHeight = 10;
+        this._gridWidth = 4;
+        this._gridHeight = 4;
+
+        this._scaleFactor = 100;
 
         // Generate the grid
         this.generateGridPoints()
@@ -104,7 +108,7 @@ class AddGridCommand extends Command{
     scaleGrid(){
         for(let i = 0; i < this._points.length; i++){
             let point = this._points[i];
-            let result = scalePoint2D([point.x, point.y], 200)
+            let result = scalePoint2D([point.x, point.y], this._scaleFactor)
 
             this._points[i]  = new CanvasPoint(result[0]._data[0], result[0]._data[1], point.color)
         }

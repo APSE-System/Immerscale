@@ -5,6 +5,7 @@ import {defineProps} from 'vue';
 // The properties of this component consist of a list of points that should be displayed, and the width and the length of the canvas.
 const props = defineProps({
   canvasGrid: Array,
+  gridTool: Object,
   gridWidth: Number,
   gridHeight: Number,
   width: Number,
@@ -51,6 +52,14 @@ function drawHorizontalLines(canvas, point, index) {
   }
 
   ctx.stroke()
+
+  // Draw Center Point
+  ctx.fillStyle = "#00FF00";
+  ctx.beginPath();
+  // Drawing a circle at the coordinates of the point.
+  ctx.arc(props.gridTool._xPos, props.gridTool._yPos, 20, 0, 2 * Math.PI);
+  ctx.fill();
+
 }
 
 // This function checks if the canvas even exists before handing the according point to the drawing function.
