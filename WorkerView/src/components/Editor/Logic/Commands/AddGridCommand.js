@@ -35,10 +35,10 @@ class AddGridCommand extends Command{
         this._xPos = xPos;
         this._yPos = yPos;
 
-        this._gridWidth = 4;
-        this._gridHeight = 4;
+        this._gridWidth = 10;
+        this._gridHeight = 10;
 
-        this._scaleFactor = 100;
+        this._scaleFactor = model.width/this._gridWidth;
 
         // Generate the grid
         this.generateGridPoints()

@@ -1,12 +1,12 @@
 import ReferenceTool from "../ReferenceTool.js";
 import command from "../Command.js";
 import AddGridCommand from "../Commands/AddGridCommand.js";
-import { calculatePerspectiveMatrix, degreeToRadians, getDistance} from "../Utils/MathUtils.js";
+import {calculatePerspectiveMatrix, degreeToRadians, getDistance} from "../Utils/MathUtils.js";
 import AddLineCommand from "../Commands/AddLineCommand.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
 
-class GridReferenceTool extends ReferenceTool{
+class GridReferenceTool extends ReferenceTool {
 
 
     _xRot = 0;
@@ -23,6 +23,8 @@ class GridReferenceTool extends ReferenceTool{
     _secondPoint = [];
     _firstLength = -1;
 
+    _dragging = false;
+
     _lastGridCommand = null;
 
     constructor(model) {
@@ -34,14 +36,13 @@ class GridReferenceTool extends ReferenceTool{
 
 
     onClick(x, y) {
-        if(!this._gridSet) return;
+        if (!this._gridSet) return;
 
-        if(this._pointCount === 0){
+        if (this._pointCount === 0) {
             this._model.do(new AddPointCommand(this, this._model, x, y));
-        }else if(this._pointCount === 1){
-            this._secondPoint = [x,y];
-            this._model.do(new AddLineCommand(this, this._model, [[this._firstPoint[0], this._firstPoint[1]], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>
-            {
+        } else if (this._pointCount === 1) {
+            this._secondPoint = [x, y];
+            this._model.do(new AddLineCommand(this, this._model, [[this._firstPoint[0], this._firstPoint[1]], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length) => {
                 this._firstLength = length;
                 this.setReference();
                 this._lastGridCommand.unExecute();
@@ -56,7 +57,7 @@ class GridReferenceTool extends ReferenceTool{
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._firstPoint = [command._x, command._y];
             this._pointCount++;
-        }else if(this._pointCount == 1) {
+        } else if (this._pointCount == 1) {
             this._pointCount++;
             this._lastGridCommand.unExecute();
             this._finished = true;
@@ -64,11 +65,11 @@ class GridReferenceTool extends ReferenceTool{
     }
 
     updateUnExecute(command) {
-        if(command instanceof AddGridCommand) return;
-        if(this._pointCount == 2) {
+        if (command instanceof AddGridCommand) return;
+        if (this._pointCount == 2) {
             this._pointCount--;
             this._finished = false;
-        } else if (this._pointCount == 1){
+        } else if (this._pointCount == 1) {
             this._pointCount--;
         }
     }
@@ -76,8 +77,8 @@ class GridReferenceTool extends ReferenceTool{
     select() {
         super.select();
 
-        this._xPos = this._model.width/2;
-        this._yPos = this._model.height/2;
+        this._xPos = this._model.width / 2;
+        this._yPos = this._model.height / 2;
 
         this.apply()
 
@@ -135,47 +136,56 @@ class GridReferenceTool extends ReferenceTool{
 
         if (this._finished) return;
     }
-    apply(){
-        if(this._pointCount === 0){
-            this._lastGridCommand = new AddGridCommand(this, this._model,degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos)
+
+    apply() {
+        if (this._pointCount === 0) {
+            this._lastGridCommand = new AddGridCommand(this, this._model, degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos)
             this._model.do(this._lastGridCommand);
         }
     }
 
-    onMouseMove(x, y){
-        if(this._gridSet) return;
+    onMouseMove(x, y) {
+        if (this._gridSet || !this._dragging) return;
+
+        this._xPos = x;
+        this._yPos = y;
+        this.apply()
+    }
+
+    onMouseUp() {
+        this._dragging = false;
+    }
+
+    onMouseDown(x, y) {
+        if (this._gridSet) return;
 
         var radius = 20;
-
         var distance = Math.sqrt(Math.pow(x - this._xPos, 2) + Math.pow(y - this._yPos, 2));
 
         if (distance <= radius) {
-            this._xPos = x;
-            this._yPos = y;
-            this.apply()
+            this._dragging = true;
         }
     }
 
-
-    setXRotation(angle){
-        if(this._gridSet) return;
+    setXRotation(angle) {
+        if (this._gridSet) return;
         this._xRot = angle;
         this.apply()
     }
 
-    setYRotation(angle){
-        if(this._gridSet) return;
+    setYRotation(angle) {
+        if (this._gridSet) return;
         this._yRot = angle;
         this.apply()
     }
 
-    setZRotation(angle){
-        if(this._gridSet) return;
+    setZRotation(angle) {
+        if (this._gridSet) return;
         this._zRot = angle;
         this.apply()
     }
 
-    setGrid(){
+    setGrid() {
         this._gridSet = true;
     }
 

@@ -50,6 +50,18 @@ class Controller{
             this._currentTool.onMouseLeave();
     }
 
+    onMouseDown(x, y){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.onMouseDown(x, y);
+        }
+    }
+
+    onMouseUp(){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.onMouseUp();
+        }
+    }
+
     undo(){
         this._model.undo()
     }
