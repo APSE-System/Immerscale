@@ -63,7 +63,9 @@ function clickedImage(index) {
 
 <style scoped>
 .content {
-  width: 100%;
+  /* if the width is higher than 65% it can lead to a bug,
+  where the images are not balanced anymore */
+  width: 65%;
   position: relative;
 }
 
