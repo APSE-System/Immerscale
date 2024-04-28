@@ -42,10 +42,10 @@ function clickedImage(index) {
 
 <template>
   <div class="content">
-    <!-- Depending wether there were images fetched from the backend they are displayed or not. -->
-    <div class="grid-box" v-if="images.length > 0">
+    <!-- Depending on whether images were retrieved from the backend, they are displayed or not. -->
+    <div class="masonry-layout" v-if="images.length > 0">
       <!-- Iterating through the image list and displaying them. -->
-      <div v-for="(image, index) in images" :key="index">
+      <div v-for="(image, index) in images" :key="index" class="masonry-item">
         <div class="square" v-tooltip="{ value: 'Open Image in Editor', showDelay: 600, hideDelay: 200  }">
           <img
             @click="clickedImage(index)"
@@ -64,14 +64,18 @@ function clickedImage(index) {
 <style scoped>
 .content {
   width: 100%;
+  position: relative;
 }
 
-.grid-box {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
-  width: 90%;
-  padding: 20px;
+.masonry-layout {
+  column-count: 4;
+  column-gap: 10px;
+  column-fill: balance;
+}
+
+.masonry-item {
+  display: inline-block;
+  margin-bottom: 10px;
 }
 /* this is not a square */
 .square {
@@ -83,7 +87,7 @@ function clickedImage(index) {
 
 img {
   max-width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   transition: 0.5s;
   cursor: pointer;
