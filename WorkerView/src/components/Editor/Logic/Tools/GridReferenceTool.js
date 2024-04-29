@@ -112,21 +112,21 @@ class GridReferenceTool extends ReferenceTool {
         // These coordinates can be calculated based on the edge lengths specified by the user.
         var dst = [[0, 100], [100, 100], [100, 0], [0, 0]];
 
-        // Entzerrt aber ohne skalierung:
-        var entzerrt_ohne_scale = calculatePerspectiveMatrix(src, dst)
+        // Transformed but has no scale yet:
+        var transformed_without_scale = calculatePerspectiveMatrix(src, dst)
 
-        LordImmerScaler.changeMatrix(entzerrt_ohne_scale, 1);
+        LordImmerScaler.changeMatrix(transformed_without_scale, 1);
 
 
-        var Point1_entzerrt_os = LordImmerScaler.transformToRealWorld(this._firstPoint[0], this._firstPoint[1]);
-        var Point2_entzerrt_os = LordImmerScaler.transformToRealWorld(this._secondPoint[0], this._secondPoint[1]);
+        var Point1_transformed_wo_scale = LordImmerScaler.transformToRealWorld(this._firstPoint[0], this._firstPoint[1]);
+        var Point2_transformed_wo_scale = LordImmerScaler.transformToRealWorld(this._secondPoint[0], this._secondPoint[1]);
 
-        var distanceFalse = getDistance(Point1_entzerrt_os, Point2_entzerrt_os)
+        var distanceFalse = getDistance(Point1_transformed_wo_scale, Point2_transformed_wo_scale)
 
         var scaleFactor = this._firstLength / distanceFalse
 
         // The source and the destination points are used to calculate the transformation matrix and finally setting it.
-        LordImmerScaler.changeMatrix(entzerrt_ohne_scale, scaleFactor);
+        LordImmerScaler.changeMatrix(transformed_without_scale, scaleFactor);
     }
 
 

@@ -249,20 +249,6 @@ function canvasBack(event){
     controller.redo()
   }
 
-  else if (event.key === 'f' || event.keyCode === 'F') {
-    controller.left()
-  }
-  else if(event.key === 't' || event.keyCode === 'T'){
-    controller.up()
-  }
-
-  else if (event.key === 'h' || event.keyCode === 'H') {
-    controller.right()
-  }
-  else if(event.key === 'g' || event.keyCode === 'G'){
-    controller.down()
-  }
-
 }
 
 
