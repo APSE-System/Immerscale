@@ -12,35 +12,35 @@ const props = defineProps({
   height: Number
 });
 
-// This function draws the given point on the given canvas.
+// This function draws the vertical lines of the grid
 function drawVerticalLines(canvas, point, index) {
-
   const ctx = canvas.getContext('2d');
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   // setting the color of the point
   ctx.strokeStyle = "#" + point.color
-
   ctx.lineWidth = 5;
+
   ctx.beginPath();
   ctx.moveTo(point.x, point.y);
+  // Connects the current point with the according point on the opposite side of the grid
   ctx.lineTo(props.canvasGrid[index + props.gridWidth * (props.gridWidth + 1) - (props.gridWidth - 1) * (props.gridWidth - 1)].x, props.canvasGrid[index + props.gridWidth * (props.gridWidth + 1) - (props.gridWidth - 1) * (props.gridWidth - 1)].y);
 
   ctx.stroke()
 }
 
+// This function draws the horizontal lines of the grid
 function drawHorizontalLines(canvas, point, index) {
-
   const ctx = canvas.getContext('2d');
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // setting the color of the point
   ctx.strokeStyle = "#" + point.color
-
   ctx.lineWidth = 5;
+
   ctx.beginPath();
   ctx.moveTo(point.x, point.y);
+  // Connects the point with the according point on the opposite side of the grid. Check the AddGridCommand for the logic how the grid points are calculated.
   if (index === 0) {
     ctx.lineTo(props.canvasGrid[index + props.gridWidth].x, props.canvasGrid[index + props.gridWidth].y);
   } else if(index === props.canvasGrid.length - 1) {
@@ -50,16 +50,14 @@ function drawHorizontalLines(canvas, point, index) {
   {
     ctx.lineTo(props.canvasGrid[index - 1].x, props.canvasGrid[index - 1].y);
   }
-
   ctx.stroke()
 
-  // Draw Center Point
+  // Draw Center Point (which is used to drag and drop the grid)
   ctx.fillStyle = "#00FF00";
   ctx.beginPath();
   // Drawing a circle at the coordinates of the point.
   ctx.arc(props.gridTool._xPos, props.gridTool._yPos, 20, 0, 2 * Math.PI);
   ctx.fill();
-
 }
 
 // This function checks if the canvas even exists before handing the according point to the drawing function.

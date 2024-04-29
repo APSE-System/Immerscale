@@ -33,11 +33,11 @@ class GridReferenceTool extends ReferenceTool {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
         super(model, "Grid Reference", "pi pi-table", "description", "grid", "toast from grid");
-
     }
 
 
     onClick(x, y) {
+        // If the grid is not set yet, no clicks should be registered
         if (!this._gridSet) return;
 
         if (this._pointCount === 0) {
@@ -49,7 +49,6 @@ class GridReferenceTool extends ReferenceTool {
                 this.setReference();
             }, ));
         }
-
     }
 
 
@@ -94,7 +93,6 @@ class GridReferenceTool extends ReferenceTool {
 
     // This function calculates the transformation matrix based on the user input and sets it in the Lord.
     setReference() {
-
         // Generating the "Source" array which is the coordinates of all the specified points.
         var src = [];
 
@@ -134,12 +132,11 @@ class GridReferenceTool extends ReferenceTool {
 
     // For deselecting this tool, all the already executed commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)
     deselect() {
-        super.deselect();
+        if (this._finished) return;
 
+        super.deselect();
         // Close the controll sidebar
         document.dispatchEvent(new CustomEvent("GridToolUnselected"));
-
-        if (this._finished) return;
     }
 
     applyGridCommand() {
