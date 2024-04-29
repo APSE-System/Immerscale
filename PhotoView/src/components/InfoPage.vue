@@ -1,11 +1,12 @@
 <script setup>
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { ref } from "vue";
 import Button from "primevue/button";
 import Stepper from 'primevue/stepper';
 import StepperPanel from 'primevue/stepperpanel';
 
 const route = useRoute();
+const router = useRouter();
 
 const sentences = [
   "Bevor Sie ein Bild an den Handwerker schicken, nehmen Sie sich bitte noch kurz Zeit und lesen Sie sich die Infos durch.",
@@ -16,6 +17,10 @@ const sentences = [
 ];
 
 let currentIndex = ref(0);
+
+function goToMain() {
+  router.push({ path: '/main', query: {token: route.query.token} });
+}
 
 </script>
 
@@ -32,7 +37,7 @@ let currentIndex = ref(0);
             <div class="flex pt-4 justify-content-between button-container">
               <Button v-if="index > 0" label="Zurück" severity="secondary" icon="pi pi-arrow-left" class="my-button left" @click="prevCallback" />
               <Button v-if="index < sentences.length - 1" label="Weiter" icon="pi pi-arrow-right" class="my-button right" iconPos="right" @click="nextCallback" />
-              <router-link v-if="index === sentences.length - 1" :to="{ path: '/main', query: { token: route.query.token } }" class="right"> Weiter zur PhotoView </router-link>
+              <Button v-if="index === sentences.length - 1" @click="goToMain" class="my-button right" label="Weiter zur PhotoView"></Button>
             </div>
           </template>
         </StepperPanel>
@@ -93,4 +98,25 @@ let currentIndex = ref(0);
     margin: 0;
 }
 
+/* don't let the buttons collide */
+@media screen and (max-width: 500px) {
+  .my-button {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .my-button {
+    font-size: 0.7rem;
+    padding: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 355px) {
+  .my-button {
+    font-size: 0.6rem;
+    padding: 0.5rem;
+  }
+}
 </style>
