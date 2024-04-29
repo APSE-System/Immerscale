@@ -29,9 +29,9 @@ onMounted(()=>{
 
 <!-- Each button is a link to the according sub page of the project. The button is highlighted if the according tab is selected. -->
 <template>
-    <Button label="Images" icon="pi pi-images" @click="router.push('images'); primary = 1;" :class="['p-button-' + ((primary === 1) ? 'primary' : 'secondary')]"/>
-    <Button label="Access" icon="pi pi-unlock" @click="router.push('access'); primary = 2;" :class="['p-button-' + ((primary === 2) ? 'primary' : 'secondary')]"/>
-    <Button label="Settings" icon="pi pi-cog" @click="router.push('settings'); primary = 3;" :class="['p-button-' + ((primary === 3) ? 'primary' : 'secondary')]"/>
+    <Button label="Bilder" icon="pi pi-images" @click="router.push('images'); primary = 1;" :class="['p-button-' + ((primary === 1) ? 'primary' : 'secondary')]"/>
+    <Button label="Links" icon="pi pi-unlock" @click="router.push('access'); primary = 2;" :class="['p-button-' + ((primary === 2) ? 'primary' : 'secondary')]"/>
+    <Button label="Einstellungen" icon="pi pi-cog" @click="router.push('settings'); primary = 3;" :class="['p-button-' + ((primary === 3) ? 'primary' : 'secondary')]"/>
 </template>
 
 <style>
