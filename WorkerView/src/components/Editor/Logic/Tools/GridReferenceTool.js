@@ -47,32 +47,35 @@ class GridReferenceTool extends ReferenceTool {
             this._model.do(new AddLineCommand(this, this._model, [[this._firstPoint[0], this._firstPoint[1]], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length) => {
                 this._firstLength = length;
                 this.setReference();
-                this._lastGridCommand.unExecute();
-            }));
+            }, ));
         }
 
     }
 
 
     updateExecute(command) {
-        if (this._pointCount === 0) {
+        if (this._pointCount === 0 && this._gridSet) {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._firstPoint = [command._x, command._y];
             this._pointCount++;
-        } else if (this._pointCount == 1) {
+        } else if (this._pointCount === 1) {
+            command.updatePopup(this._firstLength);
             this._pointCount++;
-            this._lastGridCommand.unExecute();
+            this._model.addGrid(null);
             this._finished = true;
         }
     }
 
     updateUnExecute(command) {
-        if (command instanceof AddGridCommand) return;
-        if (this._pointCount == 2) {
+        if (this._pointCount === 2) {
             this._pointCount--;
             this._finished = false;
-        } else if (this._pointCount == 1) {
+            LordImmerScaler.changeMatrix(null);
+        } else if (this._pointCount === 1) {
             this._pointCount--;
+            this._gridSet = false;
+            this.applyGridCommand();
+            document.dispatchEvent(new CustomEvent("GridToolSelected"));
         }
     }
 
@@ -82,7 +85,7 @@ class GridReferenceTool extends ReferenceTool {
         this._xPos = this._model.width / 2;
         this._yPos = this._model.height / 2;
 
-        this.apply()
+        this.applyGridCommand()
 
         // Open the controll sidebar
         document.dispatchEvent(new CustomEvent("GridToolSelected"));
@@ -139,7 +142,7 @@ class GridReferenceTool extends ReferenceTool {
         if (this._finished) return;
     }
 
-    apply() {
+    applyGridCommand() {
         if (this._pointCount === 0) {
             this._lastGridCommand = new AddGridCommand(this, this._model, degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos, this._scale)
             this._model.do(this._lastGridCommand);
@@ -151,7 +154,7 @@ class GridReferenceTool extends ReferenceTool {
 
         this._xPos = x;
         this._yPos = y;
-        this.apply()
+        this.applyGridCommand()
     }
 
     onMouseUp() {
@@ -172,29 +175,31 @@ class GridReferenceTool extends ReferenceTool {
     setXRotation(angle) {
         if (this._gridSet) return;
         this._xRot = angle;
-        this.apply()
+        this.applyGridCommand()
     }
 
     setYRotation(angle) {
         if (this._gridSet) return;
         this._yRot = angle;
-        this.apply()
+        this.applyGridCommand()
     }
 
     setZRotation(angle) {
         if (this._gridSet) return;
         this._zRot = angle;
-        this.apply()
+        this.applyGridCommand()
     }
 
     setScale(scale) {
         if (this._gridSet) return;
         this._scale = scale;
-        this.apply();
+        this.applyGridCommand();
     }
 
     setGrid() {
         this._gridSet = true;
+        this._model.addGrid(null)
+        document.dispatchEvent(new CustomEvent("GridToolUnselected"));
     }
 
 }

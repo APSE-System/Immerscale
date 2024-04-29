@@ -127,10 +127,12 @@ class AddGridCommand extends Command {
 
 
     execute() {
+        super.execute()
         this._model.addGrid(new CanvasGrid(this._points, this._gridWidth, this._gridHeight));
     }
 
     unExecute() {
+        super.unExecute()
         this._model.addGrid(null)
     }
 
