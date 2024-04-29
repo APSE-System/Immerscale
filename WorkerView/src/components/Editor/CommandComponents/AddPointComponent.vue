@@ -121,15 +121,18 @@ function clearPreview() {
 
 .AddPointPreviewCanvas{
   position: absolute;
+  max-width: 100%;
+  max-height: 100vh;
 }
 
 .AddPointCanvasWrapperDiv{
   position: absolute;
+  height: 100%;
 }
 
 .AddPointCanvas {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  max-height: 100vh;
 }
 
 canvas {

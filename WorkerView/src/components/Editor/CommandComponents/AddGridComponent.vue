@@ -89,9 +89,9 @@ function setCanvasRefHor(canvas, index) {
 
 <template>
   <!-- This loop goes over all the points that exist and draws them on a canvas each. -->
-  <div v-for="(point, index) in canvasGrid" :key="index" class="AddGridCanvasWrapperDiv" style="position: absolute">
+  <div v-for="(point, index) in canvasGrid" :key="index" class="AddGridCanvasWrapperDiv">
     <canvas :ref="el => {setCanvasRefVert(el, index)} " :width=width :height=height class="AddGridCanvas"></canvas>
-  </div><div v-for="(point, index) in canvasGrid" :key="index" class="AddGridCanvasWrapperDiv" style="position: absolute">
+  </div><div v-for="(point, index) in canvasGrid" :key="index" class="AddGridCanvasWrapperDiv" >
     <canvas :ref="el => {setCanvasRefHor(el, index)} " :width=width :height=height class="AddGridCanvas"></canvas>
   </div>
 
@@ -100,12 +100,14 @@ function setCanvasRefHor(canvas, index) {
 
 <style scoped>
 
+.AddGridCanvasWrapperDiv{
+  position: absolute;
+  height: 100%;
+}
 
 .AddGridCanvas {
-  width: 100%;
-  height: auto;
-  left: 0;
-  right: 0;
+  max-width: 100%;
+  max-height: 100vh;
 }
 
 canvas {
