@@ -28,7 +28,11 @@ class PolygonMeasurementTool extends MeasurementTool {
 
 
     onClick(x, y) {
-        //this._points.push([x,y]);
+        // This tool should not be usable if no reference is set
+        if(!LordImmerScaler._referenceSet){
+            document.dispatchEvent(new CustomEvent("deselectTool"));
+            return;
+        }
 
         // Checking how many points were already specified by the user and adding new commands accordingly.
         if (this._pointCount == 0) {
