@@ -29,6 +29,12 @@ class LineLengthMeasurementTool extends MeasurementTool {
     }
 
     onClick(x, y) {
+        // This tool should not be usable if no reference is set
+        if(!LordImmerScaler._referenceSet){
+            document.dispatchEvent(new CustomEvent("deselectTool"));
+            return;
+        }
+
         // Checking how many points were already specified by the user and adding new commands accordingly.
         if (this._pointCount == 0 || this._pointCount == 2) {
             // The first command is simply adding a point to the user selected coordinates.
@@ -44,14 +50,6 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], true, true, this.measureLength(), false));
             // The tool is finished after the second point is set, all points are reset.
             this.measurementCompleted();
-            // this causes a bug
-            // this._first = null;
-            // this._firstX = 0;
-            // this._firstY = 0;
-            // this._secondX = 0;
-            // this._secondY = 0;
-            // this._pointCount = 0;
-            // this._finished = true;
         }
     }
 
