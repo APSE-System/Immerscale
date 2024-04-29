@@ -8,6 +8,7 @@ import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
 
+// Function to show a toast message
 const show = (msg) => {
   if(msg == null || msg === "") return;
   toast.add({ severity: 'info', summary: 'Info', detail: msg, life: 3000 });
@@ -17,6 +18,7 @@ const props = defineProps({
   tools: Array
 })
 
+// The tree structure for the sidebar
 const toolTree = ref([
   {
     key: '0',
@@ -123,7 +125,6 @@ onMounted(() => {
         <a @click="show(item.toast)" class="flex align-items-center px-3 py-1 cursor-pointer text-color">
           <span :class="[item.icon, 'text-primary']" />
           <span v-tooltip="item.tooltip" :class="[`tool-${item.class}`, { 'font-semibold': item.items }]">{{ item.label }}</span>
-          <!-- TODO make pi-angle-left if it is folded in -->
           <span v-if="item.items" class="pi pi-angle-down text-primary ml-auto" />
         </a>
       </template>
