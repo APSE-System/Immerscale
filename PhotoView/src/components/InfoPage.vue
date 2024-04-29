@@ -1,21 +1,26 @@
 <script setup>
-import { useRoute } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { ref } from "vue";
 import Button from "primevue/button";
 import Stepper from 'primevue/stepper';
 import StepperPanel from 'primevue/stepperpanel';
 
 const route = useRoute();
+const router = useRouter();
 
 const sentences = [
-  "Bevor Sie ein Bild an den Handwerker schicken, nehmen Sie sich bitte noch kurz Zeit und lesen Sie sich die Infos durch.",
-  "Erstellen Sie das Bild parallel zur Messenebene. Es ist wichtig, ein Referenzmaß zu haben, um das Bild auszumessen. Dafür gibt es zwei Möglichkeiten:",
-  "Möglichkeit 1: Verwenden Sie einen Meterstab. Der Meterstab sollte gut sichtbar und mittig platziert werden, sodass der Abstand abgelesen werden kann.",
-  "Möglichkeit 2: Alternativ kann ein DIN A4 Blatt vollständig mittig auf dem zu vermessenden Objekt platziert werden. Achten Sie darauf, dass das Handy gerade gehalten wird.",
+  "Bevor Sie das Bild an den Handwerker schicken, bitte lesen Sie die Informationen sorgfältig durch.",
+  "Erstellen Sie das Bild parallel zur Messfläche. Es ist wichtig, ein Maß als Referenz zu haben, um das Bild auszumessen. Dafür gibt es zwei Möglichkeiten:",
+  "Möglichkeit 1: Benutzen Sie einen Meterstab. Der Meterstab sollte gut sichtbar und in der Mitte platziert werden, damit der Abstand abgelesen werden kann.",
+  "Möglichkeit 2: Alternativ können Sie ein DIN A4 Blatt genau in der Mitte des zu vermessenden Objekts platzieren. Stellen Sie sicher, dass das Handy gerade gehalten wird.",
   "Vielen Dank, dass Sie sich die Zeit genommen haben und aufmerksam die Hinweise gelesen haben. Jetzt können Sie loslegen."
 ];
 
 let currentIndex = ref(0);
+
+function goToMain() {
+  router.push({ path: '/main', query: {token: route.query.token} });
+}
 
 </script>
 
@@ -32,7 +37,7 @@ let currentIndex = ref(0);
             <div class="flex pt-4 justify-content-between button-container">
               <Button v-if="index > 0" label="Zurück" severity="secondary" icon="pi pi-arrow-left" class="my-button left" @click="prevCallback" />
               <Button v-if="index < sentences.length - 1" label="Weiter" icon="pi pi-arrow-right" class="my-button right" iconPos="right" @click="nextCallback" />
-              <router-link v-if="index === sentences.length - 1" :to="{ path: '/main', query: { token: route.query.token } }" class="right"> Weiter zur PhotoView </router-link>
+              <Button v-if="index === sentences.length - 1" @click="goToMain" class="my-button right" label="Weiter zur PhotoView"></Button>
             </div>
           </template>
         </StepperPanel>
@@ -93,4 +98,25 @@ let currentIndex = ref(0);
     margin: 0;
 }
 
+/* don't let the buttons collide */
+@media screen and (max-width: 500px) {
+  .my-button {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .my-button {
+    font-size: 0.7rem;
+    padding: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 355px) {
+  .my-button {
+    font-size: 0.6rem;
+    padding: 0.5rem;
+  }
+}
 </style>
