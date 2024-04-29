@@ -294,6 +294,7 @@ function canvasBack(event){
 #zoom-outer {
   width: 70%;
   height: auto;
+  min-height: 70vh;
   background: #3a3838;
   overflow: hidden;
   margin: auto;
@@ -313,8 +314,8 @@ function canvasBack(event){
 }
 
 #canvas {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  max-height: 100vh;
 }
 
 #clickListenerCanvas{
