@@ -20,7 +20,7 @@ import java.util.Random;
 
 
 @RestController
-@RequestMapping("/workerView")
+@RequestMapping("/api/workerView")
 public class WorkerViewController {
 
     // Wire the Project Repository

@@ -41,7 +41,7 @@
   left: 0;
   height: 100vh;
   width: 220px;
-  background-color: lightgrey;
+  background-color: lightgray;
   z-index: 1;
 }
 @media (prefers-color-scheme: dark) {

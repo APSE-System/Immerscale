@@ -18,6 +18,16 @@ class Model {
     // Popup which can be used for receiving user input values.
     popup = null;
 
+    // preview on/off
+    activeAreaPreview = false;
+    activePointPreview = false;
+
+    // optional: also draws to the first point in the preview
+    drawFirstPoint = false;
+
+    // current mouse position
+    currentMousePosition = [0, 0];
+
     // Pointer to the current (last executed) command.
     currentCommand = null;
 
@@ -121,6 +131,22 @@ class Model {
             return;
 
         this.do(this.currentCommand.getNext());
+    }
+
+    updateCurrentMousePosition(x, y) {
+        this.currentMousePosition = [x, y];
+    }
+
+    setPointPreview(value) {
+        this.activePointPreview = value;
+    }
+
+    setAreaPreview(value) {
+        this.activeAreaPreview = value;
+    }
+
+    setDrawFirstPoint(value) {
+        this.drawFirstPoint = value;
     }
 
     // These functions could later be used to export or import the model into XML

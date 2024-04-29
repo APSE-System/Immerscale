@@ -4,7 +4,7 @@ import ToggleButton from 'primevue/togglebutton';
 import Button from 'primevue/button';
 import Toast from 'primevue/toast';
 import {useToast} from 'primevue/usetoast';
-import { ref } from 'vue';
+import {onMounted, ref } from 'vue';
 
 const checked = ref(false);
 const toast = useToast();
@@ -17,10 +17,16 @@ const props = defineProps({
     expiration: Date
 })
 
+let photoIP = ref("")
+
 function copy() {
-    navigator.clipboard.writeText("https://localhost:8888/?token=" + props.url)
+    navigator.clipboard.writeText(photoIP.value +"/photoview?token=" + props.url)
     toast.add({severity:'success', summary:'Copied', detail:'Link copied to clipboard', life: 3000});
 }
+
+onMounted(()=>{
+  photoIP.value = import.meta.env.VITE_PHOTO_IP;
+});
 
 </script>
 
@@ -32,11 +38,11 @@ function copy() {
 
     <template #header>
       <div class="HeaderClass">
-        <span><b>{{ name }}</b>{{": https://localhost:8888/?token=" + url }}</span>
+        <span><b>{{ name }}</b>{{ ": " + photoIP + "/photoview?token=" + url }}</span>
       </div>
     </template>
     <template #icons>
-        <ToggleButton class="p-panel-header-icon p-link mr-2" v-on:click="disabled = true" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="">
+        <ToggleButton class="p-panel-header-icon p-link mr-2" v-on:click="disabled = true" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="" v-tooltip="{ value: 'Copy to Clipboard', showDelay: 600, hideDelay: 200  }">
               <span class="pi pi-copy"></span>
         </ToggleButton>
         <!--<Button class="p-link" icon="pi pi-copy" @click="copy" rounded severity="secondary"/>-->
@@ -47,7 +53,7 @@ function copy() {
         <!-- Values taken from properties -->
         <div class="ItemInfos">
           <p>{{"Name: " + name }}</p>
-          <p>{{"Link: https://localhost:8888/?token=" + url }}</p>
+          <p>{{"Link: " + photoIP + "/photoview?token=" + url }}</p>
           <!--Dates are given in YYYY-MM-DD, hence why the substring stuff here-->
           <p v-if="creation">{{"Created at: " + creation.substring(8,10)+"."+creation.substring(5,7)+"."+creation.substring(0,4) +" at "+ creation.substring(11,16)}}</p>
           <p v-if="expiration">{{"Expires at: " +expiration.substring(8,10)+"."+expiration.substring(5,7)+"."+expiration.substring(0,4) +" at "+ expiration.substring(11,16)}}</p>

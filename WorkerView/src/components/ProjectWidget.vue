@@ -22,7 +22,7 @@ function clickedProject() {
 var images = ref([])
 
 onMounted(() => {
-  fetch('http://' + import.meta.env.VITE_BACKEND_IP + '/workerView/images?id=' + props.id, {credentials: "include"})
+  fetch( import.meta.env.VITE_BACKEND_IP + '/api/workerView/images?id=' + props.id, {credentials: "include"})
     .then((resp) => resp.json())
     .then((data) => {
       console.log(data)
@@ -41,7 +41,7 @@ onMounted(() => {
 
 <template>
   <div></div>
-  <div class="ProjectItem" @click="clickedProject">
+  <div class="ProjectItem" @click="clickedProject" v-tooltip="{ value: 'Click to view Project Details', showDelay: 700, hideDelay: 200  }">
     <!-- Icon on the left side TODO: make it possible to load an image here if no files are loaded in the project-->
     <div v-if="images.length>0">
       <img :src="images[images.length-1]" alt="Image 1">

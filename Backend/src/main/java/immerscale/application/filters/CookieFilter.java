@@ -19,13 +19,18 @@ public abstract class CookieFilter extends RequestFilter {
     public Cookie getCookie(ServletRequest servletRequest, String cookieName) throws NullPointerException{
         Cookie[] cookies = ((jakarta.servlet.http.HttpServletRequest) servletRequest).getCookies();
         if (cookies == null) {
+
+            System.out.println("Couldnt find any cookies");
             throw new NullPointerException("No Cookies found");
         }
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(cookieName)) {
                 return cookie;
             }
+
+            System.out.println(cookie.getName() + " " + cookie.getValue());
         }
+        System.out.println("Could find cookies but not the right one");
         throw new NullPointerException("No Cookies found");
     }
 }

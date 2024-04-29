@@ -24,17 +24,18 @@ class LineLengthMeasurementTool extends MeasurementTool {
 
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
-        super(model, "Line Length", "pi pi-arrows-h");
+        // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
+        super(model, "Measure Distance", "pi pi-arrows-h", "Measure the distance between two points", "line", "Select two points to measure the distance between them.");
     }
 
     onClick(x, y) {
         // Checking how many points were already specified by the user and adding new commands accordingly.
-        if (this._pointCount == 0) {
+        if (this._pointCount == 0 || this._pointCount == 2) {
             // The first command is simply adding a point to the user selected coordinates.
             this._firstX = x;
             this._firstY = y;
+            this._model.setPointPreview(true);
             this._model.do(new AddPointCommand(this, this._model, this._firstX, this._firstY));
-            this._finished = false;
         } else if (this._pointCount == 1) {
             // The second step draws a line from the first point to the newly selected point.
             this._secondX = x;
@@ -42,13 +43,15 @@ class LineLengthMeasurementTool extends MeasurementTool {
             // Draw the line between the two points, add the second point and a label with the length of the line.
             this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], true, true, this.measureLength(), false));
             // The tool is finished after the second point is set, all points are reset.
-            this._first = null;
-            this._firstX = 0;
-            this._firstY = 0;
-            this._secondX = 0;
-            this._secondY = 0;
-            this._pointCount = 0;
-            this._finished = true;
+            this.measurementCompleted();
+            // this causes a bug
+            // this._first = null;
+            // this._firstX = 0;
+            // this._firstY = 0;
+            // this._secondX = 0;
+            // this._secondY = 0;
+            // this._pointCount = 0;
+            // this._finished = true;
         }
     }
 
@@ -57,10 +60,32 @@ class LineLengthMeasurementTool extends MeasurementTool {
         console.log('Right Click');
     }
 
+    onMouseMove(x, y) {
+        if(this._pointCount != 1) {
+            // the mouse position is reset to clear the screen
+            this._model.updateCurrentMousePosition(0, 0);
+            return;
+        } 
+        
+        this._model.updateCurrentMousePosition(x, y);
+    }
+
+    onMouseLeave() {
+        // this will stop the preview
+        this._model.updateCurrentMousePosition(0,0);
+    }
+
     updateExecute(command) {
-        if (this._pointCount == 0) {
+        if (this._pointCount == 0 || this._pointCount == 2) {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._first = command;
+            this._model.setPointPreview(true);
+            this._pointCount = 1;
+            this._finished = false;
+        }
+        else if(this._pointCount == 1) {
+            this._model.setPointPreview(false);
+            this._finished = true;
             this._pointCount++;
         }
     }
@@ -69,20 +94,25 @@ class LineLengthMeasurementTool extends MeasurementTool {
         if (this._pointCount == 1) {
             // If there is only one point set, the counter is decremented and the reference to the first point is removed.
             this._first = null;
+            this._finished = false;
             this._pointCount--;
+            this._model.updateCurrentMousePosition(0, 0)
+            this._model.setPointPreview(false);
         }
         else if (this._pointCount == 2) {
             this._pointCount--;
             this._finished = false;
+            this._model.setPointPreview(true);
         }
     }
 
     deselect() {
         super.deselect();
+        this._model.setPointPreview(false);
         if (this._finished) return;
 
         // if only one point is made remove the point (check the point count so it won't remove other commands)
-        if (this._pointCount > 0) {
+        while (this._pointCount > 0) {
             this._model.undo();
         }
 

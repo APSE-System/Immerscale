@@ -19,7 +19,7 @@ import java.util.Optional;
 // The controller is used for authentication
 // Unauthorized Requests wont be filtered
 @RestController
-@RequestMapping( value = "/auth")
+@RequestMapping( value = "/api/auth")
 public class AuthenticationController {
 
 
@@ -32,16 +32,18 @@ public class AuthenticationController {
 
         Optional<AccessToken> accessToken = accessTokenRepository.findById(token_id);
 
+
+
         // Token if present in database -> issue cookie
         if(accessToken.isPresent()){
             try {
                 Cookie cookie = new Cookie("EnduserCookie", AESEncrypter.getInstance().encrypt(token_id));
 
                 cookie.setPath("/");
-                cookie.setAttribute("SameSite", "None");
+                //cookie.setAttribute("SameSite", "None");
 
 
-                cookie.setSecure(true);
+                cookie.setSecure(false);
 
                 response.addCookie(cookie);
                 return ResponseEntity.ok("Success");
@@ -61,18 +63,26 @@ public class AuthenticationController {
     @GetMapping("/cookie/worker")
     public ResponseEntity<String> verifyWorker(@RequestParam(value = "credential") String credential, HttpServletResponse response){
 
-         if(true){
-            Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");
-            cookie.setPath("/");
-            cookie.setAttribute("SameSite", "None");
+        // TODO: MOVE TO CONFIG FILE
+        System.out.println("Requesting Cookie for worker");
+        System.out.println("Access token: " + credential);
 
-            cookie.setSecure(true);
+        if(!credential.equals("immerscale1337"))
+            return new ResponseEntity<String>("Unauthorized",HttpStatus.UNAUTHORIZED);
 
-            response.addCookie(cookie);
-            return ResponseEntity.ok("Success");
-        }
 
-        return new ResponseEntity<String>("Unauthorized",HttpStatus.UNAUTHORIZED);
+
+        Cookie cookie = new Cookie("WorkerCookie", "exampleMail@mail.de");
+        cookie.setPath("/");
+        //cookie.setAttribute("SameSite", "None");
+
+        cookie.setSecure(false);
+
+        response.addCookie(cookie);
+        return ResponseEntity.ok("Success");
+
+
+
 
     }
 }

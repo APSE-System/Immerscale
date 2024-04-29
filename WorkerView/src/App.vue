@@ -1,25 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
-
-
-
-onMounted( () => {
-  fetch("http://" + import.meta.env.VITE_BACKEND_IP + "/auth/cookie/worker?credential=" + 'sooos', {credentials: "include"})
-  .then((response) => {
-    console.log(response)
-    if (response.ok) {
-      // Handle success response
-      console.log("Success");
-    } else {
-      // Handle error response
-      console.log("Unauthorized");
-    }
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
-
-})
+import Toast from 'primevue/toast';
 
 </script>
 
@@ -28,6 +8,7 @@ onMounted( () => {
   <main>
     <RouterView />
   </main>
+  <Toast position="bottom-right"/>
 </template>
 
 <style scoped>
