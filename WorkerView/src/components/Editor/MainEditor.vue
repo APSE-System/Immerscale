@@ -249,7 +249,7 @@ function canvasBack(event){
       <template #back>
         <Button
             @click="router.push('/project/' + route.params.id + '/images')"
-            label="← Images"
+            label="← Bildübersicht"
             id="back-button"
             />
       </template>
