@@ -39,6 +39,9 @@ class AddGridCommand extends Command {
         this._gridWidth = 10;
         this._gridHeight = 10;
 
+
+        console.log("Size of the imeage: w" + this._xPos + " h" + this._yPos)
+
         this._baseScaleFactor = model.width / this._gridWidth;
         this._scaleFactor = scale;
 

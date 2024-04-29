@@ -347,32 +347,23 @@ function onMouseUp(event){
   height: auto;
   transform-origin: 0 0;
   transform: scale(1) translate(0px, 0px);
-  /* margin: auto; */
-}
-
-#our-image {
-  width: 100%;
-  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #canvas {
   max-width: 100%;
   max-height: 100vh;
+  position: absolute;
+  z-index: -1;
 }
 
 #clickListenerCanvas{
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
   z-index: 42069;
 }
 
-.p-button{
-    color: black;
-    background-color: transparent;
-}
 @media (prefers-color-scheme: dark) {
     .p-button{
       color: white;

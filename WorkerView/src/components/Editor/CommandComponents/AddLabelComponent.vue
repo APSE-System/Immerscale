@@ -49,13 +49,7 @@ function displayLength(value, ctx, label) {
 </template>
 
 <style scoped>
-.AddLabelCanvasWrapperDiv {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-}
+
 
 .AddLabelCanvas {
     width: 100%;
