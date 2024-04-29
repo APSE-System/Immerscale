@@ -88,6 +88,12 @@ class Controller{
         }
     }
 
+    setScale(scale) {
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setScale(scale);
+        }
+    }
+
     setInput(){
         if(this._currentTool instanceof GridReferenceTool){
             this._currentTool.setGrid();

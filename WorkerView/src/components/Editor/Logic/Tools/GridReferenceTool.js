@@ -16,6 +16,8 @@ class GridReferenceTool extends ReferenceTool {
     _xPos = 0;
     _yPos = 0;
 
+    _scale = 100;
+
 
     _pointCount = 0;
     _gridSet = false;
@@ -139,7 +141,7 @@ class GridReferenceTool extends ReferenceTool {
 
     apply() {
         if (this._pointCount === 0) {
-            this._lastGridCommand = new AddGridCommand(this, this._model, degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos)
+            this._lastGridCommand = new AddGridCommand(this, this._model, degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos, this._scale)
             this._model.do(this._lastGridCommand);
         }
     }
@@ -183,6 +185,12 @@ class GridReferenceTool extends ReferenceTool {
         if (this._gridSet) return;
         this._zRot = angle;
         this.apply()
+    }
+
+    setScale(scale) {
+        if (this._gridSet) return;
+        this._scale = scale;
+        this.apply();
     }
 
     setGrid() {

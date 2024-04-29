@@ -10,7 +10,7 @@ import {
     viewMatrix
 } from "../Utils/MathUtils.js";
 
-class AddGridCommand extends Command{
+class AddGridCommand extends Command {
 
     _points = [];
     _xRot = 0
@@ -19,13 +19,14 @@ class AddGridCommand extends Command{
 
     _xPos = 0
     _yPos = 0
-    
+
     _gridWidth = 0;
     _gridHeight = 0;
 
     _scaleFactor = 1;
-    
-    constructor(creator, model, xRot, yRot, zRot, xPos, yPos){
+    _baseScaleFactor = 1;
+
+    constructor(creator, model, xRot, yRot, zRot, xPos, yPos, scale) {
         super(creator, model);
 
         this._xRot = xRot;
@@ -38,7 +39,8 @@ class AddGridCommand extends Command{
         this._gridWidth = 10;
         this._gridHeight = 10;
 
-        this._scaleFactor = model.width/this._gridWidth;
+        this._baseScaleFactor = model.width / this._gridWidth;
+        this._scaleFactor = scale;
 
         // Generate the grid
         this.generateGridPoints()
@@ -54,25 +56,25 @@ class AddGridCommand extends Command{
 
     }
 
-    generateGridPoints(){
-        for(var y = -this._gridHeight/2; y <= this._gridHeight/2; y++){
-            for(var x = -this._gridWidth/2; x <= this._gridWidth/2; x++){
-                if(y === this._gridHeight/2 || y === -this._gridHeight/2){
+    generateGridPoints() {
+        for (var y = -this._gridHeight / 2; y <= this._gridHeight / 2; y++) {
+            for (var x = -this._gridWidth / 2; x <= this._gridWidth / 2; x++) {
+                if (y === this._gridHeight / 2 || y === -this._gridHeight / 2) {
                     this._points.push(new CanvasPoint(x, y, "FF0000"))
-                }else if(x === this._gridWidth/2 || x === -this._gridWidth/2){
+                } else if (x === this._gridWidth / 2 || x === -this._gridWidth / 2) {
                     this._points.push(new CanvasPoint(x, y, "FF0000"))
                 }
             }
         }
     }
 
-    rotatePoints(points){
+    rotatePoints(points) {
         let points_rotated = []
 
-        for(let i = 0; i < points.length; i++){
+        for (let i = 0; i < points.length; i++) {
             let point = points[i];
 
-            let result = rotatePoints3Dim3Axes( [point.x, point.y, 0, 1], this._xRot, this._yRot, this._zRot);
+            let result = rotatePoints3Dim3Axes([point.x, point.y, 0, 1], this._xRot, this._yRot, this._zRot);
             let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
 
             points_rotated.push(result_formatted)
@@ -81,12 +83,12 @@ class AddGridCommand extends Command{
         return points_rotated;
     }
 
-    positionCamera(points){
+    positionCamera(points) {
         let points_positioned = []
-        for(let i = 0; i < this._points.length; i++){
+        for (let i = 0; i < this._points.length; i++) {
             let point = points[i]
 
-            let result = viewMatrix( point);
+            let result = viewMatrix(point);
             let result_formatted = [result[0]._data[0], result[0]._data[1], result[0]._data[2], result[0]._data[3]]
 
             points_positioned.push(result_formatted)
@@ -95,53 +97,53 @@ class AddGridCommand extends Command{
         return points_positioned;
     }
 
-    projectOnGrid(points){
-        for(let i = 0; i < this._points.length; i++){
+    projectOnGrid(points) {
+        for (let i = 0; i < this._points.length; i++) {
             let point = points[i]
 
             let result = projectPointTo2D(point)
 
-            this._points[i] = new CanvasPoint( result[0]._data[0]/ result[0]._data[3],  result[0]._data[1]/result[0]._data[3], this._points[i].color);
+            this._points[i] = new CanvasPoint(result[0]._data[0] / result[0]._data[3], result[0]._data[1] / result[0]._data[3], this._points[i].color);
         }
     }
 
-    scaleGrid(){
-        for(let i = 0; i < this._points.length; i++){
+    scaleGrid() {
+        for (let i = 0; i < this._points.length; i++) {
             let point = this._points[i];
-            let result = scalePoint2D([point.x, point.y], this._scaleFactor)
+            let result = scalePoint2D([point.x, point.y], this._baseScaleFactor * (this._scaleFactor / 100))
 
-            this._points[i]  = new CanvasPoint(result[0]._data[0], result[0]._data[1], point.color)
+            this._points[i] = new CanvasPoint(result[0]._data[0], result[0]._data[1], point.color)
         }
     }
 
-    offsetGrid(){
-        let xOffset =  this._xPos
-        let yOffset =  this._yPos
-        for(let i = 0; i < this._points.length; i++){
+    offsetGrid() {
+        let xOffset = this._xPos
+        let yOffset = this._yPos
+        for (let i = 0; i < this._points.length; i++) {
             let point = this._points[i]
-            this._points[i] = new CanvasPoint( point.x + xOffset, point.y + yOffset, point.color);
+            this._points[i] = new CanvasPoint(point.x + xOffset, point.y + yOffset, point.color);
         }
     }
 
 
-    execute (){
+    execute() {
         this._model.addGrid(new CanvasGrid(this._points, this._gridWidth, this._gridHeight));
     }
 
-    unExecute(){
+    unExecute() {
         this._model.addGrid(null)
     }
 
 
-    getReferencePoints(){
-        let refPoints =[]
+    getReferencePoints() {
+        let refPoints = []
 
         refPoints.push(this._points[0])
-        refPoints.push(this._points[this._gridWidth-1])
-        refPoints.push(this._points[this._points.length-1])
-        refPoints.push(this._points[this._points.length-this._gridWidth])
+        refPoints.push(this._points[this._gridWidth - 1])
+        refPoints.push(this._points[this._points.length - 1])
+        refPoints.push(this._points[this._points.length - this._gridWidth])
 
-        return  refPoints;
+        return refPoints;
     }
 
 }
