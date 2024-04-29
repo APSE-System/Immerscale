@@ -12,7 +12,7 @@ const visible = ref(false);
 // Variable to store the name of the new link
 let newName = ""
 
-//preliminary function to add a new link
+// function to add a new link
 function generateLink(linkName) {
   fetch( import.meta.env.VITE_BACKEND_IP + '/api/workerView/token?name=' + linkName +'&project_id=' + route.params.id, {credentials: "include", method: "POST"})
     .then((data) => {

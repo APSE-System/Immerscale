@@ -34,10 +34,12 @@ onMounted(() => {
 
 <template>
   <div class="content">
+    <!-- Adding the GenerateNewLink component to the page.-->
     <div class="LinkButton">
       <GenerateNewLink @fetchLinks="fetchLinks"/>
     </div>
     <Divider />
+    <!-- Iterating through the list of links and displaying them. Loading the LinkWidget component for each link and passing the necessary data as props. -->
     <div class="LinkList">
       <LinkWidget v-for="link in links" :url="link.url_token" :name="link.name" :creation="link.creation_date" :expiration="link.expiration_date"/>
     </div>
