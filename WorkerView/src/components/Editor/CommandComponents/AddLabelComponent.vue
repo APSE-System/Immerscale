@@ -13,8 +13,6 @@ function drawLabel(canvas, label) {
   console.log(label.length)
   const ctx = canvas.getContext('2d');
 
-  //ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   displayLength(label.length, ctx, label);
 }
 

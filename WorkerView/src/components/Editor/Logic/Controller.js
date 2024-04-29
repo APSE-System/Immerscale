@@ -12,6 +12,7 @@ class Controller{
 
     constructor(model){
         this._model = model;
+        document.addEventListener("deselectTool", () => {this._currentTool.deselect(); this._currentTool = null;})
     }
 
     addTool(tool){

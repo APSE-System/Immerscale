@@ -57,6 +57,7 @@ onBeforeMount(()=>{
   polygonMeasurementTool.callback = controller.addTool(polygonMeasurementTool)
   toolsList.value.push(polygonMeasurementTool)
 
+  // create the lineLengthMeasurement Tool
   let lineLengthMeasurementTool = new LineLengthMeasurementTool(model.value)
   lineLengthMeasurementTool.callback = controller.addTool(lineLengthMeasurementTool)
   toolsList.value.push(lineLengthMeasurementTool)
@@ -331,16 +332,11 @@ function onMouseUp(event){
   display: flex;
 }
 
-/* .left-bar {
-  position: absolute;
-  left: 2%;
-  width: 15%;
-} */
-
 
 #zoom-outer {
   width: 70%;
   height: auto;
+  min-height: 70vh;
   background: #3a3838;
   overflow: hidden;
   margin-bottom: auto;
@@ -360,8 +356,8 @@ function onMouseUp(event){
 }
 
 #canvas {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  max-height: 100vh;
 }
 
 #clickListenerCanvas{
@@ -372,16 +368,6 @@ function onMouseUp(event){
   height: auto;
   z-index: 42069;
 }
-
-/* #back-button {
-  position: absolute;
-  top: 5px;
-}
-
-.toolList{
-  position: absolute;
-  top: 100px;
-} */
 
 .p-button{
     color: black;
