@@ -49,9 +49,6 @@ document.addEventListener("measurementCompleted", function (e) {
   steps = 4;
   collapsed = [true, true, true, true, false]
 });
-
-// Juicy Icon that turns green, might not be possible due to size constraints
-// Redo works with Reference Set, but not with Measurement Completed since the same event that is used for undo also gets called when a measurement is completed
 </script>
 
 <script>
@@ -84,26 +81,7 @@ document.addEventListener("measurementCompleted", function (e) {
           type: String,
           default: '20px',
         },
-  
-        //! Menu items
-        /*menuItems: {
-          type: Array,
-          default: () => [
-            {
-              link: '#',
-              name: 'Dashboard',
-              tooltip: 'Dashboard',
-              icon: 'pi pi-link',
-            },
-            {
-              link: '#',
-              name: 'User',
-              tooltip: 'User',
-              icon: 'pi pi-link',
-            },
-          ],
-        },*/
-  
+
         //! Styles
         bgColor: {
           type: String,
@@ -213,14 +191,7 @@ document.addEventListener("measurementCompleted", function (e) {
                 <!--Put progress bar here-->
                 <ProgressBar :value="barPercent">{{ steps }}/4</ProgressBar>
             </li>
-  
-          <!--<li v-for="(menuItem, index) in menuItems" :key="index" :id="'links_' + index">
-              <a>
-                <i class="bx" :class="menuItem.icon || 'bx-square-rounded'"/>
-                <span class="links_name">{{ menuItem.name }}</span>
-              </a>
-              <span :data-target="'links_' + index" class="tooltip">{{menuItem.tooltip || menuItem.name}}</span>
-            </li>-->
+
             <div v-if="isOpened">
               <Panel header="Selecting a Reference Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[0] >
                 <p>Click on any of the reference tools in the toolbar to start setting a reference.</p>
@@ -253,14 +224,10 @@ document.addEventListener("measurementCompleted", function (e) {
   </style>
 
   <style scoped>
-    /* Google Font Link */
-    /* Remove this and make the page work with primeIcons instead of boxicons */
-    /* @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'); */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      /* font-family: 'Poppins', sans-serif; */
     }
     .menu-logo {
       width: 30px;
@@ -349,9 +316,6 @@ document.addEventListener("measurementCompleted", function (e) {
 
     .sidebar .nav-list {
       margin-top: 20px;
-      /* margin-bottom: 60px; */
-      /* height: 100%; */
-      /* min-height: min-content; */
     }
     .sidebar li {
       position: relative;
@@ -362,8 +326,6 @@ document.addEventListener("measurementCompleted", function (e) {
 
     .tooltip {
       position: absolute;
-      /* top: -20px; */
-      /* left: calc(100% + 15px); */
       z-index: 3;
       background: var(--items-tooltip-color);
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);

@@ -11,7 +11,7 @@ const visible = ref(false);
 // Variable to store the new project name
 let newName = ""
 
-//preliminary function to add a new project
+// This function adds a new project
 function addProject(projectName) {
   fetch(import.meta.env.VITE_BACKEND_IP + '/api/workerView/project?name=' + projectName +'&mail=testmail@mymail.org', {credentials: "include", method: "POST"})
     .then((data) => {
