@@ -106,7 +106,4 @@ onMounted(()=>{
   padding-top: 0px;
 }
 
-.benis {
-  color: green;
-}
 </style>

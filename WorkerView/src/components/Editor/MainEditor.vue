@@ -15,6 +15,9 @@ import AddLineComponent from "./CommandComponents/AddLineComponent.vue";
 import NumberInputPopup from "./CommandComponents/NumberInputPopup.vue";
 import PolygonMeasurementTool from "./Logic/Tools/PolygonMeasurementTool.js"
 import AddAreaComponent from "./CommandComponents/AddAreaComponent.vue";
+import GridReferenceTool from "./Logic/Tools/GridReferenceTool.js";
+import AddGridComponent from "./CommandComponents/AddGridComponent.vue";
+import GridUserInput from "./CommandComponents/GridUserInput.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -40,10 +43,14 @@ let imgHeight = ref(0)
 
 //initialize tools
 onBeforeMount(()=>{
-  // Create the rools and add them tot the list. THe callback is necessary so a tool can be selected correctly.
+  // Create the tools and add them tot the list. THe callback is necessary so a tool can be selected correctly.
   let rectangleReferenceTool = new RectangleReferenceTool(model.value)
   rectangleReferenceTool.callback = controller.addTool(rectangleReferenceTool)
   toolsList.value.push(rectangleReferenceTool)
+
+  let gridReferenceTool = new GridReferenceTool(model.value)
+  gridReferenceTool.callback = controller.addTool(gridReferenceTool)
+  toolsList.value.push(gridReferenceTool)
 
   // create the polygonMeasurement Tool
   let polygonMeasurementTool = new PolygonMeasurementTool(model.value)
@@ -98,6 +105,8 @@ function drawImage() {
     imgHeight.value = img.height
 
     ctx.drawImage(img, 0, 0);
+
+    model.value.setImageSize(img.width, img.height);
 
   };
 }
@@ -185,7 +194,7 @@ function canvasClicked(event) {
   const rect = event.target.getBoundingClientRect()
   const x_canv = event.clientX - rect.left
   const y_canv = event.clientY - rect.top
-  
+
   // This seems to stay the same, whether bugged or not
   // console.log(image)
 
@@ -200,6 +209,7 @@ function canvasClicked(event) {
   controller.onClick(x,y);
   }
 }
+
 
 // listens on Right Click
 function canvasRightClicked(event) {
@@ -241,6 +251,28 @@ function canvasBack(event){
 
 }
 
+
+function onMouseDown(event){
+  // These coordinates are relative to the canvas size.
+  const rect = event.target.getBoundingClientRect()
+  const x_canv = event.clientX - rect.left
+  const y_canv = event.clientY - rect.top
+
+  var img = new Image();
+  img.src = image.value;
+  // By taking the ratio between the relative coordinates and the canvas, we can map them to the image size.
+  const x = (x_canv / rect.width) * img.width;
+  const y = (y_canv / rect.height) * img.height;
+
+  controller.onMouseDown(x,y);
+}
+
+function onMouseUp(event){
+  controller.onMouseUp();
+}
+
+
+
 </script>
 
 <template>
@@ -260,7 +292,7 @@ function canvasBack(event){
 
     <div id="zoom-outer">
       <div ref="zoom_inner" class="zoom" id="zoom">
-        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @contextmenu="canvasRightClicked($event)" @mousemove="canvasMouseMove($event)" @mouseleave="canvasMouseLeave($event)" :width="imgWidth" :height="imgHeight"></canvas>
+        <canvas v-if="imgWidth > 0 && imgHeight > 0" id="clickListenerCanvas" @click="canvasClicked($event)" @mousedown="onMouseDown($event)" @mouseup="onMouseUp($event)" @contextmenu="canvasRightClicked($event)" @mousemove="canvasMouseMove($event)" @mouseleave="canvasMouseLeave($event)" :width="imgWidth" :height="imgHeight"></canvas>
         <!-- Component which displayes all the points in the model -->
         <AddPointComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvas-points="model.canvasPoints" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activePointPreview="model.activePointPreview" :drawFirstPoint="model.drawFirstPoint"></AddPointComponent>
         <!-- Component which displayes all the lines in the model -->
@@ -268,12 +300,13 @@ function canvasBack(event){
         <AddAreaComponent v-if="imgWidth > 0 && imgHeight > 0" :canvasAreas="model.canvasAreas" :width="imgWidth" :height="imgHeight" :currentMousePosition="model.currentMousePosition" :activeAreaPreview="model.activeAreaPreview"></AddAreaComponent>
         <!-- Component which displayes all the labels in the model -->
         <AddLabelComponent v-if="imgWidth > 0 && imgHeight > 0 " :canvasLabels="model.canvasLabels" :width="imgWidth" :height="imgHeight"></AddLabelComponent>
+        <AddGridComponent v-if="imgWidth > 0 && imgHeight > 0 && model.canvasGrid != null" :canvasGrid="model.canvasGrid.points" :gridTool="toolsList[1]" :gridWidth="model.canvasGrid.width" :gridHeight="model.canvasGrid.height" :width="imgWidth" :height="imgHeight"></AddGridComponent>
         <canvas ref="canvas" id="canvas" ></canvas>
       </div>
     </div>
 
-    <TutorialSidebar>
-    </TutorialSidebar>
+    <GridUserInput :controller="controller"/>
+    <TutorialSidebar></TutorialSidebar>
 
     <!-- This component can open a popup to retreive user input -->
     <NumberInputPopup :popup="model.popup" @callback="model.popup.callback"/>
@@ -292,7 +325,7 @@ function canvasBack(event){
   min-height: 70vh;
   background: #3a3838;
   overflow: hidden;
-  margin: auto;
+  margin-bottom: auto;
 }
 
 #zoom {
@@ -300,32 +333,25 @@ function canvasBack(event){
   height: auto;
   transform-origin: 0 0;
   transform: scale(1) translate(0px, 0px);
-  /* margin: auto; */
-}
-
-#our-image {
-  width: 100%;
-  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #canvas {
   max-width: 100%;
   max-height: 100vh;
+  position: absolute;
+  z-index: -1;
 }
 
 #clickListenerCanvas{
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  z-index: 42069;
+  z-index: 42069; 
+  max-width: 100%;
+  max-height: 100vh;
 }
 
-.p-button{
-    color: black;
-    background-color: transparent;
-}
 @media (prefers-color-scheme: dark) {
     .p-button{
       color: white;

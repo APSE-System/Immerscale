@@ -11,6 +11,9 @@ class Tool {
 
   _toast;
 
+  //true if the tool is currently selected.
+  _selected;
+
   constructor(model, name, icon, tooltip="", c="", toast="") {
     this._model = model;
     this._name = name;
@@ -18,14 +21,15 @@ class Tool {
     this._tooltip = tooltip;
     this._class = c;
     this._toast = toast;
+    this._selected = false;
   }
 
   select(){
-
+    this._selected = true;
   }
 
   deselect(){
-
+    this._selected = false;
   }
 
   onFinish(){
@@ -34,6 +38,14 @@ class Tool {
 
   updateExecute(command){}
   updateUnExecute(command){}
+
+  isSelected(){
+    return this._selected;
+  }
+
+  onMouseLeave(){}
+
+  onMouseMove(x,y){}
 
 }
 
