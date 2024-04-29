@@ -62,28 +62,28 @@ function setInput() {
 
   <div v-if="visible" class="controls">
     <h3>X-Rotation:</h3>
-    <Knob v-model="xRot" v-on:change="xRotChanged" :size="100" :step="0.5" :min="rotMin" :max="rotMax"/>
+    <Knob v-model="xRot" v-on:change="xRotChanged" :size="70" :step="0.5" :min="rotMin" :max="rotMax"/>
     <div class="flex gap-2">
-      <Button icon="pi pi-plus" @click="xRot+=0.5; xRotChanged();" :disabled="xRot >= rotMax"/>
-      <Button icon="pi pi-minus" @click="xRot-=0.5; xRotChanged();" :disabled="xRot <= rotMin"/>
+      <Button class="knobButton" icon="pi pi-plus" @click="xRot+=0.5; xRotChanged();" :disabled="xRot >= rotMax"/>
+      <Button class="knobButton" icon="pi pi-minus" @click="xRot-=0.5; xRotChanged();" :disabled="xRot <= rotMin"/>
     </div>
 
     <h3>Y-Rotation:</h3>
-    <Knob v-model="yRot" v-on:change="yRotChanged" :size="100" :step="0.5" :min="rotMin" :max="rotMax"/>
+    <Knob v-model="yRot" v-on:change="yRotChanged" :size="70" :step="0.5" :min="rotMin" :max="rotMax"/>
     <div class="flex gap-2">
-      <Button icon="pi pi-plus" @click="yRot+=0.5; yRotChanged();" :disabled="yRot >= rotMax"/>
-      <Button icon="pi pi-minus" @click="yRot-=0.5; yRotChanged();" :disabled="yRot <= rotMin"/>
+      <Button class="knobButton" icon="pi pi-plus" @click="yRot+=0.5; yRotChanged();" :disabled="yRot >= rotMax"/>
+      <Button class="knobButton" icon="pi pi-minus" @click="yRot-=0.5; yRotChanged();" :disabled="yRot <= rotMin"/>
     </div>
 
     <h3>Z-Rotation:</h3>
-    <Knob v-model="zRot" v-on:change="zRotChanged" :size="100" :step="0.5" :min="rotMin" :max="rotMax"/>
+    <Knob v-model="zRot" v-on:change="zRotChanged" :size="70" :step="0.5" :min="rotMin" :max="rotMax"/>
     <div class="flex gap-2">
-      <Button icon="pi pi-plus" @click="zRot+=0.5; zRotChanged();" :disabled="zRot >= rotMax"/>
-      <Button icon="pi pi-minus" @click="zRot-=0.5; zRotChanged();" :disabled="zRot <= rotMin"/>
+      <Button class="knobButton" icon="pi pi-plus" @click="zRot+=0.5; zRotChanged();" :disabled="zRot >= rotMax"/>
+      <Button class="knobButton" icon="pi pi-minus" @click="zRot-=0.5; zRotChanged();" :disabled="zRot <= rotMin"/>
     </div>
 
     <h3>Skalierung (in %):</h3>
-    <InputNumber v-model="scale" showButtons buttonLayout="vertical" @update:modelValue="scaleChanged" style="width: 4rem" :min="0">
+    <InputNumber v-model="scale" showButtons buttonLayout="vertical" @update:modelValue="scaleChanged" style="width: 3.5rem" :min="0">
       <template #incrementbuttonicon>
         <span class="pi pi-plus"/>
       </template>
@@ -112,5 +112,9 @@ function setInput() {
   margin-top: 10px;
 }
 
+.knobButton{
+  height: 30px;
+  width: 30px;
+}
 
 </style>
