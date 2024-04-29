@@ -61,36 +61,54 @@ function setInput() {
   <Toast/>
 
   <div v-if="visible" class="controls">
-    <h3>X-Rotation:</h3>
-    <Knob v-model="xRot" v-on:change="xRotChanged" :size="70" :step="0.5" :min="rotMin" :max="rotMax"/>
-    <div class="flex gap-2">
-      <Button class="knobButton" icon="pi pi-plus" @click="xRot+=0.5; xRotChanged();" :disabled="xRot >= rotMax"/>
-      <Button class="knobButton" icon="pi pi-minus" @click="xRot-=0.5; xRotChanged();" :disabled="xRot <= rotMin"/>
+
+    <div class="row">
+      <div class="knobElement">
+        <h3>X-Rotation:</h3>
+        <Knob v-model="xRot" v-on:change="xRotChanged" :size="85" :step="0.5" :min="rotMin" :max="rotMax"/>
+        <div class="flex gap-2">
+          <Button class="knobButton" icon="pi pi-plus" @click="xRot+=0.5; xRotChanged();" :disabled="xRot >= rotMax"/>
+          <Button class="knobButton" icon="pi pi-minus" @click="xRot-=0.5; xRotChanged();" :disabled="xRot <= rotMin"/>
+        </div>
+      </div>
+
+      <div class="knobElement">
+        <h3>Y-Rotation:</h3>
+        <Knob v-model="yRot" v-on:change="yRotChanged" :size="85" :step="0.5" :min="rotMin" :max="rotMax"/>
+        <div class="flex gap-2">
+          <Button class="knobButton" icon="pi pi-plus" @click="yRot+=0.5; yRotChanged();" :disabled="yRot >= rotMax"/>
+          <Button class="knobButton" icon="pi pi-minus" @click="yRot-=0.5; yRotChanged();" :disabled="yRot <= rotMin"/>
+        </div>
+      </div>
     </div>
 
-    <h3>Y-Rotation:</h3>
-    <Knob v-model="yRot" v-on:change="yRotChanged" :size="70" :step="0.5" :min="rotMin" :max="rotMax"/>
-    <div class="flex gap-2">
-      <Button class="knobButton" icon="pi pi-plus" @click="yRot+=0.5; yRotChanged();" :disabled="yRot >= rotMax"/>
-      <Button class="knobButton" icon="pi pi-minus" @click="yRot-=0.5; yRotChanged();" :disabled="yRot <= rotMin"/>
+
+    <div class="row">
+      <div class="knobElement">
+        <h3>Z-Rotation:</h3>
+        <Knob v-model="zRot" v-on:change="zRotChanged" :size="85" :step="0.5" :min="rotMin" :max="rotMax"/>
+        <div class="flex gap-2">
+          <Button class="knobButton" icon="pi pi-plus" @click="zRot+=0.5; zRotChanged();" :disabled="zRot >= rotMax"/>
+          <Button class="knobButton" icon="pi pi-minus" @click="zRot-=0.5; zRotChanged();" :disabled="zRot <= rotMin"/>
+        </div>
+      </div>
+
+      <div class="knobElement">
+        <h3>Skalierung (in %):</h3>
+        <InputNumber v-model="scale" showButtons buttonLayout="vertical" @update:modelValue="scaleChanged" style="width: 3.5rem" :min="0">
+          <template #incrementbuttonicon>
+            <span class="pi pi-plus"/>
+          </template>
+          <template #decrementbuttonicon>
+            <span class="pi pi-minus"/>
+          </template>
+        </InputNumber>
+      </div>
+
     </div>
 
-    <h3>Z-Rotation:</h3>
-    <Knob v-model="zRot" v-on:change="zRotChanged" :size="70" :step="0.5" :min="rotMin" :max="rotMax"/>
-    <div class="flex gap-2">
-      <Button class="knobButton" icon="pi pi-plus" @click="zRot+=0.5; zRotChanged();" :disabled="zRot >= rotMax"/>
-      <Button class="knobButton" icon="pi pi-minus" @click="zRot-=0.5; zRotChanged();" :disabled="zRot <= rotMin"/>
-    </div>
 
-    <h3>Skalierung (in %):</h3>
-    <InputNumber v-model="scale" showButtons buttonLayout="vertical" @update:modelValue="scaleChanged" style="width: 3.5rem" :min="0">
-      <template #incrementbuttonicon>
-        <span class="pi pi-plus"/>
-      </template>
-      <template #decrementbuttonicon>
-        <span class="pi pi-minus"/>
-      </template>
-    </InputNumber>
+
 
     <Button class="setButton" label="Ebene Setzen" @click="setInput" severity="primary"/>
 
@@ -115,6 +133,26 @@ function setInput() {
 .knobButton{
   height: 30px;
   width: 30px;
+}
+
+.knobElement{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+@media screen and (max-height: 880px){
+  .row{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+
+  }
+  .controls{
+    width: 40%;
+  }
 }
 
 </style>
