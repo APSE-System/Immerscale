@@ -2,7 +2,9 @@
 import Knob from 'primevue/knob';
 import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
-import {onMounted, reactive, watch, defineProps, ref} from "vue";
+import {defineProps, ref} from "vue";
+import Toast from "../../../App.vue";
+import {useToast} from 'primevue/usetoast';
 
 let xRot = ref(0)
 let yRot = ref(0)
@@ -15,6 +17,9 @@ let rotMax = ref(90)
 let scale = ref(100)
 
 
+const toast = useToast();
+
+
 const props = defineProps({
   controller: Object
 });
@@ -25,6 +30,7 @@ document.addEventListener("GridToolSelected", function (e) {
   visible.value = true;
 });
 document.addEventListener("GridToolUnselected", function (e) {
+  toast.add({severity:'info', summary:'Länge auswählen', detail:'Ebene ist gesetzt, wählen Sie nun eine Referenz-Länge.', life: 20000});
   visible.value = false;
 });
 
@@ -52,6 +58,8 @@ function setInput() {
 
 
 <template>
+  <Toast/>
+
   <div v-if="visible" class="controls">
     <h3>X-Rotation:</h3>
     <Knob v-model="xRot" v-on:change="xRotChanged" :size="100" :step="0.5" :min="rotMin" :max="rotMax"/>
