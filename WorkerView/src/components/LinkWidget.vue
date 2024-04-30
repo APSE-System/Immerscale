@@ -21,7 +21,7 @@ let photoIP = ref("")
 // Function to copy the link to the clipboard
 function copy() {
     navigator.clipboard.writeText(photoIP.value +"/photoview?token=" + props.url)
-    toast.add({severity:'success', summary:'Copied', detail:'Link in Zwischenablage kopiert', life: 3000});
+    toast.add({severity:'success', summary:'Link kopiert', detail:'Link in Zwischenablage kopiert', life: 3000});
 }
 
 onMounted(()=>{
