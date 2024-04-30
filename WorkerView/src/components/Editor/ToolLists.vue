@@ -137,6 +137,9 @@ onMounted(() => {
 .tool-rectangle{
   animation: lightenDarken 2.5s infinite ease-in-out;
 }
+.tool-grid{
+  animation: lightenDarken 2.5s infinite ease-in-out;
+}
 
 /* Make measurement tools flash green once with a delay to make it more visible */
 .tool-polygon{
@@ -148,7 +151,8 @@ onMounted(() => {
   animation-delay: 1s;
 }
 
-@keyframes lightenDarken {
+@media (prefers-color-scheme: light) {
+  @keyframes lightenDarken {
         0% {
             color: black;
         }
@@ -159,6 +163,20 @@ onMounted(() => {
             color: black;
         }
     }
+}
 
+@media (prefers-color-scheme: dark) {
+  @keyframes lightenDarken {
+        0% {
+            color: black;
+        }
+        50% {
+            color: lawngreen;
+        }
+        100% {
+            color: black;
+        }
+    }
+}
 
 </style>
