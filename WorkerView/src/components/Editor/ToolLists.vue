@@ -23,14 +23,14 @@ const toolTree = ref([
   {
     key: '0',
     icon:"pi pi-sliders-h",
-    label: 'Reference Tools',
+    label: 'Referenz-Werkzeuge',
     items: [],
     class: 1,
   },
   {
     key: '1',
     icon:"pi pi-pencil",
-    label: 'Measuring Tools',
+    label: 'Mess-Werkzeuge',
     disabled: true,
     items: []
   }

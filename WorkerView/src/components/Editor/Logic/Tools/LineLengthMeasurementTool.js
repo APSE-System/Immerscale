@@ -25,7 +25,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
-        super(model, "Measure Distance", "pi pi-arrows-h", "Measure the distance between two points", "line", "Select two points to measure the distance between them.");
+        super(model, "Strecke Messen", "pi pi-arrows-h", "Messe die Strecke zwischen zwei Punkten", "line", "Wählen Sie zwei Punkte aus um den Abstand zwischen ihnen auszumessen.");
     }
 
     onClick(x, y) {

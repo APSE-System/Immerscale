@@ -21,7 +21,7 @@ let photoIP = ref("")
 // Function to copy the link to the clipboard
 function copy() {
     navigator.clipboard.writeText(photoIP.value +"/photoview?token=" + props.url)
-    toast.add({severity:'success', summary:'Copied', detail:'Link copied to clipboard', life: 3000});
+    toast.add({severity:'success', summary:'Link kopiert', detail:'Link in Zwischenablage kopiert', life: 3000});
 }
 
 onMounted(()=>{
@@ -42,7 +42,7 @@ onMounted(()=>{
     </template>
     <!-- Icons template with a button that copies the link to the clipboard. -->
     <template #icons>
-        <ToggleButton class="p-panel-header-icon p-link mr-2" v-on:click="disabled = true" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="" v-tooltip="{ value: 'Copy to Clipboard', showDelay: 600, hideDelay: 200  }">
+        <ToggleButton class="p-panel-header-icon p-link mr-2" v-on:click="disabled = true" v-model="checked" @click="copy" onIcon="pi pi-check" offIcon="pi pi-copy" onLabel="" offLabel="" v-tooltip="{ value: 'Link in Zwischenablage kopieren', showDelay: 600, hideDelay: 200  }">
               <span class="pi pi-copy"></span>
         </ToggleButton>
     </template>

@@ -25,7 +25,7 @@ class RectangleReferenceTool extends ReferenceTool {
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
-        super(model, "Rectangle Reference", "pi pi-stop", "Set reference based on a known rectangle in the image", "rectangle", "Select all 4 corners of a rectangle with known side length, e.g. a piece of DIN A4 paper");
+        super(model, "Rechteck Referenz", "pi pi-stop", "Referenz anhand eines bekannten Rechtecks im Bild festlegen", "rectangle", "Wählen Sie alle 4 Ecken eines Rechtecks mit bekannten Seitenlängen aus, z.B. ein DIN A4 Blatt.");
     }
 
 
@@ -48,12 +48,12 @@ class RectangleReferenceTool extends ReferenceTool {
             // The second step draws a line from the first point to the newly selected point.
             // Also, a popup is opened so the user can specify the size of this side.
             // The value of the side is returned via the callback.
-            this._model.do(new AddLineCommand(this, this._model, [[this._first.getX(), this._first.getY()], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._firstLength = length;}));
+            this._model.do(new AddLineCommand(this, this._model, [[this._first.getX(), this._first.getY()], [x, y]], true, false, null, true, "Länge angeben", "Geben Sie die Länge der Strecke an.", "Länge in cm", (length)=>{this._firstLength = length;}));
         } else if (this._pointCount == 2) {
             // The third step draws a line from the second point to the newly selected point.
             // Also, a popup is opened so the user can specify the size of this side.
             // The value of the side is returned via the callback.
-            this._model.do(new AddLineCommand(this, this._model, [[firstLine.getPoint(1)[0], firstLine.getPoint(1)[1]], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length)=>{this._secondLenght = length;}, true));
+            this._model.do(new AddLineCommand(this, this._model, [[firstLine.getPoint(1)[0], firstLine.getPoint(1)[1]], [x, y]], true, false, null, true, "Länge angeben", "Geben Sie die Länge der Strecke an.", "Länge in cm", (length)=>{this._secondLenght = length;}, true));
         } else if (this._pointCount == 3) {
             // The last step adds a line from the last point over the newly selected point to the first point.
             // Therefore, this step completes the selected rectangel.

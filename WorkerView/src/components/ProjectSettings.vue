@@ -5,7 +5,7 @@
 
 
 <template>
-    <h3>Settings</h3>
+    <h3>Einstellungen</h3>
 </template>
 
 <style scoped>

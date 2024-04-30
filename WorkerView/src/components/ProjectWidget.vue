@@ -42,7 +42,7 @@ onMounted(() => {
 
 <template>
   <div></div>
-  <div class="ProjectItem" @click="clickedProject" v-tooltip="{ value: 'Click to view Project Details', showDelay: 700, hideDelay: 200  }">
+  <div class="ProjectItem" @click="clickedProject" v-tooltip="{ value: 'Klicken um das Projekt zu öffnen', showDelay: 700, hideDelay: 200  }">
     <!-- Display the newest image of the project -->
     <div v-if="images.length>0">
       <img :src="images[images.length-1]" alt="Image 1">

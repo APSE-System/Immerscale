@@ -46,7 +46,7 @@ function clickedImage(index) {
     <div class="masonry-layout" v-if="images.length > 0">
       <!-- Iterating through the image list and displaying them. -->
       <div v-for="(image, index) in images" :key="index" class="masonry-item">
-        <div class="square" v-tooltip="{ value: 'Open Image in Editor', showDelay: 600, hideDelay: 200  }">
+        <div class="square" v-tooltip="{ value: 'Bild in Editor öffnen', showDelay: 600, hideDelay: 200  }">
           <img
             @click="clickedImage(index)"
             :src="image"
@@ -57,7 +57,7 @@ function clickedImage(index) {
     </div>
     <!-- If no images are available, a message is displayed. -->
     <div v-if="images.length == 0">
-      <h3>No images in this project</h3>
+      <h3>Keine Bilder in diesen Projekt</h3>
     </div>
   </div>
 </template>

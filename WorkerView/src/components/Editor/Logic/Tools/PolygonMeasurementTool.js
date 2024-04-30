@@ -22,7 +22,7 @@ class PolygonMeasurementTool extends MeasurementTool {
 
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar along with the tooltip, css class and toast message
-        super(model, "Measure Polygon", "pi pi-box", "Measure the area of a Polygon", "polygon", "Measure the area of an object by selecting the outer points of a polygon.");
+        super(model, "Flächeninhalt Messen", "pi pi-box", "Messe den Flächeninhalt eines Polygons", "polygon", "Messen Sie den Flächeninhalt eines Polygons indem Sie alle Eckpunkte auswählen.");
     }
 
 

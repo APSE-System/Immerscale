@@ -55,7 +55,7 @@ onUpdated(() => {
                      :useGrouping="false" v-model="numberValue"/>
       </div>
       <div class="flex justify-content-end gap-2">
-        <Button class="in-box" id="button" type="button" label="Save" severity="primary" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
+        <Button class="in-box" id="button" type="button" label="Speichern" severity="primary" @click="saveButtonClicked(numberValue); numberValue=null;"></Button>
       </div>
     </Dialog>
   </div>

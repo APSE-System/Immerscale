@@ -193,20 +193,20 @@ document.addEventListener("measurementCompleted", function (e) {
             </li>
 
             <div v-if="isOpened">
-              <Panel header="Selecting a Reference Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[0] >
-                <p>Click on any of the reference tools in the toolbar to start setting a reference.</p>
+              <Panel header="Ein Referenz-Werkzeug auswählen" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[0] >
+                <p>Klicken Sie ein beliebiges Referenz-Werkzeug in der Werkzeugleiste um das jeweilige Referenz-Werkzeug zu aktivieren.</p>
               </Panel>
-              <Panel header="Using the Reference Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[1]>
-                <p>Select the all the reference points on the image to set a reference for further measurements.</p>
+              <Panel header="Benutzung eines Referenz-Werkzeugs" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[1]>
+                <p>Wählen Sie alle nötigen Referenzpunkte auf dem Bild aus um ein Referenzmaß zu setzen.</p>
               </Panel>
-              <Panel header="Selecting a Measurement Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[2]>
-                <p>Select any of the measurement tools in the toolbar to start measuring within the image.</p>
+              <Panel header="Ein Mess-Werkzeug auswählen" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[2]>
+                <p>Klicken Sie ein beliebiges Mess-Werkzeug in der Werkzeugleiste um das jeweilige Mess-Werkzeug zu aktivieren.</p>
               </Panel>
-              <Panel header="Using the Measurement Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[3]>
-                <p>Click points on the image to start measuring distances or areas.</p>
+              <Panel header="Benutzung eines Mess-Werkzeugs" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[3]>
+                <p>Klicken Sie beliebige Punkte auf dem Bild an um eine Länge oder Fläche auszumessen</p>
               </Panel>
-              <Panel header="Tutorial Completed!" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[4]>
-                <p>You have successfully completed the tutorial. If you measured an area you can right click to start a new measurement.</p>
+              <Panel header="Tutorial Beendet!" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[4]>
+                <p>Sie haben erfolgreich das Tutorial abgeschlossen. Falls Sie eine Fläche ausgemessen haben, können Sie mit rechtsklick eine weitere vermessen!</p>
               </Panel>
             </div>
           </ul>

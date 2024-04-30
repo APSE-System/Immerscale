@@ -31,7 +31,7 @@ const router = useRouter();
     <!-- shows the tab bar and then the selected tab using nested routes -->
     <TabBar>
       <template #back>
-        <Button @click="router.push('/')" label="← Projects" id="back-button" />
+        <Button @click="router.push('/')" label="← Projekte" id="back-button" />
         <h3 class="headline">{{ projectName }}</h3>
       </template>
       <template #main>
