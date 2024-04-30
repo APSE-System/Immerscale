@@ -8,6 +8,7 @@ import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
 
+// Function to show a toast message
 const show = (msg) => {
   if(msg == null || msg === "") return;
   toast.add({ severity: 'info', summary: 'Info', detail: msg, life: 3000 });
@@ -17,18 +18,19 @@ const props = defineProps({
   tools: Array
 })
 
+// The tree structure for the sidebar
 const toolTree = ref([
   {
     key: '0',
     icon:"pi pi-sliders-h",
-    label: 'Reference Tools',
+    label: 'Referenz-Werkzeuge',
     items: [],
     class: 1,
   },
   {
     key: '1',
     icon:"pi pi-pencil",
-    label: 'Measuring Tools',
+    label: 'Mess-Werkzeuge',
     disabled: true,
     items: []
   }
@@ -123,7 +125,6 @@ onMounted(() => {
         <a @click="show(item.toast)" class="flex align-items-center px-3 py-1 cursor-pointer text-color">
           <span :class="[item.icon, 'text-primary']" />
           <span v-tooltip="item.tooltip" :class="[`tool-${item.class}`, { 'font-semibold': item.items }]">{{ item.label }}</span>
-          <!-- TODO make pi-angle-left if it is folded in -->
           <span v-if="item.items" class="pi pi-angle-down text-primary ml-auto" />
         </a>
       </template>
@@ -134,6 +135,9 @@ onMounted(() => {
 <style scoped>
 /* Make reference tools flash green */
 .tool-rectangle{
+  animation: lightenDarken 2.5s infinite ease-in-out;
+}
+.tool-grid{
   animation: lightenDarken 2.5s infinite ease-in-out;
 }
 
@@ -147,7 +151,8 @@ onMounted(() => {
   animation-delay: 1s;
 }
 
-@keyframes lightenDarken {
+@media (prefers-color-scheme: light) {
+  @keyframes lightenDarken {
         0% {
             color: black;
         }
@@ -158,6 +163,20 @@ onMounted(() => {
             color: black;
         }
     }
+}
 
+@media (prefers-color-scheme: dark) {
+  @keyframes lightenDarken {
+        0% {
+            color: black;
+        }
+        50% {
+            color: lawngreen;
+        }
+        100% {
+            color: black;
+        }
+    }
+}
 
 </style>

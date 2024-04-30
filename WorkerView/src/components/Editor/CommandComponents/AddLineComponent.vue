@@ -41,7 +41,7 @@ function setCanvasRef(canvas, index) {
 
 <template>
   <!-- This loop goes over all the lines that exist and draws them on a canvas each. -->
-  <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv" style="position: absolute">
+  <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv">
     <canvas :ref="el => {setCanvasRef(el, index)} " :width=width :height=height class="AddLineCanvas"></canvas>
   </div>
   
@@ -51,19 +51,15 @@ function setCanvasRef(canvas, index) {
 
 <style scoped>
 
-.AddLineCanvasWrapperDiv {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-}
 
 .AddLineCanvas {
-  width: 100%;
-  height: auto;
-  left: 0;
-  right: 0;
+  max-width: 100%;
+  max-height: 100vh;
+}
+
+.AddLineCanvasWrapperDiv{
+  position: absolute;
+  height: 100%;
 }
 
 canvas {

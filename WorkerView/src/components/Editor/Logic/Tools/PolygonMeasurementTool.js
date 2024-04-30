@@ -21,14 +21,18 @@ class PolygonMeasurementTool extends MeasurementTool {
     callback;
 
     constructor(model) {
-        // setting the text and the icon which will be displayed in the tool sidebar
-        // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
-        super(model, "Measure Polygon", "pi pi-box", "Measure the area of a Polygon", "polygon", "Measure the area of an object by selecting the outer points of a polygon.");
+        // setting the text and the icon which will be displayed in the tool sidebar along with the tooltip, css class and toast message
+        super(model, "Flächeninhalt Messen", "pi pi-box", "Messe den Flächeninhalt eines Polygons", "polygon", "Messen Sie den Flächeninhalt eines Polygons indem Sie alle Eckpunkte auswählen.");
     }
 
 
     onClick(x, y) {
-        //this._points.push([x,y]);
+
+        // This tool should not be usable if no reference is set
+        if(!LordImmerScaler._referenceSet){
+            document.dispatchEvent(new CustomEvent("deselectTool"));
+            return;
+        }
 
         // Checking how many points were already specified by the user and adding new commands accordingly.
         if (this._pointCount == 0) {
@@ -134,10 +138,6 @@ class PolygonMeasurementTool extends MeasurementTool {
         while(this._pointCount > 0) {
             this._model.undo();
         }
-        
-        // while (this._model.undo() != this._first) {
-        //     this._model.undo();
-        // }
     }
 }
 

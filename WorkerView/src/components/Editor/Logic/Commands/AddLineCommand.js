@@ -29,9 +29,12 @@ class AddLineCommand extends Command {
     constructor(creator, model, points, drawPoints = false, drawLabel = false, length = "", popup= false, header = "", description = "", value = "", callback, prevValue=-1) {
         super(creator, model);
         this._points = points;
+        // drawPoints specifies if the end point of the line should be drawn as a point whenever the line is drawn.
         this._drawPoints = drawPoints;
+        // drawLabel specifies if a label with a given text should be drawn whenever the line is drawn, length is the text of the label.
         this._drawLabel = drawLabel;
         this._length = length;
+        // The following attributes are for the popup.
         this._popup = popup;
         this._header = header;
         this._description = description;
@@ -52,6 +55,7 @@ class AddLineCommand extends Command {
 
         this._model.addLine(this._points,"00ff00");
 
+        // checks for all the optional attributes and adds them to the model
         if(this._drawPoints)
             this._model.addPoint(this._points[1][0], this._points[1][1], "00ff00")
         if(this._drawLabel){
@@ -67,6 +71,7 @@ class AddLineCommand extends Command {
         super.unExecute();
 
         this._model.removeLine(this._points, "00ff00");
+        // checks for all the optional attributes and calls the according remove method of the model.
         if(this._drawPoints)
             this._model.removePoint(this._points[1][0], this._points[1][1], "00ff00")
         if(this._drawLabel){

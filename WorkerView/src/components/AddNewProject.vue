@@ -11,7 +11,7 @@ const visible = ref(false);
 // Variable to store the new project name
 let newName = ""
 
-//preliminary function to add a new project
+// This function adds a new project
 function addProject(projectName) {
   fetch(import.meta.env.VITE_BACKEND_IP + '/api/workerView/project?name=' + projectName +'&mail=testmail@mymail.org', {credentials: "include", method: "POST"})
     .then((data) => {
@@ -30,18 +30,18 @@ function addProject(projectName) {
 
 <template>
     <div class="card flex justify-content-center">
-        <Button class="addBtn" icon="pi pi-plus" outlined rounded @click="visible = true" v-tooltip="{ value: 'Create new Project', showDelay: 400, hideDelay: 200  }"></Button>
+        <Button class="addBtn" icon="pi pi-plus" outlined rounded @click="visible = true" v-tooltip="{ value: 'Projekt Erstellen', showDelay: 400, hideDelay: 200  }"></Button>
 
         <!-- Dialog for adding new project, will only show once "Create New Project Button" is pressed -->
-        <Dialog v-model:visible="visible" modal header="New Project" :style="{ width: '25rem' }">
-            <span class="p-text-secondary block mb-3">Add new Project</span>
+        <Dialog v-model:visible="visible" modal header="Neues Projekt" :style="{ width: '25rem' }">
+            <span class="p-text-secondary block mb-3">Neues Projekt Erstellen</span>
             <div class="flex align-items-center gap-3 mb-3">
                 <label for="name" class="font-semibold w-6rem">Name</label>
                 <InputText id="name" class="flex-auto" autocomplete="off" v-model="newName"/>
             </div>
             <div class="flex justify-content-end gap-2">
-                <Button class="in-box" type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button class="in-box" type="button" label="Save" @click="visible = false; addProject(newName); "></Button>
+                <Button class="in-box" type="button" label="Abbrechen" severity="secondary" @click="visible = false"></Button>
+                <Button class="in-box" type="button" label="Speichern" @click="visible = false; addProject(newName); "></Button>
             </div>
         </Dialog>
     </div>

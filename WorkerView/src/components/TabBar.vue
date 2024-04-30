@@ -1,6 +1,7 @@
 <script setup>
 </script>
 
+<!-- The sidebar component is used to display the tab bar and the selected tab. -->
 <template>
   <div id="outer-sidebar">
     <div class="sidebar">
@@ -24,7 +25,6 @@
   position: fixed;
   flex-direction: column;
   justify-content: space-between;
-  /* background-color: #37404c; */
   border-radius: 10px;
   padding: 10px;
   height: 150px;
@@ -34,7 +34,6 @@
   left: 10px;
   width: 200px;
 }
-/* TODO make it flex with burger menu (maybe with primevue sidebar?)*/
 .sidebar {
   position: fixed;
   top: 0;
@@ -47,7 +46,6 @@
 @media (prefers-color-scheme: dark) {
   .sidebar {
     background-color: #23282e;
-    /* background-color: transparent; */
   }
 }
 </style>

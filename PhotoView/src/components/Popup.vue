@@ -6,11 +6,14 @@ import Button from "primevue/button";
 import ButtonGroup from "primevue/buttongroup"
 import Dialog from "primevue/dialog";
 import 'primeicons/primeicons.css'
+import { useRouter, useRoute } from "vue-router";
 
 //references
 let image;
 const visible = ref(false);
 const isImageLoaded = ref(true);
+const router = useRouter();
+const route = useRoute();
 
 //! this function will be necessary in the future
 function downloadPicture() {
@@ -39,6 +42,9 @@ async function sendPicture() {
   // for debuging
   // console.log(imageAsBase64);
 
+  // display a toast before receiving the response
+  showStickyToast(' Sende Bild...');
+
   // this is is actually sending the picture
   fetch(import.meta.env.VITE_BACKEND_IP + "/api/photoView/photo", {
 
@@ -52,14 +58,14 @@ async function sendPicture() {
     .then((response) => {
       if (response.ok) {
         // Handle success response
-        showToast("Success");
+        showToast("Erfolgreich gesendet");
       } else {
         // Handle error response
-        showToast("Unauthorized")
+        showToast("Unautorisiert")
       }
     })
     .catch((error) => {
-      showToast("Error");
+      showToast("Fehler");
       console.error("Error:", error);
     })
   }
@@ -70,10 +76,10 @@ async function sendPicture() {
     toast.className = "show";
     toast.innerText = msg;
 
-    if(msg === "Success") {
+    if(msg === "Erfolgreich gesendet") {
       toast.style.backgroundColor = "green";
     }
-    else if(msg === "Unauthorized" || msg === "Error") {
+    else if(msg === "Unautorisiert" || msg === "Fehler") {
       toast.style.backgroundColor = "red";
     }
     else {
@@ -83,6 +89,39 @@ async function sendPicture() {
     setTimeout(function() {toast.className = toast.className.replace("show", ""); }, 3000);
 }
 
+// this toast won't go away and displays a spinner at the beginning
+function showStickyToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.className = "show";
+  toast.innerHTML = `<span class="spinner"></span> ${msg}`;
+  toast.style.backgroundColor = "#333";
+
+  // create the style for the spinner
+  // for some reason this needs to be done in javascript
+  const spinner = document.querySelector('.spinner');
+  spinner.style.display = "inline-block";
+  spinner.style.border = "2px solid #f3f3f3";
+  spinner.style.borderTop = "2px solid #3498db";
+  spinner.style.borderRadius = "50%";
+  spinner.style.width = "20px";
+  spinner.style.height = "20px";
+  spinner.style.animation = "spin 2s linear infinite";
+
+  // Move the spinner 2px down
+  spinner.style.position = "relative";
+  spinner.style.top = "2px";
+
+  // define the spinner animation
+  const styleElement = document.createElement("style");
+  styleElement.textContent = `
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  `;
+
+  document.head.appendChild(styleElement);
+}
 // this loads the image into the Popup
 function loadImage() {
   let video = document.getElementById('webcam')
@@ -144,9 +183,14 @@ function openGallery() {
 input.click();
 }
 
+function goToInfo() {
+  router.push({ path: '/info', query: {token: route.query.token} });
+}
+
 </script>
 
 <template>
+  <Button class="info-button" icon="pi pi-info-circle" @click="goToInfo"></Button>
   <div id="toast"></div>
 
   <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem', maxHeight: '80vh', overflowY: 'auto' }">
@@ -261,4 +305,26 @@ input.click();
   }
 }
 
+@media screen and (max-height: 600px) {
+  .my-button {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.info-button {
+  color: black;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .info-button {
+    color: white;
+  }
+}
 </style>

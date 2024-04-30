@@ -49,9 +49,6 @@ document.addEventListener("measurementCompleted", function (e) {
   steps = 4;
   collapsed = [true, true, true, true, false]
 });
-
-// Juicy Icon that turns green, might not be possible due to size constraints
-// Redo works with Reference Set, but not with Measurement Completed since the same event that is used for undo also gets called when a measurement is completed
 </script>
 
 <script>
@@ -84,26 +81,7 @@ document.addEventListener("measurementCompleted", function (e) {
           type: String,
           default: '20px',
         },
-  
-        //! Menu items
-        /*menuItems: {
-          type: Array,
-          default: () => [
-            {
-              link: '#',
-              name: 'Dashboard',
-              tooltip: 'Dashboard',
-              icon: 'pi pi-link',
-            },
-            {
-              link: '#',
-              name: 'User',
-              tooltip: 'User',
-              icon: 'pi pi-link',
-            },
-          ],
-        },*/
-  
+
         //! Styles
         bgColor: {
           type: String,
@@ -213,29 +191,22 @@ document.addEventListener("measurementCompleted", function (e) {
                 <!--Put progress bar here-->
                 <ProgressBar :value="barPercent">{{ steps }}/4</ProgressBar>
             </li>
-  
-          <!--<li v-for="(menuItem, index) in menuItems" :key="index" :id="'links_' + index">
-              <a>
-                <i class="bx" :class="menuItem.icon || 'bx-square-rounded'"/>
-                <span class="links_name">{{ menuItem.name }}</span>
-              </a>
-              <span :data-target="'links_' + index" class="tooltip">{{menuItem.tooltip || menuItem.name}}</span>
-            </li>-->
+
             <div v-if="isOpened">
-              <Panel header="Selecting a Reference Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[0] >
-                <p>Click on any of the reference tools in the toolbar to start setting a reference.</p>
+              <Panel header="Ein Referenz-Werkzeug auswählen" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[0] >
+                <p>Klicken Sie ein beliebiges Referenz-Werkzeug in der Werkzeugleiste um das jeweilige Referenz-Werkzeug zu aktivieren.</p>
               </Panel>
-              <Panel header="Using the Reference Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[1]>
-                <p>Select the all the reference points on the image to set a reference for further measurements.</p>
+              <Panel header="Benutzung eines Referenz-Werkzeugs" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[1]>
+                <p>Wählen Sie alle nötigen Referenzpunkte auf dem Bild aus um ein Referenzmaß zu setzen.</p>
               </Panel>
-              <Panel header="Selecting a Measurement Tool" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[2]>
-                <p>Select any of the measurement tools in the toolbar to start measuring within the image.</p>
+              <Panel header="Ein Mess-Werkzeug auswählen" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[2]>
+                <p>Klicken Sie ein beliebiges Mess-Werkzeug in der Werkzeugleiste um das jeweilige Mess-Werkzeug zu aktivieren.</p>
               </Panel>
-              <Panel header="Using the Measurement Tools" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[3]>
-                <p>Click points on the image to start measuring distances or areas.</p>
+              <Panel header="Benutzung eines Mess-Werkzeugs" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[3]>
+                <p>Klicken Sie beliebige Punkte auf dem Bild an um eine Länge oder Fläche auszumessen</p>
               </Panel>
-              <Panel header="Tutorial Completed!" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[4]>
-                <p>You have successfully completed the tutorial. If you measured an area you can right click to start a new measurement.</p>
+              <Panel header="Tutorial Beendet!" style="margin: 6px 14px 0 14px" toggleable :collapsed=collapsed[4]>
+                <p>Sie haben erfolgreich das Tutorial abgeschlossen. Falls Sie eine Fläche ausgemessen haben, können Sie mit rechtsklick eine weitere vermessen!</p>
               </Panel>
             </div>
           </ul>
@@ -253,14 +224,10 @@ document.addEventListener("measurementCompleted", function (e) {
   </style>
 
   <style scoped>
-    /* Google Font Link */
-    /* Remove this and make the page work with primeIcons instead of boxicons */
-    /* @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'); */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      /* font-family: 'Poppins', sans-serif; */
     }
     .menu-logo {
       width: 30px;
@@ -349,9 +316,6 @@ document.addEventListener("measurementCompleted", function (e) {
 
     .sidebar .nav-list {
       margin-top: 20px;
-      /* margin-bottom: 60px; */
-      /* height: 100%; */
-      /* min-height: min-content; */
     }
     .sidebar li {
       position: relative;
@@ -362,8 +326,6 @@ document.addEventListener("measurementCompleted", function (e) {
 
     .tooltip {
       position: absolute;
-      /* top: -20px; */
-      /* left: calc(100% + 15px); */
       z-index: 3;
       background: var(--items-tooltip-color);
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);

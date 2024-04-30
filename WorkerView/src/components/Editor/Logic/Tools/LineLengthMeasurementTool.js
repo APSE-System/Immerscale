@@ -16,7 +16,7 @@ class LineLengthMeasurementTool extends MeasurementTool {
     _secondX = 0;
     _secondY = 0;
 
-    // The amout of points that the user has already selected in the image.
+    // The amount of points that the user has already selected in the image.
     _pointCount = 0;
     
     // Boolean value which specifies whether the tool has completed it's purpose or not.
@@ -25,10 +25,16 @@ class LineLengthMeasurementTool extends MeasurementTool {
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
-        super(model, "Measure Distance", "pi pi-arrows-h", "Measure the distance between two points", "line", "Select two points to measure the distance between them.");
+        super(model, "Strecke Messen", "pi pi-arrows-h", "Messe die Strecke zwischen zwei Punkten", "line", "Wählen Sie zwei Punkte aus um den Abstand zwischen ihnen auszumessen.");
     }
 
     onClick(x, y) {
+        // This tool should not be usable if no reference is set
+        if(!LordImmerScaler._referenceSet){
+            document.dispatchEvent(new CustomEvent("deselectTool"));
+            return;
+        }
+
         // Checking how many points were already specified by the user and adding new commands accordingly.
         if (this._pointCount == 0 || this._pointCount == 2) {
             // The first command is simply adding a point to the user selected coordinates.
@@ -44,14 +50,6 @@ class LineLengthMeasurementTool extends MeasurementTool {
             this._model.do(new AddLineCommand(this, this._model, [[this._firstX, this._firstY], [this._secondX, this._secondY]], true, true, this.measureLength(), false));
             // The tool is finished after the second point is set, all points are reset.
             this.measurementCompleted();
-            // this causes a bug
-            // this._first = null;
-            // this._firstX = 0;
-            // this._firstY = 0;
-            // this._secondX = 0;
-            // this._secondY = 0;
-            // this._pointCount = 0;
-            // this._finished = true;
         }
     }
 
@@ -115,12 +113,9 @@ class LineLengthMeasurementTool extends MeasurementTool {
         while (this._pointCount > 0) {
             this._model.undo();
         }
-
-        // while (this._model.undo() != this._first) {
-        //     // Undoes all the commands done by this tool if it is not yet finished
-        // }
     }
 
+    // This function transforms the coordinates of the two points to real world coordinates and calculates the distance between them using the MathUtils.
     measureLength() {
         let point_1 = LordImmerScaler.transformToRealWorld(this._firstX, this._firstY);
         let point_2 = LordImmerScaler.transformToRealWorld(this._secondX, this._secondY);

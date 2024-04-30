@@ -22,6 +22,7 @@ function clickedProject() {
 var images = ref([])
 
 onMounted(() => {
+  // Fetches the images belonging to the project from the backend
   fetch( import.meta.env.VITE_BACKEND_IP + '/api/workerView/images?id=' + props.id, {credentials: "include"})
     .then((resp) => resp.json())
     .then((data) => {
@@ -41,11 +42,12 @@ onMounted(() => {
 
 <template>
   <div></div>
-  <div class="ProjectItem" @click="clickedProject" v-tooltip="{ value: 'Click to view Project Details', showDelay: 700, hideDelay: 200  }">
-    <!-- Icon on the left side TODO: make it possible to load an image here if no files are loaded in the project-->
+  <div class="ProjectItem" @click="clickedProject" v-tooltip="{ value: 'Klicken um das Projekt zu öffnen', showDelay: 700, hideDelay: 200  }">
+    <!-- Display the newest image of the project -->
     <div v-if="images.length>0">
       <img :src="images[images.length-1]" alt="Image 1">
     </div>
+    <!-- If no images are available, a placeholder icon is displayed. -->
     <div v-if="images.length==0">
       <div class="pi pi-images" style="color: darkgray" ></div>
     </div>

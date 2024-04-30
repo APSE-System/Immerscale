@@ -8,6 +8,7 @@ import Button from "primevue/button";
 const route = useRoute()
 const projectName = ref("")
 
+// Fetches the project name from the backend since it is not stored in the frontend and can't be passed as a prop here
 async function getName(){
 fetch( import.meta.env.VITE_BACKEND_IP + '/api/workerView/projectName?id=' + route.params.id, {credentials: "include"})
   .then(async (resp) => {
@@ -26,13 +27,11 @@ const router = useRouter();
 </script>
 
 <template>
-  <!-- TODO this h2 is bugged due to merge -->
-  <!-- <h2>Project {{ projectName }}</h2> --> 
   <div class="projectPage">
     <!-- shows the tab bar and then the selected tab using nested routes -->
     <TabBar>
       <template #back>
-        <Button @click="router.push('/')" label="← Projects" id="back-button" />
+        <Button @click="router.push('/')" label="← Projekte" id="back-button" />
         <h3 class="headline">{{ projectName }}</h3>
       </template>
       <template #main>
@@ -49,16 +48,6 @@ const router = useRouter();
     display: flex;
     justify-content: left;
   }
-
-  /* could be used later to contain the back button and burger menu */
-  /* .navigate-box {
-    position: absolute;
-    top: 5px;
-    z-index: 1;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 80px;
-  } */
 
   .p-button{
     color: black;

@@ -30,7 +30,7 @@ onMounted(async () => {
   let password 
   if(!checkCookie('WorkerCookie') ) {
     password = await prompt("Insert Password")
-
+    // Fetches the worker cookie from the backend to authenticate the user. VERY IMPORTANT!
     fetch(import.meta.env.VITE_BACKEND_IP + "/api/auth/cookie/worker?credential=" + password, {credentials: "include"})
     .then((response) => {
       if (response.ok)
@@ -65,11 +65,12 @@ function checkCookie(cookieName) {
 
 <template>
   <h1 id="headline">Immerscale</h1>
-  <h1 class="headline">Projects</h1>
+  <h1 class="headline">Projekte</h1>
   <div class="ProjectButton">
     <AddNewProject @fetchProjects="fetchProjects"/>
   </div>
   <Divider />
+  <!-- Iterates through the projects and displays them using the ProjectWidget component. Values are passed as properties. -->
   <div class="ProjectList">
     <ProjectWidget v-for="project in projects" :id="project.project_id" :name="project.name"/>
   </div>
@@ -82,4 +83,4 @@ function checkCookie(cookieName) {
   align-items: center;
   gap: 0.5rem;
 }
-</style>./components/ProjectWidget.vue
+</style>
