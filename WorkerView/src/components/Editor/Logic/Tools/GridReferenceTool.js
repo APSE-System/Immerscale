@@ -32,7 +32,7 @@ class GridReferenceTool extends ReferenceTool {
     constructor(model) {
         // setting the text and the icon which will be displayed in the tool sidebar
         // also optionally add a tooltip and a css class (the css class has the prefix tool-), lastly you can add a toast message when clicking the tool
-        super(model, "Grid Reference", "pi pi-table", "description", "grid", "toast from grid");
+        super(model, "Gitternetz Referenz", "pi pi-table", "Referenz anhand einer bekannten Länge und paralleler Linien im Bild", "grid", "Wählen Sie eine bekannte Referenzlänge und legen Sie das Gitternetz  auf parallele Linien im Bild.");
     }
 
 
@@ -44,7 +44,7 @@ class GridReferenceTool extends ReferenceTool {
             this._model.do(new AddPointCommand(this, this._model, x, y));
         } else if (this._pointCount === 1) {
             this._secondPoint = [x, y];
-            this._model.do(new AddLineCommand(this, this._model, [[this._firstPoint[0], this._firstPoint[1]], [x, y]], true, false, null, true, "Length Input", "Please insert the length of this edge.", "Length in cm", (length) => {
+            this._model.do(new AddLineCommand(this, this._model, [[this._firstPoint[0], this._firstPoint[1]], [x, y]], true, false, null, true, "Länge angeben", "Geben Sie die Länge der Strecke an.", "Länge in cm", (length) => {
                 this._firstLength = length;
                 this.setReference();
             }, ));
