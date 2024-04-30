@@ -108,10 +108,10 @@ function clearPreview() {
 
 <template>
   <!-- this is the preview canvas -->
-  <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddPointCanvas" style="position: absolute; top:0; left:0;"></canvas>
+  <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddPointPreviewCanvas" ></canvas>
 
   <!-- This loop goes over all the points that exist and draws them on a canvas each. -->
-  <div v-for="(point, index) in canvasPoints" :key="index" class="AddPointCanvasWrapperDiv" style="position: absolute">
+  <div v-for="(point, index) in canvasPoints" :key="index" class="AddPointCanvasWrapperDiv">
     <canvas :ref="el => {setCanvasRef(el, index)} "  :width=width :height=height class="AddPointCanvas"></canvas>
   </div>
 </template>
@@ -119,19 +119,20 @@ function clearPreview() {
 
 <style scoped>
 
-.AddPointCanvasWrapperDiv {
+.AddPointPreviewCanvas{
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
+  max-width: 100%;
+  max-height: 100vh;
+}
+
+.AddPointCanvasWrapperDiv{
+  position: absolute;
   height: 100%;
 }
 
 .AddPointCanvas {
-  width: 100%;
-  height: auto;
-  left: 0;
-  right: 0;
+  max-width: 100%;
+  max-height: 100vh;
 }
 
 canvas {

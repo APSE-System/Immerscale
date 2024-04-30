@@ -157,11 +157,11 @@ function clearPreview() {
 
 <template>
   <!-- this is the preview canvas -->
-  <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddAreaCanvas" style="position: absolute; top:0; left:0;"></canvas>
+  <canvas :ref="el => {setPreviewCanvasRef(el)}" :width=width :height=height class="AddAreaPreviewCanvas"></canvas>
 
   <!-- Only draw the canvas for the last canvasArea (so the color within does not overlap) -->
   <!-- And for canvasAreas which have a following CanvasArea with the size of 0 (so multiple polygons can be displayed) -->
-  <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv" style="position: absolute">
+  <div v-for="(area, index) in canvasAreas" :key="index" class="AddAreaCanvasWrapperDiv">
   <canvas v-if="index === canvasAreas.length - 1 || (index < canvasAreas.length - 1 && canvasAreas[index + 1].size === 0)" 
           :ref="el => {setCanvasRef(el, index)} " 
           :width=width 
@@ -174,19 +174,19 @@ function clearPreview() {
 
 <style scoped>
 
-.AddAreaCanvasWrapperDiv {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
+.AddAreaPreviewCanvas{
+  max-width: 100%;
+  max-height: 100vh;
 }
 
-.AddAreaCanvas {
-  width: 100%;
-  height: auto;
-  left: 0;
-  right: 0;
+.AddAreaCanvas{
+  max-width: 100%;
+  max-height: 100vh;
+}
+
+.AddAreaCanvasWrapperDiv{
+  position: absolute;
+  height: 100%;
 }
 
 canvas {

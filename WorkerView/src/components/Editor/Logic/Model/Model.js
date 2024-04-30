@@ -13,6 +13,8 @@ class Model {
     canvasLines = [];
     // Areas that should be drawn on the image
     canvasAreas = [];
+    // Grid used by the grid reference tool
+    canvasGrid = null;
     // Labels that should be drawn on the image
     canvasLabels = [];
     // Popup which can be used for receiving user input values.
@@ -30,6 +32,11 @@ class Model {
 
     // Pointer to the current (last executed) command.
     currentCommand = null;
+
+    // Width of the displayed image
+    width = -1;
+    // Height of the displayed image
+    height = -1;
 
     constructor() {
         this.currentCommand = new DefaultCommand(null, this);
@@ -100,6 +107,10 @@ class Model {
         this.popup.clear();
     }
 
+    addGrid(grid){
+        this.canvasGrid = grid;
+    }
+
     // Executes the given command
     do(command) {
         // The new command is set as the next command of the previous command, to keep the comand history.
@@ -131,6 +142,12 @@ class Model {
             return;
 
         this.do(this.currentCommand.getNext());
+    }
+
+    
+    setImageSize(width, height) {
+        this.width = width;
+        this.height = height;
     }
 
     updateCurrentMousePosition(x, y) {

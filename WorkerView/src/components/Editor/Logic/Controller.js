@@ -1,5 +1,6 @@
 import RectangleReferenceTool from "./Tools/RectangleReferenceTool.js";
 import ReferenceTool from "./ReferenceTool.js";
+import GridReferenceTool from "./Tools/GridReferenceTool.js";
 
 class Controller{
 
@@ -50,12 +51,54 @@ class Controller{
             this._currentTool.onMouseLeave();
     }
 
+    onMouseDown(x, y){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.onMouseDown(x, y);
+        }
+    }
+
+    onMouseUp(){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.onMouseUp();
+        }
+    }
+
     undo(){
         this._model.undo()
     }
 
     redo(){
         this._model.redo()
+    }
+
+    setXRotation(angle){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setXRotation(angle);
+        }
+    }
+
+    setYRotation(angle){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setYRotation(angle);
+        }
+    }
+
+    setZRotation(angle){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setZRotation(angle);
+        }
+    }
+
+    setScale(scale) {
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setScale(scale);
+        }
+    }
+
+    setInput(){
+        if(this._currentTool instanceof GridReferenceTool){
+            this._currentTool.setGrid();
+        }
     }
 
 }
