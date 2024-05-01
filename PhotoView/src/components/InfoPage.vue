@@ -1,3 +1,5 @@
+<!-- Info Page -->
+
 <script setup>
 import { useRouter, useRoute } from "vue-router";
 import { ref } from "vue";
@@ -5,6 +7,7 @@ import Button from "primevue/button";
 import Stepper from 'primevue/stepper';
 import StepperPanel from 'primevue/stepperpanel';
 
+// variables
 const route = useRoute();
 const router = useRouter();
 
@@ -29,14 +32,19 @@ function goToMain() {
 
     <div class="card flex justify-content-center main">
       <Stepper orientation="vertical" linear :activeIndex="currentIndex">
+        <!-- stepper header -->
         <StepperPanel v-for="(sentence, index) in sentences" :key="index" :header="'Schritt ' + (index + 1)">
+          <!-- content -->
           <template #content="{ nextCallback, prevCallback }">
             <div class="flex flex-column h-12rem text-container">
               <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">{{ sentence }}</div>
             </div>
             <div class="flex pt-4 justify-content-between button-container">
+              <!-- back -->
               <Button v-if="index > 0" label="Zurück" severity="secondary" icon="pi pi-arrow-left" class="my-button left" @click="prevCallback" />
+              <!-- forward -->
               <Button v-if="index < sentences.length - 1" label="Weiter" icon="pi pi-arrow-right" class="my-button right" iconPos="right" @click="nextCallback" />
+              <!-- to the main Page if you have read the info -->
               <Button v-if="index === sentences.length - 1" @click="goToMain" class="my-button right" label="Weiter zur PhotoView"></Button>
             </div>
           </template>
@@ -67,8 +75,6 @@ function goToMain() {
 }
 
 .text-container{
-    /* height: 40vh; */
-    /* border: 3px solid black; */
     border-radius: 5px;
     margin-bottom: 10px ;
 }

@@ -2,7 +2,7 @@
 import {onMounted, ref} from 'vue';
 
 
-  //  #region get auth
+  // get authentication
    onMounted(() => {
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -27,13 +27,6 @@ import {onMounted, ref} from 'vue';
     console.error("Error:", error);
   });
 });
-// #endregion
-
-function handleOrientation(event) {
-  xrot.value = event.beta;
-  yrot.value = event.gamma;
-  zrot.value = event.alpha;
-}
 
 </script>
 
