@@ -38,7 +38,6 @@ function setCanvasRef(canvas, index) {
 
 </script>
 
-
 <template>
   <!-- This loop goes over all the lines that exist and draws them on a canvas each. -->
   <div v-for="(line, index) in canvasLines" :key="index" class="AddLineCanvasWrapperDiv">
@@ -48,9 +47,7 @@ function setCanvasRef(canvas, index) {
 </template>
 
 
-
 <style scoped>
-
 
 .AddLineCanvas {
   max-width: 100%;
@@ -63,7 +60,6 @@ function setCanvasRef(canvas, index) {
 }
 
 canvas {
-  /* filter: blur(100); */
   image-rendering: crisp-edges;
 }
 

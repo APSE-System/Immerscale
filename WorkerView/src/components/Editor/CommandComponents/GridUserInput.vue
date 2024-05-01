@@ -10,15 +10,12 @@ let xRot = ref(0)
 let yRot = ref(0)
 let zRot = ref(0)
 
-
 let rotMin = ref(-90)
 let rotMax = ref(90)
 
 let scale = ref(100)
 
-
 const toast = useToast();
-
 
 const props = defineProps({
   controller: Object
@@ -106,9 +103,6 @@ function setInput() {
       </div>
 
     </div>
-
-
-
 
     <Button class="setButton" label="Ebene Setzen" @click="setInput" severity="primary"/>
 

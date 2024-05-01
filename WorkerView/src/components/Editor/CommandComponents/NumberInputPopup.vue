@@ -71,4 +71,3 @@ onUpdated(() => {
     }
   }
 </style>
-

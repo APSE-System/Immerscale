@@ -68,9 +68,7 @@ onMounted(() => {
 
   document.addEventListener('keydown', canvasBack);
 
-
   fetch(
-
       import.meta.env.VITE_BACKEND_IP +
       "/api/workerView/image?id=" +
       route.params.id + "&index=" + route.params.index,
@@ -107,7 +105,6 @@ function drawImage() {
     ctx.drawImage(img, 0, 0);
 
     model.value.setImageSize(img.width, img.height);
-
   };
 }
 
@@ -210,7 +207,6 @@ function canvasClicked(event) {
   }
 }
 
-
 // listens on Right Click
 function canvasRightClicked(event) {
   // to prevent the opening of the context menu
@@ -251,7 +247,6 @@ function canvasBack(event){
 
 }
 
-
 function onMouseDown(event){
   // These coordinates are relative to the canvas size.
   const rect = event.target.getBoundingClientRect()
@@ -271,9 +266,8 @@ function onMouseUp(event){
   controller.onMouseUp();
 }
 
-
-
 </script>
+
 
 <template>
   <div class="editor">
@@ -317,7 +311,6 @@ function onMouseUp(event){
 .editor {
   display: flex;
 }
-
 
 #zoom-outer {
   width: 70%;

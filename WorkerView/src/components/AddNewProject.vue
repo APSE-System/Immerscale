@@ -22,7 +22,6 @@ function addProject(projectName) {
     .catch(function(){
       alert("Backend ist nicht errreichbar")
     })
-    
 }
 
 </script>

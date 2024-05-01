@@ -93,4 +93,5 @@ const router = useRouter();
     color: rgba(102, 94, 94, 0.87);
   }
 }
+
 </style>
