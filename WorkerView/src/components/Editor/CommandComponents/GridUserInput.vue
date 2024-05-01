@@ -3,7 +3,6 @@ import Knob from 'primevue/knob';
 import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
 import {defineProps, ref} from "vue";
-import Toast from "../../../App.vue";
 import {useToast} from 'primevue/usetoast';
 
 let xRot = ref(0)
@@ -55,7 +54,6 @@ function setInput() {
 
 
 <template>
-  <Toast/>
 
   <div v-if="visible" class="controls">
 
