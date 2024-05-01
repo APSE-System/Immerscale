@@ -5,7 +5,7 @@ npm run dev
 or
 npm run dev -- --host
 
-## Project was build with
+## Project was built with
 npm create vite@latest -- --template vue
 
 ## Plugins
