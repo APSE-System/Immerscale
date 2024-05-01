@@ -70,7 +70,6 @@ function setCanvasRefVert(canvas, index) {
   }
 }
 
-
 // This function checks if the canvas even exists before handing the according point to the drawing function.
 function setCanvasRefHor(canvas, index) {
   if (canvas === null)
@@ -111,7 +110,6 @@ function setCanvasRefHor(canvas, index) {
 }
 
 canvas {
-  /* filter: blur(100); */
   image-rendering: crisp-edges;
 }
 

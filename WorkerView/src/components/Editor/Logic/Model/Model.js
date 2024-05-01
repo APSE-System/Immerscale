@@ -5,7 +5,6 @@ import DefaultCommand from "../Commands/DefaultCommand.js";
 import Popup from "./ModelComponents/Popup.js";
 import CanvasArea from "./ModelComponents/CanvasArea.js";
 
-
 class Model {
     // Points that should be drawn on the image
     canvasPoints = [];
@@ -134,7 +133,6 @@ class Model {
         return undoneCommand;
     }
 
-
     // Redoes the chronological "next" command
     redo(){
         // If the current command also has a "next" command, it is executed.
@@ -144,7 +142,6 @@ class Model {
         this.do(this.currentCommand.getNext());
     }
 
-    
     setImageSize(width, height) {
         this.width = width;
         this.height = height;

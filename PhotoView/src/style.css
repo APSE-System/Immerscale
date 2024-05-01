@@ -15,11 +15,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
-
 #app {
   margin: 0;
   padding: 0;

@@ -1,21 +1,22 @@
 <!-- Popup -->
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import Button from "primevue/button";
 import ButtonGroup from "primevue/buttongroup"
 import Dialog from "primevue/dialog";
 import 'primeicons/primeicons.css'
 import { useRouter, useRoute } from "vue-router";
 
-//references
-let image;
+// this is the image, which is displayed in the body of the popup
+let image; 
+// visible displays the visibility of this component
 const visible = ref(false);
+// used to display an error text
 const isImageLoaded = ref(true);
 const router = useRouter();
 const route = useRoute();
 
-//! this function will be necessary in the future
 function downloadPicture() {
   var link = document.createElement("a");
   link.download = "immerscale-picture";
@@ -29,9 +30,7 @@ function downloadPicture() {
 async function sendPicture() {
   image = document.getElementById("my-image");
 
-
-  // // get the base64 part of the image and remove the prefix "data:image/jpeg;base64," with split
-  // the try catch is there just in the case some 'funny' things happen
+  // get the base64 part of the image and remove the prefix "data:image/jpeg;base64,"
   try {
     var imageAsBase64 = image.attributes.src.value.split(",")[1];
   } catch (error) {
@@ -39,13 +38,10 @@ async function sendPicture() {
     return;
   }
 
-  // for debuging
-  // console.log(imageAsBase64);
-
   // display a toast before receiving the response
   showStickyToast(' Sende Bild...');
 
-  // this is is actually sending the picture
+  // for sending the picture
   fetch(import.meta.env.VITE_BACKEND_IP + "/api/photoView/photo", {
 
     credentials: "include",
@@ -122,6 +118,7 @@ function showStickyToast(msg) {
 
   document.head.appendChild(styleElement);
 }
+
 // this loads the image into the Popup
 function loadImage() {
   let video = document.getElementById('webcam')
@@ -134,9 +131,6 @@ function loadImage() {
   let canvas = document.createElement('canvas');
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
-
-  let para = '-width: ' + video.videoWidth + ' -height: ' + video.videoHeight;
-  console.log(para);
 
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
 
@@ -151,7 +145,7 @@ function loadImage() {
     }
   }
 
-  // will open the gallery and inset the picture into the popu
+  // will open the gallery and insert the picture into the popup
 function openGallery() {
   // create an input object
   let input = document.createElement('input');
@@ -190,27 +184,35 @@ function goToInfo() {
 </script>
 
 <template>
+  <!-- Info Button -->
   <Button class="info-button" icon="pi pi-info-circle" @click="goToInfo"></Button>
+
+  <!-- Toast -->
   <div id="toast"></div>
 
+  <!-- Popup Header -->
   <Dialog v-model:visible="visible" header="Senden" :style="{ width: '25rem', maxHeight: '80vh', overflowY: 'auto' }">
-  <div class="modal-body">
-    <img id="my-image" src="" alt="" />
-    <p v-if="!isImageLoaded"> Kein Bild </p>
-  </div>
-  <div class="modal-footer">
-    <ButtonGroup id="send-and-safe">  
-      <Button class="button" @click="visible = false; sendPicture()" label="Absenden"></Button>
-      <Button icon="pi pi-download" severity="secondary" @click="downloadPicture"></Button>
-    </ButtonGroup>
-    <Button class="button" @click="visible = false" data-model-close label="Verwerfen"></Button>
-  </div>
-</Dialog>
+    <!-- Popup Body -->
+    <div class="modal-body">
+      <img id="my-image" src="" alt="" />
+      <p v-if="!isImageLoaded"> Kein Bild </p>
+    </div>
+    <!-- Popup Footer (Buttons) -->
+    <div class="modal-footer">
+      <ButtonGroup id="send-and-safe">  
+        <Button class="button" @click="visible = false; sendPicture()" label="Absenden"></Button>
+        <Button icon="pi pi-download" severity="secondary" @click="downloadPicture"></Button>
+      </ButtonGroup>
+      <Button class="button" @click="visible = false" data-model-close label="Verwerfen"></Button>
+    </div>
+  </Dialog>
 
+  <!-- Create-Picture-Button and Open-Gallery-Button -->
   <ButtonGroup>
     <Button class="my-button" @click="visible = true; loadImage();" label="Bild erstellen"></Button>
     <Button class="my-button" icon="pi pi-images" @click="visible = true; openGallery()"></Button>
   </ButtonGroup>
+
 </template>
 
 <style scoped>
@@ -269,7 +271,8 @@ function goToInfo() {
 .modal-footer Button {
   color: black;
 }
-/* the background color also changes based on the text (Success or Unauthorized) */
+
+/* the background color also changes based on the text (Success or Unauthorized) (which is done in the funtion)*/
 #toast {
   visibility: hidden;
   min-width: 250px;

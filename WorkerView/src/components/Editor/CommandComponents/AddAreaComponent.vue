@@ -80,7 +80,6 @@ function drawAreaPreview(canvas, area) {
 
   // draws the outline
   ctx.stroke();   
-
 }
 
 // Transforms a hex color into a rgb color
@@ -132,7 +131,6 @@ function clearPreview() {
   // Clear the canvas
   ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
 }
-
 
   function displaySize(value, ctx, area) {
     if(value === 0) return;
@@ -190,7 +188,6 @@ function clearPreview() {
 }
 
 canvas {
-  /* filter: blur(100); */
   image-rendering: crisp-edges;
 }
 

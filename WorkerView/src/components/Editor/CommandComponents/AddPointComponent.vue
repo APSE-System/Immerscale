@@ -139,5 +139,4 @@ canvas {
   image-rendering: crisp-edges;
 }
 
-
 </style>

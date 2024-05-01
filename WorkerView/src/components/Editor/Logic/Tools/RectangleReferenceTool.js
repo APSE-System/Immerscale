@@ -163,8 +163,6 @@ class RectangleReferenceTool extends ReferenceTool {
             this._model.undo();
         }
     }
-
-
 }
 
 export default RectangleReferenceTool;

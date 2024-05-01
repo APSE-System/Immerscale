@@ -114,8 +114,6 @@ onMounted(() => {
   fillToolTree()
 })
 
-
-
 </script>
 
 <template>
