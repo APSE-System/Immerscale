@@ -120,11 +120,7 @@ export function  scalePoint2D(point, scale) {
 }
 
 export function scalePoint3D(point, scaleX, scaleY) {
-
-    // normalize the scale values /100 make sure that 100% is the original size -> 1
-    // float conversion is necessary because the scale values are strings
-
-
+    
     let scale_matrix = math.matrix([
         [scaleX, 0, 0, 0],
         [0, scaleY, 0, 0],
