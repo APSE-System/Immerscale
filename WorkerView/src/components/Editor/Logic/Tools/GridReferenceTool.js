@@ -57,11 +57,13 @@ class GridReferenceTool extends ReferenceTool {
             // If there is no point set yet, the counter is incremented and the reference to the first point is set.
             this._firstPoint = [command._x, command._y];
             this._pointCount++;
+            this._model.setPointPreview(true);
         } else if (this._pointCount === 1) {
             command.updatePopup(this._firstLength);
             this._pointCount++;
             this._model.addGrid(null);
             this._finished = true;
+            this._model.setPointPreview(false);
         }
     }
 
@@ -70,11 +72,13 @@ class GridReferenceTool extends ReferenceTool {
             this._pointCount--;
             this._finished = false;
             LordImmerScaler.changeMatrix(null);
+            this._model.setPointPreview(true);
         } else if (this._pointCount === 1) {
             this._pointCount--;
             this._gridSet = false;
             this.applyGridCommand();
             document.dispatchEvent(new CustomEvent("GridToolSelected"));
+            this._model.setPointPreview(false);
         }
     }
 
@@ -132,6 +136,7 @@ class GridReferenceTool extends ReferenceTool {
 
     // For deselecting this tool, all the already executed commands are undone (ONLY WHEN THE TOOL IS NOT FINISHED YET)
     deselect() {
+        this._model.setPointPreview(false);
         if (this._finished) return;
 
         super.deselect();
@@ -147,11 +152,19 @@ class GridReferenceTool extends ReferenceTool {
     }
 
     onMouseMove(x, y) {
+        // used for the preview
+        this._model.updateCurrentMousePosition(x, y);
+
         if (this._gridSet || !this._dragging) return;
 
         this._xPos = x;
         this._yPos = y;
         this.applyGridCommand()
+    }
+
+    onMouseLeave() {
+        // this will stop the preview
+        this._model.updateCurrentMousePosition(0,0);
     }
 
     onMouseUp() {
