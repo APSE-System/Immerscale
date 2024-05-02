@@ -64,18 +64,6 @@ export function applyMatrixToPoints(matrix, ...points){
     return result
 }
 
-export function getDistanceForImmerscaler(point1, point2, scaleX, scaleY){
-
-    let vector = math.subtract(point1, point2)
-
-    console.log("vector", vector)
-
-    vector[0] = vector[0] * scaleX/100
-    vector[1] = vector[1] * scaleY/100
-
-    return math.norm(vector)
-}
-
 export function getDistance(point1, point2){
 
     let vector = math.subtract(point1, point2)

@@ -4,8 +4,7 @@ import AddGridCommand from "../Commands/AddGridCommand.js";
 import {
     calculatePerspectiveMatrix,
     degreeToRadians,
-    getDistance,
-    getDistanceForImmerscaler
+    getDistance
 } from "../Utils/MathUtils.js";
 import AddLineCommand from "../Commands/AddLineCommand.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
