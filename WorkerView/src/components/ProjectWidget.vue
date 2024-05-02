@@ -54,7 +54,7 @@ onMounted(() => {
     <!-- Values taken from properties -->
     <div class="ItemInfos">
       <b> {{ name }}</b>
-      <p>Max MusterMann</p>
+      <p>Handwerker Marcel</p>
     </div>
   </div>
 </template>
