@@ -148,7 +148,8 @@ function clearPreview() {
     // Center the text horizontally and vertically
     const textWidth = ctx.measureText(value).width;
       
-    ctx.fillText(value, centerX - textWidth / 2, centerY + 10);
+    // draw the centered size with , instead of .
+    ctx.fillText(value.toString().replace(".", ","), centerX - textWidth / 2, centerY + 10);
   }
 </script>
 
