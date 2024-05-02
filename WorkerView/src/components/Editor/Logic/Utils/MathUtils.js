@@ -65,12 +65,7 @@ export function applyMatrixToPoints(matrix, ...points){
 }
 
 export function getDistance(point1, point2){
-
-    let vector = math.subtract(point1, point2)
-
-    console.log("vector", vector)
-
-    return math.norm(vector)
+    return math.norm(math.subtract(point1, point2))
 }
 
 export function rotatePoints3Dim3Axes(points, angleX, angleY, angleZ){
