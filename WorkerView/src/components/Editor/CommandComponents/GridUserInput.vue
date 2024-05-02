@@ -13,6 +13,8 @@ let rotMin = ref(-90)
 let rotMax = ref(90)
 
 let scale = ref(100)
+let scaleX = ref(100.0)
+let scaleY = ref(100.0)
 
 const toast = useToast();
 
@@ -43,8 +45,9 @@ function zRotChanged() {
 }
 
 function scaleChanged(){
-  props.controller.setScale(scale.value);
+  props.controller.setScale(scale.value, scaleX.value, scaleY.value)
 }
+
 
 function setInput() {
   props.controller.setInput();
@@ -81,16 +84,29 @@ function setInput() {
     <div class="row">
       <div class="knobElement">
         <h3>Z-Rotation:</h3>
-        <Knob v-model="zRot" v-on:change="zRotChanged" :size="85" :step="0.5" :min="rotMin" :max="rotMax"/>
+        <Knob v-model="zRot" v-on:change="zRotChanged" :size="85" :step="0.25" :min="rotMin" :max="rotMax"/>
         <div class="flex gap-2">
-          <Button class="knobButton" icon="pi pi-plus" @click="zRot+=0.5; zRotChanged();" :disabled="zRot >= rotMax"/>
-          <Button class="knobButton" icon="pi pi-minus" @click="zRot-=0.5; zRotChanged();" :disabled="zRot <= rotMin"/>
+          <Button class="knobButton" icon="pi pi-plus" @click="zRot+=0.25; zRotChanged();" :disabled="zRot >= rotMax"/>
+          <Button class="knobButton" icon="pi pi-minus" @click="zRot-=0.25; zRotChanged();" :disabled="zRot <= rotMin"/>
         </div>
       </div>
 
       <div class="knobElement">
-        <h3>Skalierung (in %):</h3>
-        <InputNumber v-model="scale" showButtons buttonLayout="vertical" @update:modelValue="scaleChanged" style="width: 3.5rem" :min="0">
+        <h3>Skalierung (%):</h3>
+        <InputNumber v-model="scale" showButtons buttonLayout="vertical" @update:modelValue="scaleChanged" style="width: 4.5rem" :min="0">
+          <template #incrementbuttonicon>
+            <span class="pi pi-plus"/>
+          </template>
+          <template #decrementbuttonicon>
+            <span class="pi pi-minus"/>
+          </template>
+        </InputNumber>
+      </div>
+    </div>
+    <div class="row">
+      <div class="knobElement">
+        <h3>X-Skalierung (%):</h3>
+        <InputNumber v-model="scaleX" showButtons buttonLayout="vertical" @update:modelValue="scaleChanged" style="width: 4.5rem" :min="0.0" :step="0.5">
           <template #incrementbuttonicon>
             <span class="pi pi-plus"/>
           </template>
@@ -100,6 +116,17 @@ function setInput() {
         </InputNumber>
       </div>
 
+      <div class="knobElement">
+        <h3>Y-Skalierung (%):</h3>
+        <InputNumber v-model="scaleY" showButtons buttonLayout="vertical" @update:modelValue="scaleChanged" style="width: 4.5rem" :min="0.0" :step="0.5">
+          <template #incrementbuttonicon>
+            <span class="pi pi-plus"/>
+          </template>
+          <template #decrementbuttonicon>
+            <span class="pi pi-minus"/>
+          </template>
+        </InputNumber>
+      </div>
     </div>
 
     <Button class="setButton" label="Ebene Setzen" @click="setInput" severity="primary"/>

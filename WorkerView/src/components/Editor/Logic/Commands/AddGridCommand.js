@@ -6,7 +6,7 @@ import {
     degreeToRadians,
     projectPointTo2D,
     radiansToDegree, rotatePoints3Dim3Axes,
-    scalePoint2D,
+    scalePoint2D, scalePoint3D,
     viewMatrix
 } from "../Utils/MathUtils.js";
 
@@ -24,9 +24,11 @@ class AddGridCommand extends Command {
     _gridHeight = 0;
 
     _scaleFactor = 1;
+    _scaleX = 100.0;
+    _scaleY = 100.0;
     _baseScaleFactor = 1;
 
-    constructor(creator, model, xRot, yRot, zRot, xPos, yPos, scale) {
+    constructor(creator, model, xRot, yRot, zRot, xPos, yPos, scale, scaleX, scaleY) {
         super(creator, model);
 
         this._xRot = xRot;
@@ -42,11 +44,15 @@ class AddGridCommand extends Command {
         this._baseScaleFactor = model.width / this._gridWidth;
         this._scaleFactor = scale;
 
+        this._scaleX = scaleX;
+        this._scaleY = scaleY;
         // Generate the grid
         this.generateGridPoints()
 
+
         // Retrieve the right projection fitting to the specified angles
-        let points_rotated = this.rotatePoints(this._points)
+        let points_scaled = this.scalePoints(this._points)
+        let points_rotated = this.rotatePoints(points_scaled)
         let points_positioned = this.positionCamera(points_rotated)
         this.projectOnGrid(points_positioned)
 
@@ -65,6 +71,21 @@ class AddGridCommand extends Command {
                 }
             }
         }
+    }
+
+    scalePoints(points) {
+        let points_scaled = []
+
+        for (let i = 0; i < points.length; i++) {
+            let point = points[i];
+
+            let result = scalePoint3D([point.x, point.y, 0 , 1], this._scaleX/100, this._scaleY/100);
+            let result_formatted = [result[0]._data[0], result[0]._data[1],0, 1]
+
+            points_scaled.push(new CanvasPoint(result_formatted[0], result_formatted[1], point.color))
+        }
+
+        return points_scaled;
     }
 
     rotatePoints(points) {

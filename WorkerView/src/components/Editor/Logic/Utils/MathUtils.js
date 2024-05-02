@@ -68,7 +68,6 @@ export function getDistance(point1, point2){
     return math.norm(math.subtract(point1, point2))
 }
 
-
 export function rotatePoints3Dim3Axes(points, angleX, angleY, angleZ){
     let rotX = math.matrix([
         [1, 0, 0, 0],
@@ -115,6 +114,18 @@ export function  scalePoint2D(point, scale) {
     let scale_matrix = math.matrix([
         [scale, 0],
         [0, scale]
+    ])
+
+    return applyMatrixToPoints(scale_matrix, point)
+}
+
+export function scalePoint3D(point, scaleX, scaleY) {
+    
+    let scale_matrix = math.matrix([
+        [scaleX, 0, 0, 0],
+        [0, scaleY, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
     ])
 
     return applyMatrixToPoints(scale_matrix, point)
