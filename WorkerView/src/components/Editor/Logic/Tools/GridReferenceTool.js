@@ -198,21 +198,11 @@ class GridReferenceTool extends ReferenceTool {
         this.applyGridCommand()
     }
 
-    setScale(scale) {
+    setScale(scale, scaleX, scaleY) {
         if (this._gridSet) return;
         this._scale = scale;
-        this.applyGridCommand();
-    }
-
-    setScaleX(scale){
-        if (this._gridSet) return;
-        this._scaleX = scale;
-        this.applyGridCommand();
-    }
-
-    setScaleY(scale){
-        if (this._gridSet) return;
-        this._scaleY = scale;
+        this._scaleX = scaleX;
+        this._scaleY = scaleY;
         this.applyGridCommand();
     }
 
