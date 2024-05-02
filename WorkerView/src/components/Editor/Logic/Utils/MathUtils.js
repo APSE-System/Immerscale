@@ -64,10 +64,26 @@ export function applyMatrixToPoints(matrix, ...points){
     return result
 }
 
-export function getDistance(point1, point2){
-    return math.norm(math.subtract(point1, point2))
+export function getDistanceForImmerscaler(point1, point2, scaleX, scaleY){
+
+    let vector = math.subtract(point1, point2)
+
+    console.log("vector", vector)
+
+    vector[0] = vector[0] * scaleX/100
+    vector[1] = vector[1] * scaleY/100
+
+    return math.norm(vector)
 }
 
+export function getDistance(point1, point2){
+
+    let vector = math.subtract(point1, point2)
+
+    console.log("vector", vector)
+
+    return math.norm(vector)
+}
 
 export function rotatePoints3Dim3Axes(points, angleX, angleY, angleZ){
     let rotX = math.matrix([
@@ -115,6 +131,22 @@ export function  scalePoint2D(point, scale) {
     let scale_matrix = math.matrix([
         [scale, 0],
         [0, scale]
+    ])
+
+    return applyMatrixToPoints(scale_matrix, point)
+}
+
+export function scalePoint3D(point, scaleX, scaleY) {
+
+    // normalize the scale values /100 make sure that 100% is the original size -> 1
+    // float conversion is necessary because the scale values are strings
+
+
+    let scale_matrix = math.matrix([
+        [scaleX, 0, 0, 0],
+        [0, scaleY, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1]
     ])
 
     return applyMatrixToPoints(scale_matrix, point)

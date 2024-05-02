@@ -1,7 +1,12 @@
 import ReferenceTool from "../ReferenceTool.js";
 import command from "../Command.js";
 import AddGridCommand from "../Commands/AddGridCommand.js";
-import {calculatePerspectiveMatrix, degreeToRadians, getDistance} from "../Utils/MathUtils.js";
+import {
+    calculatePerspectiveMatrix,
+    degreeToRadians,
+    getDistance,
+    getDistanceForImmerscaler
+} from "../Utils/MathUtils.js";
 import AddLineCommand from "../Commands/AddLineCommand.js";
 import AddPointCommand from "../Commands/AddPointCommand.js";
 import LordImmerScaler from "../LordImmerScaler.js";
@@ -17,6 +22,8 @@ class GridReferenceTool extends ReferenceTool {
     _yPos = 0;
 
     _scale = 100;
+    _scaleX = 100.0;
+    _scaleY = 100.0;
 
 
     _pointCount = 0;
@@ -110,18 +117,22 @@ class GridReferenceTool extends ReferenceTool {
 
         // Generating the "destination" array which is the coordinates of the reference in the real world which match to the source points.
         // These coordinates can be calculated based on the edge lengths specified by the user.
-        var dst = [[0, 100], [100, 100], [100, 0], [0, 0]];
+        var dst = [[0, this._scaleY], [this._scaleX, this._scaleY], [this._scaleX, 0], [0, 0]];
 
         // Transformed but has no scale yet:
         var transformed_without_scale = calculatePerspectiveMatrix(src, dst)
 
         LordImmerScaler.changeMatrix(transformed_without_scale, 1);
 
+        // scale the first and the second point as well
+
+
+
 
         var Point1_transformed_wo_scale = LordImmerScaler.transformToRealWorld(this._firstPoint[0], this._firstPoint[1]);
         var Point2_transformed_wo_scale = LordImmerScaler.transformToRealWorld(this._secondPoint[0], this._secondPoint[1]);
 
-        var distanceFalse = getDistance(Point1_transformed_wo_scale, Point2_transformed_wo_scale)
+        var distanceFalse = getDistance(Point1_transformed_wo_scale, Point2_transformed_wo_scale);
 
         var scaleFactor = this._firstLength / distanceFalse
 
@@ -141,7 +152,7 @@ class GridReferenceTool extends ReferenceTool {
 
     applyGridCommand() {
         if (this._pointCount === 0) {
-            this._lastGridCommand = new AddGridCommand(this, this._model, degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos, this._scale)
+            this._lastGridCommand = new AddGridCommand(this, this._model, degreeToRadians(this._xRot), degreeToRadians(this._yRot), degreeToRadians(this._zRot), this._xPos, this._yPos, this._scale, this._scaleX, this._scaleY);
             this._model.do(this._lastGridCommand);
         }
     }
@@ -190,6 +201,18 @@ class GridReferenceTool extends ReferenceTool {
     setScale(scale) {
         if (this._gridSet) return;
         this._scale = scale;
+        this.applyGridCommand();
+    }
+
+    setScaleX(scale){
+        if (this._gridSet) return;
+        this._scaleX = scale;
+        this.applyGridCommand();
+    }
+
+    setScaleY(scale){
+        if (this._gridSet) return;
+        this._scaleY = scale;
         this.applyGridCommand();
     }
 
