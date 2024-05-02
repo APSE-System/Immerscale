@@ -57,7 +57,7 @@ function clickedImage(index) {
     </div>
     <!-- If no images are available, a message is displayed. -->
     <div v-if="images.length == 0">
-      <h3>Keine Bilder in diesen Projekt</h3>
+      <h3>Keine Bilder in diesem Projekt</h3>
     </div>
   </div>
 </template>
