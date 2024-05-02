@@ -35,7 +35,8 @@ function displayLength(value, ctx, label) {
     
     value += " cm"
 
-    ctx.fillText(value, label.x - textWidth / 2, label.y + 30);
+    // draw the centered length with , instead of .
+    ctx.fillText(value.toString().replace(".", ","), label.x - textWidth / 2, label.y + 30);
 }
 
 </script>
