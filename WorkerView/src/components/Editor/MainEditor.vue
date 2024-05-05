@@ -192,7 +192,6 @@ function canvasClicked(event) {
   const y_canv = event.clientY - rect.top
 
   // This seems to stay the same, whether bugged or not
-  // console.log(image)
 
   var img = new Image();
   img.src = image.value;
