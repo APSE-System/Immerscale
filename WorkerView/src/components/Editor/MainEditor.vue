@@ -112,7 +112,6 @@ function drawImage() {
 function setTransform() {
   zoom_inner.style.transform =
       "translate(" + pos.x + "px, " + pos.y + "px) scale(" + scale + ")";
-  // zoom_inner.style.transform = `translate(${pos.x}px,${pos.y}px) scale(${scale},${scale})`;
 }
 
 onMounted(() => {
@@ -193,7 +192,6 @@ function canvasClicked(event) {
   const y_canv = event.clientY - rect.top
 
   // This seems to stay the same, whether bugged or not
-  // console.log(image)
 
   var img = new Image();
   img.src = image.value;
