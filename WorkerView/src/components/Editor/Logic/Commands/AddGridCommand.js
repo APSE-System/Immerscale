@@ -46,11 +46,12 @@ class AddGridCommand extends Command {
 
         this._scaleX = scaleX;
         this._scaleY = scaleY;
+
+
         // Generate the grid
         this.generateGridPoints()
 
-
-        // Retrieve the right projection fitting to the specified angles
+        // Retrieve the right projection fitting to the specified angle
         let points_scaled = this.scalePoints(this._points)
         let points_rotated = this.rotatePoints(points_scaled)
         let points_positioned = this.positionCamera(points_rotated)
