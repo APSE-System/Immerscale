@@ -54,6 +54,8 @@ public class FilterConfiguration {
         FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(corsFilter);
         registrationBean.addUrlPatterns("/*");
+
+        // !IMPORTANT: This filter must be the first filter to be executed
         registrationBean.setOrder(0);
 
         return registrationBean;

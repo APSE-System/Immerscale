@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-// implement as singleton
+// implemented as singleton
 public class AESEncrypter {
     private static AESEncrypter instance = null;
     private SecretKey secretKey;
