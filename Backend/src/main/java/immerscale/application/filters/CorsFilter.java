@@ -14,6 +14,9 @@ import java.net.http.HttpHeaders;
 @Component
 public class CorsFilter extends OncePerRequestFilter {
 
+
+    // This method is called for every request
+    // It adds the necessary headers to allow CORS
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
