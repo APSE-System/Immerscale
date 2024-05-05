@@ -10,6 +10,7 @@ class LordImmerScaler {
     // Boolean value which specifies whether a reference has been set or not.
     static _referenceSet = false;
 
+    // Additional scale which is applied to all the coordinates.
     static _scale = 1;
 
 

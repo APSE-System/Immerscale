@@ -112,7 +112,6 @@ function drawImage() {
 function setTransform() {
   zoom_inner.style.transform =
       "translate(" + pos.x + "px, " + pos.y + "px) scale(" + scale + ")";
-  // zoom_inner.style.transform = `translate(${pos.x}px,${pos.y}px) scale(${scale},${scale})`;
 }
 
 onMounted(() => {
